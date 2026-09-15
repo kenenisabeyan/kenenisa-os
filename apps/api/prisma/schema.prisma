@@ -108,6 +108,8 @@ model User {
   learningItems LearningItem[]
   learningActivities LearningActivity[]
   evidence      Evidence[]
+  opportunities Opportunity[]
+  opportunityActivities OpportunityActivity[]
 }
 
 model UserSettings {
@@ -192,6 +194,7 @@ model Project {
   tasks      Task[]
   learningItems LearningItem[]
   evidence   EvidenceProject[]
+  opportunityLinks OpportunityProject[]
 
   @@unique([userId, slug])
   @@index([workstreamId, status])
@@ -250,6 +253,7 @@ model Task {
   mustWinDailyPlans     DailyPlan[]      @relation("MustWinTask")
   timeBlocks            TimeBlock[]
   evidence              EvidenceTask[]
+  opportunityLinks      OpportunityTask[]
 
   @@index([projectId, status])
   @@index([projectId, dueDate])
@@ -465,6 +469,7 @@ model Skill {
 
   learningItems LearningItemSkill[]
   evidence      EvidenceSkill[]
+  opportunityLinks OpportunitySkill[]
 
   @@unique([userId, slug])
   @@index([userId, status])
@@ -569,6 +574,7 @@ model Evidence {
   projects      EvidenceProject[]
   learningItems EvidenceLearningItem[]
   skills        EvidenceSkill[]
+  opportunityLinks OpportunityEvidence[]
 
   @@index([userId, date])
   @@index([userId, type])
@@ -625,6 +631,175 @@ model EvidenceSkill {
   @@index([evidenceId])
   @@index([skillId])
 }
+
+// ── Opportunities & Career Execution Engine ──────────────────────────────────
+
+enum OpportunityType {
+  FREELANCE
+  INTERNSHIP
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  CLIENT
+  RESEARCH
+  COLLABORATION
+  ENTREPRENEURIAL
+  COMPETITION
+  SCHOLARSHIP
+  EVENT
+  OTHER
+}
+
+enum OpportunityStatus {
+  DISCOVERED
+  EVALUATING
+  PREPARING
+  APPLIED
+  IN_DISCUSSION
+  INTERVIEW
+  OFFERED
+  ACCEPTED
+  ACTIVE
+  COMPLETED
+  REJECTED
+  WITHDRAWN
+  EXPIRED
+  ARCHIVED
+}
+
+enum OpportunitySource {
+  DIRECT_CONTACT
+  COMPANY_WEBSITE
+  LINKEDIN
+  UPWORK
+  REFERRAL
+  UNIVERSITY
+  YOMTECH
+  PERSONAL_NETWORK
+  EMAIL
+  EVENT
+  OTHER
+}
+
+enum OpportunityActivityType {
+  NOTE
+  CONTACT
+  APPLICATION_SUBMITTED
+  INTERVIEW
+  FOLLOW_UP
+  OFFER
+  STATUS_CHANGE
+  OTHER
+}
+
+model Opportunity {
+  id               String            @id @default(uuid())
+  userId           String
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title            String
+  description      String?
+  type             OpportunityType   @default(FULL_TIME)
+  status           OpportunityStatus @default(DISCOVERED)
+  priority         TaskPriority      @default(P2)
+  organizationName String?
+  contactName      String?
+  contactEmail     String?
+  source           OpportunitySource @default(OTHER)
+  sourceUrl        String?
+  location         String?
+  remote           Boolean           @default(false)
+  estimatedValue   Decimal?          @db.Decimal(12, 2)
+  currency         String            @default("USD")
+  startDate        DateTime?
+  deadline         DateTime?
+  followUpDate     DateTime?
+  notes            String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  closedAt         DateTime?
+
+  skills     OpportunitySkill[]
+  projects   OpportunityProject[]
+  evidence   OpportunityEvidence[]
+  tasks      OpportunityTask[]
+  activities OpportunityActivity[]
+
+  @@index([userId, status])
+  @@index([userId, type])
+  @@index([userId, priority])
+  @@index([userId, deadline])
+  @@index([userId, followUpDate])
+}
+
+model OpportunitySkill {
+  id            String         @id @default(uuid())
+  opportunityId String
+  opportunity   Opportunity    @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  skillId       String
+  skill         Skill          @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  relevance     SkillRelevance @default(PRIMARY)
+  createdAt     DateTime       @default(now())
+
+  @@unique([opportunityId, skillId])
+  @@index([opportunityId])
+  @@index([skillId])
+}
+
+model OpportunityProject {
+  id            String      @id @default(uuid())
+  opportunityId String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  projectId     String
+  project       Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+
+  @@unique([opportunityId, projectId])
+  @@index([opportunityId])
+  @@index([projectId])
+}
+
+model OpportunityEvidence {
+  id            String      @id @default(uuid())
+  opportunityId String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  evidenceId    String
+  evidence      Evidence    @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+
+  @@unique([opportunityId, evidenceId])
+  @@index([opportunityId])
+  @@index([evidenceId])
+}
+
+model OpportunityTask {
+  id            String      @id @default(uuid())
+  opportunityId String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  taskId        String
+  task          Task        @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+
+  @@unique([opportunityId, taskId])
+  @@index([opportunityId])
+  @@index([taskId])
+}
+
+model OpportunityActivity {
+  id            String                  @id @default(uuid())
+  opportunityId String
+  opportunity   Opportunity             @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type          OpportunityActivityType @default(NOTE)
+  title         String
+  description   String?
+  occurredAt    DateTime                @default(now())
+  createdAt     DateTime                @default(now())
+
+  @@index([opportunityId, occurredAt])
+  @@index([userId, occurredAt])
+}
+
 
 
 

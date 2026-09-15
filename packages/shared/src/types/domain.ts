@@ -1056,6 +1056,238 @@ export interface WeeklyHistorySnapshotDto {
   reviewCompleted: boolean;
 }
 
+// ── Opportunities Interfaces ─────────────────────────────────────────────────
+
+export type OpportunityType =
+  | 'FREELANCE'
+  | 'INTERNSHIP'
+  | 'FULL_TIME'
+  | 'PART_TIME'
+  | 'CONTRACT'
+  | 'CLIENT'
+  | 'RESEARCH'
+  | 'COLLABORATION'
+  | 'ENTREPRENEURIAL'
+  | 'COMPETITION'
+  | 'SCHOLARSHIP'
+  | 'EVENT'
+  | 'OTHER';
+
+export type OpportunityStatus =
+  | 'DISCOVERED'
+  | 'EVALUATING'
+  | 'PREPARING'
+  | 'APPLIED'
+  | 'IN_DISCUSSION'
+  | 'INTERVIEW'
+  | 'OFFERED'
+  | 'ACCEPTED'
+  | 'ACTIVE'
+  | 'COMPLETED'
+  | 'REJECTED'
+  | 'WITHDRAWN'
+  | 'EXPIRED'
+  | 'ARCHIVED';
+
+export type OpportunitySource =
+  | 'DIRECT_CONTACT'
+  | 'COMPANY_WEBSITE'
+  | 'LINKEDIN'
+  | 'UPWORK'
+  | 'REFERRAL'
+  | 'UNIVERSITY'
+  | 'YOMTECH'
+  | 'PERSONAL_NETWORK'
+  | 'EMAIL'
+  | 'EVENT'
+  | 'OTHER';
+
+export type OpportunityActivityType =
+  | 'NOTE'
+  | 'CONTACT'
+  | 'APPLICATION_SUBMITTED'
+  | 'INTERVIEW'
+  | 'FOLLOW_UP'
+  | 'OFFER'
+  | 'STATUS_CHANGE'
+  | 'OTHER';
+
+export interface OpportunityDto {
+  id: string;
+  userId: string;
+  title: string;
+  description: string | null;
+  type: OpportunityType;
+  status: OpportunityStatus;
+  priority: TaskPriority;
+  organizationName: string | null;
+  contactName: string | null;
+  contactEmail: string | null;
+  source: OpportunitySource;
+  sourceUrl: string | null;
+  location: string | null;
+  remote: boolean;
+  estimatedValue: number | null;
+  currency: string;
+  startDate: string | null;
+  deadline: string | null;
+  followUpDate: string | null;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+  closedAt: string | null;
+  _count?: {
+    skills?: number;
+    projects?: number;
+    evidence?: number;
+    tasks?: number;
+    activities?: number;
+  };
+}
+
+export interface OpportunitySkillDto {
+  id: string;
+  opportunityId: string;
+  skillId: string;
+  relevance: SkillRelevance;
+  createdAt: string;
+  skill?: SkillDto;
+}
+
+export interface OpportunityProjectDto {
+  id: string;
+  opportunityId: string;
+  projectId: string;
+  createdAt: string;
+  project?: {
+    id: string;
+    name: string;
+    slug: string;
+    status: string;
+  };
+}
+
+export interface OpportunityEvidenceDto {
+  id: string;
+  opportunityId: string;
+  evidenceId: string;
+  createdAt: string;
+  evidence?: EvidenceDto;
+}
+
+export interface OpportunityTaskDto {
+  id: string;
+  opportunityId: string;
+  taskId: string;
+  createdAt: string;
+  task?: TaskDto;
+}
+
+export interface OpportunityActivityDto {
+  id: string;
+  opportunityId: string;
+  userId: string;
+  type: OpportunityActivityType;
+  title: string;
+  description: string | null;
+  occurredAt: string;
+  createdAt: string;
+}
+
+export interface OpportunityDetailDto extends OpportunityDto {
+  skills: OpportunitySkillDto[];
+  projects: OpportunityProjectDto[];
+  evidence: OpportunityEvidenceDto[];
+  tasks: OpportunityTaskDto[];
+  activities: OpportunityActivityDto[];
+}
+
+export interface CreateOpportunityInput {
+  title: string;
+  description?: string | null;
+  type?: OpportunityType;
+  status?: OpportunityStatus;
+  priority?: TaskPriority;
+  organizationName?: string | null;
+  contactName?: string | null;
+  contactEmail?: string | null;
+  source?: OpportunitySource;
+  sourceUrl?: string | null;
+  location?: string | null;
+  remote?: boolean;
+  estimatedValue?: number | null;
+  currency?: string;
+  startDate?: string | null;
+  deadline?: string | null;
+  followUpDate?: string | null;
+  notes?: string | null;
+}
+
+export interface UpdateOpportunityInput {
+  title?: string;
+  description?: string | null;
+  type?: OpportunityType;
+  status?: OpportunityStatus;
+  priority?: TaskPriority;
+  organizationName?: string | null;
+  contactName?: string | null;
+  contactEmail?: string | null;
+  source?: OpportunitySource;
+  sourceUrl?: string | null;
+  location?: string | null;
+  remote?: boolean;
+  estimatedValue?: number | null;
+  currency?: string;
+  startDate?: string | null;
+  deadline?: string | null;
+  followUpDate?: string | null;
+  notes?: string | null;
+}
+
+export interface OpportunityQuery {
+  page?: number;
+  pageSize?: number;
+  status?: OpportunityStatus;
+  type?: OpportunityType;
+  priority?: TaskPriority;
+  source?: OpportunitySource;
+  remote?: boolean;
+  search?: string;
+  deadlineFrom?: string;
+  deadlineTo?: string;
+}
+
+export interface OpportunityFollowUpsDto {
+  overdue: OpportunityDto[];
+  today: OpportunityDto[];
+  upcoming: OpportunityDto[];
+}
+
+export interface OpportunityDeadlinesDto {
+  overdue: OpportunityDto[];
+  today: OpportunityDto[];
+  next7Days: OpportunityDto[];
+  next30Days: OpportunityDto[];
+}
+
+export interface OpportunityAnalyticsDto {
+  totalOpportunities: number;
+  activeOpportunities: number;
+  appliedOpportunities: number;
+  interviews: number;
+  offers: number;
+  accepted: number;
+  completed: number;
+  rejected: number;
+  withdrawn: number;
+  expired: number;
+  followUpsDue: number;
+  followUpsOverdue: number;
+  byStatus: { status: string; count: number }[];
+  byType: { type: string; count: number }[];
+}
+
+
 
 
 

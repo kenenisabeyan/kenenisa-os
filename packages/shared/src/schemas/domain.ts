@@ -551,6 +551,127 @@ export const analyticsQuerySchema = z.object({
   granularity: analyticsGranularitySchema.optional().default('day'),
 });
 
+// ── Opportunities Schemas ────────────────────────────────────────────────────
+
+export const opportunityTypeSchema = z.enum([
+  'FREELANCE',
+  'INTERNSHIP',
+  'FULL_TIME',
+  'PART_TIME',
+  'CONTRACT',
+  'CLIENT',
+  'RESEARCH',
+  'COLLABORATION',
+  'ENTREPRENEURIAL',
+  'COMPETITION',
+  'SCHOLARSHIP',
+  'EVENT',
+  'OTHER',
+]);
+
+export const opportunityStatusSchema = z.enum([
+  'DISCOVERED',
+  'EVALUATING',
+  'PREPARING',
+  'APPLIED',
+  'IN_DISCUSSION',
+  'INTERVIEW',
+  'OFFERED',
+  'ACCEPTED',
+  'ACTIVE',
+  'COMPLETED',
+  'REJECTED',
+  'WITHDRAWN',
+  'EXPIRED',
+  'ARCHIVED',
+]);
+
+export const opportunitySourceSchema = z.enum([
+  'DIRECT_CONTACT',
+  'COMPANY_WEBSITE',
+  'LINKEDIN',
+  'UPWORK',
+  'REFERRAL',
+  'UNIVERSITY',
+  'YOMTECH',
+  'PERSONAL_NETWORK',
+  'EMAIL',
+  'EVENT',
+  'OTHER',
+]);
+
+export const opportunityActivityTypeSchema = z.enum([
+  'NOTE',
+  'CONTACT',
+  'APPLICATION_SUBMITTED',
+  'INTERVIEW',
+  'FOLLOW_UP',
+  'OFFER',
+  'STATUS_CHANGE',
+  'OTHER',
+]);
+
+export const createOpportunitySchema = z.object({
+  title: z.string().trim().min(1, 'Opportunity title is required').max(200),
+  description: z.string().trim().max(4000).optional().nullable(),
+  type: opportunityTypeSchema.default('FULL_TIME'),
+  status: opportunityStatusSchema.default('DISCOVERED'),
+  priority: taskPrioritySchema.default('P2'),
+  organizationName: z.string().trim().max(200).optional().nullable(),
+  contactName: z.string().trim().max(100).optional().nullable(),
+  contactEmail: z.string().trim().email('Invalid email address').optional().nullable().or(z.literal('')),
+  source: opportunitySourceSchema.default('OTHER'),
+  sourceUrl: z.string().trim().url('Invalid URL').optional().nullable().or(z.literal('')),
+  location: z.string().trim().max(200).optional().nullable(),
+  remote: z.boolean().default(false),
+  estimatedValue: z.number().positive().optional().nullable(),
+  currency: z.string().trim().length(3).default('USD'),
+  startDate: z.string().datetime().optional().nullable().or(z.literal('')),
+  deadline: z.string().datetime().optional().nullable().or(z.literal('')),
+  followUpDate: z.string().datetime().optional().nullable().or(z.literal('')),
+  notes: z.string().trim().max(4000).optional().nullable(),
+});
+
+export const updateOpportunitySchema = createOpportunitySchema.partial();
+
+export const opportunityQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(20),
+  status: opportunityStatusSchema.optional(),
+  type: opportunityTypeSchema.optional(),
+  priority: taskPrioritySchema.optional(),
+  source: opportunitySourceSchema.optional(),
+  remote: z.coerce.boolean().optional(),
+  search: z.string().trim().optional(),
+  deadlineFrom: z.string().optional(),
+  deadlineTo: z.string().optional(),
+});
+
+export const linkOpportunitySkillSchema = z.object({
+  skillId: z.string().uuid('Invalid skill ID'),
+  relevance: z.enum(['PRIMARY', 'SECONDARY']).default('PRIMARY'),
+});
+
+export const linkOpportunityProjectSchema = z.object({
+  projectId: z.string().uuid('Invalid project ID'),
+});
+
+export const linkOpportunityEvidenceSchema = z.object({
+  evidenceId: z.string().uuid('Invalid evidence ID'),
+});
+
+export const linkOpportunityTaskSchema = z.object({
+  taskId: z.string().uuid('Invalid task ID'),
+});
+
+export const createOpportunityActivitySchema = z.object({
+  type: opportunityActivityTypeSchema.default('NOTE'),
+  title: z.string().trim().min(1, 'Activity title is required').max(200),
+  description: z.string().trim().max(4000).optional().nullable(),
+  occurredAt: z.string().datetime().optional(),
+});
+
+
 
 
 

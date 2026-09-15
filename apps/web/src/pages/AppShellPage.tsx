@@ -13,6 +13,8 @@ import { SkillsPage } from './SkillsPage.js';
 import { EvidencePage } from './EvidencePage.js';
 import { ReviewsPage } from './ReviewsPage.js';
 import { AnalyticsPage } from './AnalyticsPage.js';
+import { OpportunitiesPage } from './OpportunitiesPage.js';
+import { OpportunityDetailPage } from './OpportunityDetailPage.js';
 
 export const AppShellPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -26,6 +28,7 @@ export const AppShellPage: React.FC = () => {
   const navItems = [
     { label: 'Command Center', path: '/app/dashboard' },
     { label: 'Analytics', path: '/app/analytics' },
+    { label: 'Opportunities', path: '/app/opportunities' },
     { label: 'Planning', path: '/app/planning' },
     { label: 'Learning', path: '/app/learning' },
     { label: 'Skills', path: '/app/skills' },
@@ -109,6 +112,8 @@ export const AppShellPage: React.FC = () => {
         <Routes>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
+          <Route path="opportunities" element={<OpportunitiesPage />} />
+          <Route path="opportunities/:id" element={<OpportunityDetailPage />} />
           <Route path="planning/*" element={<PlanningPage />} />
           <Route path="learning" element={<LearningPage />} />
           <Route path="skills" element={<SkillsPage />} />

@@ -971,4 +971,70 @@ export class AnalyticsService {
       };
     });
   }
+
+  /**
+   * 17. Opportunity Analytics
+   */
+  async getOpportunityAnalytics(userId: string) {
+    const now = new Date();
+    const todayStr = now.toISOString().split('T')[0];
+
+    const ops = await prisma.opportunity.findMany({
+      where: { userId },
+      select: {
+        status: true,
+        type: true,
+        followUpDate: true,
+      },
+    });
+
+    const totalOpportunities = ops.length;
+    const activeOpportunities = ops.filter((o) =>
+      ['DISCOVERED', 'EVALUATING', 'PREPARING', 'APPLIED', 'IN_DISCUSSION', 'INTERVIEW', 'OFFERED', 'ACCEPTED', 'ACTIVE'].includes(
+        o.status
+      )
+    ).length;
+
+    const appliedOpportunities = ops.filter((o) => o.status === 'APPLIED').length;
+    const interviews = ops.filter((o) => o.status === 'INTERVIEW').length;
+    const offers = ops.filter((o) => o.status === 'OFFERED').length;
+    const accepted = ops.filter((o) => o.status === 'ACCEPTED').length;
+    const completed = ops.filter((o) => o.status === 'COMPLETED').length;
+    const rejected = ops.filter((o) => o.status === 'REJECTED').length;
+    const withdrawn = ops.filter((o) => o.status === 'WITHDRAWN').length;
+    const expired = ops.filter((o) => o.status === 'EXPIRED').length;
+
+    const followUpsDue = ops.filter(
+      (o) => o.followUpDate && o.followUpDate.toISOString().split('T')[0] === todayStr
+    ).length;
+    const followUpsOverdue = ops.filter(
+      (o) => o.followUpDate && o.followUpDate.toISOString().split('T')[0] < todayStr
+    ).length;
+
+    const statusCounts: Record<string, number> = {};
+    const typeCounts: Record<string, number> = {};
+
+    ops.forEach((o) => {
+      statusCounts[o.status] = (statusCounts[o.status] || 0) + 1;
+      typeCounts[o.type] = (typeCounts[o.type] || 0) + 1;
+    });
+
+    return {
+      totalOpportunities,
+      activeOpportunities,
+      appliedOpportunities,
+      interviews,
+      offers,
+      accepted,
+      completed,
+      rejected,
+      withdrawn,
+      expired,
+      followUpsDue,
+      followUpsOverdue,
+      byStatus: Object.entries(statusCounts).map(([status, count]) => ({ status, count })),
+      byType: Object.entries(typeCounts).map(([type, count]) => ({ type, count })),
+    };
+  }
 }
+

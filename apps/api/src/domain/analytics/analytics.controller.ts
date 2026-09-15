@@ -180,4 +180,15 @@ export class AnalyticsController {
       next(error);
     }
   };
+
+  getOpportunities = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userId = req.auth!.userId;
+      const data = await this.service.getOpportunityAnalytics(userId);
+      res.json({ success: true, data });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
+
