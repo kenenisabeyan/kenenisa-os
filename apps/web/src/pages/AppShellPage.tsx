@@ -10,6 +10,8 @@ import { DashboardPage } from './DashboardPage.js';
 import { PlanningPage } from './PlanningPage.js';
 import { LearningPage } from './LearningPage.js';
 import { SkillsPage } from './SkillsPage.js';
+import { EvidencePage } from './EvidencePage.js';
+import { ReviewsPage } from './ReviewsPage.js';
 
 export const AppShellPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -25,6 +27,8 @@ export const AppShellPage: React.FC = () => {
     { label: 'Planning', path: '/app/planning' },
     { label: 'Learning', path: '/app/learning' },
     { label: 'Skills', path: '/app/skills' },
+    { label: 'Evidence', path: '/app/evidence' },
+    { label: 'Reviews', path: '/app/reviews' },
     { label: 'Workstreams', path: '/app/workstreams' },
     { label: 'Goals', path: '/app/goals' },
     { label: 'Projects', path: '/app/projects' },
@@ -105,6 +109,8 @@ export const AppShellPage: React.FC = () => {
           <Route path="planning/*" element={<PlanningPage />} />
           <Route path="learning" element={<LearningPage />} />
           <Route path="skills" element={<SkillsPage />} />
+          <Route path="evidence" element={<EvidencePage />} />
+          <Route path="reviews" element={<ReviewsPage />} />
           <Route path="workstreams" element={<WorkstreamsPage />} />
           <Route path="goals" element={<GoalsPage />} />
           <Route path="projects" element={<ProjectsPage />} />

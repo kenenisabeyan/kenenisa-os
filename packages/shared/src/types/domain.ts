@@ -642,6 +642,184 @@ export interface LinkLearningSkillInput {
   relevance?: SkillRelevance;
 }
 
+// ── Evidence & Reviews Intelligence Enums & Types ──────────────────────────────
+
+export type EvidenceType =
+  | 'GITHUB_REPOSITORY'
+  | 'GIT_COMMIT'
+  | 'DEPLOYMENT'
+  | 'PROJECT'
+  | 'DOCUMENT'
+  | 'SCREENSHOT'
+  | 'VIDEO'
+  | 'CERTIFICATE'
+  | 'ASSIGNMENT'
+  | 'EXAM_RESULT'
+  | 'PRESENTATION'
+  | 'ARTICLE'
+  | 'CLIENT_DELIVERY'
+  | 'PROTOTYPE'
+  | 'RESEARCH_RESULT'
+  | 'OTHER';
+
+export type ReviewStatus = 'DRAFT' | 'COMPLETED';
+
+export interface EvidenceTaskDto {
+  id: string;
+  evidenceId: string;
+  taskId: string;
+  createdAt: string;
+  task?: {
+    id: string;
+    title: string;
+    status: string;
+  };
+}
+
+export interface EvidenceProjectDto {
+  id: string;
+  evidenceId: string;
+  projectId: string;
+  createdAt: string;
+  project?: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+}
+
+export interface EvidenceLearningItemDto {
+  id: string;
+  evidenceId: string;
+  learningItemId: string;
+  createdAt: string;
+  learningItem?: {
+    id: string;
+    title: string;
+    type: string;
+  };
+}
+
+export interface EvidenceSkillDto {
+  id: string;
+  evidenceId: string;
+  skillId: string;
+  createdAt: string;
+  skill?: {
+    id: string;
+    name: string;
+    currentLevel: string;
+  };
+}
+
+export interface EvidenceDto {
+  id: string;
+  userId: string;
+  title: string;
+  description: string | null;
+  type: EvidenceType;
+  url: string | null;
+  externalReference: string | null;
+  date: string;
+  verified: boolean;
+  createdAt: string;
+  updatedAt: string;
+  tasks?: EvidenceTaskDto[];
+  projects?: EvidenceProjectDto[];
+  learningItems?: EvidenceLearningItemDto[];
+  skills?: EvidenceSkillDto[];
+}
+
+export interface CreateEvidenceInput {
+  title: string;
+  description?: string | null;
+  type?: EvidenceType;
+  url?: string | null;
+  externalReference?: string | null;
+  date?: string;
+  taskId?: string | null;
+  projectId?: string | null;
+  learningItemId?: string | null;
+  skillId?: string | null;
+}
+
+export interface UpdateEvidenceInput {
+  title?: string;
+  description?: string | null;
+  type?: EvidenceType;
+  url?: string | null;
+  externalReference?: string | null;
+  date?: string;
+}
+
+export interface EvidenceQuery {
+  page?: number;
+  pageSize?: number;
+  type?: EvidenceType;
+  search?: string;
+  projectId?: string;
+  taskId?: string;
+  learningItemId?: string;
+  skillId?: string;
+}
+
+export interface WeeklyReviewDto {
+  id: string;
+  userId: string;
+  weeklyPlanId: string | null;
+  status: ReviewStatus;
+  wins: string | null;
+  challenges: string | null;
+  lessons: string | null;
+  nextFocus: string | null;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateWeeklyReviewInput {
+  weeklyPlanId?: string | null;
+  wins?: string | null;
+  challenges?: string | null;
+  lessons?: string | null;
+  nextFocus?: string | null;
+  notes?: string | null;
+}
+
+export interface UpdateWeeklyReviewInput {
+  wins?: string | null;
+  challenges?: string | null;
+  lessons?: string | null;
+  nextFocus?: string | null;
+  notes?: string | null;
+  status?: ReviewStatus;
+}
+
+export interface WeeklyReviewQuery {
+  page?: number;
+  pageSize?: number;
+  status?: ReviewStatus;
+  weekStart?: string;
+}
+
+export interface WeeklyReviewContextDto {
+  weekStart: string;
+  weekEnd: string;
+  completedTasks: number;
+  blockedTasks: number;
+  cancelledTasks: number;
+  plannedMinutes: number;
+  actualLoggedMinutes: number;
+  learningMinutes: number;
+  learningItemsCompleted: number;
+  skillsUpdated: number;
+  evidenceCreated: number;
+  activeProjects: number;
+  overCapacityDays: number;
+}
+
+
+
 
 
 

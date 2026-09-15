@@ -446,4 +446,98 @@ export const linkLearningSkillSchema = z.object({
   relevance: skillRelevanceSchema.default('PRIMARY'),
 });
 
+// ── Evidence & Weekly Review Schemas ──────────────────────────────────────────
+
+export const evidenceTypeSchema = z.enum([
+  'GITHUB_REPOSITORY',
+  'GIT_COMMIT',
+  'DEPLOYMENT',
+  'PROJECT',
+  'DOCUMENT',
+  'SCREENSHOT',
+  'VIDEO',
+  'CERTIFICATE',
+  'ASSIGNMENT',
+  'EXAM_RESULT',
+  'PRESENTATION',
+  'ARTICLE',
+  'CLIENT_DELIVERY',
+  'PROTOTYPE',
+  'RESEARCH_RESULT',
+  'OTHER',
+]);
+
+export const reviewStatusSchema = z.enum(['DRAFT', 'COMPLETED']);
+
+export const createEvidenceSchema = z.object({
+  title: z.string().trim().min(1, 'Title is required').max(200),
+  description: z.string().trim().max(2000).optional().nullable(),
+  type: evidenceTypeSchema.default('PROJECT'),
+  url: z.string().trim().url('Invalid URL').optional().nullable().or(z.literal('')),
+  externalReference: z.string().trim().max(500).optional().nullable(),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD')
+    .optional(),
+  taskId: z.string().uuid('Invalid task ID').optional().nullable(),
+  projectId: z.string().uuid('Invalid project ID').optional().nullable(),
+  learningItemId: z.string().uuid('Invalid learning item ID').optional().nullable(),
+  skillId: z.string().uuid('Invalid skill ID').optional().nullable(),
+});
+
+export const updateEvidenceSchema = createEvidenceSchema.partial().omit({
+  taskId: true,
+  projectId: true,
+  learningItemId: true,
+  skillId: true,
+});
+
+export const evidenceQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(20),
+  type: evidenceTypeSchema.optional(),
+  search: z.string().trim().optional(),
+  projectId: z.string().uuid().optional(),
+  taskId: z.string().uuid().optional(),
+  learningItemId: z.string().uuid().optional(),
+  skillId: z.string().uuid().optional(),
+});
+
+export const linkEvidenceTaskSchema = z.object({
+  taskId: z.string().uuid('Invalid task ID'),
+});
+
+export const linkEvidenceProjectSchema = z.object({
+  projectId: z.string().uuid('Invalid project ID'),
+});
+
+export const linkEvidenceLearningSchema = z.object({
+  learningItemId: z.string().uuid('Invalid learning item ID'),
+});
+
+export const linkEvidenceSkillSchema = z.object({
+  skillId: z.string().uuid('Invalid skill ID'),
+});
+
+export const createWeeklyReviewSchema = z.object({
+  weeklyPlanId: z.string().uuid('Invalid weekly plan ID').optional().nullable(),
+  wins: z.string().trim().max(4000).optional().nullable(),
+  challenges: z.string().trim().max(4000).optional().nullable(),
+  lessons: z.string().trim().max(4000).optional().nullable(),
+  nextFocus: z.string().trim().max(4000).optional().nullable(),
+  notes: z.string().trim().max(4000).optional().nullable(),
+});
+
+export const updateWeeklyReviewSchema = createWeeklyReviewSchema.partial().extend({
+  status: reviewStatusSchema.optional(),
+});
+
+export const weeklyReviewQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(20),
+  status: reviewStatusSchema.optional(),
+  weekStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+});
+
+
 

@@ -107,6 +107,7 @@ model User {
   skills        Skill[]
   learningItems LearningItem[]
   learningActivities LearningActivity[]
+  evidence      Evidence[]
 }
 
 model UserSettings {
@@ -190,6 +191,7 @@ model Project {
   milestones Milestone[]
   tasks      Task[]
   learningItems LearningItem[]
+  evidence   EvidenceProject[]
 
   @@unique([userId, slug])
   @@index([workstreamId, status])
@@ -247,6 +249,7 @@ model Task {
   tags                  TaskTag[]
   mustWinDailyPlans     DailyPlan[]      @relation("MustWinTask")
   timeBlocks            TimeBlock[]
+  evidence              EvidenceTask[]
 
   @@index([projectId, status])
   @@index([projectId, dueDate])
@@ -461,6 +464,7 @@ model Skill {
   updatedAt    DateTime    @updatedAt
 
   learningItems LearningItemSkill[]
+  evidence      EvidenceSkill[]
 
   @@unique([userId, slug])
   @@index([userId, status])
@@ -489,6 +493,7 @@ model LearningItem {
 
   activities LearningActivity[]
   skills     LearningItemSkill[]
+  evidence   EvidenceLearningItem[]
 
   @@index([userId, status])
   @@index([userId, targetDate])
@@ -524,5 +529,102 @@ model LearningItemSkill {
   @@index([learningItemId])
   @@index([skillId])
 }
+
+// ── Evidence Engine Enums & Models ───────────────────────────────────────────
+
+enum EvidenceType {
+  GITHUB_REPOSITORY
+  GIT_COMMIT
+  DEPLOYMENT
+  PROJECT
+  DOCUMENT
+  SCREENSHOT
+  VIDEO
+  CERTIFICATE
+  ASSIGNMENT
+  EXAM_RESULT
+  PRESENTATION
+  ARTICLE
+  CLIENT_DELIVERY
+  PROTOTYPE
+  RESEARCH_RESULT
+  OTHER
+}
+
+model Evidence {
+  id                String       @id @default(uuid())
+  userId            String
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title             String
+  description       String?
+  type              EvidenceType @default(PROJECT)
+  url               String?
+  externalReference String?
+  date              DateTime     @default(now())
+  verified          Boolean      @default(false)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  tasks         EvidenceTask[]
+  projects      EvidenceProject[]
+  learningItems EvidenceLearningItem[]
+  skills        EvidenceSkill[]
+
+  @@index([userId, date])
+  @@index([userId, type])
+}
+
+model EvidenceTask {
+  id         String   @id @default(uuid())
+  evidenceId String
+  evidence   Evidence @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  taskId     String
+  task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([evidenceId, taskId])
+  @@index([evidenceId])
+  @@index([taskId])
+}
+
+model EvidenceProject {
+  id         String   @id @default(uuid())
+  evidenceId String
+  evidence   Evidence @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([evidenceId, projectId])
+  @@index([evidenceId])
+  @@index([projectId])
+}
+
+model EvidenceLearningItem {
+  id             String       @id @default(uuid())
+  evidenceId     String
+  evidence       Evidence     @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  learningItemId String
+  learningItem   LearningItem @relation(fields: [learningItemId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+
+  @@unique([evidenceId, learningItemId])
+  @@index([evidenceId])
+  @@index([learningItemId])
+}
+
+model EvidenceSkill {
+  id         String   @id @default(uuid())
+  evidenceId String
+  evidence   Evidence @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  skillId    String
+  skill      Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([evidenceId, skillId])
+  @@index([evidenceId])
+  @@index([skillId])
+}
+
 
 
