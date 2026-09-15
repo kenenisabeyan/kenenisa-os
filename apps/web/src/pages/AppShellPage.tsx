@@ -12,6 +12,7 @@ import { LearningPage } from './LearningPage.js';
 import { SkillsPage } from './SkillsPage.js';
 import { EvidencePage } from './EvidencePage.js';
 import { ReviewsPage } from './ReviewsPage.js';
+import { AnalyticsPage } from './AnalyticsPage.js';
 
 export const AppShellPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -24,6 +25,7 @@ export const AppShellPage: React.FC = () => {
 
   const navItems = [
     { label: 'Command Center', path: '/app/dashboard' },
+    { label: 'Analytics', path: '/app/analytics' },
     { label: 'Planning', path: '/app/planning' },
     { label: 'Learning', path: '/app/learning' },
     { label: 'Skills', path: '/app/skills' },
@@ -106,6 +108,7 @@ export const AppShellPage: React.FC = () => {
       <main className="flex-1 p-6 max-w-7xl w-full mx-auto">
         <Routes>
           <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="planning/*" element={<PlanningPage />} />
           <Route path="learning" element={<LearningPage />} />
           <Route path="skills" element={<SkillsPage />} />
@@ -124,4 +127,3 @@ export const AppShellPage: React.FC = () => {
     </div>
   );
 };
-

@@ -818,6 +818,245 @@ export interface WeeklyReviewContextDto {
   overCapacityDays: number;
 }
 
+// ── Analytics Interfaces ─────────────────────────────────────────────────────
+
+export type AnalyticsPeriod = 'day' | 'week' | 'month' | 'quarter' | 'custom';
+export type AnalyticsGranularity = 'day' | 'week' | 'month';
+
+export interface AnalyticsQuery {
+  from?: string;
+  to?: string;
+  period?: AnalyticsPeriod;
+  granularity?: AnalyticsGranularity;
+}
+
+export interface AnalyticsOverviewDto {
+  period: {
+    from: string;
+    to: string;
+    period: AnalyticsPeriod;
+  };
+  execution: {
+    totalTasks: number;
+    completedTasks: number;
+    inProgressTasks: number;
+    readyTasks: number;
+    blockedTasks: number;
+    reviewTasks: number;
+    cancelledTasks: number;
+    overdueTasks: number;
+    completionRate: number | null;
+    estimatedMinutes: number;
+    actualMinutes: number;
+    completedEstimatedMinutes: number;
+  };
+  planning: {
+    daysPlanned: number;
+    daysWithTimeBlocks: number;
+    plannedMinutes: number;
+    daysWithCompletedPlans: number;
+    plannedTaskMinutes: number;
+    tasklessPlannedMinutes: number;
+  };
+  learning: {
+    learningItemsTotal: number;
+    learningItemsStarted: number;
+    learningItemsCompleted: number;
+    learningItemsInProgress: number;
+    learningItemsPaused: number;
+    learningMinutes: number;
+    learningActivityDays: number;
+  };
+  projects: {
+    totalProjects: number;
+    activeProjects: number;
+    completedProjects: number;
+    onHoldProjects: number;
+  };
+  goals: {
+    totalGoals: number;
+    inProgressGoals: number;
+    achievedGoals: number;
+  };
+  evidence: {
+    evidenceCreated: number;
+    evidenceVerified: number;
+    evidenceUnverified: number;
+  };
+  capacity: {
+    availableMinutes: number;
+    plannedMinutes: number;
+    remainingMinutes: number;
+    utilizationPercentage: number | null;
+    overCapacityDays: number;
+  };
+  reviews: {
+    reviewsCreated: number;
+    reviewsCompleted: number;
+    reviewsDraft: number;
+  };
+}
+
+export interface ExecutionTrendPointDto {
+  date: string;
+  completedTasks: number;
+  createdTasks: number;
+  blockedTasks: number;
+  overdueTasks: number;
+}
+
+export interface ProjectAnalyticsItemDto {
+  projectId: string;
+  projectName: string;
+  workstreamName: string | null;
+  goalTitle: string | null;
+  status: string;
+  totalTasks: number;
+  completedTasks: number;
+  openTasks: number;
+  blockedTasks: number;
+  overdueTasks: number;
+  milestonesTotal: number;
+  milestonesCompleted: number;
+  completionPercentage: number | null;
+}
+
+export interface GoalAnalyticsItemDto {
+  goalId: string;
+  title: string;
+  workstreamName: string | null;
+  status: string;
+  priority: string;
+  projectsTotal: number;
+  activeProjects: number;
+  completedProjects: number;
+  tasksTotal: number;
+  completedTasks: number;
+  overdueTasks: number;
+  targetDate: string | null;
+  progressPercentage: number | null;
+}
+
+export interface WorkstreamAnalyticsItemDto {
+  workstreamId: string;
+  name: string;
+  status: string;
+  priorityWeight: number;
+  goalsCount: number;
+  activeGoals: number;
+  projectsCount: number;
+  activeProjects: number;
+  tasksCount: number;
+  completedTasks: number;
+  blockedTasks: number;
+  overdueTasks: number;
+  learningItems: number;
+  learningMinutes: number;
+  evidenceCount: number;
+}
+
+export interface PlanningAnalyticsDto {
+  daysPlanned: number;
+  daysWithTimeBlocks: number;
+  plannedMinutes: number;
+  daysWithCompletedPlans: number;
+  plannedTaskMinutes: number;
+  tasklessPlannedMinutes: number;
+  estimatedTaskMinutes: number;
+  scheduledTimeBlockMinutes: number;
+  actualLoggedTaskMinutes: number;
+}
+
+export interface CapacityAnalyticsDto {
+  totalAvailableMinutes: number;
+  totalPlannedMinutes: number;
+  totalRemainingMinutes: number;
+  utilizationPercentage: number | null;
+  overCapacityDays: number;
+  daysEvaluated: number;
+}
+
+export interface OverdueAnalyticsDto {
+  currentOverdueTasks: number;
+  overdueCreatedDuringPeriod: number;
+  overdueCompletedDuringPeriod: number;
+  overdueByWorkstream: { name: string; count: number }[];
+  overdueByProject: { name: string; count: number }[];
+}
+
+export interface BlockedAnalyticsDto {
+  currentlyBlocked: number;
+  blockedDuringPeriod: number;
+  unblockedDuringPeriod: number;
+  dependencyBlocked: number;
+  manuallyBlocked: number;
+}
+
+export interface LearningAnalyticsDto {
+  learningItemsTotal: number;
+  learningItemsStarted: number;
+  learningItemsCompleted: number;
+  learningItemsInProgress: number;
+  learningItemsPaused: number;
+  learningMinutes: number;
+  learningActivityDays: number;
+}
+
+export interface LearningTrendPointDto {
+  date: string;
+  minutes: number;
+  activities: number;
+  itemsCompleted: number;
+}
+
+export interface SkillAnalyticsItemDto {
+  skillId: string;
+  name: string;
+  category: string | null;
+  currentLevel: string;
+  targetLevel: string;
+  status: string;
+  linkedLearningItems: number;
+  linkedProjects: number;
+  linkedEvidence: number;
+}
+
+export interface EvidenceAnalyticsDto {
+  evidenceCreated: number;
+  evidenceVerified: number;
+  evidenceUnverified: number;
+  byType: { type: string; count: number }[];
+}
+
+export interface EvidenceTrendPointDto {
+  date: string;
+  evidenceCreated: number;
+}
+
+export interface ReviewAnalyticsDto {
+  reviewsCreated: number;
+  reviewsCompleted: number;
+  reviewsDraft: number;
+}
+
+export interface WeeklyHistorySnapshotDto {
+  weekStart: string;
+  weekEnd: string;
+  tasksCompleted: number;
+  tasksCreated: number;
+  tasksBlocked: number;
+  tasksOverdue: number;
+  plannedMinutes: number;
+  availableMinutes: number;
+  learningMinutes: number;
+  learningItemsCompleted: number;
+  evidenceCreated: number;
+  projectsActive: number;
+  projectsCompleted: number;
+  reviewCompleted: boolean;
+}
+
+
 
 
 

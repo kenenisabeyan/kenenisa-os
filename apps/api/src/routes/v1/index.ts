@@ -11,6 +11,7 @@ import { planningRouter } from '../../domain/planning/planning.routes.js';
 import { learningRouter, skillRouter } from '../../domain/learning/learning.routes.js';
 import evidenceRouter from '../../domain/evidence/evidence.routes.js';
 import reviewRouter from '../../domain/reviews/review.routes.js';
+import analyticsRouter from '../../domain/analytics/analytics.routes.js';
 
 export const v1Router = Router();
 
@@ -27,6 +28,8 @@ v1Router.use('/learning', learningRouter);
 v1Router.use('/skills', skillRouter);
 v1Router.use('/evidence', evidenceRouter);
 v1Router.use('/reviews', reviewRouter);
+v1Router.use('/analytics', analyticsRouter);
+
 
 
 
