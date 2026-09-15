@@ -318,4 +318,142 @@ export interface DashboardQuery {
   timezone?: string;
 }
 
+// ── Planning & Capacity Engine Types ─────────────────────────────────────────
+
+export type TimeBlockStatus = 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED' | 'INTERRUPTED';
+
+export interface DailyPlanDto {
+  id: string;
+  userId: string;
+  date: string; // YYYY-MM-DD
+  mustWinTaskId: string | null;
+  notes: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  mustWinTask?: TaskDto | null;
+}
+
+export interface TimeBlockDto {
+  id: string;
+  userId: string;
+  dailyPlanId: string | null;
+  taskId: string | null;
+  title: string;
+  startAt: string; // ISO datetime
+  endAt: string; // ISO datetime
+  status: TimeBlockStatus;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+  task?: TaskDto | null;
+  durationMinutes?: number;
+}
+
+export interface WeeklyPlanDto {
+  id: string;
+  userId: string;
+  weekStart: string; // YYYY-MM-DD
+  weekEnd: string; // YYYY-MM-DD
+  theme: string | null;
+  notes: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DailyCapacityDto {
+  date: string;
+  capacityMinutes: number;
+  plannedMinutes: number;
+  remainingMinutes: number;
+  utilizationPercent: number | null;
+  overCapacity: boolean;
+}
+
+export interface WeeklyCapacityDto {
+  weekStart: string;
+  weekEnd: string;
+  capacityMinutes: number;
+  plannedMinutes: number;
+  remainingMinutes: number;
+  utilizationPercent: number | null;
+  overCapacity: boolean;
+  dailyBreakdown: DailyCapacityDto[];
+}
+
+export interface ScheduleConflictDto {
+  conflictingBlockId: string;
+  conflictingTitle: string;
+  startAt: string;
+  endAt: string;
+}
+
+export interface DailyPlanningResponseDto {
+  date: string;
+  plan: DailyPlanDto | null;
+  mustWinTask: TaskDto | null;
+  timeBlocks: TimeBlockDto[];
+  capacity: DailyCapacityDto;
+  conflicts: ScheduleConflictDto[];
+  unscheduledReadyTasks: TaskDto[];
+}
+
+export interface WeeklyPlanningResponseDto {
+  weekStart: string;
+  weekEnd: string;
+  plan: WeeklyPlanDto | null;
+  capacity: WeeklyCapacityDto;
+  dailyPlans: DailyPlanDto[];
+  unscheduledReadyTasks: TaskDto[];
+}
+
+export interface CreateDailyPlanInput {
+  date: string;
+  mustWinTaskId?: string | null;
+  notes?: string | null;
+  status?: string;
+}
+
+export interface UpdateDailyPlanInput {
+  mustWinTaskId?: string | null;
+  notes?: string | null;
+  status?: string;
+}
+
+export interface CreateTimeBlockInput {
+  dailyPlanId?: string | null;
+  taskId?: string | null;
+  title: string;
+  startAt: string;
+  endAt: string;
+  status?: TimeBlockStatus;
+  notes?: string | null;
+}
+
+export interface UpdateTimeBlockInput {
+  dailyPlanId?: string | null;
+  taskId?: string | null;
+  title?: string;
+  startAt?: string;
+  endAt?: string;
+  status?: TimeBlockStatus;
+  notes?: string | null;
+}
+
+export interface CreateWeeklyPlanInput {
+  weekStart: string;
+  theme?: string | null;
+  notes?: string | null;
+  status?: string;
+}
+
+export interface UpdateWeeklyPlanInput {
+  theme?: string | null;
+  notes?: string | null;
+  status?: string;
+}
+
+
+
 

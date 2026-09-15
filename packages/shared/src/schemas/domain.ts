@@ -266,3 +266,82 @@ export const dashboardQuerySchema = z.object({
   timezone: z.string().trim().optional(),
 });
 
+// ── Planning & Capacity Schemas ──────────────────────────────────────────────
+
+export const timeBlockStatusSchema = z.enum(['PLANNED', 'IN_PROGRESS', 'COMPLETED', 'INTERRUPTED']);
+
+export const createDailyPlanSchema = z.object({
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD'),
+  mustWinTaskId: z.string().uuid('Invalid task ID').optional().nullable(),
+  notes: z.string().trim().max(2000).optional().nullable(),
+  status: z.string().trim().default('active'),
+});
+
+export const updateDailyPlanSchema = createDailyPlanSchema.partial().omit({ date: true });
+
+export const dailyPlanQuerySchema = z.object({
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD')
+    .optional(),
+  timezone: z.string().trim().optional(),
+});
+
+export const createTimeBlockSchema = z.object({
+  dailyPlanId: z.string().uuid('Invalid daily plan ID').optional().nullable(),
+  taskId: z.string().uuid('Invalid task ID').optional().nullable(),
+  title: z.string().trim().min(1, 'Time block title is required').max(200),
+  startAt: z.string().datetime('startAt must be a valid ISO datetime'),
+  endAt: z.string().datetime('endAt must be a valid ISO datetime'),
+  status: timeBlockStatusSchema.default('PLANNED'),
+  notes: z.string().trim().max(1000).optional().nullable(),
+});
+
+export const updateTimeBlockSchema = createTimeBlockSchema.partial();
+
+export const timeBlockQuerySchema = z.object({
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD')
+    .optional(),
+  from: z.string().datetime().optional(),
+  to: z.string().datetime().optional(),
+  taskId: z.string().uuid().optional(),
+  dailyPlanId: z.string().uuid().optional(),
+  status: timeBlockStatusSchema.optional(),
+});
+
+export const createWeeklyPlanSchema = z.object({
+  weekStart: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Week start must be formatted YYYY-MM-DD'),
+  theme: z.string().trim().max(300).optional().nullable(),
+  notes: z.string().trim().max(3000).optional().nullable(),
+  status: z.string().trim().default('active'),
+});
+
+export const updateWeeklyPlanSchema = createWeeklyPlanSchema.partial().omit({ weekStart: true });
+
+export const weeklyPlanQuerySchema = z.object({
+  weekStart: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Week start must be formatted YYYY-MM-DD')
+    .optional(),
+  timezone: z.string().trim().optional(),
+});
+
+export const capacityQuerySchema = z.object({
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD')
+    .optional(),
+  weekStart: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Week start must be formatted YYYY-MM-DD')
+    .optional(),
+  timezone: z.string().trim().optional(),
+});
+
+
