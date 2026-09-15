@@ -15,6 +15,7 @@ import { ReviewsPage } from './ReviewsPage.js';
 import { AnalyticsPage } from './AnalyticsPage.js';
 import { OpportunitiesPage } from './OpportunitiesPage.js';
 import { OpportunityDetailPage } from './OpportunityDetailPage.js';
+import { IntelligencePage } from './IntelligencePage.js';
 
 export const AppShellPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -27,6 +28,7 @@ export const AppShellPage: React.FC = () => {
 
   const navItems = [
     { label: 'Command Center', path: '/app/dashboard' },
+    { label: 'Intelligence', path: '/app/intelligence' },
     { label: 'Analytics', path: '/app/analytics' },
     { label: 'Opportunities', path: '/app/opportunities' },
     { label: 'Planning', path: '/app/planning' },
@@ -111,6 +113,7 @@ export const AppShellPage: React.FC = () => {
       <main className="flex-1 p-6 max-w-7xl w-full mx-auto">
         <Routes>
           <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="intelligence" element={<IntelligencePage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="opportunities" element={<OpportunitiesPage />} />
           <Route path="opportunities/:id" element={<OpportunityDetailPage />} />

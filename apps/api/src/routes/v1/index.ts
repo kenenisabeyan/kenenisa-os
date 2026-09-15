@@ -13,6 +13,7 @@ import evidenceRouter from '../../domain/evidence/evidence.routes.js';
 import reviewRouter from '../../domain/reviews/review.routes.js';
 import analyticsRouter from '../../domain/analytics/analytics.routes.js';
 import opportunityRouter from '../../domain/opportunities/opportunity.routes.js';
+import intelligenceRouter from '../../domain/intelligence/intelligence.routes.js';
 
 export const v1Router = Router();
 
@@ -31,6 +32,7 @@ v1Router.use('/evidence', evidenceRouter);
 v1Router.use('/reviews', reviewRouter);
 v1Router.use('/analytics', analyticsRouter);
 v1Router.use('/opportunities', opportunityRouter);
+v1Router.use('/intelligence', intelligenceRouter);
 
 
 

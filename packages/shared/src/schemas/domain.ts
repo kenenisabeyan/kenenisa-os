@@ -671,6 +671,53 @@ export const createOpportunityActivitySchema = z.object({
   occurredAt: z.string().datetime().optional(),
 });
 
+// ── Intelligence Core Schemas ────────────────────────────────────────────────
+
+export const memoryCategorySchema = z.enum([
+  'PREFERENCE',
+  'WORKFLOW',
+  'GOAL_CONTEXT',
+  'PROJECT_CONTEXT',
+  'LEARNING_PREFERENCE',
+  'COMMUNICATION_PREFERENCE',
+  'OTHER',
+]);
+
+export const intelligenceChatSchema = z.object({
+  conversationId: z.string().uuid('Invalid conversation ID').optional(),
+  message: z.string().trim().min(1, 'Message cannot be empty').max(4000),
+});
+
+export const createConversationSchema = z.object({
+  title: z.string().trim().max(200).optional().default('New Conversation'),
+});
+
+export const updateConversationSchema = z.object({
+  title: z.string().trim().min(1).max(200).optional(),
+  archived: z.boolean().optional(),
+});
+
+export const createUserMemorySchema = z.object({
+  key: z.string().trim().min(1, 'Memory key is required').max(100),
+  value: z.string().trim().min(1, 'Memory value is required').max(2000),
+  category: memoryCategorySchema.default('OTHER'),
+  source: z.string().trim().max(100).default('USER_CONFIRMED'),
+  confidence: z.number().min(0).max(1).default(1.0),
+});
+
+export const updateUserMemorySchema = z.object({
+  value: z.string().trim().min(1).max(2000).optional(),
+  category: memoryCategorySchema.optional(),
+  archived: z.boolean().optional(),
+});
+
+export const confirmActionSchema = z.object({
+  proposalId: z.string().uuid('Invalid proposal ID'),
+  confirm: z.boolean(),
+  overrides: z.record(z.unknown()).optional(),
+});
+
+
 
 
 

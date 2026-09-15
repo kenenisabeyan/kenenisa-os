@@ -1287,6 +1287,103 @@ export interface OpportunityAnalyticsDto {
   byType: { type: string; count: number }[];
 }
 
+// ── Intelligence Core Types ──────────────────────────────────────────────────
+
+export type MemoryCategory =
+  | 'PREFERENCE'
+  | 'WORKFLOW'
+  | 'GOAL_CONTEXT'
+  | 'PROJECT_CONTEXT'
+  | 'LEARNING_PREFERENCE'
+  | 'COMMUNICATION_PREFERENCE'
+  | 'OTHER';
+
+export interface ConversationDto {
+  id: string;
+  userId: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  archivedAt: string | null;
+  _count?: {
+    messages?: number;
+  };
+}
+
+export interface ConversationMessageDto {
+  id: string;
+  conversationId: string;
+  userId: string;
+  role: 'USER' | 'ASSISTANT' | 'SYSTEM' | 'TOOL';
+  content: string;
+  metadata?: Record<string, unknown> | null;
+  createdAt: string;
+}
+
+export interface UserMemoryDto {
+  id: string;
+  userId: string;
+  key: string;
+  value: string;
+  category: MemoryCategory;
+  source: string;
+  confidence: number;
+  createdAt: string;
+  updatedAt: string;
+  archivedAt: string | null;
+}
+
+export interface ActionProposalDto {
+  id: string;
+  actionType: 'CREATE_TASK' | 'CREATE_TIME_BLOCK' | 'CREATE_MEMORY' | 'UPDATE_TASK' | 'OTHER';
+  summary: string;
+  details: Record<string, unknown>;
+  requiresConfirmation: boolean;
+  status: 'PROPOSED' | 'CONFIRMED' | 'CANCELLED' | 'EXECUTED' | 'FAILED';
+}
+
+export interface IntelligenceChatInput {
+  conversationId?: string;
+  message: string;
+}
+
+export interface IntelligenceChatOutput {
+  conversationId: string;
+  message: ConversationMessageDto;
+  contextSummary?: {
+    todayTasksCount?: number;
+    blockedTasksCount?: number;
+    activeProjectsCount?: number;
+    capacityMinutes?: number;
+    nextBestActionTitle?: string;
+  };
+  proposal?: ActionProposalDto | null;
+  facts?: string[];
+  inferences?: string[];
+  recommendations?: string[];
+}
+
+export interface ActionExecutionInput {
+  proposalId: string;
+  confirm: boolean;
+  overrides?: Record<string, unknown>;
+}
+
+export interface CreateUserMemoryInput {
+  key: string;
+  value: string;
+  category?: MemoryCategory;
+  source?: string;
+  confidence?: number;
+}
+
+export interface UpdateUserMemoryInput {
+  value?: string;
+  category?: MemoryCategory;
+  archived?: boolean;
+}
+
+
 
 
 

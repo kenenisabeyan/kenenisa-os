@@ -110,6 +110,9 @@ model User {
   evidence      Evidence[]
   opportunities Opportunity[]
   opportunityActivities OpportunityActivity[]
+  conversations Conversation[]
+  conversationMessages ConversationMessage[]
+  userMemories UserMemory[]
 }
 
 model UserSettings {
@@ -798,6 +801,66 @@ model OpportunityActivity {
 
   @@index([opportunityId, occurredAt])
   @@index([userId, occurredAt])
+}
+
+// ── Intelligence Core Enums & Models ──────────────────────────────────────────
+
+enum MemoryCategory {
+  PREFERENCE
+  WORKFLOW
+  GOAL_CONTEXT
+  PROJECT_CONTEXT
+  LEARNING_PREFERENCE
+  COMMUNICATION_PREFERENCE
+  OTHER
+}
+
+model Conversation {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title      String   @default("New Conversation")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  archivedAt DateTime?
+
+  messages ConversationMessage[]
+
+  @@index([userId, updatedAt])
+  @@index([userId, archivedAt])
+}
+
+model ConversationMessage {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           String       // USER, ASSISTANT, SYSTEM, TOOL
+  content        String
+  metadata       Json?
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model UserMemory {
+  id         String         @id @default(uuid())
+  userId     String
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  key        String
+  value      String
+  category   MemoryCategory @default(OTHER)
+  source     String         @default("USER_CONFIRMED")
+  confidence Float          @default(1.0)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  archivedAt DateTime?
+
+  @@unique([userId, key])
+  @@index([userId, category])
+  @@index([userId, archivedAt])
 }
 
 
