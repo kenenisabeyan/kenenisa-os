@@ -2,14 +2,13 @@ import type { Request, Response, NextFunction } from 'express';
 import { validateSession } from '../domain/auth/session.service.js';
 import { AUTH_COOKIE_NAME } from '../utils/cookies.js';
 import { AuthenticationError, AuthorizationError } from '../utils/errors.js';
-import type { AuthenticatedRequest } from '../domain/auth/auth.types.js';
 import type { UserRole } from '@kenenisa-os/shared';
 
 /**
  * Authentication Middleware (`requireAuth`)
  * Extracts raw session token from HTTP-only cookie (or Bearer header in test env),
  * validates the token hash against active PostgreSQL sessions, verifies user active status,
- * and attaches `user` and `session` to the request context.
+ * and attaches `auth`, `user`, and `session` to the request context.
  */
 export async function requireAuth(req: Request, _res: Response, next: NextFunction): Promise<void> {
   try {
@@ -31,8 +30,13 @@ export async function requireAuth(req: Request, _res: Response, next: NextFuncti
       throw new AuthenticationError('Invalid or expired session');
     }
 
-    (req as AuthenticatedRequest).user = result.user;
-    (req as AuthenticatedRequest).session = result.session;
+    req.user = result.user;
+    req.session = result.session;
+    req.auth = {
+      userId: result.user.id,
+      user: result.user,
+      session: result.session,
+    };
 
     next();
   } catch (error) {
@@ -46,12 +50,12 @@ export async function requireAuth(req: Request, _res: Response, next: NextFuncti
  */
 export function requireRole(...allowedRoles: UserRole[]) {
   return (req: Request, _res: Response, next: NextFunction): void => {
-    const authReq = req as AuthenticatedRequest;
-    if (!authReq.user) {
+    const user = req.user || req.auth?.user;
+    if (!user) {
       return next(new AuthenticationError('Authentication required'));
     }
 
-    if (!allowedRoles.includes(authReq.user.role)) {
+    if (!allowedRoles.includes(user.role)) {
       return next(new AuthorizationError('You are not authorized to perform this action'));
     }
 
@@ -68,9 +72,9 @@ export const requireOwner = requireRole('OWNER');
  * Scopes database query parameters to the authenticated user ID to enforce IDOR protection.
  */
 export function getAuthenticatedUserId(req: Request): string {
-  const authReq = req as AuthenticatedRequest;
-  if (!authReq.user) {
+  const userId = req.auth?.userId || req.user?.id;
+  if (!userId) {
     throw new AuthenticationError('Authentication required');
   }
-  return authReq.user.id;
+  return userId;
 }

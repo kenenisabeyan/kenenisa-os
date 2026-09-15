@@ -18,6 +18,10 @@ export default tseslint.config(
       '**/*.config.ts',
       '**/*.config.js',
       '**/generated/**',
+      'apps/api/prisma/*.js',
+      'apps/api/prisma/*.d.ts',
+      'apps/api/prisma/seed.ts',
+      'apps/web/e2e/*.ts',
     ],
   },
 

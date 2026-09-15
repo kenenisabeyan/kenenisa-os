@@ -20,6 +20,17 @@ KENENISA OS is a personal Engineering & Career Operating System designed to mana
                   └──────────────────────────────┘
 ```
 
+## Strategic Hierarchy Model
+
+```mermaid
+graph TD
+    User["User (Authenticated OWNER)"] -->|owns| Workstream["Workstream (Strategic Area)"]
+    Workstream -->|contains| Goal["Goal (Outcome Target)"]
+    Workstream -->|contains| Project["Project (Bounded Initiative)"]
+    Goal -.->|guides optional| Project
+    Project -->|milestones| Milestone["Milestone (Stage Checkpoint)"]
+```
+
 ## Workspaces
 
 - `apps/web`: Single Page Application frontend

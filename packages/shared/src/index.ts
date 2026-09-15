@@ -7,5 +7,7 @@
 
 export * from './types/api.js';
 export * from './types/auth.js';
+export * from './types/domain.js';
 export * from './schemas/auth.js';
+export * from './schemas/domain.js';
 export * from './constants/index.js';
