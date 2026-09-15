@@ -13,6 +13,16 @@ export const projectStatusSchema = z.enum([
 ]);
 export const milestoneStatusSchema = z.enum(['UPCOMING', 'IN_PROGRESS', 'REACHED', 'DELAYED']);
 export const taskPrioritySchema = z.enum(['P0', 'P1', 'P2', 'P3']);
+export const taskStatusSchema = z.enum([
+  'BACKLOG',
+  'READY',
+  'IN_PROGRESS',
+  'BLOCKED',
+  'REVIEW',
+  'DONE',
+  'CANCELLED',
+]);
+export const taskDependencyTypeSchema = z.enum(['BLOCKS', 'BLOCKED_BY']);
 
 // ── Workstream Schemas ───────────────────────────────────────────────────────
 
@@ -154,4 +164,94 @@ export const reorderMilestonesSchema = z.object({
       }),
     )
     .min(1, 'At least one milestone item is required to reorder'),
+});
+
+// ── Task Schemas ─────────────────────────────────────────────────────────────
+
+const validateTaskDateRange = (data: { startDate?: string | null; dueDate?: string | null }) => {
+  if (data.startDate && data.dueDate) {
+    return new Date(data.dueDate) >= new Date(data.startDate);
+  }
+  return true;
+};
+
+const taskBaseObject = z.object({
+  projectId: z.string().uuid('Invalid project ID'),
+  milestoneId: z.string().uuid('Invalid milestone ID').optional().nullable(),
+  parentTaskId: z.string().uuid('Invalid parent task ID').optional().nullable(),
+  title: z.string().trim().min(1, 'Task title is required').max(250),
+  description: z.string().trim().max(3000).optional().nullable(),
+  status: taskStatusSchema.default('BACKLOG'),
+  priority: taskPrioritySchema.default('P2'),
+  estimateMinutes: z.number().int().min(0).max(10080).default(0),
+  actualMinutes: z.number().int().min(0).max(10080).default(0),
+  startDate: z.string().datetime().optional().nullable(),
+  dueDate: z.string().datetime().optional().nullable(),
+  sortOrder: z.number().int().min(0).default(0),
+});
+
+export const createTaskSchema = taskBaseObject.refine(validateTaskDateRange, {
+  message: 'Due date must be on or after start date',
+  path: ['dueDate'],
+});
+
+export const updateTaskSchema = taskBaseObject.partial().refine(validateTaskDateRange, {
+  message: 'Due date must be on or after start date',
+  path: ['dueDate'],
+});
+
+export const taskQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(20),
+  projectId: z.string().uuid().optional(),
+  milestoneId: z.string().uuid().optional(),
+  parentTaskId: z.string().uuid().optional().nullable(),
+  status: taskStatusSchema.optional(),
+  priority: taskPrioritySchema.optional(),
+  search: z.string().trim().optional(),
+  overdue: z
+    .enum(['true', 'false'])
+    .transform((val) => val === 'true')
+    .optional(),
+  ready: z
+    .enum(['true', 'false'])
+    .transform((val) => val === 'true')
+    .optional(),
+  blocked: z
+    .enum(['true', 'false'])
+    .transform((val) => val === 'true')
+    .optional(),
+  completed: z
+    .enum(['true', 'false'])
+    .transform((val) => val === 'true')
+    .optional(),
+  sortBy: z
+    .enum([
+      'createdAt',
+      'updatedAt',
+      'dueDate',
+      'priority',
+      'status',
+      'sortOrder',
+      'title',
+      'estimateMinutes',
+    ])
+    .default('sortOrder'),
+  sortOrder: z.enum(['asc', 'desc']).default('asc'),
+});
+
+export const createTaskDependencySchema = z.object({
+  blockingTaskId: z.string().uuid('Invalid blocking task ID'),
+  dependencyType: taskDependencyTypeSchema.default('BLOCKS'),
+});
+
+export const reorderTasksSchema = z.object({
+  items: z
+    .array(
+      z.object({
+        id: z.string().uuid('Invalid task ID'),
+        sortOrder: z.number().int().min(0),
+      }),
+    )
+    .min(1, 'At least one task item is required to reorder'),
 });

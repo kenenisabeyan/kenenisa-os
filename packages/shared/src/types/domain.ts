@@ -153,3 +153,110 @@ export interface MilestoneReorderItem {
   id: string;
   sortOrder: number;
 }
+
+// ── Task Types ───────────────────────────────────────────────────────────────
+
+export type TaskStatus =
+  | 'BACKLOG'
+  | 'READY'
+  | 'IN_PROGRESS'
+  | 'BLOCKED'
+  | 'REVIEW'
+  | 'DONE'
+  | 'CANCELLED';
+
+export type TaskDependencyType = 'BLOCKS' | 'BLOCKED_BY';
+
+export interface TaskDependencyDto {
+  id: string;
+  blockingTaskId: string;
+  dependentTaskId: string;
+  dependencyType: TaskDependencyType;
+  createdAt: string;
+  blockingTask?: {
+    id: string;
+    title: string;
+    status: TaskStatus;
+    priority: TaskPriority;
+  };
+  dependentTask?: {
+    id: string;
+    title: string;
+    status: TaskStatus;
+    priority: TaskPriority;
+  };
+}
+
+export interface TaskDto {
+  id: string;
+  userId: string;
+  projectId: string;
+  milestoneId: string | null;
+  parentTaskId: string | null;
+  title: string;
+  description: string | null;
+  status: TaskStatus;
+  priority: TaskPriority;
+  estimateMinutes: number;
+  actualMinutes: number;
+  startDate: string | null;
+  dueDate: string | null;
+  completedAt: string | null;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
+  project?: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+  milestone?: {
+    id: string;
+    name: string;
+  } | null;
+  parentTask?: {
+    id: string;
+    title: string;
+  } | null;
+  subtasks?: TaskDto[];
+  blockingDependencies?: TaskDependencyDto[];
+  dependentDependencies?: TaskDependencyDto[];
+  isReady?: boolean;
+  isBlocked?: boolean;
+  _count?: {
+    subtasks?: number;
+    blockingDependencies?: number;
+    dependentDependencies?: number;
+  };
+}
+
+export interface TaskQuery {
+  page?: number;
+  pageSize?: number;
+  projectId?: string;
+  milestoneId?: string;
+  parentTaskId?: string | null;
+  status?: TaskStatus;
+  priority?: TaskPriority;
+  search?: string;
+  overdue?: boolean;
+  ready?: boolean;
+  blocked?: boolean;
+  completed?: boolean;
+  sortBy?:
+    | 'createdAt'
+    | 'updatedAt'
+    | 'dueDate'
+    | 'priority'
+    | 'status'
+    | 'sortOrder'
+    | 'title'
+    | 'estimateMinutes';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface TaskReorderItem {
+  id: string;
+  sortOrder: number;
+}
+

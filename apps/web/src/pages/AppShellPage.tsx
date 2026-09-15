@@ -5,6 +5,7 @@ import { WorkstreamsPage } from './WorkstreamsPage.js';
 import { GoalsPage } from './GoalsPage.js';
 import { ProjectsPage } from './ProjectsPage.js';
 import { MilestonesPage } from './MilestonesPage.js';
+import { TasksPage } from './TasksPage.js';
 
 export const AppShellPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -20,6 +21,7 @@ export const AppShellPage: React.FC = () => {
     { label: 'Goals', path: '/app/goals' },
     { label: 'Projects', path: '/app/projects' },
     { label: 'Milestones', path: '/app/milestones' },
+    { label: 'Tasks', path: '/app/tasks' },
   ];
 
   return (
@@ -95,7 +97,9 @@ export const AppShellPage: React.FC = () => {
           <Route path="goals" element={<GoalsPage />} />
           <Route path="projects" element={<ProjectsPage />} />
           <Route path="milestones" element={<MilestonesPage />} />
+          <Route path="tasks" element={<TasksPage />} />
           <Route path="" element={<Navigate to="workstreams" replace />} />
+
           <Route path="*" element={<Navigate to="workstreams" replace />} />
         </Routes>
       </main>
