@@ -1,6 +1,4 @@
-# Developer Guide
-
-## KENENISA OS — Development Reference
+# Developer Guide — KENENISA OS
 
 ---
 
@@ -19,15 +17,21 @@ git clone <repo-url>
 cd kenenisa-os
 npm install
 cp .env.example .env
-# Edit .env with your local values
+
+# Database migrations & seeding
+npm run db:migrate --workspace=apps/api
+npm run db:seed --workspace=apps/api
+
+# Provision owner account
+npm run db:create-owner --workspace=apps/api
 ```
 
 ---
 
-## Running in Development
+## Development Commands
 
 ```bash
-# Both frontend and backend
+# Start both frontend and backend
 npm run dev
 
 # Frontend only  (http://localhost:5173)
@@ -35,6 +39,12 @@ npm run dev:web
 
 # Backend only   (http://localhost:3000)
 npm run dev:api
+
+# Provision / Update Owner Account
+npm run db:create-owner --workspace=apps/api
+
+# Purge Expired Sessions
+npm run db:cleanup-sessions --workspace=apps/api
 ```
 
 ---
@@ -51,19 +61,6 @@ npm run test           # All tests
 
 ---
 
-## Conventions
-
-| Convention      | Value          |
-| --------------- | -------------- |
-| Indentation     | 2 spaces       |
-| Quotes          | Single         |
-| Semicolons      | Required       |
-| Trailing commas | All            |
-| Line endings    | LF             |
-| Max line length | 100 characters |
-
----
-
 ## Workspace Structure
 
 This is an npm workspaces monorepo. Each workspace has its own `package.json`:
@@ -73,15 +70,3 @@ This is an npm workspaces monorepo. Each workspace has its own `package.json`:
 | Frontend     | `apps/web`        |
 | Backend API  | `apps/api`        |
 | Shared types | `packages/shared` |
-
----
-
-## Adding a Dependency
-
-```bash
-# To a specific workspace
-npm install <package> --workspace=apps/api
-
-# To root devDependencies
-npm install <package> -D
-```

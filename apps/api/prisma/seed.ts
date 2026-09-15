@@ -1,4 +1,5 @@
-import { PrismaClient, TaskPriority, TaskStatus, WorkstreamStatus } from '@prisma/client';
+import { PrismaClient, TaskPriority, TaskStatus, UserRole, WorkstreamStatus } from '@prisma/client';
+import argon2 from 'argon2';
 
 const prisma = new PrismaClient();
 
@@ -57,17 +58,24 @@ const CORE_WORKSTREAMS = [
 async function main() {
   console.info('🌱 Starting KENENISA OS database seed...');
 
+  const defaultPasswordHash = await argon2.hash('KenenisaOS#2026!SecureOwnerPass', {
+    type: argon2.argon2id,
+  });
+
   // 1. Create or upsert primary user
   const user = await prisma.user.upsert({
     where: { email: 'kenenisa@kenenisa-os.internal' },
-    update: {},
+    update: {
+      passwordHash: defaultPasswordHash,
+      role: UserRole.OWNER,
+    },
     create: {
       email: 'kenenisa@kenenisa-os.internal',
-      passwordHash: '$2b$10$dummyHashPlaceholderForFutureAuthStepOnlyDoNotUseInProd',
+      passwordHash: defaultPasswordHash,
       firstName: 'Kenenisa',
       lastName: 'Beyan',
       displayName: 'Kenenisa Beyan',
-      role: 'ADMIN',
+      role: UserRole.OWNER,
       isActive: true,
     },
   });

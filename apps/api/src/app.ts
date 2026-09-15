@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 import { config } from './config/index.js';
 import { requestIdMiddleware } from './middleware/requestId.js';
@@ -40,6 +41,7 @@ export function createApp(): express.Application {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
 
   // ── Request Context & Logging ─────────────────────────────────────────────
   app.use(requestIdMiddleware);

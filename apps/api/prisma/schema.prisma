@@ -10,6 +10,7 @@ generator client {
 // ── Enums ────────────────────────────────────────────────────────────────────
 
 enum UserRole {
+  OWNER
   ADMIN
   USER
 }
@@ -91,6 +92,7 @@ model User {
   updatedAt    DateTime @updatedAt
 
   settings      UserSettings?
+  sessions      Session[]
   workstreams   Workstream[]
   goals         Goal[]
   projects      Project[]
@@ -381,3 +383,20 @@ model AuditLog {
   @@index([userId, createdAt])
   @@index([entityType, entityId])
 }
+
+model Session {
+  id         String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  lastUsedAt DateTime  @default(now())
+  userAgent  String?
+  ipAddress  String?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId, expiresAt])
+  @@index([tokenHash])
+}
+
