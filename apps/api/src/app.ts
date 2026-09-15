@@ -26,21 +26,50 @@ export function createApp(): express.Application {
     }),
   );
 
-  const limiter = rateLimit({
+  // Global API Rate Limiter
+  const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
+    max: config.RATE_LIMIT_MAX || 100,
     standardHeaders: true,
     legacyHeaders: false,
     message: {
       success: false,
-      message: 'Too many requests from this IP, please try again after 15 minutes',
+      message: 'Too many requests from this IP, please try again after 15 minutes.',
       error: { code: 'TOO_MANY_REQUESTS' },
     },
   });
-  app.use('/api', limiter);
+  app.use('/api', globalLimiter);
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  // Auth Endpoints Rate Limiter (Brute force protection)
+  const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 20, // 20 login attempts per window
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+      success: false,
+      message: 'Too many login attempts. Please try again after 15 minutes.',
+      error: { code: 'TOO_MANY_REQUESTS' },
+    },
+  });
+  app.use('/api/v1/auth/login', authLimiter);
+
+  // Intelligence Core Rate Limiter (LLM cost & token protection)
+  const intelligenceLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 30, // 30 AI chat messages per window
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+      success: false,
+      message: 'Intelligence rate limit exceeded. Please try again after 15 minutes.',
+      error: { code: 'TOO_MANY_REQUESTS' },
+    },
+  });
+  app.use('/api/v1/intelligence/chat', intelligenceLimiter);
+
+  app.use(express.json({ limit: '2mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '2mb' }));
   app.use(cookieParser());
 
   // ── Request Context & Logging ─────────────────────────────────────────────

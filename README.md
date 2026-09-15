@@ -4,204 +4,84 @@
 
 ---
 
-KENENISA OS is a personal, production-grade operating system built to structurally manage all dimensions of a senior engineering year and the career that follows it — including academic work, engineering projects, learning tracks, freelancing, personal branding, goal systems, and productivity analytics.
+KENENISA OS is a personal, production-grade operating system built to structurally manage all dimensions of a senior engineering year and the career that follows it — including academic work, engineering projects, learning tracks, freelancing, personal branding, goal systems, productivity analytics, opportunities, and an AI Intelligence Core.
 
 This is not a generic task manager. It is purpose-built software designed for serious, long-term use.
 
 ---
 
-## Product Vision
+## Product Architecture & Implemented Core Modules
 
-A single, unified system that replaces scattered tools (Notion pages, spreadsheets, calendar apps, sticky notes) with one reliable, structured application that understands the full complexity of what it is managing:
+Steps 0–13 are fully implemented as production-grade domain services, REST APIs, and workspace UI pages:
 
-- ASTU academic obligations
-- Individual and group final-year engineering projects
-- Full-stack and AI engineering learning tracks
-- EDOT product development lifecycle
-- Management studies
-- Freelancing pipeline
-- Personal brand strategy
-- Goals, milestones, projects, tasks, subtasks, and dependencies
-- Time planning, evidence tracking, retrospectives, and productivity analytics
-- (Planned) AI-assisted planning and intelligent recommendations
+1. **Authentication & Security (Step 3)**: Argon2id password hashing, SHA-256 session token hashing, HttpOnly cookies, logout & revocation.
+2. **Workstreams, Goals & Projects (Step 4)**: Strategic hierarchy model linking goals, projects, and milestones.
+3. **Tasks & Subtasks & Dependencies (Step 5)**: DAG dependency resolution, status state machines, and blocking task resolution.
+4. **Command Center & Next Best Action (Step 6)**: Deterministic scoring engine surfacing the single Next Best Action.
+5. **Daily & Weekly Planning & Capacity (Step 7)**: Available vs. planned capacity tracking, time blocks, and conflict detection.
+6. **Learning & Skill Graph (Step 8)**: Skill levels, target levels, learning items, and activity tracking logs.
+7. **Evidence & Weekly Review Engine (Step 9)**: Artifact verification linkers, weekly retrospectives, wins, lessons, and action items.
+8. **Analytics & Personal Operating Intelligence (Step 10)**: Deterministic completion rate metrics, capacity utilization, velocity, and weekly history.
+9. **Opportunities & Career Execution Engine (Step 11)**: Opportunities pipeline, skill/project/evidence/task linkers, and follow-up/deadline tracking.
+10. **Intelligence Core (Step 12)**: Context Engine, AIProvider abstraction (OpenAI + MockAIProvider fallback), prompt injection defense, and Action Confirmation protocol.
+11. **Production Hardening (Step 13)**: Centralized Zod environment validation, Prisma error mapping, request tracking (`X-Request-ID`), bounded 10-second graceful process shutdown, health/readiness endpoints (`/health`, `/ready`), rate limiting, and operational runbooks.
 
 ---
 
 ## Technology Stack
 
-| Layer          | Technology                                   |
-| -------------- | -------------------------------------------- |
-| Frontend       | React 19, TypeScript, Vite, Tailwind CSS     |
-| Backend        | Node.js, Express, TypeScript                 |
-| Database       | PostgreSQL, Prisma ORM                       |
-| Validation     | Zod                                          |
-| Testing        | Vitest, Supertest, Playwright                |
-| Code Quality   | ESLint (flat config), Prettier, EditorConfig |
-| Monorepo       | npm workspaces                               |
-| Infrastructure | Docker, Docker Compose, GitHub Actions CI/CD |
+| Layer | Technology |
+| :--- | :--- |
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS |
+| **Backend** | Node.js, Express, TypeScript, Pino, Helmet, Express-Rate-Limit |
+| **Database** | PostgreSQL, Prisma ORM (v6.19.3) |
+| **Validation** | Zod (Schemas & Environment Config) |
+| **Testing** | Vitest, Supertest, Playwright E2E |
+| **Monorepo** | npm workspaces |
 
 ---
 
-## Repository Structure
-
-```
-kenenisa-os/
-│
-├── apps/
-│   ├── web/              # React + Vite frontend
-│   └── api/              # Express + TypeScript REST API
-│
-├── packages/
-│   └── shared/           # Shared TypeScript types and constants
-│
-├── docs/
-│   ├── architecture/     # System architecture documentation
-│   ├── requirements/     # Product requirements
-│   ├── development/      # Developer guides and conventions
-│   ├── api/              # API reference documentation
-│   └── decisions/        # Architecture Decision Records (ADRs)
-│
-├── tests/                # Integration and E2E tests (Playwright)
-├── docker/               # Docker and Docker Compose configuration
-├── .github/
-│   └── workflows/        # GitHub Actions CI/CD pipelines
-│
-├── .env.example          # Environment variable template
-├── eslint.config.js      # ESLint flat configuration
-├── .prettierrc           # Prettier configuration
-├── .editorconfig         # Editor formatting conventions
-├── tsconfig.json         # Root TypeScript project references
-└── package.json          # npm workspaces root
-```
-
----
-
-## Prerequisites
-
-- **Node.js** `>= 20.0.0`
-- **npm** `>= 10.0.0`
-- **Git**
-
-For database functionality (not yet active):
-
-- **PostgreSQL** `>= 15`
-- **Docker** + **Docker Compose** (optional, for containerised database)
-
----
-
-## Installation
+## Quick Start & Installation
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/kenenisabeyan/kenenisa-os.git
 cd kenenisa-os
 
-# Install all workspace dependencies
+# Install workspace dependencies
 npm install
 
-# Copy environment template
+# Copy environment configuration template
 cp .env.example .env
-# Edit .env with your values
+
+# Generate Prisma Client
+npm run db:generate --workspace=apps/api
+
+# Run quality verification gates
+npm run typecheck
+npm run lint
+npm test
+npm run build
 ```
 
 ---
 
-## Running the Frontend
+## Running Development Servers
 
 ```bash
-# From the repository root
-npm run dev:web
-
-# Or from the web workspace directly
-cd apps/web
-npm run dev
-```
-
-The frontend will be available at **http://localhost:5173**
-
----
-
-## Running the Backend
-
-```bash
-# From the repository root
-npm run dev:api
-
-# Or from the api workspace directly
-cd apps/api
-npm run dev
-```
-
-The API will be available at **http://localhost:3000**
-
-Health check: `GET http://localhost:3000/api/health`
-
----
-
-## Running Both Simultaneously
-
-```bash
-# From the repository root
+# Start both frontend (http://localhost:5173) and backend (http://localhost:3000)
 npm run dev
 ```
 
 ---
 
-## Available Scripts
+## Operational Documentation
 
-Run these from the repository root:
-
-| Script                 | Description                                         |
-| ---------------------- | --------------------------------------------------- |
-| `npm run dev`          | Start both frontend and backend in development mode |
-| `npm run dev:web`      | Start frontend only                                 |
-| `npm run dev:api`      | Start backend only                                  |
-| `npm run build`        | Build all packages for production                   |
-| `npm run lint`         | Run ESLint across all packages                      |
-| `npm run format`       | Format all files with Prettier                      |
-| `npm run format:check` | Check formatting without writing                    |
-| `npm run typecheck`    | Run TypeScript type checking across all packages    |
-| `npm run test`         | Run all tests                                       |
-
----
-
-## Current Development Status
-
-**Phase: Foundation — Repository Setup**
-
-This repository is in its initial scaffolding phase. The following has been completed:
-
-- [x] Monorepo structure with npm workspaces
-- [x] Strict TypeScript configuration with project references
-- [x] ESLint (flat config) + Prettier + EditorConfig
-- [x] Frontend scaffold (React + Vite + Tailwind CSS — placeholder screen)
-- [x] Backend scaffold (Express — `/api/health` endpoint only)
-- [x] Shared package with base types and constants
-- [x] Documentation structure
-- [x] Architecture Decision Records started
-
-The following is **not yet implemented**:
-
-- [ ] Authentication
-- [ ] Database schema (Prisma)
-- [ ] Any business domain (tasks, projects, goals, etc.)
-- [ ] Dashboard UI
-- [ ] Docker application services
-- [ ] CI/CD pipelines
-- [ ] AI-assisted features
-
----
-
-## Documentation
-
-All documentation lives in the [`docs/`](./docs/) directory:
-
-- [`docs/architecture/`](./docs/architecture/) — System architecture
-- [`docs/requirements/`](./docs/requirements/) — Product requirements
-- [`docs/development/`](./docs/development/) — Developer guides
-- [`docs/api/`](./docs/api/) — API reference
-- [`docs/decisions/`](./docs/decisions/) — Architecture Decision Records
-
----
-
-_KENENISA OS is an actively developed personal system. It is designed to grow in capability and complexity as the product vision is implemented._
+* [`docs/production.md`](./docs/production.md) — Production operations, environment configuration, startup sequence & migrations.
+* [`docs/observability.md`](./docs/observability.md) — Pino logging, `X-Request-ID` tracking, health & readiness endpoints.
+* [`docs/security.md`](./docs/security.md) — Argon2id, session tokens, IDOR isolation, rate limits & AI prompt-injection security.
+* [`docs/runbook.md`](./docs/runbook.md) — Incident response runbook for database, migration, and AI provider failures.
+* [`docs/intelligence-core.md`](./docs/intelligence-core.md) — AI reasoning layer & context engine.
+* [`docs/intelligence-tools.md`](./docs/intelligence-tools.md) — AI tool registry & action proposal protocol.
+* [`docs/ai-safety.md`](./docs/ai-safety.md) — AI security boundaries & user confirmation rules.
+* [`docs/api/`](./docs/api/) — Complete REST API reference documentation.
