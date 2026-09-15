@@ -255,3 +255,14 @@ export const reorderTasksSchema = z.object({
     )
     .min(1, 'At least one task item is required to reorder'),
 });
+
+// ── Dashboard Schemas ────────────────────────────────────────────────────────
+
+export const dashboardQuerySchema = z.object({
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD')
+    .optional(),
+  timezone: z.string().trim().optional(),
+});
+

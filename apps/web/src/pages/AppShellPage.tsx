@@ -6,6 +6,7 @@ import { GoalsPage } from './GoalsPage.js';
 import { ProjectsPage } from './ProjectsPage.js';
 import { MilestonesPage } from './MilestonesPage.js';
 import { TasksPage } from './TasksPage.js';
+import { DashboardPage } from './DashboardPage.js';
 
 export const AppShellPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -17,6 +18,7 @@ export const AppShellPage: React.FC = () => {
   };
 
   const navItems = [
+    { label: 'Command Center', path: '/app/dashboard' },
     { label: 'Workstreams', path: '/app/workstreams' },
     { label: 'Goals', path: '/app/goals' },
     { label: 'Projects', path: '/app/projects' },
@@ -93,16 +95,18 @@ export const AppShellPage: React.FC = () => {
       {/* Main Content Router */}
       <main className="flex-1 p-6 max-w-7xl w-full mx-auto">
         <Routes>
+          <Route path="dashboard" element={<DashboardPage />} />
           <Route path="workstreams" element={<WorkstreamsPage />} />
           <Route path="goals" element={<GoalsPage />} />
           <Route path="projects" element={<ProjectsPage />} />
           <Route path="milestones" element={<MilestonesPage />} />
           <Route path="tasks" element={<TasksPage />} />
-          <Route path="" element={<Navigate to="workstreams" replace />} />
+          <Route path="" element={<Navigate to="dashboard" replace />} />
 
-          <Route path="*" element={<Navigate to="workstreams" replace />} />
+          <Route path="*" element={<Navigate to="dashboard" replace />} />
         </Routes>
       </main>
     </div>
   );
 };
+

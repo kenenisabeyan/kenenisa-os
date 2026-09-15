@@ -6,6 +6,7 @@ import { goalRouter } from '../../domain/goals/goal.routes.js';
 import { projectRouter } from '../../domain/projects/project.routes.js';
 import { milestoneRouter } from '../../domain/milestones/milestone.routes.js';
 import { taskRouter } from '../../domain/tasks/task.routes.js';
+import { dashboardRouter } from '../../domain/dashboard/dashboard.routes.js';
 
 export const v1Router = Router();
 
@@ -16,4 +17,6 @@ v1Router.use('/goals', goalRouter);
 v1Router.use('/projects', projectRouter);
 v1Router.use('/milestones', milestoneRouter);
 v1Router.use('/tasks', taskRouter);
+v1Router.use('/dashboard', dashboardRouter);
+
 

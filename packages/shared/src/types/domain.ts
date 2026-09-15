@@ -260,3 +260,62 @@ export interface TaskReorderItem {
   sortOrder: number;
 }
 
+// ── Dashboard & Next Best Action Types ────────────────────────────────────────
+
+export interface DashboardSummaryDto {
+  activeWorkstreams: number;
+  activeGoals: number;
+  activeProjects: number;
+  readyTasks: number;
+  inProgressTasks: number;
+  blockedTasks: number;
+  overdueTasks: number;
+  completedTasksRecent: number;
+}
+
+export interface NextBestActionReasonDto {
+  category: string;
+  points: number;
+  description: string;
+}
+
+export interface NextBestActionDto {
+  recommendedTask: TaskDto | null;
+  score: number;
+  reasons: NextBestActionReasonDto[];
+  candidatePoolCount: number;
+  evaluatedAt: string;
+}
+
+export interface RecentActivityDto {
+  id: string;
+  action: string;
+  entityType: string;
+  entityId: string;
+  description: string;
+  createdAt: string;
+}
+
+export interface DashboardDto {
+  summary: DashboardSummaryDto;
+  nextBestAction: NextBestActionDto | null;
+  today: {
+    date: string;
+    dueToday: TaskDto[];
+    inProgress: TaskDto[];
+    ready: TaskDto[];
+  };
+  workstreams: WorkstreamDto[];
+  activeProjects: ProjectDto[];
+  blockedTasks: TaskDto[];
+  overdueTasks: TaskDto[];
+  upcomingTasks: TaskDto[];
+  recentActivity: RecentActivityDto[];
+}
+
+export interface DashboardQuery {
+  date?: string;
+  timezone?: string;
+}
+
+
