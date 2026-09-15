@@ -104,6 +104,9 @@ model User {
   weeklyPlans   WeeklyPlan[]
   weeklyReviews WeeklyReview[]
   auditLogs     AuditLog[]
+  skills        Skill[]
+  learningItems LearningItem[]
+  learningActivities LearningActivity[]
 }
 
 model UserSettings {
@@ -186,6 +189,7 @@ model Project {
 
   milestones Milestone[]
   tasks      Task[]
+  learningItems LearningItem[]
 
   @@unique([userId, slug])
   @@index([workstreamId, status])
@@ -399,4 +403,126 @@ model Session {
   @@index([userId, expiresAt])
   @@index([tokenHash])
 }
+
+// ── Learning & Skills Intelligence Enums & Models ─────────────────────────────
+
+enum LearningItemType {
+  COURSE
+  BOOK
+  TUTORIAL
+  DOCUMENTATION
+  LECTURE
+  PROJECT
+  PRACTICE
+  ARTICLE
+  OTHER
+}
+
+enum LearningItemStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  PAUSED
+  CANCELLED
+}
+
+enum SkillLevel {
+  BEGINNER
+  ELEMENTARY
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum SkillStatus {
+  ACTIVE
+  PAUSED
+  MASTERED
+  ARCHIVED
+}
+
+enum SkillRelevance {
+  PRIMARY
+  SECONDARY
+}
+
+model Skill {
+  id           String      @id @default(uuid())
+  userId       String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  slug         String
+  description  String?
+  category     String?
+  currentLevel SkillLevel  @default(BEGINNER)
+  targetLevel  SkillLevel  @default(ADVANCED)
+  status       SkillStatus @default(ACTIVE)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  learningItems LearningItemSkill[]
+
+  @@unique([userId, slug])
+  @@index([userId, status])
+  @@index([userId, category])
+}
+
+model LearningItem {
+  id               String             @id @default(uuid())
+  userId           String
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId        String?
+  project          Project?           @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  title            String
+  description      String?
+  type             LearningItemType   @default(COURSE)
+  status           LearningItemStatus @default(NOT_STARTED)
+  source           String?
+  url              String?
+  estimatedMinutes Int                @default(0)
+  progressPercent  Int                @default(0)
+  startedAt        DateTime?
+  targetDate       DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  activities LearningActivity[]
+  skills     LearningItemSkill[]
+
+  @@index([userId, status])
+  @@index([userId, targetDate])
+  @@index([projectId])
+}
+
+model LearningActivity {
+  id             String       @id @default(uuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  learningItemId String
+  learningItem   LearningItem @relation(fields: [learningItemId], references: [id], onDelete: Cascade)
+  date           DateTime     @default(now())
+  minutes        Int
+  notes          String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([learningItemId])
+  @@index([userId, date])
+}
+
+model LearningItemSkill {
+  id             String         @id @default(uuid())
+  learningItemId String
+  learningItem   LearningItem   @relation(fields: [learningItemId], references: [id], onDelete: Cascade)
+  skillId        String
+  skill          Skill          @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  relevance      SkillRelevance @default(PRIMARY)
+  createdAt      DateTime       @default(now())
+
+  @@unique([learningItemId, skillId])
+  @@index([learningItemId])
+  @@index([skillId])
+}
+
 

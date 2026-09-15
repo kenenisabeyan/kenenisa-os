@@ -8,6 +8,8 @@ import { MilestonesPage } from './MilestonesPage.js';
 import { TasksPage } from './TasksPage.js';
 import { DashboardPage } from './DashboardPage.js';
 import { PlanningPage } from './PlanningPage.js';
+import { LearningPage } from './LearningPage.js';
+import { SkillsPage } from './SkillsPage.js';
 
 export const AppShellPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -21,6 +23,8 @@ export const AppShellPage: React.FC = () => {
   const navItems = [
     { label: 'Command Center', path: '/app/dashboard' },
     { label: 'Planning', path: '/app/planning' },
+    { label: 'Learning', path: '/app/learning' },
+    { label: 'Skills', path: '/app/skills' },
     { label: 'Workstreams', path: '/app/workstreams' },
     { label: 'Goals', path: '/app/goals' },
     { label: 'Projects', path: '/app/projects' },
@@ -99,6 +103,8 @@ export const AppShellPage: React.FC = () => {
         <Routes>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="planning/*" element={<PlanningPage />} />
+          <Route path="learning" element={<LearningPage />} />
+          <Route path="skills" element={<SkillsPage />} />
           <Route path="workstreams" element={<WorkstreamsPage />} />
           <Route path="goals" element={<GoalsPage />} />
           <Route path="projects" element={<ProjectsPage />} />

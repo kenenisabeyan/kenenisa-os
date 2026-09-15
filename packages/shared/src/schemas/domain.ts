@@ -344,4 +344,106 @@ export const capacityQuerySchema = z.object({
   timezone: z.string().trim().optional(),
 });
 
+// ── Learning & Skills Intelligence Schemas ───────────────────────────────────
+
+export const learningItemTypeSchema = z.enum([
+  'COURSE',
+  'BOOK',
+  'TUTORIAL',
+  'DOCUMENTATION',
+  'LECTURE',
+  'PROJECT',
+  'PRACTICE',
+  'ARTICLE',
+  'OTHER',
+]);
+
+export const learningItemStatusSchema = z.enum([
+  'NOT_STARTED',
+  'IN_PROGRESS',
+  'COMPLETED',
+  'PAUSED',
+  'CANCELLED',
+]);
+
+export const skillLevelSchema = z.enum([
+  'BEGINNER',
+  'ELEMENTARY',
+  'INTERMEDIATE',
+  'ADVANCED',
+  'EXPERT',
+]);
+
+export const skillStatusSchema = z.enum(['ACTIVE', 'PAUSED', 'MASTERED', 'ARCHIVED']);
+
+export const skillRelevanceSchema = z.enum(['PRIMARY', 'SECONDARY']);
+
+export const createSkillSchema = z.object({
+  name: z.string().trim().min(1, 'Skill name is required').max(100),
+  slug: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens')
+    .optional(),
+  description: z.string().trim().max(1000).optional().nullable(),
+  category: z.string().trim().max(50).optional().nullable(),
+  currentLevel: skillLevelSchema.default('BEGINNER'),
+  targetLevel: skillLevelSchema.default('ADVANCED'),
+  status: skillStatusSchema.default('ACTIVE'),
+});
+
+export const updateSkillSchema = createSkillSchema.partial().omit({ slug: true });
+
+export const skillQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(20),
+  status: skillStatusSchema.optional(),
+  category: z.string().trim().optional(),
+  search: z.string().trim().optional(),
+});
+
+export const createLearningItemSchema = z.object({
+  projectId: z.string().uuid('Invalid project ID').optional().nullable(),
+  title: z.string().trim().min(1, 'Learning item title is required').max(200),
+  description: z.string().trim().max(2000).optional().nullable(),
+  type: learningItemTypeSchema.default('COURSE'),
+  status: learningItemStatusSchema.default('NOT_STARTED'),
+  source: z.string().trim().max(200).optional().nullable(),
+  url: z.string().trim().url('Invalid URL').optional().nullable().or(z.literal('')),
+  estimatedMinutes: z.coerce.number().int().min(0).default(0),
+  targetDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Target date must be formatted YYYY-MM-DD')
+    .optional()
+    .nullable(),
+});
+
+export const updateLearningItemSchema = createLearningItemSchema.partial().extend({
+  progressPercent: z.coerce.number().int().min(0).max(100).optional(),
+});
+
+export const learningItemQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(20),
+  status: learningItemStatusSchema.optional(),
+  type: learningItemTypeSchema.optional(),
+  projectId: z.string().uuid().optional(),
+  search: z.string().trim().optional(),
+});
+
+export const recordLearningActivitySchema = z.object({
+  minutes: z.coerce.number().int().positive('Minutes must be greater than 0'),
+  notes: z.string().trim().max(1000).optional().nullable(),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD')
+    .optional(),
+});
+
+export const linkLearningSkillSchema = z.object({
+  skillId: z.string().uuid('Invalid skill ID'),
+  relevance: skillRelevanceSchema.default('PRIMARY'),
+});
+
 

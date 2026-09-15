@@ -454,6 +454,194 @@ export interface UpdateWeeklyPlanInput {
   status?: string;
 }
 
+// ── Learning & Skills Intelligence Types ─────────────────────────────────────
+
+export type LearningItemType =
+  | 'COURSE'
+  | 'BOOK'
+  | 'TUTORIAL'
+  | 'DOCUMENTATION'
+  | 'LECTURE'
+  | 'PROJECT'
+  | 'PRACTICE'
+  | 'ARTICLE'
+  | 'OTHER';
+
+export type LearningItemStatus =
+  | 'NOT_STARTED'
+  | 'IN_PROGRESS'
+  | 'COMPLETED'
+  | 'PAUSED'
+  | 'CANCELLED';
+
+export type SkillLevel =
+  | 'BEGINNER'
+  | 'ELEMENTARY'
+  | 'INTERMEDIATE'
+  | 'ADVANCED'
+  | 'EXPERT';
+
+export type SkillStatus = 'ACTIVE' | 'PAUSED' | 'MASTERED' | 'ARCHIVED';
+
+export type SkillRelevance = 'PRIMARY' | 'SECONDARY';
+
+export interface SkillDto {
+  id: string;
+  userId: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  category: string | null;
+  currentLevel: SkillLevel;
+  targetLevel: SkillLevel;
+  status: SkillStatus;
+  createdAt: string;
+  updatedAt: string;
+  _count?: {
+    learningItems?: number;
+  };
+}
+
+export interface LearningActivityDto {
+  id: string;
+  userId: string;
+  learningItemId: string;
+  date: string;
+  minutes: number;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface LearningItemSkillDto {
+  id: string;
+  learningItemId: string;
+  skillId: string;
+  relevance: SkillRelevance;
+  createdAt: string;
+  skill?: SkillDto;
+}
+
+export interface LearningItemDto {
+  id: string;
+  userId: string;
+  projectId: string | null;
+  title: string;
+  description: string | null;
+  type: LearningItemType;
+  status: LearningItemStatus;
+  source: string | null;
+  url: string | null;
+  estimatedMinutes: number;
+  progressPercent: number;
+  startedAt: string | null;
+  targetDate: string | null;
+  completedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  project?: {
+    id: string;
+    name: string;
+    slug: string;
+  } | null;
+  skills?: LearningItemSkillDto[];
+  totalLoggedMinutes?: number;
+  _count?: {
+    activities?: number;
+    skills?: number;
+  };
+}
+
+export interface LearningMetricsDto {
+  totalItems: number;
+  inProgressItems: number;
+  completedItems: number;
+  totalLoggedMinutes: number;
+  activeSkillsCount: number;
+  linkedProjectsCount: number;
+}
+
+export interface SkillDetailDto extends SkillDto {
+  learningItems: LearningItemDto[];
+  appliedProjects: {
+    id: string;
+    name: string;
+    slug: string;
+  }[];
+}
+
+export interface CreateSkillInput {
+  name: string;
+  slug?: string;
+  description?: string | null;
+  category?: string | null;
+  currentLevel?: SkillLevel;
+  targetLevel?: SkillLevel;
+  status?: SkillStatus;
+}
+
+export interface UpdateSkillInput {
+  name?: string;
+  description?: string | null;
+  category?: string | null;
+  currentLevel?: SkillLevel;
+  targetLevel?: SkillLevel;
+  status?: SkillStatus;
+}
+
+export interface SkillQuery {
+  page?: number;
+  pageSize?: number;
+  status?: SkillStatus;
+  category?: string;
+  search?: string;
+}
+
+export interface CreateLearningItemInput {
+  projectId?: string | null;
+  title: string;
+  description?: string | null;
+  type?: LearningItemType;
+  status?: LearningItemStatus;
+  source?: string | null;
+  url?: string | null;
+  estimatedMinutes?: number;
+  targetDate?: string | null;
+}
+
+export interface UpdateLearningItemInput {
+  projectId?: string | null;
+  title?: string;
+  description?: string | null;
+  type?: LearningItemType;
+  status?: LearningItemStatus;
+  source?: string | null;
+  url?: string | null;
+  estimatedMinutes?: number;
+  progressPercent?: number;
+  targetDate?: string | null;
+}
+
+export interface LearningItemQuery {
+  page?: number;
+  pageSize?: number;
+  status?: LearningItemStatus;
+  type?: LearningItemType;
+  projectId?: string;
+  search?: string;
+}
+
+export interface RecordLearningActivityInput {
+  minutes: number;
+  notes?: string | null;
+  date?: string;
+}
+
+export interface LinkLearningSkillInput {
+  skillId: string;
+  relevance?: SkillRelevance;
+}
+
 
 
 

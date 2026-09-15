@@ -35,7 +35,7 @@ export class WeeklyPlanService {
       weekEnd: plan.weekEnd.toISOString().split('T')[0],
       theme: plan.theme,
       notes: plan.notes,
-      status: plan.status as WeeklyPlanDto['status'],
+      status: plan.status,
       createdAt: plan.createdAt.toISOString(),
       updatedAt: plan.updatedAt.toISOString(),
     };
