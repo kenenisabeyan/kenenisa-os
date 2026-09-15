@@ -31,9 +31,9 @@ export class HealthController {
     }
   }
 
-  public getReadiness(req: Request, res: Response, next: NextFunction): void {
+  public async getReadiness(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data = healthService.getReadiness();
+      const data = await healthService.getReadiness();
       sendSuccess({
         res,
         req,

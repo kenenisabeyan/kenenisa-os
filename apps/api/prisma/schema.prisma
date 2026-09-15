@@ -1,0 +1,383 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ── Enums ────────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum WorkstreamStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum GoalStatus {
+  PLANNED
+  IN_PROGRESS
+  ACHIEVED
+  CANCELLED
+}
+
+enum ProjectStatus {
+  PLANNED
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  ARCHIVED
+}
+
+enum MilestoneStatus {
+  UPCOMING
+  IN_PROGRESS
+  REACHED
+  DELAYED
+}
+
+enum TaskStatus {
+  BACKLOG
+  READY
+  IN_PROGRESS
+  BLOCKED
+  REVIEW
+  DONE
+  CANCELLED
+}
+
+enum TaskPriority {
+  P0
+  P1
+  P2
+  P3
+}
+
+enum TaskDependencyType {
+  BLOCKS
+  BLOCKED_BY
+}
+
+enum TimeBlockStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  INTERRUPTED
+}
+
+enum ReviewStatus {
+  DRAFT
+  COMPLETED
+}
+
+// ── Models ───────────────────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  displayName  String
+  role         UserRole @default(USER)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  settings      UserSettings?
+  workstreams   Workstream[]
+  goals         Goal[]
+  projects      Project[]
+  milestones    Milestone[]
+  tasks         Task[]
+  tags          Tag[]
+  dailyPlans    DailyPlan[]
+  timeBlocks    TimeBlock[]
+  weeklyPlans   WeeklyPlan[]
+  weeklyReviews WeeklyReview[]
+  auditLogs     AuditLog[]
+}
+
+model UserSettings {
+  id                        String       @id @default(uuid())
+  userId                    String       @unique
+  user                      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  timezone                  String       @default("UTC")
+  weekStartsOn              Int          @default(1)
+  dailyWorkCapacityMinutes  Int          @default(480)
+  weeklyWorkCapacityMinutes Int          @default(2400)
+  defaultTaskPriority       TaskPriority @default(P2)
+  defaultProjectView        String       @default("board")
+  theme                     String       @default("dark")
+  createdAt                 DateTime     @default(now())
+  updatedAt                 DateTime     @updatedAt
+}
+
+model Workstream {
+  id             String           @id @default(uuid())
+  userId         String
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name           String
+  slug           String
+  description    String?
+  status         WorkstreamStatus @default(ACTIVE)
+  priorityWeight Int              @default(1)
+  sortOrder      Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  goals    Goal[]
+  projects Project[]
+
+  @@unique([userId, slug])
+  @@index([userId, status])
+  @@index([userId, sortOrder])
+}
+
+model Goal {
+  id           String       @id @default(uuid())
+  userId       String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workstreamId String
+  workstream   Workstream   @relation(fields: [workstreamId], references: [id], onDelete: Cascade)
+  title        String
+  description  String?
+  status       GoalStatus   @default(PLANNED)
+  priority     TaskPriority @default(P1)
+  startDate    DateTime?
+  targetDate   DateTime?
+  completedAt  DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  projects Project[]
+
+  @@index([workstreamId, status])
+  @@index([userId, targetDate])
+}
+
+model Project {
+  id           String        @id @default(uuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workstreamId String
+  workstream   Workstream    @relation(fields: [workstreamId], references: [id], onDelete: Cascade)
+  goalId       String?
+  goal         Goal?         @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  name         String
+  slug         String
+  description  String?
+  status       ProjectStatus @default(PLANNED)
+  priority     TaskPriority  @default(P2)
+  startDate    DateTime?
+  targetDate   DateTime?
+  completedAt  DateTime?
+  archivedAt   DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  milestones Milestone[]
+  tasks      Task[]
+
+  @@unique([userId, slug])
+  @@index([workstreamId, status])
+  @@index([goalId])
+  @@index([userId, targetDate])
+}
+
+model Milestone {
+  id          String          @id @default(uuid())
+  userId      String
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId   String
+  project     Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  status      MilestoneStatus @default(UPCOMING)
+  sortOrder   Int             @default(0)
+  targetDate  DateTime?
+  completedAt DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  tasks Task[]
+
+  @@index([projectId, sortOrder])
+  @@index([projectId, targetDate])
+}
+
+model Task {
+  id              String       @id @default(uuid())
+  userId          String
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId       String
+  project         Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  milestoneId     String?
+  milestone       Milestone?   @relation(fields: [milestoneId], references: [id], onDelete: SetNull)
+  parentTaskId    String?
+  parentTask      Task?        @relation("TaskToSubtask", fields: [parentTaskId], references: [id], onDelete: SetNull)
+  subtasks        Task[]       @relation("TaskToSubtask")
+  title           String
+  description     String?
+  status          TaskStatus   @default(BACKLOG)
+  priority        TaskPriority @default(P2)
+  estimateMinutes Int          @default(0)
+  actualMinutes   Int          @default(0)
+  startDate       DateTime?
+  dueDate         DateTime?
+  completedAt     DateTime?
+  sortOrder       Int          @default(0)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  blockingDependencies  TaskDependency[] @relation("BlockingTask")
+  dependentDependencies TaskDependency[] @relation("DependentTask")
+  tags                  TaskTag[]
+  mustWinDailyPlans     DailyPlan[]      @relation("MustWinTask")
+  timeBlocks            TimeBlock[]
+
+  @@index([projectId, status])
+  @@index([projectId, dueDate])
+  @@index([projectId, priority])
+  @@index([milestoneId, status])
+  @@index([parentTaskId])
+}
+
+model TaskDependency {
+  id              String             @id @default(uuid())
+  blockingTaskId  String
+  blockingTask    Task               @relation("BlockingTask", fields: [blockingTaskId], references: [id], onDelete: Cascade)
+  dependentTaskId String
+  dependentTask   Task               @relation("DependentTask", fields: [dependentTaskId], references: [id], onDelete: Cascade)
+  dependencyType  TaskDependencyType @default(BLOCKS)
+  createdAt       DateTime           @default(now())
+
+  @@unique([blockingTaskId, dependentTaskId])
+  @@index([blockingTaskId])
+  @@index([dependentTaskId])
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  slug      String
+  color     String   @default("#06b6d4")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tasks TaskTag[]
+
+  @@unique([userId, slug])
+  @@index([userId])
+}
+
+model TaskTag {
+  id        String   @id @default(uuid())
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  tagId     String
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([taskId, tagId])
+  @@index([taskId])
+  @@index([tagId])
+}
+
+model DailyPlan {
+  id             String    @id @default(uuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date           DateTime
+  mustWinTaskId String?
+  mustWinTask    Task?     @relation("MustWinTask", fields: [mustWinTaskId], references: [id], onDelete: SetNull)
+  notes          String?
+  status         String    @default("active")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  timeBlocks TimeBlock[]
+
+  @@unique([userId, date])
+  @@index([userId, date])
+}
+
+model TimeBlock {
+  id          String          @id @default(uuid())
+  userId      String
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dailyPlanId String?
+  dailyPlan   DailyPlan?      @relation(fields: [dailyPlanId], references: [id], onDelete: Cascade)
+  taskId      String?
+  task        Task?           @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  title       String
+  startAt     DateTime
+  endAt       DateTime
+  status      TimeBlockStatus @default(PLANNED)
+  notes       String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([userId, startAt])
+  @@index([taskId, startAt])
+  @@index([dailyPlanId])
+}
+
+model WeeklyPlan {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weekStart DateTime
+  weekEnd   DateTime
+  theme     String?
+  notes     String?
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  weeklyReviews WeeklyReview[]
+
+  @@unique([userId, weekStart])
+  @@index([userId, weekStart])
+}
+
+model WeeklyReview {
+  id           String       @id @default(uuid())
+  userId       String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weeklyPlanId String?
+  weeklyPlan   WeeklyPlan?  @relation(fields: [weeklyPlanId], references: [id], onDelete: SetNull)
+  status       ReviewStatus @default(DRAFT)
+  wins         String?
+  challenges   String?
+  lessons      String?
+  nextFocus    String?
+  notes        String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([weeklyPlanId])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entityType String
+  entityId   String
+  action     String
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([entityType, entityId])
+}

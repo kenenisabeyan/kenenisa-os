@@ -40,8 +40,15 @@ PostgreSQL (Prisma ORM)
 
 ---
 
-## Current Status
+## Architecture Documents
 
-Foundation scaffolding only. No domain logic has been implemented.
+- [System Overview](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/system-overview.md)
+- [Frontend Architecture](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/frontend-architecture.md)
+- [Backend Architecture](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/backend-architecture.md)
+- [Database Architecture](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/database.md)
+- [Data Model & ERD](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/data-model.md)
+- [Domain Boundaries](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/domain-boundaries.md)
+- [Security Baseline](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/security.md)
+- [Testing Strategy](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/architecture/testing.md)
 
 See `docs/decisions/` for Architecture Decision Records.

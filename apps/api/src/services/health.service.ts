@@ -1,5 +1,6 @@
 import type { HealthData, ReadinessData } from '@kenenisa-os/shared';
 import { config } from '../config/index.js';
+import { prisma } from '../lib/prisma.js';
 
 export class HealthService {
   public getHealth(): HealthData {
@@ -12,12 +13,22 @@ export class HealthService {
     };
   }
 
-  public getReadiness(): ReadinessData {
+  public async getReadiness(): Promise<ReadinessData> {
     const health = this.getHealth();
+    let dbStatus: 'connected' | 'disconnected' | 'disabled' = 'disconnected';
+
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      dbStatus = 'connected';
+    } catch {
+      dbStatus = 'disconnected';
+    }
+
     return {
       ...health,
+      status: dbStatus === 'connected' ? 'healthy' : 'degraded',
       checks: {
-        database: 'disabled', // Will update when Prisma module is integrated
+        database: dbStatus,
         memory: process.memoryUsage().heapUsed < 1024 * 1024 * 1024 ? 'ok' : 'warning',
       },
     };
