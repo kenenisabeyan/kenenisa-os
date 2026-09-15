@@ -1,29 +1,23 @@
-import 'dotenv/config';
 import { createApp } from './app.js';
-
-const PORT = parseInt(process.env['PORT'] ?? '3000', 10);
+import { config } from './config/index.js';
+import { logger } from './lib/logger.js';
 
 const app = createApp();
 
-const server = app.listen(PORT, () => {
-  console.info(`🚀 KENENISA OS API running on http://localhost:${PORT}`);
-  console.info(`   Health: http://localhost:${PORT}/api/health`);
-  console.info(`   Environment: ${process.env['NODE_ENV'] ?? 'development'}`);
+const server = app.listen(config.PORT, () => {
+  logger.info(`🚀 KENENISA OS API running on http://localhost:${config.PORT}`);
+  logger.info(`   Health endpoint: http://localhost:${config.PORT}/api/v1/health`);
+  logger.info(`   Environment: ${config.NODE_ENV}`);
 });
 
 // Graceful shutdown
-process.on('SIGTERM', () => {
-  console.info('SIGTERM received — shutting down gracefully');
+const shutdown = (signal: string) => {
+  logger.info(`${signal} received — shutting down gracefully`);
   server.close(() => {
-    console.info('Server closed');
+    logger.info('HTTP server closed');
     process.exit(0);
   });
-});
+};
 
-process.on('SIGINT', () => {
-  console.info('SIGINT received — shutting down gracefully');
-  server.close(() => {
-    console.info('Server closed');
-    process.exit(0);
-  });
-});
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));

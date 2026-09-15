@@ -15,6 +15,8 @@ export default tseslint.config(
       '**/*.min.js',
       '**/*.d.ts',
       'eslint.config.js',
+      '**/*.config.ts',
+      '**/*.config.js',
     ],
   },
 

@@ -1,6 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import { healthRouter } from './routes/health.routes.js';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import { config } from './config/index.js';
+import { requestIdMiddleware } from './middleware/requestId.js';
+import { requestLogger } from './middleware/requestLogger.js';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
+import { apiRouter } from './routes/index.js';
 
 /**
  * Creates and configures the Express application.
@@ -10,26 +16,41 @@ import { healthRouter } from './routes/health.routes.js';
 export function createApp(): express.Application {
   const app = express();
 
-  // ── Middleware ────────────────────────────────────────────────────────────
+  // ── Security & Standard Middleware ───────────────────────────────────────
+  app.use(helmet());
   app.use(
     cors({
-      origin: process.env['WEB_URL'] ?? 'http://localhost:5173',
+      origin: config.CORS_ORIGIN,
       credentials: true,
     }),
   );
+
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+      success: false,
+      message: 'Too many requests from this IP, please try again after 15 minutes',
+      error: { code: 'TOO_MANY_REQUESTS' },
+    },
+  });
+  app.use('/api', limiter);
+
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // ── Routes ────────────────────────────────────────────────────────────────
-  app.use('/api', healthRouter);
+  // ── Request Context & Logging ─────────────────────────────────────────────
+  app.use(requestIdMiddleware);
+  app.use(requestLogger);
 
-  // ── 404 handler ───────────────────────────────────────────────────────────
-  app.use((_req, res) => {
-    res.status(404).json({
-      success: false,
-      message: 'Route not found',
-    });
-  });
+  // ── API Routes ────────────────────────────────────────────────────────────
+  app.use('/api', apiRouter);
+
+  // ── Fallback 404 & Centralized Error Handler ──────────────────────────────
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   return app;
 }
