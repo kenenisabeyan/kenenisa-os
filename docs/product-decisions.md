@@ -33,6 +33,7 @@
 | **PDR-008** | 2026-09-16 | Strategic Domain | `DEFER` | Redundant Higher-Level Strategic Planning Layer | `ACCEPTED` |
 | **PDR-009** | 2026-09-16 | System Operations | `KEEP` | System Maturity Decision: MATURE — MAINTENANCE & EVIDENCE COLLECTION | `ACCEPTED` |
 | **PDR-010** | 2026-09-16 | Product Roadmap | `KEEP` | Step 27 Decision Gate: CONTINUE CURRENT SYSTEM + COLLECT MORE EVIDENCE | `ACCEPTED` |
+| **PDR-011** | 2026-09-16 | Operations / Evidence | `KEEP` | Step 28 Activation: Longitudinal Evidence Cycle RWC-001 (Start Date: 2026-09-16) | `ACCEPTED` |
 
 ---
 
@@ -117,3 +118,11 @@
 * **Decision**: `KEEP` — Select **`DECISION A: CONTINUE CURRENT SYSTEM + COLLECT MORE EVIDENCE`**.
 * **Reason**: Empirical evidence confirms the current system architecture is fully mature (`MATURE — MAINTENANCE AND EVIDENCE COLLECTION`) and operating cleanly. Building speculative major features without documented operational friction is prohibited.
 * **Impact**: Documented in [`docs/major-evolution-decision.md`](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/major-evolution-decision.md) (`MED-001`).
+
+### PDR-011: Longitudinal Real-World Evidence Cycle Activation
+* **Decision ID**: `PDR-011`
+* **Date**: `2026-09-16`
+* **Context**: Step 28 activation of longitudinal operational evidence cycle `RWC-001`.
+* **Decision**: `KEEP` — Activate cycle `RWC-001` in feature freeze & evidence collection mode.
+* **Reason**: Fulfills Step 27 decision gate directive (`PDR-010`). System baseline verified across 130 Vitest tests and sub-50ms API performance.
+* **Impact**: Documented in [`docs/longitudinal-usage-summary.md`](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/longitudinal-usage-summary.md) and [`docs/longitudinal-observation-matrix.md`](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/longitudinal-observation-matrix.md) (`LO-001`..`LO-010`).
