@@ -20,12 +20,12 @@ export default {
       },
       fontFamily: {
         sans: [
+          'Roboto',
           'Inter',
           'system-ui',
           '-apple-system',
           'BlinkMacSystemFont',
           'Segoe UI',
-          'Roboto',
           'sans-serif',
         ],
         mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
