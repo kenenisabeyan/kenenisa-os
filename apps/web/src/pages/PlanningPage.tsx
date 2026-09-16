@@ -213,8 +213,8 @@ export const PlanningPage: React.FC = () => {
     return (
       <div className="flex items-center justify-center min-h-[500px]" id="planning-loading">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-slate-400 text-sm font-medium">Initializing Planning Engine...</p>
+          <div className="w-10 h-10 border-4 border-[#3B82F6] border-t-transparent rounded-full animate-spin" />
+          <p className="text-slate-600 text-sm font-medium">Initializing Planning Engine...</p>
         </div>
       </div>
     );
@@ -223,27 +223,27 @@ export const PlanningPage: React.FC = () => {
   return (
     <div className="space-y-8 pb-12" id="planning-workspace">
       {/* Header & View Mode Switcher */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-sky-50 border border-[#3AB1EC]/30 text-[#0284c7] uppercase tracking-wider">
               Step 7 Engine
             </span>
-            <span className="text-xs text-slate-400">Capacity & Scheduling</span>
+            <span className="text-xs text-slate-500 font-semibold">Capacity & Scheduling</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight mt-1">Planning Workspace</h1>
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight mt-1">Planning Workspace</h1>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
           {/* Daily vs Weekly Mode Toggle */}
-          <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
+          <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
             <button
               id="view-daily-btn"
               onClick={() => setViewMode('daily')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 viewMode === 'daily'
-                  ? 'bg-cyan-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-[#3B82F6] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Daily View
@@ -251,10 +251,10 @@ export const PlanningPage: React.FC = () => {
             <button
               id="view-weekly-btn"
               onClick={() => setViewMode('weekly')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 viewMode === 'weekly'
-                  ? 'bg-cyan-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-[#3B82F6] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Weekly View
@@ -262,25 +262,25 @@ export const PlanningPage: React.FC = () => {
           </div>
 
           {/* Date Navigator */}
-          <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-xl p-1">
+          <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 shadow-xs">
             <button
               id="prev-date-btn"
               onClick={() => shiftDays(viewMode === 'daily' ? -1 : -7)}
-              className="p-1.5 hover:bg-slate-800 text-slate-300 rounded-lg transition-all"
+              className="p-1.5 hover:bg-slate-100 text-slate-600 rounded-lg transition-all font-bold text-xs"
             >
               &lt;
             </button>
             <button
               id="today-date-btn"
               onClick={resetToToday}
-              className="px-3 py-1 text-xs font-bold text-slate-200 hover:bg-slate-800 rounded-lg transition-all"
+              className="px-3 py-1 text-xs font-bold text-slate-800 hover:bg-slate-100 rounded-lg transition-all"
             >
               {viewMode === 'daily' ? selectedDate : `Week: ${weeklyData?.weekStart || selectedDate}`}
             </button>
             <button
               id="next-date-btn"
               onClick={() => shiftDays(viewMode === 'daily' ? 1 : 7)}
-              className="p-1.5 hover:bg-slate-800 text-slate-300 rounded-lg transition-all"
+              className="p-1.5 hover:bg-slate-100 text-slate-600 rounded-lg transition-all font-bold text-xs"
             >
               &gt;
             </button>
@@ -289,7 +289,7 @@ export const PlanningPage: React.FC = () => {
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-4 text-center text-xs text-red-400">
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 text-center text-xs text-red-600 font-semibold">
           {error}
         </div>
       )}
@@ -298,17 +298,17 @@ export const PlanningPage: React.FC = () => {
       {viewMode === 'daily' && dailyData && (
         <div className="space-y-8" id="daily-planning-view">
           {/* Must-Win Task Banner */}
-          <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-cyan-950/40 border border-cyan-500/30 rounded-3xl p-6 shadow-xl relative overflow-hidden" id="must-win-banner">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs relative overflow-hidden" id="must-win-banner">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-0.5 rounded">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#0284c7] bg-sky-50 border border-[#3AB1EC]/30 px-2.5 py-0.5 rounded">
                   TODAY&apos;S MUST-WIN TASK
                 </span>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mt-2" id="must-win-title">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2" id="must-win-title">
                   {dailyData.mustWinTask ? dailyData.mustWinTask.title : 'No Must-Win Task Selected'}
                 </h2>
                 {dailyData.mustWinTask?.project && (
-                  <p className="text-xs text-slate-400 mt-1">
+                  <p className="text-xs text-slate-600 mt-1 font-medium">
                     Project: {dailyData.mustWinTask.project.name} • Priority: {dailyData.mustWinTask.priority}
                   </p>
                 )}
@@ -317,7 +317,7 @@ export const PlanningPage: React.FC = () => {
               <button
                 id="select-must-win-btn"
                 onClick={() => setIsMustWinModalOpen(true)}
-                className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl transition-all shadow-sm shrink-0"
+                className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-all shadow-xs shrink-0"
               >
                 {dailyData.mustWinTask ? 'Change Must-Win' : 'Select Must-Win Task'}
               </button>
@@ -325,34 +325,34 @@ export const PlanningPage: React.FC = () => {
           </div>
 
           {/* Capacity Engine Progress Bar */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="capacity-section">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="capacity-section">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
               <div>
-                <h3 className="text-lg font-bold text-white">Daily Planning Capacity</h3>
-                <p className="text-xs text-slate-400">
+                <h3 className="text-lg font-bold text-slate-900">Daily Planning Capacity</h3>
+                <p className="text-xs text-slate-600 font-medium">
                   {Math.floor(dailyData.capacity.plannedMinutes / 60)}h {dailyData.capacity.plannedMinutes % 60}m planned out of {Math.floor(dailyData.capacity.capacityMinutes / 60)}h available
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
                 {dailyData.capacity.overCapacity && (
-                  <span className="px-3 py-1 bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold rounded-full animate-pulse" id="over-capacity-badge">
+                  <span className="px-3 py-1 bg-amber-50 border border-amber-200 text-[#c2410c] text-xs font-bold rounded-full animate-pulse" id="over-capacity-badge">
                     OVER CAPACITY (+{dailyData.capacity.plannedMinutes - dailyData.capacity.capacityMinutes}m)
                   </span>
                 )}
-                <span className="text-lg font-black text-cyan-400" id="capacity-percentage">
+                <span className="text-lg font-black text-[#0284c7]" id="capacity-percentage">
                   {dailyData.capacity.utilizationPercent ?? 0}% Utilized
                 </span>
               </div>
             </div>
 
             {/* Visual Bar */}
-            <div className="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+            <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
               <div
                 className={`h-full transition-all duration-300 ${
                   dailyData.capacity.overCapacity
-                    ? 'bg-gradient-to-r from-red-500 to-amber-500'
-                    : 'bg-gradient-to-r from-cyan-500 to-blue-600'
+                    ? 'bg-gradient-to-r from-[#FF5A00] to-amber-500'
+                    : 'bg-gradient-to-r from-[#3AB1EC] to-[#3B82F6]'
                 }`}
                 style={{ width: `${Math.min(100, dailyData.capacity.utilizationPercent || 0)}%` }}
               />
@@ -363,24 +363,24 @@ export const PlanningPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column (2 cols): Time Block Schedule */}
             <div className="lg:col-span-2 space-y-6">
-              <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="schedule-section">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="schedule-section">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-xl font-bold text-white">Schedule Timeline</h3>
-                    <p className="text-xs text-slate-400 mt-0.5">Planned time allocations for {selectedDate}</p>
+                    <h3 className="text-xl font-bold text-slate-900">Schedule Timeline</h3>
+                    <p className="text-xs text-slate-600 mt-0.5">Planned time allocations for {selectedDate}</p>
                   </div>
 
                   <button
                     id="add-time-block-btn"
                     onClick={() => handleOpenCreateBlock()}
-                    className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-bold rounded-xl shadow-lg transition-all"
+                    className="px-4 py-2 bg-[#3B82F6] hover:bg-blue-600 text-white text-xs font-bold rounded-xl shadow-xs transition-all"
                   >
                     + Add Time Block
                   </button>
                 </div>
 
                 {dailyData.timeBlocks.length === 0 ? (
-                  <div className="text-center py-12 border border-dashed border-slate-800 rounded-2xl text-slate-400 text-xs" id="empty-blocks">
+                  <div className="text-center py-12 border border-dashed border-slate-300 rounded-2xl text-slate-500 text-xs" id="empty-blocks">
                     No time blocks scheduled for this date yet.
                   </div>
                 ) : (
@@ -394,16 +394,16 @@ export const PlanningPage: React.FC = () => {
                       return (
                         <div
                           key={block.id}
-                          className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-4 hover:border-slate-700 transition-all"
+                          className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 flex items-center justify-between gap-4 hover:border-slate-300 transition-all"
                         >
                           <div className="flex items-center gap-4 min-w-0">
-                            <div className="text-cyan-400 font-mono text-xs font-bold bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 shrink-0">
+                            <div className="text-[#0284c7] font-mono text-xs font-bold bg-white px-3 py-1.5 rounded-xl border border-slate-200 shrink-0 shadow-xs">
                               {startFmt} – {endFmt}
                             </div>
                             <div className="min-w-0">
-                              <h4 className="text-sm font-bold text-white truncate">{block.title}</h4>
+                              <h4 className="text-sm font-bold text-slate-900 truncate">{block.title}</h4>
                               {block.task && (
-                                <p className="text-xs text-slate-400 truncate">
+                                <p className="text-xs text-slate-600 truncate font-medium">
                                   Task: {block.task.title}
                                 </p>
                               )}
@@ -411,18 +411,18 @@ export const PlanningPage: React.FC = () => {
                           </div>
 
                           <div className="flex items-center gap-2 shrink-0">
-                            <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">
+                            <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-slate-200/80 text-slate-700 border border-slate-300">
                               {block.status}
                             </span>
                             <button
                               onClick={() => handleOpenEditBlock(block)}
-                              className="p-1.5 hover:bg-slate-800 text-slate-300 rounded-lg text-xs font-semibold"
+                              className="p-1.5 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold"
                             >
                               Edit
                             </button>
                             <button
                               onClick={() => { void handleDeleteBlock(block.id); }}
-                              className="p-1.5 hover:bg-red-500/20 text-red-400 rounded-lg text-xs font-semibold"
+                              className="p-1.5 hover:bg-red-100 text-red-600 rounded-lg text-xs font-semibold"
                             >
                               Delete
                             </button>
@@ -435,18 +435,18 @@ export const PlanningPage: React.FC = () => {
               </div>
 
               {/* Notes Area */}
-              <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="daily-notes-section">
-                <h3 className="text-lg font-bold text-white mb-2">Daily Planning Notes</h3>
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="daily-notes-section">
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Daily Planning Notes</h3>
                 <textarea
                   value={notesText}
                   onChange={(e) => setNotesText(e.target.value)}
                   placeholder="Record intentional daily planning notes..."
-                  className="w-full h-24 bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-slate-200 focus:border-cyan-500 focus:outline-none"
+                  className="w-full h-24 bg-slate-50 border border-slate-200 rounded-2xl p-3 text-xs text-slate-900 focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 focus:outline-none"
                 />
                 <button
                   id="save-daily-notes-btn"
                   onClick={() => { void handleSaveDailyNotes(); }}
-                  className="mt-3 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition-all"
+                  className="mt-3 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-all shadow-xs"
                 >
                   Save Daily Notes
                 </button>
@@ -455,32 +455,32 @@ export const PlanningPage: React.FC = () => {
 
             {/* Right Column (1 col): Unscheduled Ready Tasks */}
             <div className="space-y-6" id="unscheduled-tasks-section">
-              <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl">
-                <h3 className="text-lg font-bold text-white mb-1">Unscheduled Executable Work</h3>
-                <p className="text-xs text-slate-400 mb-4">Ready tasks lacking scheduled time blocks</p>
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs">
+                <h3 className="text-lg font-bold text-slate-900 mb-1">Unscheduled Executable Work</h3>
+                <p className="text-xs text-slate-600 mb-4 font-medium">Ready tasks lacking scheduled time blocks</p>
 
                 {dailyData.unscheduledReadyTasks.length === 0 ? (
-                  <div className="text-center py-8 border border-dashed border-slate-800 rounded-2xl text-slate-400 text-xs">
+                  <div className="text-center py-8 border border-dashed border-slate-300 rounded-2xl text-slate-500 text-xs">
                     All ready tasks are scheduled!
                   </div>
                 ) : (
                   <div className="space-y-3">
                     {dailyData.unscheduledReadyTasks.map((task) => (
-                      <div key={task.id} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-3.5">
+                      <div key={task.id} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-3.5">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-[10px] font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-2 py-0.5 rounded">
+                          <span className="text-[10px] font-bold bg-sky-50 border border-[#3AB1EC]/30 text-[#0284c7] px-2 py-0.5 rounded">
                             {task.priority}
                           </span>
                           <button
                             onClick={() => handleOpenCreateBlock(task)}
-                            className="text-xs text-cyan-400 font-bold hover:underline"
+                            className="text-xs text-[#2563eb] font-bold hover:underline"
                           >
                             + Schedule
                           </button>
                         </div>
-                        <h4 className="text-xs font-bold text-white truncate">{task.title}</h4>
+                        <h4 className="text-xs font-bold text-slate-900 truncate">{task.title}</h4>
                         {task.project && (
-                          <p className="text-[11px] text-slate-400 mt-1 truncate">{task.project.name}</p>
+                          <p className="text-[11px] text-slate-600 mt-1 truncate font-medium">{task.project.name}</p>
                         )}
                       </div>
                     ))}
@@ -496,16 +496,16 @@ export const PlanningPage: React.FC = () => {
       {viewMode === 'weekly' && weeklyData && (
         <div className="space-y-8" id="weekly-planning-view">
           {/* Weekly Capacity Header */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="weekly-capacity-section">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="weekly-capacity-section">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
-                <h2 className="text-xl font-bold text-white">Weekly Planning Horizon</h2>
-                <p className="text-xs text-slate-400">
+                <h2 className="text-xl font-bold text-slate-900">Weekly Planning Horizon</h2>
+                <p className="text-xs text-slate-600 font-medium">
                   {weeklyData.weekStart} to {weeklyData.weekEnd} • {Math.floor(weeklyData.capacity.plannedMinutes / 60)}h planned / {Math.floor(weeklyData.capacity.capacityMinutes / 60)}h available
                 </p>
               </div>
 
-              <span className="text-xl font-black text-cyan-400">
+              <span className="text-xl font-black text-[#0284c7]">
                 {weeklyData.capacity.utilizationPercent ?? 0}% Weekly Utilization
               </span>
             </div>
@@ -513,18 +513,18 @@ export const PlanningPage: React.FC = () => {
             {/* 7-Day Capacity Breakdown Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3 mt-4" id="weekly-daily-breakdown">
               {weeklyData.capacity.dailyBreakdown.map((day) => (
-                <div key={day.date} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
-                  <div className="text-xs font-bold text-slate-300 mb-1">{day.date}</div>
-                  <div className="text-sm font-extrabold text-white">
+                <div key={day.date} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4">
+                  <div className="text-xs font-bold text-slate-600 mb-1">{day.date}</div>
+                  <div className="text-sm font-extrabold text-slate-900">
                     {Math.floor(day.plannedMinutes / 60)}h {day.plannedMinutes % 60}m
                   </div>
-                  <div className="text-[10px] text-slate-400 mt-1">
+                  <div className="text-[10px] text-slate-500 mt-1 font-medium">
                     {day.utilizationPercent ?? 0}% Utilized
                   </div>
 
-                  <div className="w-full h-1.5 bg-slate-900 rounded-full mt-2 overflow-hidden">
+                  <div className="w-full h-1.5 bg-slate-200 rounded-full mt-2 overflow-hidden">
                     <div
-                      className={`h-full ${day.overCapacity ? 'bg-red-500' : 'bg-cyan-500'}`}
+                      className={`h-full ${day.overCapacity ? 'bg-[#FF5A00]' : 'bg-[#3AB1EC]'}`}
                       style={{ width: `${Math.min(100, day.utilizationPercent || 0)}%` }}
                     />
                   </div>
@@ -534,34 +534,34 @@ export const PlanningPage: React.FC = () => {
           </div>
 
           {/* Theme & Notes Editor */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="weekly-theme-section">
-            <h3 className="text-lg font-bold text-white mb-4">Weekly Intentional Focus Theme</h3>
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="weekly-theme-section">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Weekly Intentional Focus Theme</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1">Weekly Theme</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Weekly Theme</label>
                 <input
                   type="text"
                   value={weeklyTheme}
                   onChange={(e) => setWeeklyTheme(e.target.value)}
                   placeholder="e.g. Complete Step 7 Architecture & Master Planning Engine"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:border-cyan-500 focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1">Weekly Notes</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Weekly Notes</label>
                 <textarea
                   value={weeklyNotes}
                   onChange={(e) => setWeeklyNotes(e.target.value)}
                   placeholder="Record strategic weekly guidance..."
-                  className="w-full h-24 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:border-cyan-500 focus:outline-none"
+                  className="w-full h-24 bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 focus:outline-none"
                 />
               </div>
 
               <button
                 id="save-weekly-plan-btn"
                 onClick={() => { void handleSaveWeeklyPlan(); }}
-                className="px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-xl shadow-md transition-all"
+                className="px-4 py-2.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs transition-all"
               >
                 Save Weekly Plan
               </button>
@@ -572,77 +572,77 @@ export const PlanningPage: React.FC = () => {
 
       {/* ── TIME BLOCK MODAL ────────────────────────────────────────────────────── */}
       {isTimeBlockModalOpen && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" id="time-block-modal">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4">
-            <h3 className="text-lg font-bold text-white">
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4" id="time-block-modal">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4">
+            <h3 className="text-lg font-bold text-slate-900">
               {editingBlock ? 'Edit Time Block' : 'Create Time Block'}
             </h3>
 
             {modalError && (
-              <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-xs text-red-400" id="time-block-modal-error">
+              <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-xs text-red-600 font-semibold" id="time-block-modal-error">
                 {modalError}
               </div>
             )}
 
             <form onSubmit={(e) => { void handleSaveTimeBlock(e); }} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1">Title *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Title *</label>
                 <input
                   type="text"
                   required
                   value={blockTitle}
                   onChange={(e) => setBlockTitle(e.target.value)}
                   placeholder="e.g. Implement Planning Controller"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:border-[#6366F1] focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1">Start Time *</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Start Time *</label>
                   <input
                     type="time"
                     required
                     value={blockStartTime}
                     onChange={(e) => setBlockStartTime(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:border-[#6366F1] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 mb-1">End Time *</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">End Time *</label>
                   <input
                     type="time"
                     required
                     value={blockEndTime}
                     onChange={(e) => setBlockEndTime(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:border-[#6366F1] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-1">Notes</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Notes</label>
                 <textarea
                   value={blockNotes}
                   onChange={(e) => setBlockNotes(e.target.value)}
                   placeholder="Optional details..."
-                  className="w-full h-20 bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none"
+                  className="w-full h-20 bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:border-[#6366F1] focus:outline-none"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-2 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-2 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setIsTimeBlockModalOpen(false)}
-                  className="px-4 py-2 bg-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-semibold"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl text-xs shadow-md transition-all"
+                  className="px-5 py-2 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold rounded-xl text-xs shadow-xs transition-all"
                 >
                   {submitting ? 'Saving...' : 'Save Block'}
                 </button>
@@ -654,34 +654,34 @@ export const PlanningPage: React.FC = () => {
 
       {/* ── MUST-WIN TASK SELECTION MODAL ────────────────────────────────────── */}
       {isMustWinModalOpen && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" id="must-win-modal">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-lg w-full shadow-2xl space-y-4 max-h-[80vh] flex flex-col">
-            <h3 className="text-lg font-bold text-white">Select Must-Win Task for {selectedDate}</h3>
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-4" id="must-win-modal">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-lg w-full shadow-2xl space-y-4 max-h-[80vh] flex flex-col">
+            <h3 className="text-lg font-bold text-slate-900">Select Must-Win Task for {selectedDate}</h3>
 
             <div className="flex-1 overflow-y-auto space-y-2 pr-1">
               {dailyData?.unscheduledReadyTasks.map((task) => (
                 <div
                   key={task.id}
                   onClick={() => { void handleSelectMustWinTask(task.id); }}
-                  className="bg-slate-950 hover:bg-slate-800 border border-slate-800 p-3 rounded-xl cursor-pointer transition-all flex items-center justify-between"
+                  className="bg-slate-50 hover:bg-slate-100 border border-slate-200 p-3 rounded-xl cursor-pointer transition-all flex items-center justify-between"
                 >
                   <div>
-                    <h4 className="text-xs font-bold text-white">{task.title}</h4>
+                    <h4 className="text-xs font-bold text-slate-900">{task.title}</h4>
                     {task.project && (
-                      <p className="text-[11px] text-slate-400 mt-0.5">{task.project.name}</p>
+                      <p className="text-[11px] text-slate-600 mt-0.5 font-medium">{task.project.name}</p>
                     )}
                   </div>
-                  <span className="text-[10px] font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-bold bg-sky-50 border border-[#3AB1EC]/30 text-[#0284c7] px-2 py-0.5 rounded">
                     Select
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="flex justify-end pt-2 border-t border-slate-800">
+            <div className="flex justify-end pt-2 border-t border-slate-200">
               <button
                 onClick={() => setIsMustWinModalOpen(false)}
-                className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold"
               >
                 Close
               </button>
