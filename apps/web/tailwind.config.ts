@@ -19,15 +19,7 @@ export default {
         bgLight: '#F8FAFC',
       },
       fontFamily: {
-        sans: [
-          'Roboto',
-          'Inter',
-          'system-ui',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'sans-serif',
-        ],
+        sans: ['Roboto', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       boxShadow: {
