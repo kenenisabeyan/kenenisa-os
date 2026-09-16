@@ -39,10 +39,11 @@ The roadmap reset organizes future engineering effort into five transparent cate
 | **NOW-01** | Production Env Injection | Provide live `DATABASE_URL` and `SESSION_SECRET` in cloud provider dashboard | `docs/deployment.md` | P0 | External Hosting | `GET /ready` returns HTTP 200 OK |
 | **NOW-02** | Playwright E2E Suite | Execute Playwright E2E smoke tests against production build dist assets | `PE-008` in `docs/product-evolution-matrix.md` | P1 | Web Dist Build | `npx playwright test` exits code 0 |
 | **NOW-03** | Bounded Analytics Pagination | Add limit/offset parameters to multi-period analytics query endpoints | `PE-007` in `docs/product-evolution-matrix.md` | P2 | Express REST API | Vitest `analytics.test.ts` & latency check |
+| **NOW-04** | Approved Evolution Baseline | Formalize Step 28 Next-Generation baseline (`MED-001`) maintaining modular monolith | `docs/approved-evolution-baseline.md` | P0 | Decision Gate | Vitest 130/130 tests & Typecheck |
 
 ### NOW Dependency Graph
 ```text
-NOW-01 (Prod Env Setup) ──► NOW-02 (Playwright E2E) ──► NOW-03 (Analytics Limits)
+NOW-01 (Prod Env Setup) ──► NOW-02 (Playwright E2E) ──► NOW-03 (Analytics Limits) ──► NOW-04 (Step 28 Baseline)
 ```
 
 ---
