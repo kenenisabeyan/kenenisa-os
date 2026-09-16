@@ -26,6 +26,7 @@ Steps 0–13 are fully implemented as production-grade domain services, REST API
 10. **Intelligence Core (Step 12)**: Context Engine, AIProvider abstraction (OpenAI + MockAIProvider fallback), prompt injection defense, and Action Confirmation protocol.
 11. **Production Hardening & System QA (Steps 13–15)**: Centralized Zod environment validation, Prisma error mapping, request tracking (`X-Request-ID`), bounded 10-second graceful process shutdown, health/readiness endpoints (`/health`, `/ready`), rate limiting, 25 tracked UX improvements, and 129/129 passing system QA tests.
 12. **Production Release Engineering (Step 16)**: Production deployment architecture, zero-downtime Prisma migration SOPs, database backup & restore SOPs, rollback readiness, release verification matrix (`REL-001`–`REL-035`), and production incident runbook.
+13. **Post-Production Monitoring & Stabilization (Step 17)**: Production health matrix (`PH-001`–`PH-030`), observability architecture, continuous stabilization SOPs, incident response protocol, and 15-step hotfix runbook.
 
 ---
 
@@ -76,9 +77,14 @@ npm run dev
 
 ---
 
-## Production Release & Operational Documentation
+## Production Release, Monitoring & Operational Documentation
 
 * [`docs/production-release.md`](./docs/production-release.md) — Authoritative Production Release Record & Verification Evidence.
+* [`docs/production-health-matrix.md`](./docs/production-health-matrix.md) — Step 17 Production Health Verification Matrix (`PH-001`–`PH-030`).
+* [`docs/production-monitoring.md`](./docs/production-monitoring.md) — Post-Production Observability Architecture & Telemetry.
+* [`docs/production-stabilization.md`](./docs/production-stabilization.md) — Stabilization Plan, Defect Triage & Known Issues Record.
+* [`docs/incident-response.md`](./docs/incident-response.md) — Production Incident Response Protocol & Escalation SOPs.
+* [`docs/hotfix-runbook.md`](./docs/hotfix-runbook.md) — Mandatory 15-step Production Emergency Hotfix Runbook.
 * [`docs/production-release-matrix.md`](./docs/production-release-matrix.md) — Step 16 Production Release Verification Matrix (`REL-001`–`REL-035`).
 * [`docs/deployment.md`](./docs/deployment.md) — Production deployment procedure, environment variables, & Nginx/static serving setup.
 * [`docs/rollback.md`](./docs/rollback.md) — Production rollback procedures for API, database forward-fix, web assets, and session secret rotation.
@@ -89,4 +95,5 @@ npm run dev
 * [`docs/observability.md`](./docs/observability.md) — Pino logging, `X-Request-ID` tracking, health & readiness endpoints.
 * [`docs/intelligence-core.md`](./docs/intelligence-core.md) — AI reasoning layer & context engine.
 * [`docs/api/`](./docs/api/) — Complete REST API reference documentation.
+
 
