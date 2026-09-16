@@ -19,17 +19,19 @@ The system operates in **Feature Freeze & Evidence Collection** mode to observe 
 
 ---
 
-## 2. Baseline System Verification
+## 2. Baseline System Verification (LUS-BASELINE)
 
 At the initiation of cycle `RWC-001` on **2026-09-16**:
 
-* **Git Commit Baseline**: `84486f0` (`feat: establish Step 28 approved evolution baseline`)
+* **Git Commit Baseline**: `2768331` (`docs: establish longitudinal usage evidence cycle`)
+* **Branch**: `main` (Working tree clean)
 * **Vitest Test Suite**: 130 / 130 tests passing across 25 test files in `@kenenisa-os/api` and `@kenenisa-os/web`
 * **TypeScript Compilation**: `tsc --build` and `tsc --noEmit` clean with 0 compilation errors
 * **ESLint Static Analysis**: 0 warnings (`--max-warnings 0`)
 * **Database Engine**: Neon Cloud PostgreSQL + Prisma ORM (26 relational models)
 * **API Health Probes**: `GET /api/v1/health` (HTTP 200 OK) and `GET /api/v1/ready` (HTTP 200 OK)
 * **Frontend SPA Bundle**: `573 kB` JS distribution bundle (`138 kB` gzip)
+* **Known Issues**: 0 blocking defects / 0 unhandled exceptions
 
 ---
 
