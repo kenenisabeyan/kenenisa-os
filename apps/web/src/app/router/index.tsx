@@ -3,11 +3,23 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { AppShellPage } from '../../pages/AppShellPage.js';
 import { ProtectedRoute } from '../../components/ProtectedRoute.js';
+import { PublicLayout } from '../../components/layout/PublicLayout.js';
+import { HomePage } from '../../pages/HomePage.js';
+import { HowItWorksPage } from '../../pages/HowItWorksPage.js';
+import { CapabilitiesPage } from '../../pages/CapabilitiesPage.js';
+import { AboutPage } from '../../pages/AboutPage.js';
 
 export const AppRouter: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Website Routes */}
+        <Route path="/" element={<PublicLayout><HomePage /></PublicLayout>} />
+        <Route path="/how-it-works" element={<PublicLayout><HowItWorksPage /></PublicLayout>} />
+        <Route path="/capabilities" element={<PublicLayout><CapabilitiesPage /></PublicLayout>} />
+        <Route path="/about" element={<PublicLayout><AboutPage /></PublicLayout>} />
+
+        {/* Authentication & Private Operating App Routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/app/*"
@@ -17,8 +29,7 @@ export const AppRouter: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<Navigate to="/app" replace />} />
-        <Route path="*" element={<Navigate to="/app" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

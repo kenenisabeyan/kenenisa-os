@@ -175,7 +175,21 @@ export const LoginPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="mt-8 text-center text-xs font-medium text-slate-400">
+        {/* 1-Click Quick Owner Login */}
+        <div className="mt-4 pt-4 border-t border-slate-100">
+          <button
+            type="button"
+            onClick={() => {
+              setEmail('owner@kenenisa.os');
+              setPassword('Password123!');
+            }}
+            className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2"
+          >
+            ⚡ Autofill Owner Credentials (owner@kenenisa.os)
+          </button>
+        </div>
+
+        <div className="mt-6 text-center text-xs font-medium text-slate-400">
           Protected Owner System &bull; V1.0.0
         </div>
       </div>
