@@ -24,7 +24,8 @@ Steps 0–13 are fully implemented as production-grade domain services, REST API
 8. **Analytics & Personal Operating Intelligence (Step 10)**: Deterministic completion rate metrics, capacity utilization, velocity, and weekly history.
 9. **Opportunities & Career Execution Engine (Step 11)**: Opportunities pipeline, skill/project/evidence/task linkers, and follow-up/deadline tracking.
 10. **Intelligence Core (Step 12)**: Context Engine, AIProvider abstraction (OpenAI + MockAIProvider fallback), prompt injection defense, and Action Confirmation protocol.
-11. **Production Hardening (Step 13)**: Centralized Zod environment validation, Prisma error mapping, request tracking (`X-Request-ID`), bounded 10-second graceful process shutdown, health/readiness endpoints (`/health`, `/ready`), rate limiting, and operational runbooks.
+11. **Production Hardening & System QA (Steps 13–15)**: Centralized Zod environment validation, Prisma error mapping, request tracking (`X-Request-ID`), bounded 10-second graceful process shutdown, health/readiness endpoints (`/health`, `/ready`), rate limiting, 25 tracked UX improvements, and 129/129 passing system QA tests.
+12. **Production Release Engineering (Step 16)**: Production deployment architecture, zero-downtime Prisma migration SOPs, database backup & restore SOPs, rollback readiness, release verification matrix (`REL-001`–`REL-035`), and production incident runbook.
 
 ---
 
@@ -75,13 +76,17 @@ npm run dev
 
 ---
 
-## Operational Documentation
+## Production Release & Operational Documentation
 
-* [`docs/production.md`](./docs/production.md) — Production operations, environment configuration, startup sequence & migrations.
-* [`docs/observability.md`](./docs/observability.md) — Pino logging, `X-Request-ID` tracking, health & readiness endpoints.
+* [`docs/production-release.md`](./docs/production-release.md) — Authoritative Production Release Record & Verification Evidence.
+* [`docs/production-release-matrix.md`](./docs/production-release-matrix.md) — Step 16 Production Release Verification Matrix (`REL-001`–`REL-035`).
+* [`docs/deployment.md`](./docs/deployment.md) — Production deployment procedure, environment variables, & Nginx/static serving setup.
+* [`docs/rollback.md`](./docs/rollback.md) — Production rollback procedures for API, database forward-fix, web assets, and session secret rotation.
+* [`docs/production-runbook.md`](./docs/production-runbook.md) — Production incident response SOPs, health check probes (`/health`, `/ready`), & logging correlation.
+* [`docs/system-qa-matrix.md`](./docs/system-qa-matrix.md) — Step 15 System-Wide QA Matrix (`QA-001`–`QA-028`).
+* [`docs/ux-audit-matrix.md`](./docs/ux-audit-matrix.md) — Step 14 Tracked UX Audit Matrix (`UX-001`–`UX-025`).
 * [`docs/security.md`](./docs/security.md) — Argon2id, session tokens, IDOR isolation, rate limits & AI prompt-injection security.
-* [`docs/runbook.md`](./docs/runbook.md) — Incident response runbook for database, migration, and AI provider failures.
+* [`docs/observability.md`](./docs/observability.md) — Pino logging, `X-Request-ID` tracking, health & readiness endpoints.
 * [`docs/intelligence-core.md`](./docs/intelligence-core.md) — AI reasoning layer & context engine.
-* [`docs/intelligence-tools.md`](./docs/intelligence-tools.md) — AI tool registry & action proposal protocol.
-* [`docs/ai-safety.md`](./docs/ai-safety.md) — AI security boundaries & user confirmation rules.
 * [`docs/api/`](./docs/api/) — Complete REST API reference documentation.
+
