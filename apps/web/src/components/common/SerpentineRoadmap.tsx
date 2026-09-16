@@ -13,8 +13,28 @@ export interface RoadmapStep {
   icon: React.ReactNode;
 }
 
-export const SerpentineRoadmap: React.FC = () => {
-  const steps: RoadmapStep[] = [
+export interface SerpentineRoadmapProps {
+  title?: string;
+  subtitle?: string;
+  badgeText?: string;
+  summaryBadgeText?: string;
+  summaryTitle?: string;
+  summaryDescription?: string;
+  summaryMetaText?: string;
+  steps?: RoadmapStep[];
+}
+
+export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
+  title = 'Structured Personal Engineering Journey',
+  subtitle = 'From initial requirement discovery to zero-friction production execution, our 7-step operating roadmap is built for reliability, evidence, and long-term career growth.',
+  badgeText = 'OPERATING LIFECYCLE & METHODOLOGY',
+  summaryBadgeText = 'SEVEN STEPS',
+  summaryTitle = 'FROM INTENTION TO DIGITAL IMPACT',
+  summaryDescription = 'A structured personal operating system process that transforms complex ambitions, coursework, and projects into reliable, scalable, and verifiable engineering proof.',
+  summaryMetaText = 'KENENISA OS • METHODOLOGY BLUEPRINT',
+  steps: customSteps,
+}) => {
+  const defaultSteps: RoadmapStep[] = [
     {
       number: '01',
       badgeTitle: 'DEFINE DIRECTION',
@@ -172,21 +192,23 @@ export const SerpentineRoadmap: React.FC = () => {
     },
   ];
 
+  const steps = customSteps || defaultSteps;
+
   return (
     <div className="w-full max-w-6xl mx-auto py-12 px-4 sm:px-6 font-sans">
       {/* ── SECTION TOP HEADER ─────────────────────────────────────────────────── */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
         <div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Structured Personal Engineering Journey
+            {title}
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 font-normal mt-1 max-w-2xl">
-            From initial requirement discovery to zero-friction production execution, our 7-step operating roadmap is built for reliability, evidence, and long-term career growth.
+            {subtitle}
           </p>
         </div>
         <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-cyan-400/60 bg-cyan-50/50 text-[#3AB1EC] text-[11px] font-bold uppercase tracking-wider shrink-0 shadow-2xs">
           <span>✧</span>
-          <span>OPERATING LIFECYCLE &amp; METHODOLOGY</span>
+          <span>{badgeText}</span>
           <span>✧</span>
         </div>
       </div>
@@ -196,20 +218,20 @@ export const SerpentineRoadmap: React.FC = () => {
         <div className="relative bg-white border border-cyan-300/80 rounded-2xl p-6 shadow-md shadow-cyan-500/5 space-y-3 group hover:border-[#3AB1EC] transition-all">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#3AB1EC]">
-              SEVEN STEPS
+              {summaryBadgeText}
             </span>
             <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#3AB1EC] to-[#3B82F6] flex items-center justify-center font-bold text-white text-[10px]">
               K
             </div>
           </div>
           <h3 className="text-base font-extrabold text-slate-900 leading-snug">
-            FROM INTENTION TO DIGITAL IMPACT
+            {summaryTitle}
           </h3>
           <p className="text-xs text-slate-600 leading-relaxed font-normal">
-            A structured personal operating system process that transforms complex ambitions, coursework, and projects into reliable, scalable, and verifiable engineering proof.
+            {summaryDescription}
           </p>
           <div className="pt-1 text-[9px] font-mono text-[#3AB1EC] tracking-widest uppercase">
-            KENENISA OS &bull; METHODOLOGY BLUEPRINT
+            {summaryMetaText}
           </div>
         </div>
       </div>
@@ -259,7 +281,7 @@ export const SerpentineRoadmap: React.FC = () => {
         {/* Steps List */}
         <div className="space-y-16 md:space-y-24 relative z-10">
           {steps.map((step, idx) => {
-            const isEven = idx % 2 === 0; // Even indexes (0, 2, 4, 6) -> Content Right on Desktop; Odd -> Content Left
+            const isEven = idx % 2 === 0; // Even indexes -> Content Right on Desktop; Odd -> Content Left
 
             return (
               <div

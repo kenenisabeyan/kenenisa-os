@@ -1,14 +1,150 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SerpentineRoadmap, RoadmapStep } from '../components/common/SerpentineRoadmap.js';
 
 export const CapabilitiesPage: React.FC = () => {
+  const capabilitySteps: RoadmapStep[] = [
+    {
+      number: '01',
+      badgeTitle: 'EXECUTION ENGINE',
+      title: 'HIERARCHICAL WORK DECOMPOSITION',
+      subtitle: 'From High-Level Strategy to Executable Tasks.',
+      description:
+        'Organize strategic direction into Workstreams, Goals, Projects, Milestones, and Tasks with strict priority levels (P0 Critical, P1 High) and blocker dependencies.',
+      focusAreas: [
+        'Workstreams, Goals, Projects & Tasks',
+        'Strict P0 / P1 / P2 Priority levels',
+        'Task dependency graphs & blocker tracking',
+        'Project milestone completion tracking',
+      ],
+      themeColor: '#3B82F6',
+      bgBadgeColor: 'bg-blue-50 border-blue-200 text-[#3B82F6]',
+      badgeTextColor: 'text-[#3B82F6]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      ),
+    },
+    {
+      number: '02',
+      badgeTitle: 'CAPACITY PLANNING',
+      title: 'CAPACITY & SCHEDULE MATCHING',
+      subtitle: 'Match Effort with Real Available Time.',
+      description:
+        'Realistic daily capacity budgeting. Map available time blocks against estimated task effort to eliminate overload, identify scheduling conflicts, and maintain velocity.',
+      focusAreas: [
+        'Daily available hours budget vs task estimates',
+        'Time-blocking schedule grid',
+        'Conflict & overcommitment alerts',
+        'Realistic effort estimation (Estimate ≠ Scheduled)',
+      ],
+      themeColor: '#3AB1EC',
+      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#3AB1EC]',
+      badgeTextColor: 'text-[#3AB1EC]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+    {
+      number: '03',
+      badgeTitle: 'SKILL DEVELOPMENT',
+      title: 'LEARNING & SKILL PRACTICE',
+      subtitle: 'Connect Theoretical Knowledge to Real Output.',
+      description:
+        'Track course progress, technical reading, certifications, and target skills. Link skill practice directly to active software projects for real-world application.',
+      focusAreas: [
+        'Skill verification levels (Beginner → Expert)',
+        'Learning resource linking & progress logging',
+        'Direct integration with project execution',
+        'Certifications & course completion logs',
+      ],
+      themeColor: '#6366F1',
+      bgBadgeColor: 'bg-indigo-50 border-indigo-200 text-[#6366F1]',
+      badgeTextColor: 'text-[#6366F1]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      ),
+    },
+    {
+      number: '04',
+      badgeTitle: 'EVIDENCE VAULT',
+      title: 'VERIFIABLE PROOF & ARTIFACTS',
+      subtitle: 'Proof Before Assertions.',
+      description:
+        'Store concrete artifacts proving task and project completions. Keep pull request links, technical documentation, deployed sites, and test verification output in one verifiable vault.',
+      focusAreas: [
+        'Observable proof item repository',
+        'Verification URL & artifact metadata tracking',
+        'Weekly review reflection attachments',
+        'Test pass rate & commit proof logs',
+      ],
+      themeColor: '#22C55E',
+      bgBadgeColor: 'bg-emerald-50 border-emerald-200 text-[#22C55E]',
+      badgeTextColor: 'text-[#22C55E]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+    {
+      number: '05',
+      badgeTitle: 'CAREER PIPELINE',
+      title: 'CAREER OPPORTUNITY PIPELINE',
+      subtitle: 'Translate Execution into Real Market Value.',
+      description:
+        'Manage target job roles, academic applications, and client proposals. Map required role skills against verified evidence items to identify gaps and target interview preparation.',
+      focusAreas: [
+        'Opportunity stage pipeline (Target → Applied → Offer)',
+        'Skill gap analysis against job descriptions',
+        'Evidence portfolio matching per application',
+        'Interview preparation & proposal tracking',
+      ],
+      themeColor: '#FFD700',
+      bgBadgeColor: 'bg-amber-50 border-amber-200 text-amber-700',
+      badgeTextColor: 'text-amber-600',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+    },
+    {
+      number: '06',
+      badgeTitle: 'INTELLIGENCE CORE',
+      title: 'CONTEXTUAL AI ADVISORY',
+      subtitle: 'AI Advisory Without Replacing Human Agency.',
+      description:
+        'Advisory layer reasoning over system state. Analyzes task progress, capacity conflicts, and evidence gaps to recommend high-impact actions while keeping human agency authoritative.',
+      focusAreas: [
+        'Deterministic Next Best Action recommendation',
+        'Contextual system state reasoning',
+        'Human confirmation for all state mutations',
+        'Dependency bottleneck & conflict detection',
+      ],
+      themeColor: '#A855F7',
+      bgBadgeColor: 'bg-purple-50 border-purple-200 text-[#A855F7]',
+      badgeTextColor: 'text-[#A855F7]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+    },
+  ];
+
   return (
     <div className="space-y-20" id="capabilities-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
       <section className="text-center space-y-6 max-w-4xl mx-auto pt-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#3B82F6] text-xs font-bold uppercase tracking-wider">
           <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
-          System Capabilities
+          System Capabilities Architecture
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
@@ -20,204 +156,18 @@ export const CapabilitiesPage: React.FC = () => {
         </p>
       </section>
 
-      {/* ── SYSTEM CONNECTION MAP ──────────────────────────────────────────────── */}
-      <section className="bg-white border border-slate-200/90 rounded-2xl p-8 shadow-xs space-y-6 max-w-5xl mx-auto">
-        <div className="text-center space-y-2">
-          <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
-            Connected Architecture
-          </span>
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Interconnected System Map
-          </h2>
-          <p className="text-xs text-slate-500 font-normal">
-            No isolated silos. Information flows seamlessly between operational modules.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center text-xs">
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="font-bold text-[#3B82F6]">Execution</span>
-            <p className="text-[10px] text-slate-500 font-normal">Workstreams &amp; Tasks</p>
-          </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="font-bold text-[#3AB1EC]">Planning</span>
-            <p className="text-[10px] text-slate-500 font-normal">Capacity &amp; Schedule</p>
-          </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="font-bold text-[#6366F1]">Learning</span>
-            <p className="text-[10px] text-slate-500 font-normal">Skills &amp; Practice</p>
-          </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="font-bold text-[#22C55E]">Evidence</span>
-            <p className="text-[10px] text-slate-500 font-normal">Proof &amp; Vault</p>
-          </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="font-bold text-amber-700">Career</span>
-            <p className="text-[10px] text-slate-500 font-normal">Pipeline &amp; Prep</p>
-          </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="font-bold text-[#A855F7]">Intelligence</span>
-            <p className="text-[10px] text-slate-500 font-normal">Advisory Layer</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CAPABILITY GROUPS DETAIL ────────────────────────────────────────────── */}
-      <section className="space-y-8 max-w-5xl mx-auto">
-        <div className="text-center space-y-2">
-          <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
-            Detailed Breakdown
-          </span>
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Core Operating Capabilities
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Execution Engine */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3B82F6]" />
-                <h3 className="text-base font-bold text-slate-900">Execution Engine</h3>
-              </div>
-              <span className="text-[10px] font-bold text-[#3B82F6] bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                Core Module
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Structured hierarchy for organizing work. High-level Workstreams break down into strategic Goals, multi-stage Projects, sequential Milestones, and actionable Tasks with strict dependency ordering.
-            </p>
-            <div className="space-y-1.5 text-xs text-slate-700 font-medium">
-              <p className="text-[11px] font-bold text-slate-900 uppercase">Key Features:</p>
-              <ul className="list-disc pl-4 space-y-1 font-normal text-[#3B82F6]">
-                <li><span className="text-slate-700">Strict P0 / P1 / P2 Priority levels</span></li>
-                <li><span className="text-slate-700">Task dependency graphs &amp; blocker tracking</span></li>
-                <li><span className="text-slate-700">Project milestone completion tracking</span></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Planning & Capacity */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3AB1EC]" />
-                <h3 className="text-base font-bold text-slate-900">Capacity &amp; Schedule Planning</h3>
-              </div>
-              <span className="text-[10px] font-bold text-[#3AB1EC] bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">
-                Planning
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Realistic daily capacity matching. Map available time blocks against estimated task effort to prevent overload, identify scheduling conflicts, and maintain steady execution velocity.
-            </p>
-            <div className="space-y-1.5 text-xs text-slate-700 font-medium">
-              <p className="text-[11px] font-bold text-slate-900 uppercase">Key Features:</p>
-              <ul className="list-disc pl-4 space-y-1 font-normal text-[#3AB1EC]">
-                <li><span className="text-slate-700">Daily available hours budget vs task estimates</span></li>
-                <li><span className="text-slate-700">Time-blocking schedule grid</span></li>
-                <li><span className="text-slate-700">Conflict &amp; overcommitment alerts</span></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Skill Development */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#6366F1]" />
-                <h3 className="text-base font-bold text-slate-900">Learning &amp; Skill Development</h3>
-              </div>
-              <span className="text-[10px] font-bold text-[#6366F1] bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
-                Capability
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Track course progress, technical reading, certifications, and target skills. Link skill practice directly to active software projects for real-world application.
-            </p>
-            <div className="space-y-1.5 text-xs text-slate-700 font-medium">
-              <p className="text-[11px] font-bold text-slate-900 uppercase">Key Features:</p>
-              <ul className="list-disc pl-4 space-y-1 font-normal text-[#6366F1]">
-                <li><span className="text-slate-700">Skill verification levels (Beginner &rarr; Expert)</span></li>
-                <li><span className="text-slate-700">Learning resource linking &amp; progress logging</span></li>
-                <li><span className="text-slate-700">Direct integration with project execution</span></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Evidence Vault */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]" />
-                <h3 className="text-base font-bold text-slate-900">Evidence Vault &amp; Proof</h3>
-              </div>
-              <span className="text-[10px] font-bold text-[#22C55E] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                Verification
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Store concrete artifacts proving task and project completions. Keep pull request links, technical documentation, deployed sites, and test verification output in one verifiable vault.
-            </p>
-            <div className="space-y-1.5 text-xs text-slate-700 font-medium">
-              <p className="text-[11px] font-bold text-slate-900 uppercase">Key Features:</p>
-              <ul className="list-disc pl-4 space-y-1 font-normal text-[#22C55E]">
-                <li><span className="text-slate-700">Observable proof item repository</span></li>
-                <li><span className="text-slate-700">Verification URL &amp; artifact metadata tracking</span></li>
-                <li><span className="text-slate-700">Weekly review reflection attachments</span></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Opportunity Pipeline */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                <h3 className="text-base font-bold text-slate-900">Career Opportunity Pipeline</h3>
-              </div>
-              <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                Career
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Manage target job roles, academic applications, and client proposals. Map required role skills against verified evidence items to identify gaps and target interview preparation.
-            </p>
-            <div className="space-y-1.5 text-xs text-slate-700 font-medium">
-              <p className="text-[11px] font-bold text-slate-900 uppercase">Key Features:</p>
-              <ul className="list-disc pl-4 space-y-1 font-normal text-amber-700">
-                <li><span className="text-slate-700">Opportunity stage pipeline (Target &rarr; Applied &rarr; Offer)</span></li>
-                <li><span className="text-slate-700">Skill gap analysis against job descriptions</span></li>
-                <li><span className="text-slate-700">Evidence portfolio matching per application</span></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Intelligence Core */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#A855F7]" />
-                <h3 className="text-base font-bold text-slate-900">Intelligence Core (AI Advisory)</h3>
-              </div>
-              <span className="text-[10px] font-bold text-[#A855F7] bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
-                Intelligence
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Advisory layer reasoning over system state. Analyzes task progress, capacity conflicts, and evidence gaps to recommend high-impact actions while keeping human agency authoritative.
-            </p>
-            <div className="space-y-1.5 text-xs text-slate-700 font-medium">
-              <p className="text-[11px] font-bold text-slate-900 uppercase">Key Features:</p>
-              <ul className="list-disc pl-4 space-y-1 font-normal text-[#A855F7]">
-                <li><span className="text-slate-700">Deterministic Next Best Action recommendation</span></li>
-                <li><span className="text-slate-700">Contextual system state reasoning</span></li>
-                <li><span className="text-slate-700">Human confirmation for all state mutations</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+      {/* ── CONNECTED CAPABILITIES SERPENTINE ROADMAP ───────────────────────────── */}
+      <section>
+        <SerpentineRoadmap
+          title="Connected System Capabilities Architecture"
+          subtitle="No isolated silos. Information flows seamlessly between operational modules to turn goals into verifiable outcomes."
+          badgeText="INTERCONNECTED SYSTEM CAPABILITIES"
+          summaryBadgeText="SIX PILLARS"
+          summaryTitle="CONNECTED OPERATING SYSTEM ENGINE"
+          summaryDescription="Each capability module functions independently while sharing real-time system state across your personal operating environment."
+          summaryMetaText="KENENISA OS • CAPABILITIES SPECIFICATION"
+          steps={capabilitySteps}
+        />
       </section>
 
       {/* ── SECURITY & CONTROL ARCHITECTURE ─────────────────────────────────────── */}

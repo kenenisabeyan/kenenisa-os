@@ -1,7 +1,121 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SerpentineRoadmap, RoadmapStep } from '../components/common/SerpentineRoadmap.js';
 
 export const AboutPage: React.FC = () => {
+  const rdSteps: RoadmapStep[] = [
+    {
+      number: '01',
+      badgeTitle: 'PROBLEM DEFINITION',
+      title: 'PINPOINT OPERATIONAL GAPS',
+      subtitle: 'Identify Real Friction Before Coding.',
+      description:
+        'We analyze real-world operational fragmentation where academic coursework, engineering code, learning progress, and career opportunities exist in isolated silos.',
+      focusAreas: [
+        'Tool fragmentation analysis',
+        'Academic & engineering workflow audits',
+        'User pain point & bottleneck mapping',
+        'Core system objective definition',
+      ],
+      themeColor: '#6366F1',
+      bgBadgeColor: 'bg-indigo-50 border-indigo-200 text-[#6366F1]',
+      badgeTextColor: 'text-[#6366F1]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      ),
+    },
+    {
+      number: '02',
+      badgeTitle: 'ARCHITECTURE',
+      title: 'DESIGN & FORMULATE BLUEPRINTS',
+      subtitle: 'Architect Clean Contracts & Data Schemas.',
+      description:
+        'Construct clear information architecture, PostgreSQL schemas, domain service contracts, and UI design systems prior to writing production code.',
+      focusAreas: [
+        'Domain model & database schema design',
+        'REST API & controller specifications',
+        'Google Roboto design system & UI tokens',
+        'Deterministic state transition logic',
+      ],
+      themeColor: '#3B82F6',
+      bgBadgeColor: 'bg-blue-50 border-blue-200 text-[#3B82F6]',
+      badgeTextColor: 'text-[#3B82F6]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      ),
+    },
+    {
+      number: '03',
+      badgeTitle: 'IMPLEMENTATION',
+      title: 'BUILD MODULAR SOFTWARE',
+      subtitle: 'Engineering Execution Without Superficial Decoration.',
+      description:
+        'Develop resilient Express services, React SPA pages, state management hooks, and background execution algorithms focused on core system utility.',
+      focusAreas: [
+        'TypeScript API & Vite SPA implementation',
+        'Capacity & daily plan calculation engines',
+        'Evidence logging & artifact mapping',
+        'Argon2id auth & session management',
+      ],
+      themeColor: '#FF5A00',
+      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FF5A00]',
+      badgeTextColor: 'text-[#FF5A00]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      ),
+    },
+    {
+      number: '04',
+      badgeTitle: 'VERIFICATION',
+      title: 'TEST & COLLECT PROOF',
+      subtitle: 'Empirical Proof Before Declaring Success.',
+      description:
+        'Validate every feature using strict Vitest test suites, full TypeScript compilation checks, Vite production builds, and observable runtime evidence.',
+      focusAreas: [
+        'Automated API & Web Vitest test coverage',
+        'Strict tsc type-checking & linting',
+        'Production bundle optimization & audits',
+        'Empirical log-based error diagnosis',
+      ],
+      themeColor: '#22C55E',
+      bgBadgeColor: 'bg-emerald-50 border-emerald-200 text-[#22C55E]',
+      badgeTextColor: 'text-[#22C55E]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+    {
+      number: '05',
+      badgeTitle: 'EVOLUTION',
+      title: 'EVALUATE & CONTINUOUSLY EVOLVE',
+      subtitle: 'Refine Architecture Based on Real Execution Data.',
+      description:
+        'Refine capacity assumptions, upgrade UI components, integrate AI advisory insights, and evolve product capabilities through continuous iterative feedback.',
+      focusAreas: [
+        'System state & capacity audit review',
+        'Intelligence Core AI advisory optimization',
+        'Component refactoring & design system polish',
+        'Long-term product roadmap evolution',
+      ],
+      themeColor: '#A855F7',
+      bgBadgeColor: 'bg-purple-50 border-purple-200 text-[#A855F7]',
+      badgeTextColor: 'text-[#A855F7]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+    },
+  ];
+
   return (
     <div className="space-y-20" id="about-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
@@ -98,50 +212,18 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── ENGINEERING R&D APPROACH ────────────────────────────────────────────── */}
-      <section className="bg-white border border-slate-200/90 rounded-2xl p-8 shadow-xs space-y-6 max-w-4xl mx-auto">
-        <div className="text-center space-y-2">
-          <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
-            R&amp;D Methodology
-          </span>
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            The Engineering R&amp;D Approach
-          </h2>
-          <p className="text-xs text-slate-500 font-normal">
-            How features and methodologies in KENENISA OS are designed, tested, and established.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center text-xs">
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[10px] text-slate-400 font-bold uppercase">1. Problem</span>
-            <p className="font-bold text-slate-900">Define</p>
-          </div>
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[10px] text-[#3B82F6] font-bold uppercase">2. Question</span>
-            <p className="font-bold text-[#3B82F6]">Analyze</p>
-          </div>
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[10px] text-[#6366F1] font-bold uppercase">3. Design</span>
-            <p className="font-bold text-[#6366F1]">Architect</p>
-          </div>
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[10px] text-[#FF5A00] font-bold uppercase">4. Build</span>
-            <p className="font-bold text-[#FF5A00]">Implement</p>
-          </div>
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[10px] text-[#22C55E] font-bold uppercase">5. Test</span>
-            <p className="font-bold text-[#22C55E]">Verify</p>
-          </div>
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[10px] text-[#A855F7] font-bold uppercase">6. Evidence</span>
-            <p className="font-bold text-[#A855F7]">Collect</p>
-          </div>
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[10px] text-amber-700 font-bold uppercase">7. Result</span>
-            <p className="font-bold text-amber-700">Establish</p>
-          </div>
-        </div>
+      {/* ── ENGINEERING R&D ROADMAP (SERPENTINE TIMELINE) ────────────────────────── */}
+      <section>
+        <SerpentineRoadmap
+          title="Engineering R&D Methodology Roadmap"
+          subtitle="How features and system methodologies in KENENISA OS are designed, tested, verified, and established."
+          badgeText="R&D PROCESS & METHODOLOGY"
+          summaryBadgeText="FIVE PHASES"
+          summaryTitle="FROM HYPOTHESIS TO ESTABLISHED PROOF"
+          summaryDescription="Our product development follows strict scientific and software engineering principles to ensure every feature delivers genuine utility without unnecessary complexity."
+          summaryMetaText="KENENISA OS • R&D BLUEPRINT"
+          steps={rdSteps}
+        />
       </section>
 
       {/* ── HUMAN + AI BOUNDARY ────────────────────────────────────────────────── */}

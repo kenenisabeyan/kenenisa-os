@@ -1,8 +1,122 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { SerpentineRoadmap, RoadmapStep } from '../components/common/SerpentineRoadmap.js';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
+
+  const homeLoopSteps: RoadmapStep[] = [
+    {
+      number: '01',
+      badgeTitle: 'DIRECTION & TARGETS',
+      title: 'DEFINE STRATEGIC DIRECTION',
+      subtitle: 'Set Clear Objectives Before Execution.',
+      description:
+        'Establish high-level Workstreams (Engineering OS, University Coursework, Career Advancement) and quantitative Goals with target completion dates.',
+      focusAreas: [
+        'Workstream & trajectory definition',
+        'Strategic goal & milestone target setting',
+        'Academic & technical focus alignment',
+        'Core priority matrix setup',
+      ],
+      themeColor: '#6366F1',
+      bgBadgeColor: 'bg-indigo-50 border-indigo-200 text-[#6366F1]',
+      badgeTextColor: 'text-[#6366F1]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+        </svg>
+      ),
+    },
+    {
+      number: '02',
+      badgeTitle: 'WORK DECOMPOSITION',
+      title: 'STRUCTURE PROJECTS & TASKS',
+      subtitle: 'Break Ambition into Executable Units.',
+      description:
+        'Deconstruct goals into executable multi-stage Projects, sequential Milestones, and actionable Tasks with strict P0/P1/P2 priority tags and dependency graphs.',
+      focusAreas: [
+        'Project & milestone hierarchy breakdown',
+        'P0 Critical / P1 High priority tags',
+        'Dependency graph & blocker tracking',
+        'Deliverable & artifact definitions',
+      ],
+      themeColor: '#3B82F6',
+      bgBadgeColor: 'bg-blue-50 border-blue-200 text-[#3B82F6]',
+      badgeTextColor: 'text-[#3B82F6]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      ),
+    },
+    {
+      number: '03',
+      badgeTitle: 'CAPACITY MATCHING',
+      title: 'PLAN CAPACITY & TIME BLOCKS',
+      subtitle: 'Match Effort Against Available Focus Hours.',
+      description:
+        'Calculate real daily hours budget and allocate task effort into dedicated time blocks to eliminate overcommitment and scheduling collisions.',
+      focusAreas: [
+        'Daily & weekly capacity budgeting',
+        'Focus time-blocking schedule grid',
+        'Conflict & overload detection',
+        'Realistic task effort estimation',
+      ],
+      themeColor: '#3AB1EC',
+      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#3AB1EC]',
+      badgeTextColor: 'text-[#3AB1EC]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+    {
+      number: '04',
+      badgeTitle: 'DETERMINISTIC EXECUTION',
+      title: 'EXECUTE VIA NEXT BEST ACTION',
+      subtitle: 'Focus Deep Work on High-Impact Tasks.',
+      description:
+        'Work through unblocked tasks using system-derived Next Best Action selection based on strategic priority, target deadlines, and available capacity.',
+      focusAreas: [
+        'System-derived Next Best Action algorithm',
+        'Deep work focus session execution',
+        'Dependency resolution & unblocking',
+        'Real-time task completion tracking',
+      ],
+      themeColor: '#FF5A00',
+      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FF5A00]',
+      badgeTextColor: 'text-[#FF5A00]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+    },
+    {
+      number: '05',
+      badgeTitle: 'VERIFIED PROOF & CAREER',
+      title: 'PRODUCE EVIDENCE & ADVANCE CAREER',
+      subtitle: 'Turn Completed Work into Real Career Assets.',
+      description:
+        'Task completions generate observable proof items (PRs, commits, test passes, docs) stored in the Evidence Vault to power job applications and career advancement.',
+      focusAreas: [
+        'Observable proof artifact repository',
+        'Pull request & repository commit proof',
+        'Skill-to-opportunity pipeline matching',
+        'Continuous career trajectory evolution',
+      ],
+      themeColor: '#22C55E',
+      bgBadgeColor: 'bg-emerald-50 border-emerald-200 text-[#22C55E]',
+      badgeTextColor: 'text-[#22C55E]',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+  ];
 
   return (
     <div className="space-y-20" id="public-home-page">
@@ -11,7 +125,7 @@ export const HomePage: React.FC = () => {
         {/* Eyebrow Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#3B82F6] text-xs font-bold uppercase tracking-wider">
           <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
-          Personal Engineering & Career Operating System
+          Personal Engineering &amp; Career Operating System
         </div>
 
         {/* Headline */}
@@ -40,7 +154,7 @@ export const HomePage: React.FC = () => {
           </Link>
         </div>
 
-        {/* Interactive System Flow Diagram Visual */}
+        {/* System Architecture Bar */}
         <div className="pt-8 max-w-5xl mx-auto">
           <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between text-xs text-slate-500 pb-3 border-b border-slate-100">
@@ -80,6 +194,20 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ── HIGH-IMPACT SERPENTINE ROADMAP JOURNEY ──────────────────────────────── */}
+      <section>
+        <SerpentineRoadmap
+          title="Personal Engineering & Operating Loop"
+          subtitle="From strategic direction to observable evidence and career progression."
+          badgeText="SYSTEM OPERATING LOOP"
+          summaryBadgeText="FIVE PHASES"
+          summaryTitle="FROM DIRECTION TO DIGITAL PROOF"
+          summaryDescription="KENENISA OS replaces fragmented tools with one continuous operating system loop connecting goals, daily capacity, execution, and verifiable output."
+          summaryMetaText="KENENISA OS • OPERATING SYSTEM LOOP"
+          steps={homeLoopSteps}
+        />
       </section>
 
       {/* ── PROBLEM SECTION ──────────────────────────────────────────────────────── */}
@@ -139,11 +267,11 @@ export const HomePage: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-semibold">
           <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
             <span className="text-[#3B82F6]">Academic</span>
-            <p className="text-[11px] text-slate-500 font-normal">Coursework & Research</p>
+            <p className="text-[11px] text-slate-500 font-normal">Coursework &amp; Research</p>
           </div>
           <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
             <span className="text-[#6366F1]">Engineering</span>
-            <p className="text-[11px] text-slate-500 font-normal">Software & Architecture</p>
+            <p className="text-[11px] text-slate-500 font-normal">Software &amp; Architecture</p>
           </div>
           <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
             <span className="text-[#A855F7]">Skill Gain</span>
@@ -172,7 +300,7 @@ export const HomePage: React.FC = () => {
               Operational Command
             </span>
             <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-              Command Center & Intelligence Core
+              Command Center &amp; Intelligence Core
             </h2>
           </div>
           <button
