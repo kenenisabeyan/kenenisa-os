@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { fetchDashboard } from '../features/dashboard/api.js';
 import { startTask, completeTask, blockTask } from '../features/tasks/api.js';
 import { DashboardDto, TaskDto } from '@kenenisa-os/shared';
+import { PageHeader } from '../components/layout/PageHeader.js';
+import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 
 export const DashboardPage: React.FC = () => {
   const [data, setData] = useState<DashboardDto | null>(null);
@@ -64,26 +66,17 @@ export const DashboardPage: React.FC = () => {
 
   if (loading && !data) {
     return (
-      <div className="flex items-center justify-center min-h-[500px]" id="dashboard-loading">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-slate-400 text-sm font-medium">Initializing Command Center Engine...</p>
-        </div>
+      <div className="space-y-6" id="dashboard-loading">
+        <PageHeader title="Command Center" description="Deterministic execution recommendations and personal operating status." />
+        <LoadingSkeleton rows={4} height="h-32" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-6 text-center my-8" id="dashboard-error">
-        <h3 className="text-red-400 font-bold text-lg mb-2">Error Loading Dashboard</h3>
-        <p className="text-slate-300 text-sm mb-4">{error}</p>
-        <button
-          onClick={() => { void loadDashboard(); }}
-          className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-xl text-xs shadow-lg transition-all"
-        >
-          Retry Load
-        </button>
+      <div className="my-8" id="dashboard-error">
+        <ErrorStateCard title="Error Loading Command Center" message={error} onRetry={() => void loadDashboard()} />
       </div>
     );
   }
@@ -95,7 +88,7 @@ export const DashboardPage: React.FC = () => {
   const priorityColor = (priority: TaskDto['priority']) => {
     switch (priority) {
       case 'P0':
-        return 'bg-red-500/10 text-red-400 border-red-500/30';
+        return 'bg-rose-500/10 text-rose-400 border-rose-500/30';
       case 'P1':
         return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
       case 'P2':
@@ -107,22 +100,11 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <div className="space-y-8 pb-12" id="command-center-dashboard">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 uppercase tracking-wider">
-              Step 6 Engine
-            </span>
-            <span className="text-xs text-slate-400">Target Date: {today.date}</span>
-          </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight mt-1">Command Center</h1>
-          <p className="text-slate-400 text-sm mt-1">
-            Deterministic execution recommendations and personal operating status.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
+      <PageHeader
+        title="Command Center"
+        description="Deterministic execution recommendations and personal operating status."
+        breadcrumbs={[{ label: 'Command Center' }, { label: 'Today' }]}
+        actions={
           <button
             id="refresh-dashboard-btn"
             onClick={() => { void loadDashboard(); }}
@@ -139,8 +121,8 @@ export const DashboardPage: React.FC = () => {
             </svg>
             Refresh System
           </button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Hero: Next Best Action Card */}
       <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 border border-cyan-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden" id="next-best-action-card">
