@@ -131,9 +131,7 @@ export const DashboardPage: React.FC = () => {
       />
 
       {/* Hero: Next Best Action Card */}
-      <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden" id="next-best-action-card">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#3AB1EC]/5 rounded-full blur-3xl pointer-events-none" />
-
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm relative" id="next-best-action-card">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-[#3AB1EC] animate-ping" />

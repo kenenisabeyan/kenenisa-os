@@ -14,22 +14,20 @@ declare const _default: {
                     bgLight: string;
                 };
                 bgLight: string;
-                slate: {
-                    925: string;
-                    950: string;
-                };
             };
             fontFamily: {
                 sans: [string, string, string, string, string, string, string];
                 mono: [string, string, string, string, string, string];
             };
             boxShadow: {
-                glow: string;
-                'glow-lg': string;
+                xs: string;
+                sm: string;
+                md: string;
                 card: string;
                 'card-hover': string;
             };
             borderRadius: {
+                xl: string;
                 '2xl': string;
                 '3xl': string;
             };
