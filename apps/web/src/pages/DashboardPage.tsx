@@ -4,8 +4,10 @@ import { startTask, completeTask, blockTask } from '../features/tasks/api.js';
 import { DashboardDto, TaskDto } from '@kenenisa-os/shared';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const DashboardPage: React.FC = () => {
+  const { showToast } = useToast();
   const [data, setData] = useState<DashboardDto | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,9 +34,10 @@ export const DashboardPage: React.FC = () => {
     try {
       setActionLoading(taskId);
       await startTask(taskId);
+      showToast('Task started successfully', 'success');
       await loadDashboard();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to start task');
+      showToast(err instanceof Error ? err.message : 'Failed to start task', 'error');
     } finally {
       setActionLoading(null);
     }
@@ -44,9 +47,10 @@ export const DashboardPage: React.FC = () => {
     try {
       setActionLoading(taskId);
       await completeTask(taskId);
+      showToast('Task completed', 'success');
       await loadDashboard();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to complete task');
+      showToast(err instanceof Error ? err.message : 'Failed to complete task', 'error');
     } finally {
       setActionLoading(null);
     }
@@ -56,13 +60,15 @@ export const DashboardPage: React.FC = () => {
     try {
       setActionLoading(taskId);
       await blockTask(taskId);
+      showToast('Task marked as blocked', 'warning');
       await loadDashboard();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to mark task as blocked');
+      showToast(err instanceof Error ? err.message : 'Failed to mark task as blocked', 'error');
     } finally {
       setActionLoading(null);
     }
   };
+
 
   if (loading && !data) {
     return (

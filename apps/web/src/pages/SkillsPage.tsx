@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { fetchSkills, fetchSkillById, createSkill, updateSkill, archiveSkill } from '../features/learning/api.js';
 import type { SkillDto, SkillDetailDto, SkillLevel } from '@kenenisa-os/shared';
+import { useToast } from '../components/ui/Toast.js';
 
 export function SkillsPage() {
+  const { showToast } = useToast();
   const [skills, setSkills] = useState<SkillDto[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<SkillDetailDto | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +54,7 @@ export function SkillsPage() {
       const detail = await fetchSkillById(id);
       setSelectedSkill(detail);
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to load skill details');
+      showToast(err instanceof Error ? err.message : 'Failed to load skill details', 'error');
     }
   };
 
@@ -71,9 +73,10 @@ export function SkillsPage() {
       setName('');
       setCategory('');
       setDescription('');
+      showToast('Skill created successfully', 'success');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create skill');
+      showToast(err instanceof Error ? err.message : 'Failed to create skill', 'error');
     }
   };
 
@@ -89,12 +92,13 @@ export function SkillsPage() {
         targetLevel,
       });
       setEditSkill(null);
+      showToast('Skill updated successfully', 'success');
       void loadData();
       if (selectedSkill?.id === editSkill.id) {
         void handleSelectSkill(editSkill.id);
       }
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to update skill');
+      showToast(err instanceof Error ? err.message : 'Failed to update skill', 'error');
     }
   };
 
@@ -103,9 +107,10 @@ export function SkillsPage() {
     try {
       await archiveSkill(id);
       if (selectedSkill?.id === id) setSelectedSkill(null);
+      showToast('Skill archived', 'info');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to archive skill');
+      showToast(err instanceof Error ? err.message : 'Failed to archive skill', 'error');
     }
   };
 

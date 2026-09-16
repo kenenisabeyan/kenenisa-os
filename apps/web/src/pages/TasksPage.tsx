@@ -16,8 +16,10 @@ import { fetchProjects } from '../features/projects/api.js';
 import { fetchMilestones } from '../features/milestones/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const TasksPage: React.FC = () => {
+  const { showToast } = useToast();
   const [tasks, setTasks] = useState<TaskDto[]>([]);
   const [projects, setProjects] = useState<ProjectDto[]>([]);
   const [milestones, setMilestones] = useState<MilestoneDto[]>([]);
@@ -113,9 +115,10 @@ export const TasksPage: React.FC = () => {
       setDescription('');
       setMilestoneId('');
       setDueDate('');
+      showToast('Task created successfully', 'success');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create task');
+      showToast(err instanceof Error ? err.message : 'Failed to create task', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -135,9 +138,10 @@ export const TasksPage: React.FC = () => {
 
       setActiveParentTask(null);
       setSubtaskTitle('');
+      showToast('Subtask added', 'success');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create subtask');
+      showToast(err instanceof Error ? err.message : 'Failed to create subtask', 'error');
     }
   };
 
@@ -153,65 +157,73 @@ export const TasksPage: React.FC = () => {
 
       setActiveDepTask(null);
       setBlockingTaskId('');
+      showToast('Task dependency added', 'success');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to add dependency');
+      showToast(err instanceof Error ? err.message : 'Failed to add dependency', 'error');
     }
   };
 
   const handleRemoveDependency = async (dependentTaskId: string, dependencyId: string) => {
     try {
       await removeTaskDependency(dependentTaskId, dependencyId);
+      showToast('Task dependency removed', 'info');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to remove dependency');
+      showToast(err instanceof Error ? err.message : 'Failed to remove dependency', 'error');
     }
   };
 
   const handleStart = async (id: string) => {
     try {
       await startTask(id);
+      showToast('Task started', 'success');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to start task');
+      showToast(err instanceof Error ? err.message : 'Failed to start task', 'error');
     }
   };
 
   const handleBlock = async (id: string) => {
     try {
       await blockTask(id);
+      showToast('Task marked as blocked', 'warning');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to block task');
+      showToast(err instanceof Error ? err.message : 'Failed to block task', 'error');
     }
   };
 
   const handleComplete = async (id: string) => {
     try {
       await completeTask(id);
+      showToast('Task completed', 'success');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to complete task');
+      showToast(err instanceof Error ? err.message : 'Failed to complete task', 'error');
     }
   };
 
   const handleReopen = async (id: string) => {
     try {
       await reopenTask(id);
+      showToast('Task reopened', 'info');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to reopen task');
+      showToast(err instanceof Error ? err.message : 'Failed to reopen task', 'error');
     }
   };
 
   const handleCancel = async (id: string) => {
     try {
       await cancelTask(id);
+      showToast('Task cancelled', 'info');
       await loadTasks();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to cancel task');
+      showToast(err instanceof Error ? err.message : 'Failed to cancel task', 'error');
     }
   };
+
 
   const filteredMilestonesForProject = milestones.filter(
     (m) => !projectId || m.projectId === projectId,

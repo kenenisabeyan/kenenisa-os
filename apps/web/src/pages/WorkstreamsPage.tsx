@@ -4,8 +4,10 @@ import { fetchWorkstreams, createWorkstream, archiveWorkstream } from '../featur
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const WorkstreamsPage: React.FC = () => {
+  const { showToast } = useToast();
   const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +31,7 @@ export const WorkstreamsPage: React.FC = () => {
       });
       setWorkstreams(data);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'An error occurred loading workstreams');
+      setError(err instanceof Error ? err.message : 'Failed to load workstreams');
     } finally {
       setLoading(false);
     }
@@ -55,9 +57,10 @@ export const WorkstreamsPage: React.FC = () => {
       setName('');
       setDescription('');
       setPriorityWeight(5);
+      showToast('Workstream created successfully', 'success');
       await loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create workstream');
+      showToast(err instanceof Error ? err.message : 'Failed to create workstream', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -67,9 +70,10 @@ export const WorkstreamsPage: React.FC = () => {
     if (!confirm(`Archive workstream "${wsName}"?`)) return;
     try {
       await archiveWorkstream(id);
+      showToast(`Workstream "${wsName}" archived`, 'info');
       await loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to archive workstream');
+      showToast(err instanceof Error ? err.message : 'Failed to archive workstream', 'error');
     }
   };
 

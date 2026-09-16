@@ -47,23 +47,34 @@ export const MobileBottomBar: React.FC = () => {
   ];
 
   return (
-    <nav aria-label="Mobile Bottom Navigation" className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-slate-900/95 border-t border-slate-800 backdrop-blur-md z-40 flex items-center justify-around px-2">
+    <nav
+      aria-label="Mobile Navigation Bar"
+      className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-slate-900/95 border-t border-slate-800 backdrop-blur-md z-40 flex items-center justify-around px-2 select-none"
+    >
       {primaryLinks.map((link) => (
         <NavLink
           key={link.path}
           to={link.path}
+          aria-label={link.label}
           className={({ isActive }) =>
-            `flex flex-col items-center justify-center w-16 py-1 rounded-lg text-[10px] font-medium transition-colors ${
-              isActive ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            `flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-2 rounded-xl text-[10px] font-semibold transition-all ${
+              isActive
+                ? 'text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/20'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`
           }
         >
-          <svg className="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={link.icon} />
-          </svg>
-          {link.label}
+          {({ isActive }) => (
+            <>
+              <svg className={`w-5 h-5 mb-0.5 ${isActive ? 'text-cyan-400' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={link.icon} />
+              </svg>
+              <span>{link.label}</span>
+            </>
+          )}
         </NavLink>
       ))}
     </nav>
   );
 };
+
