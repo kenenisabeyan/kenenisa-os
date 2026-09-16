@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.js';
 import { loginSchema } from '@kenenisa-os/shared';
 import { ApiError } from '../lib/api-client.js';
@@ -60,6 +60,20 @@ export const LoginPage: React.FC = () => {
       <div className="w-full max-w-md bg-white border border-slate-200/90 rounded-3xl p-8 shadow-xl relative z-10">
         {/* Branding Header */}
         <div className="text-center mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#3B82F6] transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span>Back to Website</span>
+            </Link>
+            <span className="text-[10px] font-bold text-[#3B82F6] uppercase bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+              Pre-Auth
+            </span>
+          </div>
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#3AB1EC] to-[#3B82F6] text-white font-extrabold text-2xl shadow-lg shadow-blue-500/20 mb-4">
             K
           </div>
