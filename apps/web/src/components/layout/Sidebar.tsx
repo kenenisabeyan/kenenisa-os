@@ -16,6 +16,8 @@ export const navSections: NavSection[] = [
     title: 'COMMAND CENTER',
     items: [
       { label: 'Command Center', path: '/app/dashboard' },
+      { label: 'Executive Overview', path: '/app/executive' },
+      { label: 'Work Intelligence', path: '/app/work-intelligence' },
       { label: 'Tasks', path: '/app/tasks' },
       { label: 'Planning', path: '/app/planning' },
     ],
@@ -40,13 +42,14 @@ export const navSections: NavSection[] = [
     title: 'PROOF',
     items: [
       { label: 'Evidence', path: '/app/evidence' },
-      { label: 'Reviews', path: '/app/reviews' },
+      { label: 'Weekly Review', path: '/app/reviews' },
     ],
   },
   {
     title: 'GROW',
     items: [
       { label: 'Analytics', path: '/app/analytics' },
+      { label: 'Career Hub', path: '/app/career' },
       { label: 'Opportunities', path: '/app/opportunities' },
     ],
   },

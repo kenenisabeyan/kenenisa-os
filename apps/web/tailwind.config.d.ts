@@ -16,7 +16,7 @@ declare const _default: {
                 bgLight: string;
             };
             fontFamily: {
-                sans: [string, string, string, string, string, string, string];
+                sans: [string, string];
                 mono: [string, string, string, string, string, string];
             };
             boxShadow: {
