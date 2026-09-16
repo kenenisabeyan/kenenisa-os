@@ -215,8 +215,14 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
 
       {/* ── TOP SUMMARY CARD ───────────────────────────────────────────────────── */}
       <div className="mb-16 max-w-md">
-        <div className="relative bg-white border border-cyan-300/80 rounded-2xl p-6 shadow-md shadow-cyan-500/5 space-y-3 group hover:border-[#3AB1EC] transition-all">
-          <div className="flex items-center justify-between">
+        <div className="relative bg-white border border-cyan-300/80 rounded-2xl p-6 shadow-md shadow-cyan-500/5 space-y-3 group hover:border-[#3AB1EC] transition-all overflow-hidden">
+          {/* Subtle Watermark Graphic (Matching reference image watermark) */}
+          <div className="absolute right-2 bottom-2 pointer-events-none opacity-15 select-none font-black text-xs text-[#3AB1EC] tracking-widest uppercase flex flex-col items-end leading-tight">
+            <span>KENENISA OS</span>
+            <span>GLOBAL</span>
+          </div>
+
+          <div className="flex items-center justify-between relative z-10">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#3AB1EC]">
               {summaryBadgeText}
             </span>
@@ -224,13 +230,13 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
               K
             </div>
           </div>
-          <h3 className="text-base font-extrabold text-slate-900 leading-snug">
+          <h3 className="text-base font-extrabold text-slate-900 leading-snug relative z-10">
             {summaryTitle}
           </h3>
-          <p className="text-xs text-slate-600 leading-relaxed font-normal">
+          <p className="text-xs text-slate-600 leading-relaxed font-normal relative z-10">
             {summaryDescription}
           </p>
-          <div className="pt-1 text-[9px] font-mono text-[#3AB1EC] tracking-widest uppercase">
+          <div className="pt-1 text-[9px] font-mono text-[#3AB1EC] tracking-widest uppercase relative z-10">
             {summaryMetaText}
           </div>
         </div>
