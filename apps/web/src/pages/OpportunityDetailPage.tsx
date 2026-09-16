@@ -144,66 +144,66 @@ export const OpportunityDetailPage: React.FC = () => {
       {/* Back button */}
       <button
         onClick={() => { void navigate('/app/opportunities'); }}
-        className="text-xs text-slate-400 font-semibold flex items-center gap-1 hover:text-white transition-colors"
+        className="text-xs text-slate-500 font-semibold flex items-center gap-1 hover:text-slate-900 transition-colors"
       >
         ← Back to Opportunities
       </button>
 
       {/* Header Card */}
-      <div className="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl space-y-4 shadow-xl">
+      <div className="bg-white border border-slate-200/90 p-6 rounded-2xl space-y-4 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase">
+              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200 uppercase">
                 {opportunity.type.replace('_', ' ')}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-200 border border-slate-700">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
                 {opportunity.status}
               </span>
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">{opportunity.title}</h1>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{opportunity.title}</h1>
             {opportunity.organizationName && (
-              <p className="text-xs text-slate-400 font-medium">
-                Organization: <span className="text-slate-200 font-semibold">{opportunity.organizationName}</span>
+              <p className="text-xs text-slate-500 font-medium">
+                Organization: <span className="text-slate-900 font-semibold">{opportunity.organizationName}</span>
               </p>
             )}
           </div>
 
           {/* Quick Lifecycle Actions */}
-          <div className="flex flex-wrap items-center gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+          <div className="flex flex-wrap items-center gap-1.5 bg-slate-50 p-1.5 rounded-xl border border-slate-200">
             <button
               onClick={() => { void handleStatusTransition('apply'); }}
-              className="px-2.5 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-[11px] font-semibold"
+              className="px-2.5 py-1 rounded bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 text-[11px] font-semibold transition-colors"
             >
               Applied
             </button>
             <button
               onClick={() => { void handleStatusTransition('interview'); }}
-              className="px-2.5 py-1 rounded bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[11px] font-semibold"
+              className="px-2.5 py-1 rounded bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-[11px] font-semibold transition-colors"
             >
               Interview
             </button>
             <button
               onClick={() => { void handleStatusTransition('offer'); }}
-              className="px-2.5 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold"
+              className="px-2.5 py-1 rounded bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-[11px] font-semibold transition-colors"
             >
               Offered
             </button>
             <button
               onClick={() => { void handleStatusTransition('accept'); }}
-              className="px-2.5 py-1 rounded bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[11px] font-semibold"
+              className="px-2.5 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-semibold transition-colors"
             >
               Accepted
             </button>
             <button
               onClick={() => { void handleStatusTransition('complete'); }}
-              className="px-2.5 py-1 rounded bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-[11px] font-semibold"
+              className="px-2.5 py-1 rounded bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 text-[11px] font-semibold transition-colors"
             >
               Completed
             </button>
             <button
               onClick={() => { void handleStatusTransition('reject'); }}
-              className="px-2.5 py-1 rounded bg-red-950/40 hover:bg-red-900/50 text-red-300 border border-red-800/40 text-[11px] font-semibold"
+              className="px-2.5 py-1 rounded bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-[11px] font-semibold transition-colors"
             >
               Rejected
             </button>
@@ -211,28 +211,28 @@ export const OpportunityDetailPage: React.FC = () => {
         </div>
 
         {/* Opportunity Details Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-800/60 text-xs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100 text-xs">
           <div>
-            <span className="text-slate-400">Source:</span>
-            <div className="font-semibold text-slate-200 mt-0.5">{opportunity.source}</div>
+            <span className="text-slate-500">Source:</span>
+            <div className="font-semibold text-slate-900 mt-0.5">{opportunity.source}</div>
           </div>
           <div>
-            <span className="text-slate-400">Value Estimate:</span>
-            <div className="font-semibold text-emerald-400 mt-0.5">
+            <span className="text-slate-500">Value Estimate:</span>
+            <div className="font-semibold text-emerald-600 mt-0.5">
               {opportunity.estimatedValue
                 ? `${opportunity.currency} ${opportunity.estimatedValue.toLocaleString()}`
                 : 'Unspecified'}
             </div>
           </div>
           <div>
-            <span className="text-slate-400">Deadline:</span>
-            <div className="font-semibold text-amber-400 mt-0.5">
+            <span className="text-slate-500">Deadline:</span>
+            <div className="font-semibold text-amber-700 mt-0.5">
               {opportunity.deadline ? opportunity.deadline.split('T')[0] : 'None'}
             </div>
           </div>
           <div>
-            <span className="text-slate-400">Follow-up Date:</span>
-            <div className="font-semibold text-purple-300 mt-0.5">
+            <span className="text-slate-500">Follow-up Date:</span>
+            <div className="font-semibold text-purple-700 mt-0.5">
               {opportunity.followUpDate ? opportunity.followUpDate.split('T')[0] : 'None'}
             </div>
           </div>
@@ -244,15 +244,15 @@ export const OpportunityDetailPage: React.FC = () => {
         {/* Left Column: Linked Artifacts */}
         <div className="lg:col-span-2 space-y-6">
           {/* Linked Skills */}
-          <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-3 shadow-xs">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
                 <span>Relevant Skills</span>
-                <span className="text-xs text-slate-400 font-normal">({opportunity.skills.length})</span>
+                <span className="text-xs text-slate-500 font-normal">({opportunity.skills.length})</span>
               </h3>
               <button
                 onClick={() => setActiveLinkType('skill')}
-                className="text-xs text-cyan-400 hover:underline font-semibold"
+                className="text-xs text-blue-600 hover:underline font-semibold"
               >
                 + Link Skill
               </button>
@@ -265,12 +265,12 @@ export const OpportunityDetailPage: React.FC = () => {
                 {opportunity.skills.map((s) => (
                   <span
                     key={s.id}
-                    className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs rounded-lg font-medium"
+                    className="inline-flex items-center gap-2 px-3 py-1 bg-purple-50 border border-purple-200 text-purple-700 text-xs rounded-lg font-medium"
                   >
                     <span>{s.skill?.name || s.skillId}</span>
                     <button
                       onClick={() => { void handleUnlink('skill', s.skillId); }}
-                      className="text-purple-400 hover:text-white text-xs font-bold"
+                      className="text-purple-500 hover:text-purple-800 text-xs font-bold"
                     >
                       ×
                     </button>
@@ -281,15 +281,15 @@ export const OpportunityDetailPage: React.FC = () => {
           </div>
 
           {/* Linked Projects */}
-          <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-3 shadow-xs">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
                 <span>Supporting Projects</span>
-                <span className="text-xs text-slate-400 font-normal">({opportunity.projects.length})</span>
+                <span className="text-xs text-slate-500 font-normal">({opportunity.projects.length})</span>
               </h3>
               <button
                 onClick={() => setActiveLinkType('project')}
-                className="text-xs text-cyan-400 hover:underline font-semibold"
+                className="text-xs text-blue-600 hover:underline font-semibold"
               >
                 + Link Project
               </button>
@@ -302,12 +302,12 @@ export const OpportunityDetailPage: React.FC = () => {
                 {opportunity.projects.map((p) => (
                   <div
                     key={p.id}
-                    className="flex items-center justify-between p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs"
+                    className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs"
                   >
-                    <span className="font-semibold text-slate-200">{p.project?.name || p.projectId}</span>
+                    <span className="font-semibold text-slate-800">{p.project?.name || p.projectId}</span>
                     <button
                       onClick={() => { void handleUnlink('project', p.projectId); }}
-                      className="text-slate-400 hover:text-red-400 text-xs font-semibold"
+                      className="text-slate-400 hover:text-rose-600 text-xs font-semibold"
                     >
                       Unlink
                     </button>
@@ -318,15 +318,15 @@ export const OpportunityDetailPage: React.FC = () => {
           </div>
 
           {/* Supporting Evidence */}
-          <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-3 shadow-xs">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
                 <span>Supporting Evidence</span>
-                <span className="text-xs text-slate-400 font-normal">({opportunity.evidence.length})</span>
+                <span className="text-xs text-slate-500 font-normal">({opportunity.evidence.length})</span>
               </h3>
               <button
                 onClick={() => setActiveLinkType('evidence')}
-                className="text-xs text-cyan-400 hover:underline font-semibold"
+                className="text-xs text-blue-600 hover:underline font-semibold"
               >
                 + Link Evidence
               </button>
@@ -339,15 +339,15 @@ export const OpportunityDetailPage: React.FC = () => {
                 {opportunity.evidence.map((e) => (
                   <div
                     key={e.id}
-                    className="flex items-center justify-between p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs"
+                    className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs"
                   >
                     <div>
-                      <span className="font-semibold text-slate-200">{e.evidence?.title || e.evidenceId}</span>
-                      <span className="ml-2 text-[10px] text-cyan-400">{e.evidence?.type}</span>
+                      <span className="font-semibold text-slate-800">{e.evidence?.title || e.evidenceId}</span>
+                      <span className="ml-2 text-[10px] text-sky-600 font-medium">{e.evidence?.type}</span>
                     </div>
                     <button
                       onClick={() => { void handleUnlink('evidence', e.evidenceId); }}
-                      className="text-slate-400 hover:text-red-400 text-xs font-semibold"
+                      className="text-slate-400 hover:text-rose-600 text-xs font-semibold"
                     >
                       Unlink
                     </button>
@@ -358,15 +358,15 @@ export const OpportunityDetailPage: React.FC = () => {
           </div>
 
           {/* Action Tasks */}
-          <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-3 shadow-xs">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
                 <span>Preparation & Action Tasks</span>
-                <span className="text-xs text-slate-400 font-normal">({opportunity.tasks.length})</span>
+                <span className="text-xs text-slate-500 font-normal">({opportunity.tasks.length})</span>
               </h3>
               <button
                 onClick={() => setActiveLinkType('task')}
-                className="text-xs text-cyan-400 hover:underline font-semibold"
+                className="text-xs text-blue-600 hover:underline font-semibold"
               >
                 + Link Task
               </button>
@@ -379,15 +379,15 @@ export const OpportunityDetailPage: React.FC = () => {
                 {opportunity.tasks.map((t) => (
                   <div
                     key={t.id}
-                    className="flex items-center justify-between p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs"
+                    className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs"
                   >
                     <div>
-                      <span className="font-semibold text-slate-200">{t.task?.title || t.taskId}</span>
-                      <span className="ml-2 text-[10px] text-slate-400">{t.task?.status}</span>
+                      <span className="font-semibold text-slate-800">{t.task?.title || t.taskId}</span>
+                      <span className="ml-2 text-[10px] text-slate-500">{t.task?.status}</span>
                     </div>
                     <button
                       onClick={() => { void handleUnlink('task', t.taskId); }}
-                      className="text-slate-400 hover:text-red-400 text-xs font-semibold"
+                      className="text-slate-400 hover:text-rose-600 text-xs font-semibold"
                     >
                       Unlink
                     </button>
@@ -400,8 +400,8 @@ export const OpportunityDetailPage: React.FC = () => {
 
         {/* Right Column: Professional Timeline Log */}
         <div className="space-y-6">
-          <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl space-y-4">
-            <h3 className="text-sm font-semibold text-white">Professional Timeline Log</h3>
+          <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-4 shadow-xs">
+            <h3 className="text-sm font-semibold text-slate-900">Professional Timeline Log</h3>
 
             <form onSubmit={(e) => { void handleAddActivity(e); }} className="space-y-3 text-xs">
               <input
@@ -410,34 +410,34 @@ export const OpportunityDetailPage: React.FC = () => {
                 placeholder="Log activity title (e.g. Sent follow-up email)"
                 value={actTitle}
                 onChange={(e) => setActTitle(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
               />
               <textarea
                 rows={2}
                 placeholder="Notes or conversation details..."
                 value={actDesc}
                 onChange={(e) => setActDesc(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500 resize-none"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none"
               />
               <button
                 type="submit"
-                className="w-full py-2 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold rounded-lg transition-colors"
+                className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg transition-colors shadow-xs"
               >
                 Log Activity
               </button>
             </form>
 
-            <div className="space-y-3 pt-3 border-t border-slate-800">
+            <div className="space-y-3 pt-3 border-t border-slate-100">
               {opportunity.activities.length === 0 ? (
                 <p className="text-xs text-slate-500">No activity logs recorded.</p>
               ) : (
                 opportunity.activities.map((a) => (
-                  <div key={a.id} className="p-3 bg-slate-950 border border-slate-800/80 rounded-xl space-y-1 text-xs">
+                  <div key={a.id} className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1 text-xs">
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-200">{a.title}</span>
-                      <span className="text-[10px] text-slate-500">{a.occurredAt.split('T')[0]}</span>
+                      <span className="font-semibold text-slate-800">{a.title}</span>
+                      <span className="text-[10px] text-slate-400">{a.occurredAt.split('T')[0]}</span>
                     </div>
-                    {a.description && <p className="text-slate-400 text-[11px]">{a.description}</p>}
+                    {a.description && <p className="text-slate-600 text-[11px]">{a.description}</p>}
                   </div>
                 ))
               )}
@@ -448,18 +448,18 @@ export const OpportunityDetailPage: React.FC = () => {
 
       {/* Linker Modal */}
       {activeLinkType && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-bold text-white capitalize">Link {activeLinkType}</h3>
-              <button onClick={() => setActiveLinkType(null)} className="text-slate-400 hover:text-white font-bold">
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-lg">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="text-sm font-bold text-slate-900 capitalize">Link {activeLinkType}</h3>
+              <button onClick={() => setActiveLinkType(null)} className="text-slate-400 hover:text-slate-600 font-bold">
                 ✕
               </button>
             </div>
 
             <form onSubmit={(e) => { void handleLinkSubmit(e); }} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-400 font-medium mb-1">
+                <label className="block text-slate-700 font-medium mb-1">
                   Enter {activeLinkType} ID (UUID)
                 </label>
                 <input
@@ -468,7 +468,7 @@ export const OpportunityDetailPage: React.FC = () => {
                   placeholder={`Paste ${activeLinkType} ID...`}
                   value={linkInputId}
                   onChange={(e) => setLinkInputId(e.target.value)}
-                  className="w-full px-3.5 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
@@ -476,15 +476,15 @@ export const OpportunityDetailPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setActiveLinkType(null)}
-                  className="px-4 py-2 bg-slate-800 text-slate-300 font-semibold text-xs rounded-xl"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold text-xs rounded-xl"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-xs transition-colors"
                 >
-                  Link {activeLinkType}
+                  Confirm Link
                 </button>
               </div>
             </form>
