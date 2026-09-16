@@ -549,6 +549,10 @@ export const analyticsQuerySchema = z.object({
   to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be YYYY-MM-DD format').optional(),
   period: analyticsPeriodSchema.optional().default('month'),
   granularity: analyticsGranularitySchema.optional().default('day'),
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(100).default(50),
+  limit: z.coerce.number().int().positive().max(100).optional(),
+  offset: z.coerce.number().int().min(0).optional(),
 });
 
 // ── Opportunities Schemas ────────────────────────────────────────────────────

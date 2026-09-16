@@ -828,6 +828,10 @@ export interface AnalyticsQuery {
   to?: string;
   period?: AnalyticsPeriod;
   granularity?: AnalyticsGranularity;
+  page?: number;
+  pageSize?: number;
+  limit?: number;
+  offset?: number;
 }
 
 export interface AnalyticsOverviewDto {

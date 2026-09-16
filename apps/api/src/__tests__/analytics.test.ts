@@ -69,4 +69,17 @@ describe('Analytics & Personal Operating Intelligence Unit Suite', () => {
     expect(typeof service.getReviewAnalytics).toBe('function');
     expect(typeof service.getWeeklyHistory).toBe('function');
   });
+
+  it('OPT-001: parses page, pageSize, limit, and offset pagination parameters in analyticsQuerySchema', () => {
+    const parsedPagination = analyticsQuerySchema.parse({
+      page: 2,
+      pageSize: 25,
+      limit: 25,
+      offset: 25,
+    });
+    expect(parsedPagination.page).toBe(2);
+    expect(parsedPagination.pageSize).toBe(25);
+    expect(parsedPagination.limit).toBe(25);
+    expect(parsedPagination.offset).toBe(25);
+  });
 });

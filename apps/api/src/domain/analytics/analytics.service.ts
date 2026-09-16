@@ -893,13 +893,19 @@ export class AnalyticsService {
   /**
    * 16. Weekly Operating History
    */
-  async getWeeklyHistory(userId: string, _query: AnalyticsQuery): Promise<WeeklyHistorySnapshotDto[]> {
+  async getWeeklyHistory(userId: string, query: AnalyticsQuery): Promise<WeeklyHistorySnapshotDto[]> {
+    const limit = query.limit ?? query.pageSize ?? 50;
+    const offset = query.offset ?? (query.page ? (query.page - 1) * limit : 0);
+    const take = Math.min(100, Math.max(1, limit));
+    const skip = Math.max(0, offset);
+
     const [weeklyPlans, reviews, tasks, dailyPlans, learningActivities, evidenceList, projects] =
       await Promise.all([
         prisma.weeklyPlan.findMany({
           where: { userId },
           orderBy: { weekStart: 'desc' },
-          take: 12,
+          take,
+          skip,
         }),
         prisma.weeklyReview.findMany({ where: { userId } }),
         prisma.task.findMany({ where: { userId } }),
