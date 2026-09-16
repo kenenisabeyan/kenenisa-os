@@ -165,43 +165,43 @@ export function LearningPage() {
       {/* Metrics Banner */}
       {metrics && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3.5">
-            <p className="text-xs font-medium text-slate-400">Learning Items</p>
-            <p className="text-2xl font-bold text-slate-100 mt-1">{metrics.totalItems}</p>
+          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
+            <p className="text-xs font-medium text-slate-500">Learning Items</p>
+            <p className="text-2xl font-bold text-slate-900 mt-1">{metrics.totalItems}</p>
           </div>
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3.5">
-            <p className="text-xs font-medium text-slate-400">In Progress</p>
-            <p className="text-2xl font-bold text-cyan-400 mt-1">{metrics.inProgressItems}</p>
+          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
+            <p className="text-xs font-medium text-slate-500">In Progress</p>
+            <p className="text-2xl font-bold text-sky-600 mt-1">{metrics.inProgressItems}</p>
           </div>
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3.5">
-            <p className="text-xs font-medium text-slate-400">Completed</p>
-            <p className="text-2xl font-bold text-emerald-400 mt-1">{metrics.completedItems}</p>
+          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
+            <p className="text-xs font-medium text-slate-500">Completed</p>
+            <p className="text-2xl font-bold text-emerald-600 mt-1">{metrics.completedItems}</p>
           </div>
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3.5">
-            <p className="text-xs font-medium text-slate-400">Logged Time</p>
-            <p className="text-2xl font-bold text-amber-400 mt-1">{Math.round(metrics.totalLoggedMinutes / 60)}h</p>
+          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
+            <p className="text-xs font-medium text-slate-500">Logged Time</p>
+            <p className="text-2xl font-bold text-amber-600 mt-1">{Math.round(metrics.totalLoggedMinutes / 60)}h</p>
           </div>
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-3.5 col-span-2 md:col-span-1">
-            <p className="text-xs font-medium text-slate-400">Active Skills</p>
-            <p className="text-2xl font-bold text-purple-400 mt-1">{metrics.activeSkillsCount}</p>
+          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 col-span-2 md:col-span-1 shadow-xs">
+            <p className="text-xs font-medium text-slate-500">Active Skills</p>
+            <p className="text-2xl font-bold text-purple-600 mt-1">{metrics.activeSkillsCount}</p>
           </div>
         </div>
       )}
 
       {/* Filter Bar */}
-      <div className="flex flex-wrap gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
+      <div className="flex flex-wrap gap-3 bg-white p-3 rounded-xl border border-slate-200/90 shadow-xs">
         <input
           type="text"
           placeholder="Search learning items..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-cyan-500 min-w-[200px]"
+          className="bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 min-w-[200px]"
         />
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-cyan-500"
+          className="bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
         >
           <option value="">All Statuses</option>
           <option value="NOT_STARTED">Not Started</option>
@@ -213,7 +213,7 @@ export function LearningPage() {
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-cyan-500"
+          className="bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
         >
           <option value="">All Types</option>
           <option value="COURSE">Course</option>
@@ -228,12 +228,12 @@ export function LearningPage() {
 
       {/* Main Content List */}
       {loading ? (
-        <div className="p-8 text-center text-slate-400">Loading learning items...</div>
+        <div className="p-8 text-center text-slate-500">Loading learning items...</div>
       ) : error ? (
-        <div className="p-4 bg-red-950/40 border border-red-800 text-red-300 rounded-xl text-sm">{error}</div>
+        <div className="p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-xs">{error}</div>
       ) : items.length === 0 ? (
-        <div className="p-12 text-center bg-slate-900/30 border border-slate-800 rounded-xl">
-          <p className="text-slate-300 font-medium">No learning items found.</p>
+        <div className="p-12 text-center bg-white border border-slate-200/90 rounded-xl shadow-xs">
+          <p className="text-slate-800 font-semibold">No learning items found.</p>
           <p className="text-xs text-slate-500 mt-1">
             Define intentional learning items to track your technical progression.
           </p>
@@ -243,26 +243,26 @@ export function LearningPage() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="bg-slate-800/40 border border-slate-700/60 rounded-xl p-5 space-y-4 hover:border-slate-600 transition-colors flex flex-col justify-between"
+              className="bg-white border border-slate-200/90 rounded-xl p-5 space-y-4 hover:border-slate-300 transition-colors flex flex-col justify-between shadow-xs"
             >
               <div>
                 <div className="flex justify-between items-start gap-2">
                   <div>
-                    <span className="inline-block px-2 py-0.5 bg-slate-700 text-slate-300 text-[10px] font-semibold tracking-wider rounded uppercase mb-1.5">
+                    <span className="inline-block px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-semibold tracking-wider rounded uppercase mb-1.5">
                       {item.type}
                     </span>
-                    <h3 className="font-semibold text-slate-100 text-base">{item.title}</h3>
+                    <h3 className="font-semibold text-slate-900 text-base">{item.title}</h3>
                   </div>
 
                   <span
                     className={`px-2 py-0.5 rounded text-[11px] font-medium border ${
                       item.status === 'COMPLETED'
-                        ? 'bg-emerald-950/50 text-emerald-300 border-emerald-800'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                         : item.status === 'IN_PROGRESS'
-                        ? 'bg-cyan-950/50 text-cyan-300 border-cyan-800'
+                        ? 'bg-sky-50 text-sky-700 border-sky-200'
                         : item.status === 'PAUSED'
-                        ? 'bg-amber-950/50 text-amber-300 border-amber-800'
-                        : 'bg-slate-800 text-slate-400 border-slate-700'
+                        ? 'bg-amber-50 text-amber-700 border-amber-200'
+                        : 'bg-slate-100 text-slate-600 border-slate-200'
                     }`}
                   >
                     {item.status.replace('_', ' ')}
@@ -270,19 +270,19 @@ export function LearningPage() {
                 </div>
 
                 {item.description && (
-                  <p className="text-xs text-slate-400 mt-2 line-clamp-2">{item.description}</p>
+                  <p className="text-xs text-slate-600 mt-2 line-clamp-2">{item.description}</p>
                 )}
 
                 {/* Progress Bar */}
                 <div className="mt-4 space-y-1">
-                  <div className="flex justify-between text-[11px] text-slate-400">
+                  <div className="flex justify-between text-[11px] text-slate-500">
                     <span>Progress</span>
                     <span>{item.progressPercent}%</span>
                   </div>
-                  <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                  <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                     <div
                       className={`h-full transition-all duration-300 ${
-                        item.status === 'COMPLETED' ? 'bg-emerald-500' : 'bg-cyan-500'
+                        item.status === 'COMPLETED' ? 'bg-emerald-600' : 'bg-blue-600'
                       }`}
                       style={{ width: `${Math.min(100, Math.max(0, item.progressPercent))}%` }}
                     />
@@ -290,11 +290,11 @@ export function LearningPage() {
                 </div>
 
                 {/* Meta details */}
-                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
-                  <span>Logged: <strong>{item.totalLoggedMinutes ?? 0}m</strong></span>
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500">
+                  <span>Logged: <strong className="text-slate-800">{item.totalLoggedMinutes ?? 0}m</strong></span>
                   {item.estimatedMinutes > 0 && <span>Est: {item.estimatedMinutes}m</span>}
                   {item.project && (
-                    <span className="text-cyan-400">Applied: {item.project.name}</span>
+                    <span className="text-blue-600 font-medium">Applied: {item.project.name}</span>
                   )}
                 </div>
 
@@ -304,7 +304,7 @@ export function LearningPage() {
                     {item.skills.map((s) => (
                       <span
                         key={s.id}
-                        className="px-2 py-0.5 bg-purple-950/60 border border-purple-800/60 text-purple-300 text-[10px] rounded"
+                        className="px-2 py-0.5 bg-purple-50 border border-purple-200 text-purple-700 text-[10px] rounded font-medium"
                       >
                         {s.skill?.name ?? 'Skill'}
                       </span>
@@ -314,17 +314,17 @@ export function LearningPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-3 border-t border-slate-700/50 flex flex-wrap items-center justify-between gap-2 mt-4">
+              <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 mt-4">
                 <div className="flex gap-1.5">
                   <button
                     onClick={() => setActiveActivityItem(item)}
-                    className="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-medium rounded transition-colors"
+                    className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded transition-colors"
                   >
                     + Log Time
                   </button>
                   <button
                     onClick={() => setActiveSkillLinkItem(item)}
-                    className="px-2.5 py-1 bg-purple-900/40 hover:bg-purple-800/50 text-purple-200 text-xs font-medium rounded transition-colors border border-purple-700/40"
+                    className="px-2.5 py-1 bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-medium rounded transition-colors border border-purple-200"
                   >
                     + Skill
                   </button>
@@ -334,7 +334,7 @@ export function LearningPage() {
                   {item.status === 'NOT_STARTED' && (
                     <button
                       onClick={() => { void handleStatusTransition(item, 'start'); }}
-                      className="px-2.5 py-1 bg-cyan-700 hover:bg-cyan-600 text-white text-xs font-medium rounded"
+                      className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded"
                     >
                       Start
                     </button>
@@ -343,13 +343,13 @@ export function LearningPage() {
                     <>
                       <button
                         onClick={() => { void handleStatusTransition(item, 'pause'); }}
-                        className="px-2 py-1 bg-amber-900/60 text-amber-200 hover:bg-amber-800 text-xs font-medium rounded"
+                        className="px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 text-xs font-medium rounded"
                       >
                         Pause
                       </button>
                       <button
                         onClick={() => { void handleStatusTransition(item, 'complete'); }}
-                        className="px-2 py-1 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-medium rounded"
+                        className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded"
                       >
                         Complete
                       </button>
@@ -358,7 +358,7 @@ export function LearningPage() {
                   {item.status === 'COMPLETED' && (
                     <button
                       onClick={() => { void handleStatusTransition(item, 'reopen'); }}
-                      className="px-2 py-1 bg-slate-700 text-slate-300 hover:bg-slate-600 text-xs font-medium rounded"
+                      className="px-2 py-1 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-medium rounded"
                     >
                       Reopen
                     </button>
@@ -372,28 +372,28 @@ export function LearningPage() {
 
       {/* Modal: Create Learning Item */}
       {isCreateOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-lg w-full space-y-4">
-            <h2 className="text-lg font-bold text-slate-100">Add Learning Item</h2>
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-xl p-6 max-w-lg w-full space-y-4 shadow-lg">
+            <h2 className="text-lg font-bold text-slate-900">Add Learning Item</h2>
             <form onSubmit={(e) => { void handleCreateSubmit(e); }} className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Title</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Title</label>
                 <input
                   type="text"
                   required
                   value={createTitle}
                   onChange={(e) => setCreateTitle(e.target.value)}
                   placeholder="e.g. Distributed Systems & Consensus Protocols"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Type</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Type</label>
                 <select
                   value={createType}
                   onChange={(e) => setCreateType(e.target.value as LearningItemType)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 >
                   <option value="COURSE">Course</option>
                   <option value="BOOK">Book</option>
@@ -407,57 +407,57 @@ export function LearningPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Description</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Description</label>
                 <textarea
                   value={createDescription}
                   onChange={(e) => setCreateDescription(e.target.value)}
                   rows={2}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Source / Provider</label>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">Source / Provider</label>
                   <input
                     type="text"
                     value={createSource}
                     onChange={(e) => setCreateSource(e.target.value)}
                     placeholder="e.g. MIT OCW"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Est. Minutes</label>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">Est. Minutes</label>
                   <input
                     type="number"
                     value={createEstMinutes}
                     onChange={(e) => setCreateEstMinutes(Number(e.target.value))}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Target Date</label>
+                  <label className="block text-xs font-medium text-slate-700 mb-1">Target Date</label>
                   <input
                     type="date"
                     value={createTargetDate}
                     onChange={(e) => setCreateTargetDate(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3">
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded-lg"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-sm rounded-lg"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-xs"
                 >
                   Save Item
                 </button>
@@ -469,46 +469,46 @@ export function LearningPage() {
 
       {/* Modal: Record Activity */}
       {activeActivityItem && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-md w-full space-y-4">
-            <h2 className="text-lg font-bold text-slate-100">Log Learning Session</h2>
-            <p className="text-xs text-slate-400">Record time spent studying {activeActivityItem.title}</p>
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-xl p-6 max-w-md w-full space-y-4 shadow-lg">
+            <h2 className="text-lg font-bold text-slate-900">Log Learning Session</h2>
+            <p className="text-xs text-slate-500">Record time spent studying {activeActivityItem.title}</p>
 
             <form onSubmit={(e) => { void handleActivitySubmit(e); }} className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Minutes Spent</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Minutes Spent</label>
                 <input
                   type="number"
                   min={1}
                   required
                   value={activityMinutes}
                   onChange={(e) => setActivityMinutes(Number(e.target.value))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Notes / Key Learnings</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Notes / Key Learnings</label>
                 <textarea
                   value={activityNotes}
                   onChange={(e) => setActivityNotes(e.target.value)}
                   placeholder="What concepts were covered today?"
                   rows={3}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3">
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setActiveActivityItem(null)}
-                  className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded-lg"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-sm rounded-lg"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-xs"
                 >
                   Record Session
                 </button>
@@ -520,19 +520,19 @@ export function LearningPage() {
 
       {/* Modal: Link Skill */}
       {activeSkillLinkItem && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-md w-full space-y-4">
-            <h2 className="text-lg font-bold text-slate-100">Link Skill</h2>
-            <p className="text-xs text-slate-400">Connect a skill developed by {activeSkillLinkItem.title}</p>
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-xl p-6 max-w-md w-full space-y-4 shadow-lg">
+            <h2 className="text-lg font-bold text-slate-900">Link Skill</h2>
+            <p className="text-xs text-slate-500">Connect a skill developed by {activeSkillLinkItem.title}</p>
 
             <form onSubmit={(e) => { void handleLinkSkillSubmit(e); }} className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Select Skill</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1">Select Skill</label>
                 <select
                   required
                   value={selectedSkillId}
                   onChange={(e) => setSelectedSkillId(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 >
                   <option value="">Choose a skill...</option>
                   {skills.map((s) => (
@@ -543,17 +543,17 @@ export function LearningPage() {
                 </select>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3">
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setActiveSkillLinkItem(null)}
-                  className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm rounded-lg"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-medium text-sm rounded-lg"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-xs"
                 >
                   Link Skill
                 </button>

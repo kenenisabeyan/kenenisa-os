@@ -153,20 +153,20 @@ export const MilestonesPage: React.FC = () => {
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-xl border border-slate-200/90 shadow-xs">
         <input
           type="text"
           placeholder="Search milestones..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 min-w-[200px]"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 min-w-[200px]"
         />
 
         <div className="flex items-center gap-2">
           <select
             value={projectIdFilter}
             onChange={(e) => setProjectIdFilter(e.target.value)}
-            className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500"
+            className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
           >
             <option value="">All Projects</option>
             {projects.map((p) => (
@@ -180,23 +180,23 @@ export const MilestonesPage: React.FC = () => {
 
       {/* Content */}
       {loading ? (
-        <div className="p-12 text-center text-slate-400 text-xs flex flex-col items-center gap-3">
-          <div className="w-6 h-6 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="p-12 text-center text-slate-500 text-xs flex flex-col items-center gap-3">
+          <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
           Loading milestones...
         </div>
       ) : error ? (
-        <div className="p-6 bg-red-950/40 border border-red-900/50 rounded-xl text-center space-y-3">
-          <p className="text-xs text-red-400">{error}</p>
+        <div className="p-6 bg-rose-50 border border-rose-200 rounded-xl text-center space-y-3">
+          <p className="text-xs text-rose-700">{error}</p>
           <button
             onClick={() => void loadMilestones()}
-            className="px-3 py-1.5 rounded-lg bg-red-900/40 hover:bg-red-900/60 text-red-200 text-xs font-semibold"
+            className="px-3 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 text-xs font-semibold"
           >
             Retry
           </button>
         </div>
       ) : milestones.length === 0 ? (
-        <div className="p-12 text-center bg-slate-900/40 border border-slate-800 rounded-2xl space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto text-slate-500">
+        <div className="p-12 text-center bg-white border border-slate-200/90 rounded-2xl space-y-3 shadow-xs">
+          <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto text-slate-500">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
@@ -206,8 +206,8 @@ export const MilestonesPage: React.FC = () => {
               />
             </svg>
           </div>
-          <h3 className="text-sm font-semibold text-slate-200">No milestones found</h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto">
+          <h3 className="text-sm font-semibold text-slate-900">No milestones found</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
             Create major checkpoints to mark key progress stages for your projects.
           </p>
         </div>
@@ -216,42 +216,42 @@ export const MilestonesPage: React.FC = () => {
           {milestones.map((m, idx) => (
             <div
               key={m.id}
-              className="bg-slate-900/70 border border-slate-800/80 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md hover:border-slate-700 transition-all"
+              className="bg-white border border-slate-200/90 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs hover:border-slate-300 transition-all"
             >
               <div className="flex items-center gap-3">
                 <div className="flex flex-col gap-1">
                   <button
                     disabled={idx === 0}
                     onClick={() => void handleMove(idx, 'up')}
-                    className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 disabled:opacity-30 text-[10px]"
+                    className="p-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 disabled:opacity-30 text-[10px]"
                   >
                     ▲
                   </button>
                   <button
                     disabled={idx === milestones.length - 1}
                     onClick={() => void handleMove(idx, 'down')}
-                    className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 disabled:opacity-30 text-[10px]"
+                    className="p-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 disabled:opacity-30 text-[10px]"
                   >
                     ▼
                   </button>
                 </div>
 
-                <div className="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 font-mono text-xs font-bold flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-200 text-purple-700 font-mono text-xs font-bold flex items-center justify-center">
                   {String(idx + 1).padStart(2, '0')}
                 </div>
 
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-blue-400 border border-slate-700">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
                       {m.project?.name}
                     </span>
                     <span
                       className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         m.status === 'REACHED'
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : m.status === 'IN_PROGRESS'
-                          ? 'bg-purple-500/10 text-purple-400 border border-purple-500/30'
-                          : 'bg-slate-800 text-slate-400'
+                          ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                          : 'bg-slate-100 text-slate-600'
                       }`}
                     >
                       {m.status}
@@ -260,7 +260,7 @@ export const MilestonesPage: React.FC = () => {
 
                   <h2
                     className={`text-sm font-bold ${
-                      m.status === 'REACHED' ? 'line-through text-slate-500' : 'text-white'
+                      m.status === 'REACHED' ? 'line-through text-slate-400' : 'text-slate-900'
                     }`}
                   >
                     {m.name}
@@ -268,10 +268,10 @@ export const MilestonesPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 justify-between sm:justify-end">
-                <div className="text-right text-[11px] text-slate-400">
+              <div className="flex items-center gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 justify-between sm:justify-end">
+                <div className="text-right text-[11px] text-slate-500">
                   Target:{' '}
-                  <span className="text-slate-200">
+                  <span className="text-slate-800 font-medium">
                     {m.targetDate ? new Date(m.targetDate).toLocaleDateString() : 'N/A'}
                   </span>
                 </div>
@@ -280,8 +280,8 @@ export const MilestonesPage: React.FC = () => {
                   onClick={() => void handleToggleComplete(m)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     m.status === 'REACHED'
-                      ? 'bg-slate-800 hover:bg-slate-700 text-slate-300'
-                      : 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/30'
+                      ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                      : 'bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200'
                   }`}
                 >
                   {m.status === 'REACHED' ? 'Reopen' : 'Reach Milestone'}
@@ -294,13 +294,13 @@ export const MilestonesPage: React.FC = () => {
 
       {/* Modal */}
       {isCreateOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-5">
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-xl p-6 max-w-md w-full shadow-lg space-y-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-white">Create Project Milestone</h3>
+              <h3 className="text-base font-bold text-slate-900">Create Project Milestone</h3>
               <button
                 onClick={() => setIsCreateOpen(false)}
-                className="text-slate-400 hover:text-white text-sm"
+                className="text-slate-400 hover:text-slate-600 text-sm"
               >
                 ✕
               </button>
@@ -308,14 +308,14 @@ export const MilestonesPage: React.FC = () => {
 
             <form onSubmit={(e) => void handleCreate(e)} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Project *
                 </label>
                 <select
                   required
                   value={projectId}
                   onChange={(e) => setProjectId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 >
                   {projects.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -326,7 +326,7 @@ export const MilestonesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Milestone Checkpoint Name *
                 </label>
                 <input
@@ -335,12 +335,12 @@ export const MilestonesPage: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Authentication Infrastructure Complete"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Description
                 </label>
                 <textarea
@@ -348,19 +348,19 @@ export const MilestonesPage: React.FC = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Stage completion criteria..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-slate-700 mb-1">
                   Target Date
                 </label>
                 <input
                   type="date"
                   value={targetDate}
                   onChange={(e) => setTargetDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
@@ -368,14 +368,14 @@ export const MilestonesPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300"
+                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-medium text-slate-700 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-semibold text-white shadow-lg shadow-purple-500/20 disabled:opacity-50"
+                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {submitting ? 'Creating...' : 'Create Milestone'}
                 </button>
