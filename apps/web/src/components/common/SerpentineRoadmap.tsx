@@ -8,7 +8,7 @@ export interface RoadmapStep {
   description: string;
   focusAreas: string[];
   themeColor: string; // Hex color e.g. '#6366F1'
-  bgBadgeColor: string; // e.g. 'bg-indigo-50 border-indigo-200 text-[#6366F1]'
+  bgBadgeColor: string;
   badgeTextColor: string;
   icon: React.ReactNode;
 }
@@ -49,7 +49,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Structural architecture planning',
       ],
       themeColor: '#6366F1',
-      bgBadgeColor: 'bg-indigo-50 border-indigo-200 text-[#6366F1]',
+      bgBadgeColor: 'bg-indigo-50 text-[#6366F1]',
       badgeTextColor: 'text-[#6366F1]',
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Output deliverable & evidence specs',
       ],
       themeColor: '#3B82F6',
-      bgBadgeColor: 'bg-blue-50 border-blue-200 text-[#3B82F6]',
+      bgBadgeColor: 'bg-blue-50 text-[#3B82F6]',
       badgeTextColor: 'text-[#3B82F6]',
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Realistic effort estimation (Estimate ≠ Scheduled)',
       ],
       themeColor: '#3AB1EC',
-      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#3AB1EC]',
+      bgBadgeColor: 'bg-cyan-50 text-[#3AB1EC]',
       badgeTextColor: 'text-[#3AB1EC]',
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Dependency resolution & deep work focus',
       ],
       themeColor: '#FF5A00',
-      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FF5A00]',
+      bgBadgeColor: 'bg-orange-50 text-[#FF5A00]',
       badgeTextColor: 'text-[#FF5A00]',
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,7 +138,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Evidence Vault portfolio repository',
       ],
       themeColor: '#22C55E',
-      bgBadgeColor: 'bg-emerald-50 border-emerald-200 text-[#22C55E]',
+      bgBadgeColor: 'bg-emerald-50 text-[#22C55E]',
       badgeTextColor: 'text-[#22C55E]',
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +160,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Qualitative reflection & key learnings',
       ],
       themeColor: '#A855F7',
-      bgBadgeColor: 'bg-purple-50 border-purple-200 text-[#A855F7]',
+      bgBadgeColor: 'bg-purple-50 text-[#A855F7]',
       badgeTextColor: 'text-[#A855F7]',
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -182,7 +182,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Long-term career trajectory evolution',
       ],
       themeColor: '#FFD700',
-      bgBadgeColor: 'bg-amber-50 border-amber-200 text-amber-700',
+      bgBadgeColor: 'bg-amber-50 text-amber-700',
       badgeTextColor: 'text-amber-600',
       icon: (
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,17 +206,20 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             {subtitle}
           </p>
         </div>
-        <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-cyan-400/60 bg-cyan-50/50 text-[#3AB1EC] text-[11px] font-bold uppercase tracking-wider shrink-0 shadow-2xs">
+        <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-cyan-50/80 text-[#3AB1EC] text-[11px] font-bold uppercase tracking-wider shrink-0">
           <span>✧</span>
           <span>{badgeText}</span>
           <span>✧</span>
         </div>
       </div>
 
-      {/* ── TOP SUMMARY CARD ───────────────────────────────────────────────────── */}
+      {/* ── TOP SUMMARY CARD (BORDERLESS TINTED SECTION) ────────────────────────── */}
       <div className="mb-16 max-w-md">
-        <div className="relative bg-white border border-cyan-300/80 rounded-2xl p-6 shadow-md shadow-cyan-500/5 space-y-3 group hover:border-[#3AB1EC] transition-all overflow-hidden">
-          {/* Subtle Watermark Graphic (Matching reference image watermark) */}
+        <div
+          className="relative rounded-3xl p-6 sm:p-7 shadow-xs space-y-3 overflow-hidden transition-transform duration-200 hover:scale-[1.01]"
+          style={{ backgroundColor: '#3AB1EC10' }}
+        >
+          {/* Subtle Watermark Graphic */}
           <div className="absolute right-2 bottom-2 pointer-events-none opacity-15 select-none font-black text-xs text-[#3AB1EC] tracking-widest uppercase flex flex-col items-end leading-tight">
             <span>KENENISA OS</span>
             <span>GLOBAL</span>
@@ -287,7 +290,10 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         {/* Steps List */}
         <div className="space-y-16 md:space-y-24 relative z-10">
           {steps.map((step, idx) => {
-            const isEven = idx % 2 === 0; // Even indexes -> Content Right on Desktop; Odd -> Content Left
+            const isEven = idx % 2 === 0;
+
+            // Generate soft background tint matching step color (e.g. 7% opacity tint, borderless)
+            const cardBgStyle = { backgroundColor: `${step.themeColor}0D` };
 
             return (
               <div
@@ -308,16 +314,19 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                     </span>
                   </div>
                   <div>
-                    <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${step.bgBadgeColor}`}>
+                    <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-full ${step.bgBadgeColor}`}>
                       {step.badgeTitle}
                     </span>
                   </div>
                 </div>
 
-                {/* ── DESKTOP CONTENT LEFT BOX ── */}
+                {/* ── DESKTOP CONTENT LEFT BOX (BORDERLESS TINTED CARD) ── */}
                 <div className="hidden md:block w-1/2 pr-12 text-right">
                   {!isEven && (
-                    <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:shadow-md transition-all duration-200 space-y-3 relative group-hover:border-slate-300">
+                    <div
+                      className="rounded-3xl p-6 sm:p-7 shadow-xs hover:shadow-sm transition-all duration-200 space-y-3 relative border-0"
+                      style={cardBgStyle}
+                    >
                       {/* Icon Circle (Top Left on Left Card) */}
                       <div className="flex justify-start">
                         <div
@@ -341,11 +350,11 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                         {step.description}
                       </p>
 
-                      <div className="pt-2 border-t border-slate-100 text-left space-y-1.5">
+                      <div className="pt-3 border-t border-slate-900/5 text-left space-y-2">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
                           FOCUS AREAS:
                         </span>
-                        <ul className="space-y-1 text-xs text-slate-700 font-normal">
+                        <ul className="space-y-1.5 text-xs text-slate-700 font-normal">
                           {step.focusAreas.map((area, aIdx) => (
                             <li key={aIdx} className="flex items-center gap-2 justify-start">
                               <span
@@ -382,13 +391,14 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                   </div>
                 </div>
 
-                {/* ── DESKTOP CONTENT RIGHT BOX ── */}
+                {/* ── DESKTOP CONTENT RIGHT BOX (BORDERLESS TINTED CARD) ── */}
                 <div className="w-full md:w-1/2 md:pl-12 text-left">
                   {(isEven || true) && (
                     <div
-                      className={`bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:shadow-md transition-all duration-200 space-y-3 relative group-hover:border-slate-300 ${
+                      className={`rounded-3xl p-6 sm:p-7 shadow-xs hover:shadow-sm transition-all duration-200 space-y-3 relative border-0 ${
                         !isEven ? 'md:hidden' : ''
                       }`}
+                      style={cardBgStyle}
                     >
                       {/* Icon Circle (Top Right on Right Card) */}
                       <div className="flex justify-end">
@@ -413,11 +423,11 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                         {step.description}
                       </p>
 
-                      <div className="pt-2 border-t border-slate-100 space-y-1.5">
+                      <div className="pt-3 border-t border-slate-900/5 space-y-2">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
                           FOCUS AREAS:
                         </span>
-                        <ul className="space-y-1 text-xs text-slate-700 font-normal">
+                        <ul className="space-y-1.5 text-xs text-slate-700 font-normal">
                           {step.focusAreas.map((area, aIdx) => (
                             <li key={aIdx} className="flex items-center gap-2">
                               <span
