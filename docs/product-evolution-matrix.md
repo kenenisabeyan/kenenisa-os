@@ -18,16 +18,17 @@ This document is the authoritative tracking record and active product backlog fo
 | PE-008 | Testing | 2026-09-16 | QA Automation | `RELIABILITY` | E2E browser test suite integration for critical production workflows | Playwright test configuration present in repo | HIGH | Per Release | LOW | P1 | Execute Playwright E2E smoke tests against production build dist assets | Playwright | PLANNED | `e2e/` Playwright test suite | `npx playwright test` | 100% E2E workflow pass rate | KEEP | Automated E2E verification |
 | PE-009 | Intelligence Core | 2026-09-16 | AI System | `PERFORMANCE` | Dynamic prompt context minimization to reduce LLM token overhead | Inspection of context builder service | MEDIUM | Per AI Call | LOW | P2 | Bounded context serialization filtering out irrelevant domain records | Intelligence Service | PLANNED | `apps/api/src/domain/intelligence/context.service.ts` | Unit tests in `intelligence.test.ts` | Token size reduced by > 30% | KEEP | Token optimization |
 | PE-010 | Documentation | 2026-09-16 | Ops Documentation | `DOCUMENTATION` | Comprehensive documentation suite for production release & evolution | Created `docs/product-evolution.md` and related docs | HIGH | Continuous | LOW | P1 | Maintain authoritative release, health, stabilization, and evolution records | Markdown Docs | VERIFIED | `docs/*` directory | Checked file presence and linkages | Complete operational documentation | KEEP | Step 18 documentation suite |
+| PE-011 | Strategic Planning | 2026-09-16 | Strategic Domain | `WORKFLOW_IMPROVEMENT` | Evaluation of higher-level Strategic Academic & Career Planning layer | `docs/strategic-planning-model.md` gap audit (`SP-001`) | MEDIUM | Strategic | LOW | P3 | Defer redundant entity schema additions; preserve existing 6-level hierarchy | Architecture / Docs | DEFERRED | `docs/strategic-planning-model.md` | Checked 100% hierarchy coverage | Zero redundant schema complexity | DEFER | Step 25 evidence-gated deferral |
 
 ---
 
 ## Matrix Summary & Status Distribution
 
 ```text
-Total Tracked Backlog Items: 10
+Total Tracked Backlog Items: 11
 
 TYPES:
-- WORKFLOW_IMPROVEMENT: 1
+- WORKFLOW_IMPROVEMENT: 2
 - RELIABILITY: 3
 - SECURITY: 2
 - TECHNICAL_DEBT: 1
@@ -37,17 +38,17 @@ TYPES:
 STATUSES:
 - VERIFIED: 7
 - PLANNED: 3
+- DEFERRED: 1
 - NEW: 0
 - TRIAGED: 0
 - IN_PROGRESS: 0
 - TESTING: 0
 - RELEASED: 7
-- DEFERRED: 0
 - REJECTED: 0
 
 PRIORITIES:
 - P0 (Critical): 3
 - P1 (High): 5
 - P2 (Medium): 2
-- P3 (Low): 0
+- P3 (Low): 1
 ```

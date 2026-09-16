@@ -74,6 +74,7 @@ NOW-03 (Analytics Limits) ──► NEXT-01 (PDF Export) ──► NEXT-02 (AI T
 * **DEFERRED-01**: Microservice architecture split (`INSUFFICIENT EVIDENCE` of monolith bottleneck).
 * **DEFERRED-02**: Redis queue installation (`INSUFFICIENT EVIDENCE` of job queue necessity).
 * **DEFERRED-03**: Multi-tenant team SaaS capabilities (Outside strategic single-user product boundary).
+* **DEFERRED-04**: Higher-Level Strategic Planning Layer (`INSUFFICIENT EVIDENCE` of 6-level hierarchy limits; existing Workstream/Goal/Project models provide 100% full strategic traceability).
 
 ---
 

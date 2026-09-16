@@ -30,6 +30,7 @@
 | **PDR-005** | 2026-09-16 | Infrastructure| `DEFER` | Microservices & Redis Queues | `ACCEPTED` |
 | **PDR-006** | 2026-09-16 | Product Scope | `REMOVE` | Generic CRM & Team SaaS Features | `ACCEPTED` |
 | **PDR-007** | 2026-09-16 | Analytics | `SIMPLIFY` | Bounded Query Limits on Large Datasets | `ACCEPTED` |
+| **PDR-008** | 2026-09-16 | Strategic Domain | `DEFER` | Redundant Higher-Level Strategic Planning Layer | `ACCEPTED` |
 
 ---
 
@@ -90,3 +91,11 @@
 * **Decision**: `SIMPLIFY` — Add default pagination bounds (`limit`/`offset`).
 * **Reason**: Guarantees analytics endpoint latency stays < 50ms as historical log volume grows over multi-year usage.
 * **Impact**: Tracked in `PE-007` in [`docs/product-evolution-matrix.md`](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/product-evolution-matrix.md).
+
+### PDR-008: Redundant Higher-Level Strategic Planning Layer
+* **Decision ID**: `PDR-008`
+* **Date**: `2026-09-16`
+* **Context**: Step 25 investigation of potential dedicated `StrategicDirection` or `StrategicOutcome` schema models.
+* **Decision**: `DEFER` — `INSUFFICIENT EVIDENCE` of 6-level hierarchy limits.
+* **Reason**: Existing `Workstream`, `Goal`, `Project`, `Milestone`, `Task`, `Evidence`, and `Opportunity` entities already provide 100% full strategic traceability without data gaps. Creating redundant entities violates minimal architecture principles.
+* **Impact**: Documented in [`docs/strategic-planning-model.md`](file:///c:/Users/kenenisa/Desktop/about%20kenenisa/My%20pojects/kenenisa-os/docs/strategic-planning-model.md) (`SP-001`).
