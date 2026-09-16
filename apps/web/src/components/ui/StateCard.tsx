@@ -14,7 +14,7 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   return (
     <div className={`space-y-3 w-full animate-pulse ${className}`} aria-label="Loading content">
       {Array.from({ length: rows }).map((_, i) => (
-        <div key={i} className={`w-full bg-slate-900/60 border border-slate-800/60 rounded-xl ${height}`} />
+        <div key={i} className={`w-full bg-slate-200/70 border border-slate-200 rounded-2xl ${height}`} />
       ))}
     </div>
   );
@@ -39,25 +39,25 @@ export const EmptyStateCard: React.FC<EmptyStateCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-8 bg-slate-900/40 border border-slate-800 border-dashed rounded-2xl text-center ${className}`}
+      className={`flex flex-col items-center justify-center p-8 bg-white border border-slate-300 border-dashed rounded-2xl text-center shadow-xs ${className}`}
     >
       {icon ? (
-        <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-slate-400 mb-4">
+        <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 mb-4 shadow-xs">
           {icon}
         </div>
       ) : (
-        <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-4">
+        <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#2563eb] mb-4 shadow-xs">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
         </div>
       )}
-      <h3 className="text-base font-semibold text-slate-200 mb-1">{title}</h3>
-      <p className="text-xs text-slate-400 max-w-sm mb-6 leading-relaxed">{description}</p>
+      <h3 className="text-base font-bold text-slate-900 mb-1">{title}</h3>
+      <p className="text-xs text-slate-600 max-w-sm mb-6 leading-relaxed">{description}</p>
       {actionLabel && onAction && (
         <button
           onClick={onAction}
-          className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium text-xs shadow-lg shadow-cyan-500/20 transition-all duration-150 active:scale-[0.98]"
+          className="px-4 py-2 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold text-xs shadow-md shadow-blue-500/20 transition-all duration-150 active:scale-[0.98]"
         >
           {actionLabel}
         </button>
@@ -81,9 +81,9 @@ export const ErrorStateCard: React.FC<ErrorStateCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-6 bg-rose-500/5 border border-rose-500/20 rounded-2xl text-center ${className}`}
+      className={`flex flex-col items-center justify-center p-6 bg-rose-50 border border-rose-200 rounded-2xl text-center ${className}`}
     >
-      <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 mb-3">
+      <div className="w-10 h-10 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center text-rose-600 mb-3">
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
@@ -93,12 +93,12 @@ export const ErrorStateCard: React.FC<ErrorStateCardProps> = ({
           />
         </svg>
       </div>
-      <h4 className="text-sm font-semibold text-rose-300 mb-1">{title}</h4>
-      <p className="text-xs text-slate-400 max-w-md mb-4">{message}</p>
+      <h4 className="text-sm font-bold text-rose-900 mb-1">{title}</h4>
+      <p className="text-xs text-rose-700 max-w-md mb-4">{message}</p>
       {onRetry && (
         <button
           onClick={onRetry}
-          className="px-3.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold transition-all duration-150"
+          className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-xs transition-all duration-150"
         >
           Try Again
         </button>
@@ -106,3 +106,4 @@ export const ErrorStateCard: React.FC<ErrorStateCardProps> = ({
     </div>
   );
 };
+

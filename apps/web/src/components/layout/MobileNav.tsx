@@ -14,18 +14,18 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 lg:hidden flex">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Drawer Content */}
-      <div className="relative flex-1 max-w-xs w-full bg-slate-900 h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
+      <div className="relative flex-1 max-w-xs w-full bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
         <div className="absolute top-3 right-3 z-20">
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
-            aria-label="Close menu"
+            className="p-1.5 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900 border border-slate-200"
+            aria-label="Close navigation menu"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -49,7 +49,7 @@ export const MobileBottomBar: React.FC = () => {
   return (
     <nav
       aria-label="Mobile Navigation Bar"
-      className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-slate-900/95 border-t border-slate-800 backdrop-blur-md z-40 flex items-center justify-around px-2 select-none"
+      className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-white/95 border-t border-slate-200 backdrop-blur-md z-40 flex items-center justify-around px-2 select-none shadow-lg"
     >
       {primaryLinks.map((link) => (
         <NavLink
@@ -59,14 +59,14 @@ export const MobileBottomBar: React.FC = () => {
           className={({ isActive }) =>
             `flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 px-2 rounded-xl text-[10px] font-semibold transition-all ${
               isActive
-                ? 'text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/20'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
+                ? 'text-[#2563eb] font-bold bg-blue-50 border border-blue-200/80 shadow-xs'
+                : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100/60'
             }`
           }
         >
           {({ isActive }) => (
             <>
-              <svg className={`w-5 h-5 mb-0.5 ${isActive ? 'text-cyan-400' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={`w-5 h-5 mb-0.5 ${isActive ? 'text-[#2563eb]' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={link.icon} />
               </svg>
               <span>{link.label}</span>
@@ -77,4 +77,5 @@ export const MobileBottomBar: React.FC = () => {
     </nav>
   );
 };
+
 

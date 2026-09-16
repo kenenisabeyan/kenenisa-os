@@ -183,15 +183,15 @@ export const IntelligencePage: React.FC = () => {
   return (
     <div id="intelligence-page" className="h-[calc(100vh-6rem)] flex flex-col gap-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/90 pb-4">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-3">
+          <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
             <span>KENENISA OS Intelligence Core</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-medium">
-              Contextual AI Reasoning
+            <span className="text-xs px-2.5 py-1 rounded-full bg-[#A855F7]/15 border border-[#A855F7]/30 text-[#7e22ce] font-extrabold">
+              ✦ AI Advisory Core
             </span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 mt-1">
             Factual reasoning assistant grounded strictly in your personal operating system context.
           </p>
         </div>
@@ -199,13 +199,13 @@ export const IntelligencePage: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => void handleOpenMemories()}
-            className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl border border-slate-700 transition-all flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition-all flex items-center gap-1.5 shadow-xs"
           >
             🧠 Operating Memory
           </button>
           <button
             onClick={handleNewConversation}
-            className="px-3.5 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-xs rounded-xl shadow-md shadow-cyan-500/20 transition-all flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5 active:scale-[0.99]"
           >
             + New Conversation
           </button>
@@ -215,13 +215,13 @@ export const IntelligencePage: React.FC = () => {
       {/* Main Grid: Sidebar + Chat Area */}
       <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4 overflow-hidden">
         {/* Sidebar: Conversation History */}
-        <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-4 flex flex-col space-y-3 overflow-y-auto">
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 flex flex-col space-y-3 overflow-y-auto shadow-xs">
+          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">
             Conversations
           </h3>
 
           {conversations.length === 0 ? (
-            <p className="text-xs text-slate-400 p-2 italic">No conversations yet.</p>
+            <p className="text-xs text-slate-500 p-2 italic">No conversations yet.</p>
           ) : (
             <div className="space-y-1.5">
               {conversations.map((c) => (
@@ -232,8 +232,8 @@ export const IntelligencePage: React.FC = () => {
                   }}
                   className={`p-3 rounded-xl cursor-pointer text-xs transition-all flex items-center justify-between group ${
                     activeConversationId === c.id
-                      ? 'bg-slate-800 border border-slate-700 text-white font-semibold shadow-sm'
-                      : 'text-slate-400 hover:bg-slate-900/80 hover:text-slate-200'
+                      ? 'bg-blue-50 border border-blue-200 text-[#2563eb] font-bold shadow-xs'
+                      : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900 font-medium'
                   }`}
                 >
                   <span className="truncate flex-1 pr-2">{c.title}</span>
@@ -242,7 +242,7 @@ export const IntelligencePage: React.FC = () => {
                       e.stopPropagation();
                       void handleDeleteConversation(c.id);
                     }}
-                    className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-400 transition-opacity p-1"
+                    className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-600 transition-opacity p-1 font-bold"
                     title="Delete conversation"
                   >
                     ✕
@@ -254,19 +254,19 @@ export const IntelligencePage: React.FC = () => {
         </div>
 
         {/* Main Chat Area */}
-        <div className="md:col-span-3 bg-slate-900/60 border border-slate-800 rounded-2xl flex flex-col overflow-hidden">
-          {/* Context Transparency Banner */}
+        <div className="md:col-span-3 bg-white border border-slate-200/90 rounded-2xl flex flex-col overflow-hidden shadow-xs">
+          {/* Context Transparency Banner (System State) */}
           {contextSummary && (
-            <div className="bg-slate-950/80 border-b border-slate-800 px-4 py-2.5 text-xs text-slate-400 flex flex-wrap items-center justify-between gap-2">
+            <div className="bg-slate-50 border-b border-slate-200 px-4 py-2.5 text-xs text-slate-600 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span className="font-semibold text-slate-300">Context Active:</span>
-                <span>
+                <span className="w-2.5 h-2.5 rounded-full bg-[#3AB1EC] animate-pulse"></span>
+                <span className="font-extrabold text-[#0284c7] uppercase tracking-wide text-[10px]">SYSTEM STATE ACTIVE:</span>
+                <span className="font-semibold text-slate-700">
                   {contextSummary.activeProjectsCount} Projects · {contextSummary.todayTasksCount} Tasks · Capacity {contextSummary.capacityMinutes}m
                 </span>
               </div>
               {contextSummary.nextBestActionTitle && (
-                <span className="text-cyan-400 font-medium truncate max-w-xs">
+                <span className="text-[#2563eb] font-bold truncate max-w-xs">
                   Next Best Action: {contextSummary.nextBestActionTitle}
                 </span>
               )}
@@ -274,40 +274,40 @@ export const IntelligencePage: React.FC = () => {
           )}
 
           {/* Messages Stream */}
-          <div className="flex-1 p-5 overflow-y-auto space-y-4">
+          <div className="flex-1 p-5 overflow-y-auto space-y-4 bg-[#F8FAFC]">
             {messages.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-4 text-slate-400">
-                <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl font-bold">
-                  🧠
+              <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-4 text-slate-500">
+                <div className="w-14 h-14 rounded-2xl bg-[#A855F7]/15 border border-[#A855F7]/30 text-[#7e22ce] flex items-center justify-center text-2xl font-bold shadow-xs">
+                  ✦
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-base font-bold text-white">Ask KENENISA OS Intelligence</h3>
-                  <p className="text-xs text-slate-400 max-w-md mx-auto">
+                  <h3 className="text-base font-bold text-slate-900">Ask KENENISA OS Intelligence</h3>
+                  <p className="text-xs text-slate-600 max-w-md mx-auto">
                     Ask about your Next Best Action, daily capacity, blocked work, active projects, or pursuing career opportunities.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs max-w-lg w-full pt-2">
                   <button
                     onClick={() => setInputText('What should I work on next today?')}
-                    className="p-3 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl text-left text-slate-300 hover:text-white transition-all"
+                    className="p-3 bg-white border border-slate-200 hover:border-blue-300 rounded-xl text-left text-slate-700 hover:text-slate-900 transition-all shadow-xs font-medium"
                   >
                     🎯 What should I focus on next today?
                   </button>
                   <button
                     onClick={() => setInputText('Am I overloading my available capacity?')}
-                    className="p-3 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl text-left text-slate-300 hover:text-white transition-all"
+                    className="p-3 bg-white border border-slate-200 hover:border-blue-300 rounded-xl text-left text-slate-700 hover:text-slate-900 transition-all shadow-xs font-medium"
                   >
                     ⚡ Am I overloading my available capacity?
                   </button>
                   <button
                     onClick={() => setInputText('What opportunities am I currently pursuing?')}
-                    className="p-3 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl text-left text-slate-300 hover:text-white transition-all"
+                    className="p-3 bg-white border border-slate-200 hover:border-blue-300 rounded-xl text-left text-slate-700 hover:text-slate-900 transition-all shadow-xs font-medium"
                   >
                     💼 What opportunities am I pursuing?
                   </button>
                   <button
                     onClick={() => setInputText('Create a task called Finish API Docs')}
-                    className="p-3 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl text-left text-slate-300 hover:text-white transition-all"
+                    className="p-3 bg-white border border-slate-200 hover:border-blue-300 rounded-xl text-left text-slate-700 hover:text-slate-900 transition-all shadow-xs font-medium"
                   >
                     📝 Propose creating a new task...
                   </button>
@@ -322,24 +322,30 @@ export const IntelligencePage: React.FC = () => {
                   }`}
                 >
                   <div
-                    className={`max-w-2xl rounded-2xl p-4 text-xs leading-relaxed space-y-2 ${
+                    className={`max-w-2xl rounded-2xl p-4 text-xs leading-relaxed space-y-2 shadow-xs ${
                       m.role === 'USER'
-                        ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-br-none shadow-md'
-                        : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-bl-none shadow-sm'
+                        ? 'bg-[#3B82F6] text-white rounded-br-none shadow-md font-medium'
+                        : 'bg-white border border-slate-200/90 text-slate-900 rounded-bl-none border-l-4 border-l-[#A855F7]'
                     }`}
                   >
-                    <div className="font-bold text-[10px] opacity-70 uppercase tracking-wider">
-                      {m.role === 'USER' ? 'You' : 'KENENISA OS Intelligence'}
+                    <div className="font-extrabold text-[10px] uppercase tracking-wider opacity-80 flex items-center gap-1.5">
+                      {m.role === 'USER' ? (
+                        <span>You</span>
+                      ) : (
+                        <span className="text-[#7e22ce] flex items-center gap-1">
+                          <span>✦</span> AI ADVISORY
+                        </span>
+                      )}
                     </div>
                     <p className="whitespace-pre-wrap">{m.content}</p>
 
                     {/* Metadata: Facts, Inferences, Recommendations */}
                     {m.metadata && (
-                      <div className="pt-2 border-t border-slate-800/80 space-y-1.5 text-[11px]">
+                      <div className="pt-2 border-t border-slate-200/80 space-y-1.5 text-[11px]">
                         {Array.isArray(m.metadata.facts) && m.metadata.facts.length > 0 && (
                           <div className="space-y-0.5">
-                            <span className="font-semibold text-emerald-400">Facts:</span>
-                            <ul className="list-disc list-inside text-slate-400">
+                            <span className="font-bold text-[#15803d]">Facts:</span>
+                            <ul className="list-disc list-inside text-slate-600">
                               {m.metadata.facts.map((f: unknown, idx: number) => (
                                 <li key={idx}>{String(f)}</li>
                               ))}
@@ -348,8 +354,8 @@ export const IntelligencePage: React.FC = () => {
                         )}
                         {Array.isArray(m.metadata.recommendations) && m.metadata.recommendations.length > 0 && (
                           <div className="space-y-0.5">
-                            <span className="font-semibold text-cyan-400">Recommendation:</span>
-                            <ul className="list-disc list-inside text-slate-300">
+                            <span className="font-bold text-[#0284c7]">Recommendation:</span>
+                            <ul className="list-disc list-inside text-slate-700 font-medium">
                               {m.metadata.recommendations.map((r: unknown, idx: number) => (
                                 <li key={idx}>{String(r)}</li>
                               ))}
@@ -367,30 +373,30 @@ export const IntelligencePage: React.FC = () => {
 
           {/* Action Proposal Confirmation Card */}
           {activeProposal && (
-            <div className="bg-cyan-950/40 border-t border-cyan-800/60 p-4 space-y-3">
+            <div className="bg-purple-50 border-t border-purple-200 p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
-                  <span className="text-xs font-bold text-cyan-200">Proposed Action Confirmation Required</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#A855F7]"></span>
+                  <span className="text-xs font-bold text-[#7e22ce]">Proposed Action Confirmation Required</span>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-900/60 text-cyan-300 font-mono">
+                <span className="text-[10px] px-2 py-0.5 rounded bg-purple-100 text-[#7e22ce] font-mono font-bold border border-purple-200">
                   {activeProposal.actionType}
                 </span>
               </div>
-              <p className="text-xs text-slate-300">{activeProposal.summary}</p>
+              <p className="text-xs text-slate-700 font-medium">{activeProposal.summary}</p>
 
               <div className="flex justify-end gap-3 pt-1">
                 <button
                   disabled={executingAction}
                   onClick={() => void handleActionConfirm(false)}
-                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl"
+                  className="px-3.5 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl"
                 >
                   Cancel
                 </button>
                 <button
                   disabled={executingAction}
                   onClick={() => void handleActionConfirm(true)}
-                  className="px-3.5 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold text-xs rounded-xl shadow-md shadow-cyan-500/20 flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 flex items-center gap-1.5 active:scale-[0.99]"
                 >
                   {executingAction ? 'Persisting...' : 'Confirm & Execute'}
                 </button>
@@ -400,32 +406,32 @@ export const IntelligencePage: React.FC = () => {
 
           {/* Success Banner */}
           {actionSuccessMessage && (
-            <div className="bg-emerald-950/40 border-t border-emerald-800/50 p-3 text-emerald-300 text-xs text-center font-medium">
+            <div className="bg-emerald-50 border-t border-emerald-200 p-3 text-[#15803d] text-xs text-center font-bold">
               ✓ {actionSuccessMessage}
             </div>
           )}
 
           {/* Error Banner */}
           {error && (
-            <div className="bg-red-950/40 border-t border-red-800/50 p-3 text-red-300 text-xs text-center">
+            <div className="bg-rose-50 border-t border-rose-200 p-3 text-rose-700 text-xs text-center font-bold">
               ⚠️ {error}
             </div>
           )}
 
           {/* Input Form */}
-          <form onSubmit={(e) => { void handleSendMessage(e); }} className="p-3 bg-slate-950 border-t border-slate-800 flex gap-2">
+          <form onSubmit={(e) => { void handleSendMessage(e); }} className="p-3 bg-white border-t border-slate-200 flex gap-2">
             <input
               type="text"
               id="intelligence-chat-input"
               placeholder="Ask KENENISA OS Intelligence..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="flex-1 px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-cyan-500"
+              className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:border-[#3B82F6]"
             />
             <button
               type="submit"
               disabled={loading || !inputText.trim()}
-              className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 text-white font-semibold text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center gap-2"
+              className="px-5 py-2.5 bg-[#3B82F6] hover:bg-blue-600 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center gap-2 active:scale-[0.99]"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -439,38 +445,38 @@ export const IntelligencePage: React.FC = () => {
 
       {/* User Memory Drawer Modal */}
       {showMemoryModal && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h2 className="text-base font-bold text-white flex items-center gap-2">
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <span>🧠 Personal Operating Memory</span>
               </h2>
               <button
                 onClick={() => setShowMemoryModal(false)}
-                className="text-slate-400 hover:text-white text-base font-bold"
+                className="text-slate-400 hover:text-slate-800 text-base font-bold"
               >
                 ✕
               </button>
             </div>
 
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-600">
               Durable user-confirmed operating preferences and rules stored for contextual assistance.
             </p>
 
             <div className="space-y-2 max-h-60 overflow-y-auto">
               {memories.length === 0 ? (
-                <p className="text-xs text-slate-400 italic p-2 text-center">No persistent user memories stored yet.</p>
+                <p className="text-xs text-slate-500 italic p-2 text-center">No persistent user memories stored yet.</p>
               ) : (
                 memories.map((m) => (
-                  <div key={m.id} className="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-start justify-between gap-3 text-xs">
+                  <div key={m.id} className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex items-start justify-between gap-3 text-xs">
                     <div>
-                      <span className="font-semibold text-cyan-400">{m.key}:</span>{' '}
-                      <span className="text-slate-300">{m.value}</span>
-                      <div className="text-[10px] text-slate-400 mt-0.5">{m.category}</div>
+                      <span className="font-bold text-[#0284c7]">{m.key}:</span>{' '}
+                      <span className="text-slate-800 font-medium">{m.value}</span>
+                      <div className="text-[10px] text-slate-500 mt-0.5">{m.category}</div>
                     </div>
                     <button
                       onClick={() => void handleArchiveMemory(m.id)}
-                      className="text-slate-400 hover:text-red-400 text-xs"
+                      className="text-slate-400 hover:text-rose-600 text-xs font-semibold"
                       title="Archive memory"
                     >
                       Archive
@@ -480,10 +486,10 @@ export const IntelligencePage: React.FC = () => {
               )}
             </div>
 
-            <div className="flex justify-end pt-2 border-t border-slate-800">
+            <div className="flex justify-end pt-2 border-t border-slate-200">
               <button
                 onClick={() => setShowMemoryModal(false)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs rounded-xl"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl border border-slate-200"
               >
                 Close
               </button>
@@ -494,3 +500,4 @@ export const IntelligencePage: React.FC = () => {
     </div>
   );
 };
+

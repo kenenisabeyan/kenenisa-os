@@ -131,20 +131,20 @@ export const DashboardPage: React.FC = () => {
       />
 
       {/* Hero: Next Best Action Card */}
-      <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 border border-cyan-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden" id="next-best-action-card">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden" id="next-best-action-card">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#3AB1EC]/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-cyan-400 animate-ping" />
-            <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
+            <span className="w-3 h-3 rounded-full bg-[#3AB1EC] animate-ping" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-[#0284c7]">
               DETERMINISTIC RECOMMENDATION
             </span>
           </div>
           {nextBestAction && (
-            <div className="flex items-center gap-2 bg-slate-950/80 px-3.5 py-1.5 rounded-full border border-cyan-500/30">
-              <span className="text-xs text-slate-400 font-medium">Evaluation Score</span>
-              <span className="text-base font-extrabold text-cyan-400" id="nba-score">
+            <div className="flex items-center gap-2 bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200 shadow-xs">
+              <span className="text-xs text-slate-600 font-semibold">Evaluation Score</span>
+              <span className="text-base font-extrabold text-[#2563eb]" id="nba-score">
                 {nextBestAction.score}/100
               </span>
             </div>
@@ -157,39 +157,39 @@ export const DashboardPage: React.FC = () => {
               <span className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${priorityColor(nextBestAction.recommendedTask.priority)}`}>
                 {nextBestAction.recommendedTask.priority}
               </span>
-              <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-slate-800 text-slate-300 border border-slate-700">
+              <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300">
                 {nextBestAction.recommendedTask.status}
               </span>
               {nextBestAction.recommendedTask.project && (
-                <span className="text-xs text-slate-400 bg-slate-950/60 px-2.5 py-0.5 rounded-md border border-slate-800">
+                <span className="text-xs text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200">
                   Project: {nextBestAction.recommendedTask.project.name}
                 </span>
               )}
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight" id="nba-task-title">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight" id="nba-task-title">
               {nextBestAction.recommendedTask.title}
             </h2>
 
             {nextBestAction.recommendedTask.description && (
-              <p className="text-slate-300 text-sm mb-6 max-w-3xl leading-relaxed">
+              <p className="text-slate-600 text-sm mb-6 max-w-3xl leading-relaxed">
                 {nextBestAction.recommendedTask.description}
               </p>
             )}
 
             {/* Score Breakdown Reasons */}
-            <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4 mb-6">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+            <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 mb-6">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
                 Scoring Breakdown Criteria
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 {nextBestAction.reasons.map((r, idx) => (
-                  <div key={idx} className="bg-slate-900/80 rounded-xl p-3 border border-slate-800">
+                  <div key={idx} className="bg-white rounded-xl p-3 border border-slate-200 shadow-xs">
                     <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="text-slate-400 font-medium">{r.category}</span>
-                      <span className="text-cyan-400 font-bold">+{r.points}</span>
+                      <span className="text-slate-600 font-semibold">{r.category}</span>
+                      <span className="text-[#0284c7] font-bold">+{r.points}</span>
                     </div>
-                    <p className="text-[11px] text-slate-300 line-clamp-2">{r.description}</p>
+                    <p className="text-[11px] text-slate-700 line-clamp-2">{r.description}</p>
                   </div>
                 ))}
               </div>
@@ -202,7 +202,7 @@ export const DashboardPage: React.FC = () => {
                   id="nba-start-btn"
                   onClick={() => { void handleStartTask(nextBestAction.recommendedTask!.id); }}
                   disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/25 transition-all flex items-center gap-2"
+                  className="px-6 py-3 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-sm shadow-md shadow-blue-500/20 transition-all flex items-center gap-2 active:scale-[0.99]"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -216,7 +216,7 @@ export const DashboardPage: React.FC = () => {
                   id="nba-complete-btn"
                   onClick={() => { void handleCompleteTask(nextBestAction.recommendedTask!.id); }}
                   disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/25 transition-all flex items-center gap-2"
+                  className="px-6 py-3 rounded-xl bg-[#22C55E] hover:bg-emerald-600 text-white font-bold text-sm shadow-md shadow-emerald-500/20 transition-all flex items-center gap-2 active:scale-[0.99]"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -229,7 +229,7 @@ export const DashboardPage: React.FC = () => {
                 id="nba-block-btn"
                 onClick={() => { void handleBlockTask(nextBestAction.recommendedTask!.id); }}
                 disabled={actionLoading === nextBestAction.recommendedTask.id}
-                className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white font-semibold text-xs transition-all"
+                className="px-4 py-3 rounded-xl bg-slate-100 hover:bg-orange-50 hover:text-[#c2410c] border border-slate-300 text-slate-700 font-bold text-xs transition-all"
               >
                 Mark Blocked
               </button>
@@ -237,11 +237,11 @@ export const DashboardPage: React.FC = () => {
           </div>
         ) : (
           <div className="text-center py-8">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center mx-auto mb-3 font-bold">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-[#2563eb] flex items-center justify-center mx-auto mb-3 font-bold text-lg shadow-xs">
               ✓
             </div>
-            <h3 className="text-lg font-bold text-white mb-1">Queue Cleared!</h3>
-            <p className="text-slate-400 text-sm max-w-md mx-auto">
+            <h3 className="text-lg font-bold text-slate-900 mb-1">Queue Cleared!</h3>
+            <p className="text-slate-600 text-sm max-w-md mx-auto">
               No active or ready tasks found in your candidate pool. All blocked or done. Create new tasks in Projects or Milestones to populate execution plan.
             </p>
           </div>
@@ -250,56 +250,56 @@ export const DashboardPage: React.FC = () => {
 
       {/* Summary Metrics Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3" id="summary-metrics">
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">Workstreams</div>
-          <div className="text-2xl font-black text-white mt-1">{summary.activeWorkstreams}</div>
-          <div className="text-[10px] text-slate-400 mt-1">Active</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">Workstreams</div>
+          <div className="text-2xl font-black text-slate-900 mt-1">{summary.activeWorkstreams}</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Active</div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">Goals</div>
-          <div className="text-2xl font-black text-white mt-1">{summary.activeGoals}</div>
-          <div className="text-[10px] text-slate-400 mt-1">In Progress</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">Goals</div>
+          <div className="text-2xl font-black text-slate-900 mt-1">{summary.activeGoals}</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">In Progress</div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">Projects</div>
-          <div className="text-2xl font-black text-white mt-1">{summary.activeProjects}</div>
-          <div className="text-[10px] text-slate-400 mt-1">Active</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">Projects</div>
+          <div className="text-2xl font-black text-slate-900 mt-1">{summary.activeProjects}</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Active</div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">Ready Tasks</div>
-          <div className="text-2xl font-black text-cyan-400 mt-1">{summary.readyTasks}</div>
-          <div className="text-[10px] text-slate-400 mt-1">Queue</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">Ready Tasks</div>
+          <div className="text-2xl font-black text-[#0284c7] mt-1">{summary.readyTasks}</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Queue</div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">In Progress</div>
-          <div className="text-2xl font-black text-blue-400 mt-1">{summary.inProgressTasks}</div>
-          <div className="text-[10px] text-slate-400 mt-1">Current</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">In Progress</div>
+          <div className="text-2xl font-black text-[#2563eb] mt-1">{summary.inProgressTasks}</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Current</div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">Blocked</div>
-          <div className={`text-2xl font-black mt-1 ${summary.blockedTasks > 0 ? 'text-red-400' : 'text-slate-400'}`}>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">Blocked</div>
+          <div className={`text-2xl font-black mt-1 ${summary.blockedTasks > 0 ? 'text-[#c2410c]' : 'text-slate-400'}`}>
             {summary.blockedTasks}
           </div>
-          <div className="text-[10px] text-slate-400 mt-1">Needs Action</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Needs Action</div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">Overdue</div>
-          <div className={`text-2xl font-black mt-1 ${summary.overdueTasks > 0 ? 'text-amber-400' : 'text-slate-400'}`}>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">Overdue</div>
+          <div className={`text-2xl font-black mt-1 ${summary.overdueTasks > 0 ? 'text-[#b45309]' : 'text-slate-400'}`}>
             {summary.overdueTasks}
           </div>
-          <div className="text-[10px] text-slate-400 mt-1">Late</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Late</div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
-          <div className="text-[11px] font-semibold text-slate-400">7d Completed</div>
-          <div className="text-2xl font-black text-emerald-400 mt-1">{summary.completedTasksRecent}</div>
-          <div className="text-[10px] text-slate-400 mt-1">Velocity</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-slate-500">7d Completed</div>
+          <div className="text-2xl font-black text-[#15803d] mt-1">{summary.completedTasksRecent}</div>
+          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Verified</div>
         </div>
       </div>
 
@@ -308,19 +308,19 @@ export const DashboardPage: React.FC = () => {
         {/* Left Column (2 cols wide): Today Focus & Critical Items */}
         <div className="lg:col-span-2 space-y-8">
           {/* Today's Focus */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="today-focus-section">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="today-focus-section">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-xl font-bold text-white">Today&apos;s Focus</h3>
-                <p className="text-slate-400 text-xs mt-0.5">Tasks due today or currently in progress</p>
+                <h3 className="text-xl font-bold text-slate-900">Today&apos;s Focus</h3>
+                <p className="text-slate-600 text-xs mt-0.5">Tasks due today or currently in progress</p>
               </div>
-              <span className="px-3 py-1 bg-slate-800 rounded-full text-xs font-semibold text-slate-300">
+              <span className="px-3 py-1 bg-slate-100 rounded-full text-xs font-semibold text-slate-700 border border-slate-200">
                 {today.dueToday.length + today.inProgress.length} items
               </span>
             </div>
 
             {today.dueToday.length === 0 && today.inProgress.length === 0 ? (
-              <div className="text-center py-6 border border-dashed border-slate-800 rounded-2xl text-slate-400 text-xs">
+              <div className="text-center py-6 border border-dashed border-slate-300 rounded-2xl text-slate-500 text-xs">
                 No tasks due today or in progress right now.
               </div>
             ) : (
@@ -328,23 +328,23 @@ export const DashboardPage: React.FC = () => {
                 {[...today.inProgress, ...today.dueToday].map((task) => (
                   <div
                     key={task.id}
-                    className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-4 hover:border-slate-700 transition-all"
+                    className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 flex items-center justify-between gap-4 hover:border-slate-300 transition-all"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${priorityColor(task.priority)}`}>
                           {task.priority}
                         </span>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200/80 text-slate-700 border border-slate-300">
                           {task.status}
                         </span>
                         {task.project && (
-                          <span className="text-[11px] text-slate-400 truncate">
+                          <span className="text-[11px] text-slate-600 truncate font-medium">
                             • {task.project.name}
                           </span>
                         )}
                       </div>
-                      <h4 className="text-sm font-bold text-white truncate">{task.title}</h4>
+                      <h4 className="text-sm font-bold text-slate-900 truncate">{task.title}</h4>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -352,7 +352,7 @@ export const DashboardPage: React.FC = () => {
                         <button
                           onClick={() => { void handleStartTask(task.id); }}
                           disabled={actionLoading === task.id}
-                          className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-lg text-xs transition-all"
+                          className="px-3 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold rounded-lg text-xs transition-all shadow-xs"
                         >
                           Start
                         </button>
@@ -361,7 +361,7 @@ export const DashboardPage: React.FC = () => {
                         <button
                           onClick={() => { void handleCompleteTask(task.id); }}
                           disabled={actionLoading === task.id}
-                          className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition-all"
+                          className="px-3 py-1.5 bg-[#22C55E] hover:bg-emerald-600 text-white font-semibold rounded-lg text-xs transition-all shadow-xs"
                         >
                           Complete
                         </button>
@@ -375,41 +375,41 @@ export const DashboardPage: React.FC = () => {
 
           {/* Blocked Tasks Section */}
           {blockedTasks.length > 0 && (
-            <div className="bg-slate-900/80 border border-red-500/30 rounded-3xl p-6 shadow-xl" id="blocked-tasks-section">
+            <div className="bg-white border border-[#FF5A00]/30 rounded-3xl p-6 shadow-xs" id="blocked-tasks-section">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-bold text-red-400 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-[#c2410c] flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                     Blocked Tasks Attention Needed
                   </h3>
-                  <p className="text-slate-400 text-xs mt-0.5">Tasks waiting on dependencies or external blockers</p>
+                  <p className="text-slate-600 text-xs mt-0.5">Tasks waiting on dependencies or external blockers</p>
                 </div>
-                <span className="px-3 py-1 bg-red-500/10 border border-red-500/30 text-red-400 rounded-full text-xs font-bold">
+                <span className="px-3 py-1 bg-orange-50 border border-orange-200 text-[#c2410c] rounded-full text-xs font-bold">
                   {blockedTasks.length} Blocked
                 </span>
               </div>
 
               <div className="space-y-3">
                 {blockedTasks.map((task) => (
-                  <div key={task.id} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
+                  <div key={task.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-sm font-bold text-white">{task.title}</h4>
+                      <h4 className="text-sm font-bold text-slate-900">{task.title}</h4>
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${priorityColor(task.priority)}`}>
                         {task.priority}
                       </span>
                     </div>
 
                     {task.blockingDependencies && task.blockingDependencies.length > 0 && (
-                      <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 space-y-1">
-                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      <div className="bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-700 space-y-1">
+                        <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                           Blocked By:
                         </div>
                         {task.blockingDependencies.map((dep) => (
                           <div key={dep.id} className="flex items-center justify-between text-xs">
-                            <span className="text-slate-200">• {dep.blockingTask?.title || 'Unknown Task'}</span>
-                            <span className="text-slate-400 text-[10px] font-bold px-1.5 py-0.5 bg-slate-800 rounded">
+                            <span className="text-slate-800 font-medium">• {dep.blockingTask?.title || 'Unknown Task'}</span>
+                            <span className="text-slate-600 text-[10px] font-bold px-1.5 py-0.5 bg-slate-100 rounded border border-slate-200">
                               {dep.blockingTask?.status}
                             </span>
                           </div>
@@ -424,23 +424,23 @@ export const DashboardPage: React.FC = () => {
 
           {/* Overdue Tasks Section */}
           {overdueTasks.length > 0 && (
-            <div className="bg-slate-900/80 border border-amber-500/30 rounded-3xl p-6 shadow-xl" id="overdue-tasks-section">
+            <div className="bg-white border border-[#FFD700]/50 rounded-3xl p-6 shadow-xs" id="overdue-tasks-section">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-bold text-amber-400">Overdue Tasks</h3>
-                  <p className="text-slate-400 text-xs mt-0.5">Tasks past their scheduled target date</p>
+                  <h3 className="text-xl font-bold text-[#b45309]">Overdue Tasks</h3>
+                  <p className="text-slate-600 text-xs mt-0.5">Tasks past their scheduled target date</p>
                 </div>
-                <span className="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-full text-xs font-bold">
+                <span className="px-3 py-1 bg-amber-50 border border-amber-200 text-[#b45309] rounded-full text-xs font-bold">
                   {overdueTasks.length} Overdue
                 </span>
               </div>
 
               <div className="space-y-3">
                 {overdueTasks.map((task) => (
-                  <div key={task.id} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-4">
+                  <div key={task.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4 flex items-center justify-between gap-4">
                     <div>
-                      <h4 className="text-sm font-bold text-white">{task.title}</h4>
-                      <p className="text-xs text-amber-400/90 mt-0.5">
+                      <h4 className="text-sm font-bold text-slate-900">{task.title}</h4>
+                      <p className="text-xs text-[#b45309] font-semibold mt-0.5">
                         Due: {task.dueDate ? task.dueDate.split('T')[0] : 'N/A'}
                       </p>
                     </div>
@@ -448,7 +448,7 @@ export const DashboardPage: React.FC = () => {
                     <button
                       onClick={() => { void handleStartTask(task.id); }}
                       disabled={actionLoading === task.id}
-                      className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-lg text-xs transition-all"
+                      className="px-3 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold rounded-lg text-xs transition-all shadow-xs"
                     >
                       Start Task
                     </button>
@@ -459,20 +459,20 @@ export const DashboardPage: React.FC = () => {
           )}
 
           {/* Upcoming Tasks (Next 7 Days) */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="upcoming-tasks-section">
-            <h3 className="text-xl font-bold text-white mb-1">Upcoming (Next 7 Days)</h3>
-            <p className="text-slate-400 text-xs mb-4">Scheduled workload timeline preview</p>
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="upcoming-tasks-section">
+            <h3 className="text-xl font-bold text-slate-900 mb-1">Upcoming (Next 7 Days)</h3>
+            <p className="text-slate-600 text-xs mb-4">Scheduled workload timeline preview</p>
 
             {upcomingTasks.length === 0 ? (
-              <div className="text-center py-6 border border-dashed border-slate-800 rounded-2xl text-slate-400 text-xs">
+              <div className="text-center py-6 border border-dashed border-slate-300 rounded-2xl text-slate-500 text-xs">
                 No tasks scheduled for the next 7 days.
               </div>
             ) : (
               <div className="space-y-2">
                 {upcomingTasks.map((task) => (
-                  <div key={task.id} className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex items-center justify-between text-xs">
-                    <span className="font-semibold text-slate-200 truncate">{task.title}</span>
-                    <span className="text-slate-400 font-mono text-[11px] shrink-0">
+                  <div key={task.id} className="bg-slate-50/80 border border-slate-200/90 rounded-xl p-3 flex items-center justify-between text-xs">
+                    <span className="font-semibold text-slate-800 truncate">{task.title}</span>
+                    <span className="text-slate-500 font-mono text-[11px] shrink-0">
                       {task.dueDate ? task.dueDate.split('T')[0] : ''}
                     </span>
                   </div>
@@ -485,18 +485,18 @@ export const DashboardPage: React.FC = () => {
         {/* Right Column (1 col wide): Workstreams, Active Projects & Audit Activity */}
         <div className="space-y-8">
           {/* Workstreams Overview */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="workstreams-overview-section">
-            <h3 className="text-lg font-bold text-white mb-4">Workstreams</h3>
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="workstreams-overview-section">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Workstreams</h3>
             <div className="space-y-3">
               {workstreams.map((ws) => (
-                <div key={ws.id} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
+                <div key={ws.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
                   <div className="flex items-center justify-between mb-1">
-                    <h4 className="text-sm font-bold text-white">{ws.name}</h4>
-                    <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded">
+                    <h4 className="text-sm font-bold text-slate-900">{ws.name}</h4>
+                    <span className="text-[10px] font-bold text-[#0284c7] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
                       Weight {ws.priorityWeight}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-400 mt-2">
+                  <div className="flex items-center gap-3 text-xs text-slate-500 mt-2 font-medium">
                     <span>{ws._count?.goals || 0} Goals</span>
                     <span>•</span>
                     <span>{ws._count?.projects || 0} Projects</span>
@@ -507,23 +507,23 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Active Projects */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="active-projects-section">
-            <h3 className="text-lg font-bold text-white mb-4">Active Projects</h3>
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="active-projects-section">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Active Projects</h3>
             <div className="space-y-3">
               {activeProjects.map((proj) => (
-                <div key={proj.id} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
+                <div key={proj.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
                   <div className="flex items-center justify-between mb-1">
-                    <h4 className="text-sm font-bold text-white truncate">{proj.name}</h4>
+                    <h4 className="text-sm font-bold text-slate-900 truncate">{proj.name}</h4>
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${priorityColor(proj.priority)}`}>
                       {proj.priority}
                     </span>
                   </div>
                   {proj.workstream && (
-                    <div className="text-xs text-slate-400 mt-1">
+                    <div className="text-xs text-slate-500 mt-1 font-medium">
                       {proj.workstream.name}
                     </div>
                   )}
-                  <div className="flex items-center gap-3 text-xs text-slate-400 mt-2">
+                  <div className="flex items-center gap-3 text-xs text-slate-500 mt-2 font-medium">
                     <span>{proj._count?.tasks || 0} Tasks</span>
                     <span>•</span>
                     <span>{proj._count?.milestones || 0} Milestones</span>
@@ -534,16 +534,16 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Recent Activity Feed */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl" id="recent-activity-section">
-            <h3 className="text-lg font-bold text-white mb-4">Recent Audit Activity</h3>
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="recent-activity-section">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">Recent Audit Activity</h3>
             <div className="space-y-3">
               {recentActivity.length === 0 ? (
-                <p className="text-xs text-slate-400 text-center py-4">No recent activity logs.</p>
+                <p className="text-xs text-slate-500 text-center py-4">No recent activity logs.</p>
               ) : (
                 recentActivity.map((act) => (
-                  <div key={act.id} className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 text-xs">
-                    <div className="text-slate-200 font-medium">{act.description}</div>
-                    <div className="text-[10px] text-slate-400 mt-1 font-mono">
+                  <div key={act.id} className="bg-slate-50/80 border border-slate-200 rounded-xl p-3 text-xs">
+                    <div className="text-slate-800 font-medium">{act.description}</div>
+                    <div className="text-[10px] text-slate-500 mt-1 font-mono">
                       {new Date(act.createdAt).toLocaleString()}
                     </div>
                   </div>
@@ -553,6 +553,7 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

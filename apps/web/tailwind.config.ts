@@ -5,19 +5,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Official Kenenisa OS Brand Palette
         brand: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#06b6d4',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49',
+          cyan: '#3AB1EC',     // System intelligence & technology
+          blue: '#3B82F6',     // Primary actions & navigation
+          indigo: '#6366F1',   // Active states & focus
+          purple: '#A855F7',   // Intelligence Core & AI advisory
+          orange: '#FF5A00',   // Attention & active work
+          gold: '#FFD700',     // Highlights & achievements
+          green: '#22C55E',    // Success, completed & healthy
+          bgLight: '#F8FAFC',  // Primary light application background
         },
+        bgLight: '#F8FAFC',
         slate: {
           925: '#05070f',
           950: '#0a0a0f',
@@ -36,9 +35,10 @@ export default {
         mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       boxShadow: {
-        glow: '0 0 20px -5px rgba(6, 182, 212, 0.15)',
-        'glow-lg': '0 0 30px -5px rgba(6, 182, 212, 0.25)',
-        card: '0 4px 20px -2px rgba(0, 0, 0, 0.5)',
+        glow: '0 0 20px -5px rgba(59, 130, 246, 0.15)',
+        'glow-lg': '0 0 30px -5px rgba(58, 177, 236, 0.25)',
+        card: '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
+        'card-hover': '0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)',
       },
       borderRadius: {
         '2xl': '1rem',
@@ -48,4 +48,5 @@ export default {
   },
   plugins: [],
 } satisfies Config;
+
 

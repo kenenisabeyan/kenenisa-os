@@ -21,21 +21,27 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<string, { bg: string; text: string; border: string }> = {
-  READY: { bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20' },
-  IN_PROGRESS: { bg: 'bg-blue-500/10', text: 'text-blue-400', border: 'border-blue-500/20' },
-  BLOCKED: { bg: 'bg-rose-500/10', text: 'text-rose-400', border: 'border-rose-500/20' },
-  REVIEW: { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20' },
-  DONE: { bg: 'bg-emerald-500/15', text: 'text-emerald-300', border: 'border-emerald-500/30' },
-  CANCELLED: { bg: 'bg-slate-500/10', text: 'text-slate-400', border: 'border-slate-500/20' },
+  READY: { bg: 'bg-[#3AB1EC]/15', text: 'text-[#0284c7] font-semibold', border: 'border-[#3AB1EC]/35' },
+  IN_PROGRESS: { bg: 'bg-[#3B82F6]/15', text: 'text-[#1d4ed8] font-semibold', border: 'border-[#3B82F6]/35' },
+  BLOCKED: { bg: 'bg-[#FF5A00]/15', text: 'text-[#c2410c] font-bold', border: 'border-[#FF5A00]/35' },
+  REVIEW: { bg: 'bg-[#6366F1]/15', text: 'text-[#4338ca] font-semibold', border: 'border-[#6366F1]/35' },
+  DONE: { bg: 'bg-[#22C55E]/15', text: 'text-[#15803d] font-semibold', border: 'border-[#22C55E]/35' },
+  CANCELLED: { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-300' },
 
-  URGENT: { bg: 'bg-rose-500/15', text: 'text-rose-400 font-bold', border: 'border-rose-500/30' },
-  HIGH: { bg: 'bg-amber-500/15', text: 'text-amber-400 font-semibold', border: 'border-amber-500/30' },
-  MEDIUM: { bg: 'bg-cyan-500/10', text: 'text-cyan-400', border: 'border-cyan-500/20' },
-  LOW: { bg: 'bg-slate-500/10', text: 'text-slate-400', border: 'border-slate-500/20' },
+  AI: { bg: 'bg-[#A855F7]/15', text: 'text-[#7e22ce] font-bold', border: 'border-[#A855F7]/35' },
+  INTELLIGENCE: { bg: 'bg-[#A855F7]/15', text: 'text-[#7e22ce] font-bold', border: 'border-[#A855F7]/35' },
+  GOLD: { bg: 'bg-[#FFD700]/20', text: 'text-[#92400e] font-extrabold', border: 'border-[#FFD700]/50' },
+  MILESTONE: { bg: 'bg-[#FFD700]/20', text: 'text-[#92400e] font-extrabold', border: 'border-[#FFD700]/50' },
 
-  NEUTRAL: { bg: 'bg-slate-800', text: 'text-slate-300', border: 'border-slate-700' },
-  INFO: { bg: 'bg-sky-500/10', text: 'text-sky-400', border: 'border-sky-500/20' },
+  URGENT: { bg: 'bg-rose-100', text: 'text-rose-800 font-bold', border: 'border-rose-300' },
+  HIGH: { bg: 'bg-[#FF5A00]/15', text: 'text-[#c2410c] font-bold', border: 'border-[#FF5A00]/35' },
+  MEDIUM: { bg: 'bg-[#3AB1EC]/15', text: 'text-[#0284c7] font-semibold', border: 'border-[#3AB1EC]/35' },
+  LOW: { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-300' },
+
+  NEUTRAL: { bg: 'bg-slate-100', text: 'text-slate-700', border: 'border-slate-200' },
+  INFO: { bg: 'bg-[#3AB1EC]/15', text: 'text-[#0284c7] font-semibold', border: 'border-[#3AB1EC]/35' },
 };
+
 
 export const Badge: React.FC<BadgeProps> = ({ variant, label, className = '' }) => {
   const normalizedVariant = (variant || 'NEUTRAL').toUpperCase();

@@ -2,7 +2,7 @@
 
 ## Test Overview
 
-This matrix documents device compatibility and responsive behavior testing across all major screen viewports (Mobile, Tablet, Desktop, and Large Desktop) for **KENENISA OS — Personal Engineering & Career Operating System**.
+This matrix documents device compatibility and responsive behavior testing across all major screen viewports (Mobile, Tablet, Desktop, and Large Desktop) for **KENENISA OS — Personal Engineering & Career Operating System** using the official **Brand Color & Light Design System** on `#F8FAFC`.
 
 ---
 
@@ -10,8 +10,8 @@ This matrix documents device compatibility and responsive behavior testing acros
 
 | Category | Viewport Resolution | Targeted Devices | Layout Behavior | Navigation | Content & Table Overflow | Touch / Interaction | Severity | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Mobile Extra Small** | `320×568` | iPhone SE 1st Gen, Small Android | Single column stack, compact cards | Top mobile bar + drawer overlay | Horizontally scrollable tables with sticky headers | Min 44px touch targets verified | LOW | VERIFIED |
-| **Mobile Small** | `360×640` | Samsung Galaxy S8, standard Android | Single column stack, full-width cards | Fixed mobile bottom nav (`h-16`) | Form controls stack vertically; cards wrap cleanly | Touch targets > 44px | LOW | VERIFIED |
+| **Mobile Extra Small** | `320×568` | iPhone SE 1st Gen, Small Android | Single column stack, compact white cards | Top mobile bar + drawer overlay | Horizontally scrollable tables with sticky headers | Min 44px touch targets verified | LOW | VERIFIED |
+| **Mobile Small** | `360×640` | Samsung Galaxy S8, standard Android | Single column stack, full-width white cards | Fixed mobile bottom nav (`h-16`) | Form controls stack vertically; cards wrap cleanly | Touch targets > 44px | LOW | VERIFIED |
 | **Mobile Medium** | `375×667` | iPhone 8, iPhone SE 2nd Gen | Single column stack, 12px horizontal padding | Fixed mobile bottom nav (`h-16`) | Badge & status pills wrap without clipping | Touch targets > 44px | LOW | VERIFIED |
 | **Mobile Standard** | `390×844` / `393×852` | iPhone 12/13/14/15 Pro, Pixel 7 | Fluid single column, 16px padding | Mobile bottom bar + hamburger drawer | Next Best Action card scales gracefully | Touch targets > 44px | LOW | VERIFIED |
 | **Mobile Large** | `412×915` / `430×932` | iPhone 14/15 Pro Max, Pixel 7 Pro | Single column stack, card grids adapt | Mobile bottom bar + hamburger drawer | Multi-select filters wrap nicely | Touch targets > 44px | LOW | VERIFIED |
@@ -25,8 +25,9 @@ This matrix documents device compatibility and responsive behavior testing acros
 
 ## Responsive Design Guidelines Applied
 
-1. **Fluid Grid Containers**: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` prevents awkward horizontal stretching on wide screens while keeping mobile edge padding clean.
-2. **Stacked Mobile Forms**: All multi-input forms switch to vertical stacking on viewports `< 640px` (`sm:` breakpoint).
-3. **Responsive Tables**: Complex multi-column data views wrap or scroll gracefully without breaking parent container bounds.
-4. **Touch Target Sizing**: Interactive elements maintain a minimum 44px height and width on touch viewports.
-5. **Backdrop Blur & Modals**: Mobile drawer and action confirmation dialogs use `backdrop-blur-md` with full keyboard escape support.
+1. **Light Mode Foundation**: Clean `#F8FAFC` background with subtle white card surfaces (`#FFFFFF`), slate-200 borders, and slate-900 typography.
+2. **Fluid Grid Containers**: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` prevents awkward horizontal stretching on wide screens while keeping mobile edge padding clean.
+3. **Stacked Mobile Forms**: All multi-input forms switch to vertical stacking on viewports `< 640px` (`sm:` breakpoint).
+4. **Responsive Tables**: Complex multi-column data views wrap or scroll gracefully without breaking parent container bounds.
+5. **Touch Target Sizing**: Interactive elements maintain a minimum 44px height and width on touch viewports.
+6. **Focus Indicators**: Focused inputs and interactive controls use explicit Indigo `#6366F1` focus rings with zero removal of default outline accessibility.
