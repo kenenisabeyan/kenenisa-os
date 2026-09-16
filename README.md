@@ -27,6 +27,7 @@ Steps 0–13 are fully implemented as production-grade domain services, REST API
 11. **Production Hardening & System QA (Steps 13–15)**: Centralized Zod environment validation, Prisma error mapping, request tracking (`X-Request-ID`), bounded 10-second graceful process shutdown, health/readiness endpoints (`/health`, `/ready`), rate limiting, 25 tracked UX improvements, and 129/129 passing system QA tests.
 12. **Production Release Engineering (Step 16)**: Production deployment architecture, zero-downtime Prisma migration SOPs, database backup & restore SOPs, rollback readiness, release verification matrix (`REL-001`–`REL-035`), and production incident runbook.
 13. **Post-Production Monitoring & Stabilization (Step 17)**: Production health matrix (`PH-001`–`PH-030`), observability architecture, continuous stabilization SOPs, incident response protocol, and 15-step hotfix runbook.
+14. **Continuous Product Evolution (Step 18)**: Evidence-driven product evolution framework, issue/opportunity classification model, prioritization score algorithm, active product backlog matrix (`PE-001`–`PE-010`), and architectural decision records.
 
 ---
 
@@ -77,8 +78,11 @@ npm run dev
 
 ---
 
-## Production Release, Monitoring & Operational Documentation
+## Product Evolution, Release & Operational Documentation
 
+* [`docs/product-evolution.md`](./docs/product-evolution.md) — Authoritative Product Evolution Framework & Roadmap.
+* [`docs/product-evolution-matrix.md`](./docs/product-evolution-matrix.md) — Active Product Evolution Backlog Matrix (`PE-001`–`PE-010`).
+* [`docs/decisions/0008-product-evolution-loop.md`](./docs/decisions/0008-product-evolution-loop.md) — Architectural Decision Record for Continuous Product Evolution Loop.
 * [`docs/production-release.md`](./docs/production-release.md) — Authoritative Production Release Record & Verification Evidence.
 * [`docs/production-health-matrix.md`](./docs/production-health-matrix.md) — Step 17 Production Health Verification Matrix (`PH-001`–`PH-030`).
 * [`docs/production-monitoring.md`](./docs/production-monitoring.md) — Post-Production Observability Architecture & Telemetry.
@@ -95,5 +99,6 @@ npm run dev
 * [`docs/observability.md`](./docs/observability.md) — Pino logging, `X-Request-ID` tracking, health & readiness endpoints.
 * [`docs/intelligence-core.md`](./docs/intelligence-core.md) — AI reasoning layer & context engine.
 * [`docs/api/`](./docs/api/) — Complete REST API reference documentation.
+
 
 
