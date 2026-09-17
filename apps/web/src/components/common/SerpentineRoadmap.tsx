@@ -7,7 +7,7 @@ export interface RoadmapStep {
   subtitle: string;
   description: string;
   focusAreas: string[];
-  themeColor: string; // Hex color e.g. '#6366F1'
+  themeColor: string; // Hex color e.g. '#8B5CF6'
   bgBadgeColor: string;
   badgeTextColor: string;
   icon: React.ReactNode;
@@ -25,168 +25,126 @@ export interface SerpentineRoadmapProps {
 }
 
 export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
-  title = 'Structured Personal Engineering Journey',
-  subtitle = 'From initial requirement discovery to zero-friction production execution, our 7-step operating roadmap is built for reliability, evidence, and long-term career growth.',
-  badgeText = 'OPERATING LIFECYCLE & METHODOLOGY',
-  summaryBadgeText = 'SEVEN STEPS',
-  summaryTitle = 'FROM INTENTION TO DIGITAL IMPACT',
-  summaryDescription = 'A structured personal operating system process that transforms complex ambitions, coursework, and projects into reliable, scalable, and verifiable engineering proof.',
-  summaryMetaText = 'KENENISA OS • METHODOLOGY BLUEPRINT',
+  title = 'Structured Engineering Journey',
+  subtitle = 'From initial requirement discovery to zero-downtime production deployment, our 5-phase engineering roadmap built for reliability and scale.',
+  badgeText = 'DEVELOPMENT LIFECYCLE & PROCESS',
+  summaryBadgeText = 'FIVE STEPS',
+  summaryTitle = 'FROM CHALLENGE TO DIGITAL IMPACT',
+  summaryDescription = 'A structured engineering process that transforms complex business challenges into reliable, scalable, and future-ready technology solutions.',
+  summaryMetaText = 'KENENISA OS • ENGINEERING ROADMAP',
   steps: customSteps,
 }) => {
+  const [activeStepIndex, setActiveStepIndex] = React.useState<number | null>(null);
+
   const defaultSteps: RoadmapStep[] = [
     {
       number: '01',
-      badgeTitle: 'DEFINE DIRECTION',
-      title: 'DISCOVER & PLAN THE DIRECTION',
-      subtitle: 'Understand Strategy Before You Engineer.',
+      badgeTitle: 'REQUIREMENT ANALYSIS',
+      title: 'DISCOVER & PLAN THE CHALLENGE',
+      subtitle: 'Understand Before We Engineer.',
       description:
-        'We begin with in-depth requirement analysis, workstream scope definition, and strategic goal setting to map your personal academic, technical, and career trajectory.',
+        'We begin with in-depth requirement analysis, tech stack selection, scope definition, and structural architecture planning to understand your organization, users, workflows, and long-term objectives.',
       focusAreas: [
-        'Business & career trajectory analysis',
-        'Workstream & scope definition',
-        'Strategic goal & target mapping',
+        'Business & workflow analysis',
+        'Tech stack & scope definition',
+        'User & stakeholder requirements',
         'Structural architecture planning',
       ],
-      themeColor: '#6366F1',
-      bgBadgeColor: 'bg-indigo-50 text-[#6366F1]',
-      badgeTextColor: 'text-[#6366F1]',
+      themeColor: '#7C3AED',
+      bgBadgeColor: 'bg-purple-50 border-purple-200 text-[#7C3AED]',
+      badgeTextColor: 'text-[#7C3AED]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       ),
     },
     {
       number: '02',
-      badgeTitle: 'STRUCTURE WORK',
+      badgeTitle: 'ARCHITECTURE & DESIGN',
       title: 'STRATEGIZE, DESIGN & ARCHITECT',
-      subtitle: 'Turn Insight into a Clear Engineering Blueprint.',
+      subtitle: 'Turn Insight Into a Clear Technology Blueprint.',
       description:
-        'Transform high-level goals into executable multi-stage Projects, sequential Milestones, and granular Tasks with strict priority levels and dependency graphs.',
+        'Our engineers transform requirements into high-performance microservices architecture designs, REST/GraphQL API specifications, intuitive UI/UX wireframes, and actionable implementation roadmaps.',
       focusAreas: [
-        'Solution strategy & workstream breakdown',
-        'Project & milestone architecture',
-        'Task priority matrix (P0 Critical, P1 High)',
-        'Output deliverable & evidence specs',
+        'Solution strategy & UX planning',
+        'Microservices & software architecture',
+        'REST & GraphQL API specifications',
+        'UI/UX wireframing & tech selection',
       ],
-      themeColor: '#3B82F6',
-      bgBadgeColor: 'bg-blue-50 text-[#3B82F6]',
-      badgeTextColor: 'text-[#3B82F6]',
+      themeColor: '#0284C7',
+      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#0284C7]',
+      badgeTextColor: 'text-[#0284C7]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
         </svg>
       ),
     },
     {
       number: '03',
-      badgeTitle: 'PLAN CAPACITY',
-      title: 'PLAN CAPACITY & TIME BLOCKS',
-      subtitle: 'Match Effort with Real Available Time.',
+      badgeTitle: 'ENGINEERING & BUILD',
+      title: 'ENGINEER & CONSTRUCT SOLUTION',
+      subtitle: 'Build Robust Technology with Clean Code.',
       description:
-        'Calculate available daily/weekly hours budget and schedule task effort into dedicated focus time blocks to eliminate overcommitment and scheduling collisions.',
+        'Execute development sprints using test-driven methodology, modular component architecture, robust typing, and continuous automated quality gates.',
       focusAreas: [
-        'Daily & weekly capacity budgeting',
-        'Time-block allocation & focus slots',
-        'Overcommitment & conflict detection',
-        'Realistic effort estimation (Estimate ≠ Scheduled)',
+        'Modular full-stack implementation',
+        'Automated testing & type safety',
+        'State management & micro-interactions',
+        'Database migration & ORM integration',
       ],
-      themeColor: '#3AB1EC',
-      bgBadgeColor: 'bg-cyan-50 text-[#3AB1EC]',
-      badgeTextColor: 'text-[#3AB1EC]',
+      themeColor: '#2563EB',
+      bgBadgeColor: 'bg-blue-50 border-blue-200 text-[#2563EB]',
+      badgeTextColor: 'text-[#2563EB]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         </svg>
       ),
     },
     {
       number: '04',
-      badgeTitle: 'EXECUTE WORK',
-      title: 'ENGINEER & BUILD THE SOLUTION',
-      subtitle: 'Build Technology That Works in the Real World.',
+      badgeTitle: 'VERIFICATION & QA',
+      title: 'VALIDATE, TEST & PRODUCE PROOF',
+      subtitle: 'Ensure Production Reliability Before Deployment.',
       description:
-        'Execute unblocked tasks using deterministic Next Best Action prioritization. Focus deep work sessions on high-impact priorities without context switching.',
+        'Rigorous end-to-end QA testing, performance profiling, security audits, and observable evidence generation before pushing to staging and production.',
       focusAreas: [
-        'Deterministic Next Best Action selection',
-        'Test-driven & sprint execution',
-        'Clean modular code & API integration',
-        'Dependency resolution & deep work focus',
+        'End-to-end E2E testing suite',
+        'Security & vulnerability scanning',
+        'Performance & load optimization',
+        'Verifiable proof & evidence vaulting',
       ],
-      themeColor: '#FF5A00',
-      bgBadgeColor: 'bg-orange-50 text-[#FF5A00]',
-      badgeTextColor: 'text-[#FF5A00]',
+      themeColor: '#EA580C',
+      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#EA580C]',
+      badgeTextColor: 'text-[#EA580C]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
     },
     {
       number: '05',
-      badgeTitle: 'PRODUCE EVIDENCE',
-      title: 'VALIDATE, SECURE & TEST',
-      subtitle: 'Ensure Quality Before It Claims Impact.',
+      badgeTitle: 'DEPLOYMENT & SCALING',
+      title: 'DEPLOY, MONITOR & EVOLVE',
+      subtitle: 'Zero-Downtime Delivery & Continuous Evolution.',
       description:
-        'Task and project completions automatically generate observable proof items—such as pull request URLs, published docs, repository commits, and test pass rates.',
+        'Automated zero-downtime deployment pipelines, real-time observability telemetry, health monitoring, and data-driven continuous optimization.',
       focusAreas: [
-        'Observable proof artifact logging',
-        'Pull request & repository link verification',
-        'Security validation & penetration testing',
-        'Evidence Vault portfolio repository',
+        'Zero-downtime CI/CD deployment',
+        'Observability & Pino telemetry logging',
+        'Incident response & recovery runbooks',
+        'Continuous feature evolution',
       ],
-      themeColor: '#22C55E',
-      bgBadgeColor: 'bg-emerald-50 text-[#22C55E]',
-      badgeTextColor: 'text-[#22C55E]',
+      themeColor: '#16A34A',
+      bgBadgeColor: 'bg-green-50 border-green-200 text-[#16A34A]',
+      badgeTextColor: 'text-[#16A34A]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-    },
-    {
-      number: '06',
-      badgeTitle: 'REVIEW & REFLECT',
-      title: 'REVIEW, REFLECT & REASON WITH AI',
-      subtitle: 'Extract Meaningful Insights From Execution Data.',
-      description:
-        'Conduct weekly reviews with Intelligence Core advisory. Evaluate velocity, identify root causes for blockages, and capture lessons learned in structured reflections.',
-      focusAreas: [
-        'Weekly velocity & capacity audits',
-        'Blockage & dependency root cause analysis',
-        'Intelligence Core AI advisory insights',
-        'Qualitative reflection & key learnings',
-      ],
-      themeColor: '#A855F7',
-      bgBadgeColor: 'bg-purple-50 text-[#A855F7]',
-      badgeTextColor: 'text-[#A855F7]',
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-disabled" />
-        </svg>
-      ),
-    },
-    {
-      number: '07',
-      badgeTitle: 'EVOLVE & SCALE',
-      title: 'DEPLOY, EVOLVE & SCALE CAREER',
-      subtitle: 'Technology & Career Should Keep Moving Forward.',
-      description:
-        'Translate verified evidence and skill progress into target career opportunity pipelines. Match verified capabilities against job descriptions and client proposals.',
-      focusAreas: [
-        'Continuous improvement & capacity scaling',
-        'Skill-to-opportunity gap analysis',
-        'Evidence portfolio matching for applications',
-        'Long-term career trajectory evolution',
-      ],
-      themeColor: '#FFD700',
-      bgBadgeColor: 'bg-amber-50 text-amber-700',
-      badgeTextColor: 'text-amber-600',
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       ),
     },
@@ -194,244 +152,232 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
 
   const steps = customSteps || defaultSteps;
 
-  return (
-    <div className="w-full max-w-6xl mx-auto py-12 px-4 sm:px-6 font-sans">
-      {/* ── SECTION TOP HEADER ─────────────────────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
-        <div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            {title}
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-500 font-normal mt-1 max-w-2xl">
-            {subtitle}
-          </p>
-        </div>
-        <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-cyan-50/80 text-[#3AB1EC] text-[11px] font-bold uppercase tracking-wider shrink-0">
-          <span>✧</span>
-          <span>{badgeText}</span>
-          <span>✧</span>
-        </div>
-      </div>
+  // Generate 100% smooth C2-continuous serpentine ribbon path
+  const stepHeight = 440;
+  const topPadding = 180;
+  const totalSvgHeight = steps.length * stepHeight + topPadding;
 
-      {/* ── TOP SUMMARY CARD (BORDERLESS TINTED SECTION) ────────────────────────── */}
-      <div className="mb-16 max-w-md">
-        <div
-          className="relative rounded-3xl p-6 sm:p-7 shadow-xs space-y-3 overflow-hidden transition-transform duration-200 hover:scale-[1.01]"
-          style={{ backgroundColor: '#3AB1EC10' }}
-        >
-          {/* Subtle Watermark Graphic */}
-          <div className="absolute right-2 bottom-2 pointer-events-none opacity-15 select-none font-black text-xs text-[#3AB1EC] tracking-widest uppercase flex flex-col items-end leading-tight">
-            <span>KENENISA OS</span>
-            <span>GLOBAL</span>
+  let pathD = `M 50 0 L 50 ${topPadding} `;
+  for (let i = 0; i < steps.length - 1; i++) {
+    const yStart = topPadding + i * stepHeight;
+    const yEnd = topPadding + (i + 1) * stepHeight;
+    const yMid = (yStart + yEnd) / 2;
+
+    // Tight localized sway curving right around step numbers (xSway = 55 right, 45 left)
+    const xSway = i % 2 === 0 ? 55 : 45;
+
+    pathD += `C 50 ${yStart + 60}, ${xSway} ${yMid - 50}, ${xSway} ${yMid} `;
+    pathD += `C ${xSway} ${yMid + 50}, 50 ${yEnd - 60}, 50 ${yEnd} `;
+  }
+  pathD += `L 50 ${totalSvgHeight} `;
+
+  return (
+    <div className="w-full relative overflow-hidden py-16 sm:py-20 px-4 sm:px-8 lg:px-12 font-sans bg-slate-50/40">
+      {/* ── WATER FLOW & AMBIENT PULSE ANIMATION KEYFRAMES ───────────────────── */}
+      <style>{`
+        @keyframes waterFlow {
+          0% {
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dashoffset: -40;
+          }
+        }
+        @keyframes waterPulse {
+          0%, 100% {
+            opacity: 0.65;
+            transform: scale(1.35);
+          }
+          50% {
+            opacity: 0.95;
+            transform: scale(1.50);
+          }
+        }
+        .animate-water-flow {
+          animation: waterFlow 0.75s linear infinite;
+        }
+        .animate-water-pulse {
+          animation: waterPulse 1.8s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* ── TOP FULL-WIDTH GRADIENT BAR ─────────────────────────────────────────── */}
+      <div className="w-full h-1.5 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600 rounded-full mb-12 opacity-80" />
+
+      {/* ── BACKGROUND DOTTED GRID PATTERN (MATCHING DESIGN SCREENSHOT) ──────────── */}
+      <div className="absolute inset-0 bg-[radial-gradient(#0284C728_1.2px,transparent_1.2px)] [background-size:20px_20px] pointer-events-none z-0" />
+
+      <div className="max-w-[1720px] mx-auto relative z-10">
+        {/* ── SECTION TOP HEADER ─────────────────────────────────────────────────── */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+          <div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 tracking-tight">
+              {title}
+            </h2>
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-slate-500 font-medium mt-3 max-w-5xl">
+              {subtitle}
+            </p>
           </div>
 
-          <div className="flex items-center justify-between relative z-10">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#3AB1EC]">
-              {summaryBadgeText}
-            </span>
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#3AB1EC] to-[#3B82F6] flex items-center justify-center font-bold text-white text-[10px]">
-              K
+          <div className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-cyan-50/90 border border-cyan-200/90 text-[#0284C7] text-xs font-extrabold uppercase tracking-widest shadow-xs shrink-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7] animate-pulse" />
+            <span>{badgeText}</span>
+            <span className="text-cyan-500">⚡</span>
+          </div>
+        </div>
+
+        {/* ── SUMMARY CARD (PLACED DIRECTLY BELOW HEADER WITH MARGIN) ─────────────── */}
+        <div className="mb-16 md:mb-20 max-w-2xl">
+          <div className="relative rounded-2xl bg-white p-7 sm:p-9 border border-cyan-100/90 shadow-xl shadow-cyan-900/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-cyan-200 group/summary">
+            {/* Left Vertical Accent Bar */}
+            <div className="absolute left-0 top-0 bottom-0 w-2.5 bg-[#0284C7] rounded-l-2xl" />
+
+            {/* Translucent Geometric Watermark */}
+            <div className="absolute right-5 bottom-5 pointer-events-none opacity-20 select-none font-black text-[10px] text-[#0284C7] tracking-widest uppercase flex flex-col items-end leading-tight">
+              <svg className="w-16 h-16 mb-1 text-cyan-600 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              <span>KENENISA OS</span>
+              <span>GLOBAL</span>
+            </div>
+
+            <div className="pl-3 relative z-10 space-y-3">
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#0284C7] block">
+                {summaryBadgeText}
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug tracking-tight uppercase">
+                {summaryTitle}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
+                {summaryDescription}
+              </p>
+              <div className="pt-2 text-[10px] font-mono font-bold text-[#0284C7] tracking-widest uppercase">
+                {summaryMetaText}
+              </div>
             </div>
           </div>
-          <h3 className="text-base font-extrabold text-slate-900 leading-snug relative z-10">
-            {summaryTitle}
-          </h3>
-          <p className="text-xs text-slate-600 leading-relaxed font-normal relative z-10">
-            {summaryDescription}
-          </p>
-          <div className="pt-1 text-[9px] font-mono text-[#3AB1EC] tracking-widest uppercase relative z-10">
-            {summaryMetaText}
+        </div>
+
+        {/* ── SERPENTINE TIMELINE ROADMAP GRAPHIC ────────────────────────────────── */}
+        <div className="relative">
+          {/* Central Serpentine SVG Ribbon Line (Visible on Desktop md:) */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-56 lg:w-64 xl:w-72 pointer-events-none z-0">
+            <svg
+              className="w-full h-full"
+              preserveAspectRatio="none"
+              viewBox={`0 0 100 ${totalSvgHeight}`}
+            >
+              <defs>
+                <linearGradient id="serpentineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#7C3AED" />
+                  <stop offset="25%" stopColor="#0284C7" />
+                  <stop offset="50%" stopColor="#2563EB" />
+                  <stop offset="75%" stopColor="#EA580C" />
+                  <stop offset="100%" stopColor="#16A34A" />
+                </linearGradient>
+
+                <filter id="ribbonShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="12" floodColor="#0f172a" floodOpacity="0.25" />
+                </filter>
+              </defs>
+
+              {/* Outer 3D Gradient Ribbon Track */}
+              <path
+                d={pathD}
+                fill="none"
+                stroke="url(#serpentineGradient)"
+                strokeWidth="32"
+                strokeLinecap="round"
+                filter="url(#ribbonShadow)"
+                className="opacity-95"
+              />
+
+              {/* Inner White Animated Water Flow Capsule Slots */}
+              <path
+                d={`M 50 0 L 50 ${totalSvgHeight}`}
+                fill="none"
+                stroke="#FFFFFF"
+                strokeWidth="6.5"
+                strokeLinecap="round"
+                strokeDasharray="18 22"
+                className="animate-water-flow opacity-95"
+              />
+            </svg>
           </div>
-        </div>
-      </div>
 
-      {/* ── SERPENTINE TIMELINE ROADMAP GRAPHIC ────────────────────────────────── */}
-      <div className="relative">
-        {/* Central Serpentine SVG Ribbon Line (Visible on Desktop md:) */}
-        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-48 pointer-events-none z-0">
-          <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 1400">
-            <defs>
-              <linearGradient id="serpentineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#6366F1" />
-                <stop offset="16%" stopColor="#3B82F6" />
-                <stop offset="33%" stopColor="#3AB1EC" />
-                <stop offset="50%" stopColor="#FF5A00" />
-                <stop offset="66%" stopColor="#22C55E" />
-                <stop offset="83%" stopColor="#A855F7" />
-                <stop offset="100%" stopColor="#FFD700" />
-              </linearGradient>
-            </defs>
+          {/* Vertical Straight Line (Visible on Mobile) */}
+          <div className="md:hidden absolute left-6 top-0 bottom-0 w-2 bg-gradient-to-b from-[#7C3AED] via-[#0284C7] to-[#16A34A] rounded-full z-0" />
 
-            {/* Background Wavy Ribbon Track */}
-            <path
-              d="M 50 0 C 95 100, 5 200, 50 300 C 95 400, 5 500, 50 600 C 95 700, 5 800, 50 900 C 95 1000, 5 1100, 50 1200 C 95 1300, 5 1400, 50 1400"
-              fill="none"
-              stroke="url(#serpentineGradient)"
-              strokeWidth="10"
-              strokeLinecap="round"
-              className="opacity-90"
-            />
-            {/* Inner Glowing Core Path */}
-            <path
-              d="M 50 0 C 95 100, 5 200, 50 300 C 95 400, 5 500, 50 600 C 95 700, 5 800, 50 900 C 95 1000, 5 1100, 50 1200 C 95 1300, 5 1400, 50 1400"
-              fill="none"
-              stroke="#FFFFFF"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeDasharray="6 4"
-              className="opacity-80"
-            />
-          </svg>
-        </div>
+          {/* Steps List */}
+          <div className="space-y-12 md:space-y-24 relative z-10">
+            {steps.map((step, idx) => {
+              const isEven = idx % 2 === 0;
+              const isActive = activeStepIndex === idx;
 
-        {/* Vertical Straight Line (Visible on Mobile) */}
-        <div className="md:hidden absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-[#6366F1] via-[#FF5A00] to-[#FFD700] rounded-full z-0" />
-
-        {/* Steps List */}
-        <div className="space-y-16 md:space-y-24 relative z-10">
-          {steps.map((step, idx) => {
-            const isEven = idx % 2 === 0;
-
-            // Generate soft background tint matching step color (e.g. 7% opacity tint, borderless)
-            const cardBgStyle = { backgroundColor: `${step.themeColor}0D` };
-
-            return (
-              <div
-                key={step.number}
-                className="relative flex flex-col md:flex-row items-start md:items-center group"
-              >
-                {/* ── MOBILE STEP CIRCLE (Left aligned on Mobile) ── */}
-                <div className="md:hidden flex items-center gap-4 mb-4 pl-1">
-                  <div
-                    className="w-12 h-12 rounded-full bg-white border-2 flex flex-col items-center justify-center shadow-md shrink-0"
-                    style={{ borderColor: step.themeColor }}
-                  >
-                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-tighter">
-                      STEP
-                    </span>
-                    <span className="text-sm font-extrabold leading-none" style={{ color: step.themeColor }}>
-                      {step.number}
-                    </span>
-                  </div>
-                  <div>
-                    <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-full ${step.bgBadgeColor}`}>
-                      {step.badgeTitle}
-                    </span>
-                  </div>
-                </div>
-
-                {/* ── DESKTOP CONTENT LEFT BOX (BORDERLESS TINTED CARD) ── */}
-                <div className="hidden md:block w-1/2 pr-12 text-right">
-                  {!isEven && (
-                    <div
-                      className="rounded-3xl p-6 sm:p-7 shadow-xs hover:shadow-sm transition-all duration-200 space-y-3 relative border-0"
-                      style={cardBgStyle}
-                    >
-                      {/* Icon Circle (Top Left on Left Card) */}
-                      <div className="flex justify-start">
-                        <div
-                          className="w-11 h-11 rounded-full flex items-center justify-center shadow-md transition-transform group-hover:scale-105"
-                          style={{ backgroundColor: step.themeColor }}
-                        >
-                          {step.icon}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3 className="text-base font-extrabold text-slate-900 tracking-tight uppercase">
-                          {step.title}
-                        </h3>
-                        <p className="text-xs font-semibold italic text-slate-500 mt-0.5">
-                          {step.subtitle}
-                        </p>
-                      </div>
-
-                      <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                        {step.description}
-                      </p>
-
-                      <div className="pt-3 border-t border-slate-900/5 text-left space-y-2">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                          FOCUS AREAS:
+              return (
+                <div
+                  key={step.number}
+                  className="relative flex flex-col md:flex-row items-start md:items-center min-h-0 md:min-h-[380px]"
+                >
+                  {/* ── MOBILE CARD LAYOUT (Renders for ALL steps on mobile) ── */}
+                  <div className="md:hidden flex flex-col pl-7 relative z-10 w-full space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-12 h-12 rounded-full bg-white border-4 flex flex-col items-center justify-center shadow-md shrink-0"
+                        style={{ borderColor: step.themeColor }}
+                      >
+                        <span className="text-[8px] font-extrabold text-slate-400 uppercase tracking-widest">
+                          STEP
                         </span>
-                        <ul className="space-y-1.5 text-xs text-slate-700 font-normal">
-                          {step.focusAreas.map((area, aIdx) => (
-                            <li key={aIdx} className="flex items-center gap-2 justify-start">
-                              <span
-                                className="w-1.5 h-1.5 rounded-xs shrink-0"
-                                style={{ backgroundColor: step.themeColor }}
-                              />
-                              <span>{area}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        <span className="text-sm font-black leading-none" style={{ color: step.themeColor }}>
+                          {step.number}
+                        </span>
                       </div>
+                      <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full ${step.bgBadgeColor}`}>
+                        {step.badgeTitle}
+                      </span>
                     </div>
-                  )}
-                </div>
 
-                {/* ── DESKTOP CENTRAL STEP CIRCLE NODE ── */}
-                <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center z-20">
-                  <div
-                    className="w-20 h-20 rounded-full bg-white border-4 flex flex-col items-center justify-center shadow-xl transition-transform duration-200 group-hover:scale-110"
-                    style={{
-                      borderColor: step.themeColor,
-                      boxShadow: `0 10px 25px -5px ${step.themeColor}33`,
-                    }}
-                  >
-                    <span className="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider">
-                      STEP
-                    </span>
-                    <span
-                      className="text-2xl font-black leading-none tracking-tight"
-                      style={{ color: step.themeColor }}
-                    >
-                      {step.number}
-                    </span>
-                  </div>
-                </div>
-
-                {/* ── DESKTOP CONTENT RIGHT BOX (BORDERLESS TINTED CARD) ── */}
-                <div className="w-full md:w-1/2 md:pl-12 text-left">
-                  {(isEven || true) && (
-                    <div
-                      className={`rounded-3xl p-6 sm:p-7 shadow-xs hover:shadow-sm transition-all duration-200 space-y-3 relative border-0 ${
-                        !isEven ? 'md:hidden' : ''
-                      }`}
-                      style={cardBgStyle}
-                    >
-                      {/* Icon Circle (Top Right on Right Card) */}
-                      <div className="flex justify-end">
+                    <div className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-slate-200/90 shadow-md space-y-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase leading-snug">
+                            {step.title}
+                          </h3>
+                          <p className="text-xs font-bold italic text-slate-500 mt-1">
+                            {step.subtitle}
+                          </p>
+                        </div>
                         <div
-                          className="w-11 h-11 rounded-full flex items-center justify-center shadow-md transition-transform group-hover:scale-105"
-                          style={{ backgroundColor: step.themeColor }}
+                          className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-md shrink-0"
+                          style={{
+                            backgroundColor: step.themeColor,
+                          }}
                         >
                           {step.icon}
                         </div>
                       </div>
 
-                      <div>
-                        <h3 className="text-base font-extrabold text-slate-900 tracking-tight uppercase">
-                          {step.title}
-                        </h3>
-                        <p className="text-xs font-semibold italic text-slate-500 mt-0.5">
-                          {step.subtitle}
-                        </p>
-                      </div>
+                      <div
+                        className="h-1 rounded-full w-full max-w-[180px]"
+                        style={{
+                          background: `linear-gradient(90deg, ${step.themeColor} 0%, ${step.themeColor}44 70%, transparent 100%)`,
+                        }}
+                      />
 
-                      <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      <p className="text-sm text-slate-700 leading-relaxed font-normal">
                         {step.description}
                       </p>
 
-                      <div className="pt-3 border-t border-slate-900/5 space-y-2">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+                      <div className="pt-3 border-t border-slate-100 space-y-2">
+                        <span className="text-xs font-extrabold uppercase tracking-wider text-slate-900 block">
                           FOCUS AREAS:
                         </span>
-                        <ul className="space-y-1.5 text-xs text-slate-700 font-normal">
+                        <ul className="space-y-1.5 text-xs text-slate-800 font-medium">
                           {step.focusAreas.map((area, aIdx) => (
                             <li key={aIdx} className="flex items-center gap-2">
                               <span
-                                className="w-1.5 h-1.5 rounded-xs shrink-0"
+                                className="w-2 h-2 rounded-full shrink-0"
                                 style={{ backgroundColor: step.themeColor }}
                               />
                               <span>{area}</span>
@@ -440,11 +386,169 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                         </ul>
                       </div>
                     </div>
-                  )}
+                  </div>
+
+                  {/* ── DESKTOP CONTENT LEFT COLUMN ── */}
+                  <div className="hidden md:block w-1/2 md:pr-12 lg:pr-24 xl:pr-32 text-left">
+                    {/* Left Column Content for Step 02, Step 04, etc. */}
+                    {!isEven && (
+                      <div
+                        onClick={() => setActiveStepIndex(isActive ? null : idx)}
+                        className={`p-2 transition-all duration-300 space-y-6 relative group/card cursor-pointer bg-transparent max-w-xl ml-auto ${
+                          isActive ? 'scale-[1.02] bg-white/70 backdrop-blur-md rounded-3xl p-6 border border-slate-200 shadow-xl' : 'hover:-translate-y-1'
+                        }`}
+                      >
+                        {/* Header: Icon on LEFT + Title Block on RIGHT */}
+                        <div className="flex items-start gap-5">
+                          <div
+                            className="w-16 h-16 sm:w-18 sm:h-18 rounded-full flex items-center justify-center text-white shadow-lg shrink-0 transition-transform duration-300 group-hover/card:scale-110"
+                            style={{
+                              backgroundColor: step.themeColor,
+                              boxShadow: `0 10px 25px -4px ${step.themeColor}55`,
+                            }}
+                          >
+                            {step.icon}
+                          </div>
+
+                          <div className="flex-1 pt-0.5">
+                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight uppercase leading-snug">
+                              {step.title}
+                            </h3>
+                            <p className="text-sm sm:text-base lg:text-lg font-bold italic text-slate-500 mt-1">
+                              {step.subtitle}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Horizontal Gradient Divider Bar */}
+                        <div
+                          className="h-[3.5px] rounded-full my-3 w-full max-w-[380px]"
+                          style={{
+                            background: `linear-gradient(90deg, ${step.themeColor} 0%, ${step.themeColor}44 70%, transparent 100%)`,
+                          }}
+                        />
+
+                        <p className="text-base sm:text-lg lg:text-xl text-slate-700 leading-relaxed font-normal">
+                          {step.description}
+                        </p>
+
+                        <div className="pt-4 border-t border-slate-200/60 space-y-3">
+                          <span className="text-sm font-extrabold uppercase tracking-wider text-slate-900 block">
+                            FOCUS AREAS:
+                          </span>
+                          <ul className="space-y-2.5 text-base sm:text-lg text-slate-800 font-medium">
+                            {step.focusAreas.map((area, aIdx) => (
+                              <li key={aIdx} className="flex items-center gap-3">
+                                <span
+                                  className="w-2.5 h-2.5 rounded-full shrink-0"
+                                  style={{ backgroundColor: step.themeColor }}
+                                />
+                                <span>{area}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* ── DESKTOP CENTRAL STEP CIRCLE NODE ── */}
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center z-20">
+                    <div className="relative flex items-center justify-center">
+                      <div
+                        className="absolute inset-0 rounded-full blur-3xl opacity-70 transition-all duration-300 group-hover:opacity-100 scale-140 pointer-events-none animate-water-pulse"
+                        style={{ backgroundColor: step.themeColor }}
+                      />
+
+                      <button
+                        onClick={() => setActiveStepIndex(isActive ? null : idx)}
+                        className={`w-36 h-36 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full bg-white border border-white/80 flex flex-col items-center justify-center transition-all duration-300 group-hover:scale-105 cursor-pointer relative z-10 shadow-2xl ${
+                          isActive ? 'scale-110 ring-4 ring-offset-2' : ''
+                        }`}
+                        style={{
+                          boxShadow: `0 20px 50px -10px ${step.themeColor}55, 0 8px 24px -4px ${step.themeColor}33`,
+                        }}
+                      >
+                        <span className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.25em] mb-0.5">
+                          STEP
+                        </span>
+                        <span
+                          className="text-5xl sm:text-6xl font-black leading-none tracking-tight"
+                          style={{ color: step.themeColor }}
+                        >
+                          {step.number}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* ── DESKTOP CONTENT RIGHT COLUMN ── */}
+                  <div className="hidden md:block w-1/2 md:pl-12 lg:pl-24 xl:pl-32 text-left">
+                    {/* Right Column Content for Step 01, Step 03, Step 05, etc. */}
+                    {isEven && (
+                      <div
+                        onClick={() => setActiveStepIndex(isActive ? null : idx)}
+                        className={`p-2 transition-all duration-300 space-y-6 relative group/card cursor-pointer bg-transparent max-w-xl ${
+                          isActive ? 'scale-[1.02] bg-white/70 backdrop-blur-md rounded-3xl p-6 border border-slate-200 shadow-xl' : 'hover:-translate-y-1'
+                        }`}
+                      >
+                        {/* Header: Title Block on LEFT + Icon on RIGHT */}
+                        <div className="flex items-start justify-between gap-5">
+                          <div className="flex-1 pt-0.5">
+                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight uppercase leading-snug">
+                              {step.title}
+                            </h3>
+                            <p className="text-sm sm:text-base lg:text-lg font-bold italic text-slate-500 mt-1">
+                              {step.subtitle}
+                            </p>
+                          </div>
+
+                          <div
+                            className="w-16 h-16 sm:w-18 sm:h-18 rounded-full flex items-center justify-center text-white shadow-lg shrink-0 transition-transform duration-300 group-hover/card:scale-110"
+                            style={{
+                              backgroundColor: step.themeColor,
+                              boxShadow: `0 10px 25px -4px ${step.themeColor}55`,
+                            }}
+                          >
+                            {step.icon}
+                          </div>
+                        </div>
+
+                        {/* Horizontal Gradient Divider Bar */}
+                        <div
+                          className="h-[3.5px] rounded-full my-3 w-full max-w-[380px]"
+                          style={{
+                            background: `linear-gradient(90deg, ${step.themeColor} 0%, ${step.themeColor}44 70%, transparent 100%)`,
+                          }}
+                        />
+
+                        <p className="text-base sm:text-lg lg:text-xl text-slate-700 leading-relaxed font-normal">
+                          {step.description}
+                        </p>
+
+                        <div className="pt-4 border-t border-slate-200/60 space-y-3">
+                          <span className="text-sm font-extrabold uppercase tracking-wider text-slate-900 block">
+                            FOCUS AREAS:
+                          </span>
+                          <ul className="space-y-2.5 text-base sm:text-lg text-slate-800 font-medium">
+                            {step.focusAreas.map((area, aIdx) => (
+                              <li key={aIdx} className="flex items-center gap-3">
+                                <span
+                                  className="w-2.5 h-2.5 rounded-full shrink-0"
+                                  style={{ backgroundColor: step.themeColor }}
+                                />
+                                <span>{area}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

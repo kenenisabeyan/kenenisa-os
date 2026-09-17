@@ -151,7 +151,7 @@ export const AnalyticsPage: React.FC = () => {
         </div>
 
         {/* Period Selector Controls */}
-        <div className="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-slate-200/90 shadow-xs">
+        <div className="flex flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-xl border border-slate-200/90 shadow-xs">
           {(['day', 'week', 'month', 'quarter'] as AnalyticsPeriod[]).map((p) => (
             <button
               key={p}

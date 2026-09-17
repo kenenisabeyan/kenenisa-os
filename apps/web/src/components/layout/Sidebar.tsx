@@ -77,15 +77,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
       {/* Brand Header */}
       <div className="h-16 px-5 border-b border-slate-200/90 flex items-center justify-between shrink-0 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#3AB1EC] to-[#3B82F6] flex items-center justify-center font-bold text-white shadow-md shadow-blue-500/20 text-sm">
-            K
-          </div>
+          <img
+            src="/logo-icon.jpg"
+            alt="KENENISA OS"
+            className="w-9 h-9 rounded-xl object-cover shadow-md shadow-blue-500/20 ring-2 ring-cyan-400/30 hover:scale-105 transition-transform duration-200"
+          />
           <div className="flex flex-col">
-            <span className="font-bold text-sm tracking-tight text-slate-900">KENENISA OS</span>
-            <span className="text-[10px] text-[#3B82F6] font-extrabold tracking-wider uppercase">Engineering OS</span>
+            <span className="font-black text-sm tracking-tight text-slate-900 leading-tight">KENENISA OS</span>
+            <span className="text-[10px] text-cyan-600 font-extrabold tracking-wider uppercase flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+              Engineering OS
+            </span>
           </div>
         </div>
       </div>
+
 
       {/* Navigation Sections */}
       <nav aria-label="Sidebar Navigation Sections" className="flex-1 overflow-y-auto px-3 py-4 space-y-5 custom-scrollbar bg-white">

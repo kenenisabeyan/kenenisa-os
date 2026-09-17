@@ -181,7 +181,7 @@ export const IntelligencePage: React.FC = () => {
   };
 
   return (
-    <div id="intelligence-page" className="h-[calc(100vh-6rem)] flex flex-col gap-4">
+    <div id="intelligence-page" className="min-h-[calc(100vh-6rem)] md:h-[calc(100vh-6rem)] flex flex-col gap-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/90 pb-4">
         <div>
@@ -213,9 +213,9 @@ export const IntelligencePage: React.FC = () => {
       </div>
 
       {/* Main Grid: Sidebar + Chat Area */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4 min-h-[500px] md:overflow-hidden">
         {/* Sidebar: Conversation History */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 flex flex-col space-y-3 overflow-y-auto shadow-xs">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 flex flex-col space-y-3 overflow-y-auto max-h-44 md:max-h-none shadow-xs">
           <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">
             Conversations
           </h3>

@@ -151,19 +151,19 @@ export function SkillsPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-wrap gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">
         <input
           type="text"
           placeholder="Search skills..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-slate-50 border border-slate-200 text-slate-900 text-xs rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#6366F1] font-medium min-w-[200px]"
+          className="w-full sm:w-64 bg-slate-50 border border-slate-200 text-slate-900 text-xs rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#6366F1] font-medium"
         />
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-slate-50 border border-slate-200 text-slate-900 text-xs font-semibold rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#6366F1]"
+          className="w-full sm:w-auto bg-slate-50 border border-slate-200 text-slate-900 text-xs font-semibold rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#6366F1]"
         >
           <option value="ACTIVE">Active Skills</option>
           <option value="PAUSED">Paused</option>

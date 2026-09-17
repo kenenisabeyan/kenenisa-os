@@ -35,10 +35,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               </svg>
             </button>
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#3AB1EC] to-[#3B82F6] flex items-center justify-center font-bold text-white text-xs shadow-sm">
-                K
-              </div>
-              <span className="font-bold text-sm text-slate-900 tracking-tight">KENENISA OS</span>
+              <img
+                src="/logo-icon.jpg"
+                alt="KENENISA OS"
+                className="w-7 h-7 rounded-lg object-cover shadow-sm ring-1 ring-cyan-400/30"
+              />
+              <span className="font-black text-sm text-slate-900 tracking-tight">KENENISA OS</span>
             </div>
           </div>
         </header>

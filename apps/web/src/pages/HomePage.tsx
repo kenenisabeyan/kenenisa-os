@@ -19,12 +19,12 @@ export const HomePage: React.FC = () => {
         'Academic & technical focus alignment',
         'Core priority matrix setup',
       ],
-      themeColor: '#6366F1',
-      bgBadgeColor: 'bg-indigo-50 border-indigo-200 text-[#6366F1]',
-      badgeTextColor: 'text-[#6366F1]',
+      themeColor: '#7C3AED',
+      bgBadgeColor: 'bg-purple-100 border-purple-200 text-[#7C3AED]',
+      badgeTextColor: 'text-[#7C3AED]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
         </svg>
       ),
     },
@@ -41,12 +41,12 @@ export const HomePage: React.FC = () => {
         'Dependency graph & blocker tracking',
         'Deliverable & artifact definitions',
       ],
-      themeColor: '#3B82F6',
-      bgBadgeColor: 'bg-blue-50 border-blue-200 text-[#3B82F6]',
-      badgeTextColor: 'text-[#3B82F6]',
+      themeColor: '#0284C7',
+      bgBadgeColor: 'bg-cyan-100 border-cyan-200 text-[#0284C7]',
+      badgeTextColor: 'text-[#0284C7]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
         </svg>
       ),
     },
@@ -63,12 +63,12 @@ export const HomePage: React.FC = () => {
         'Conflict & overload detection',
         'Realistic task effort estimation',
       ],
-      themeColor: '#3AB1EC',
-      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#3AB1EC]',
-      badgeTextColor: 'text-[#3AB1EC]',
+      themeColor: '#2563EB',
+      bgBadgeColor: 'bg-blue-100 border-blue-200 text-[#2563EB]',
+      badgeTextColor: 'text-[#2563EB]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
     },
@@ -85,12 +85,12 @@ export const HomePage: React.FC = () => {
         'Dependency resolution & unblocking',
         'Real-time task completion tracking',
       ],
-      themeColor: '#FF5A00',
-      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FF5A00]',
-      badgeTextColor: 'text-[#FF5A00]',
+      themeColor: '#EA580C',
+      bgBadgeColor: 'bg-orange-100 border-orange-200 text-[#EA580C]',
+      badgeTextColor: 'text-[#EA580C]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       ),
     },
@@ -107,89 +107,150 @@ export const HomePage: React.FC = () => {
         'Skill-to-opportunity pipeline matching',
         'Continuous career trajectory evolution',
       ],
-      themeColor: '#22C55E',
-      bgBadgeColor: 'bg-emerald-50 border-emerald-200 text-[#22C55E]',
-      badgeTextColor: 'text-[#22C55E]',
+      themeColor: '#16A34A',
+      bgBadgeColor: 'bg-emerald-100 border-emerald-200 text-[#16A34A]',
+      badgeTextColor: 'text-[#16A34A]',
       icon: (
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
     },
   ];
 
   return (
-    <div className="space-y-20" id="public-home-page">
+    <div className="space-y-24 py-6" id="public-home-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="text-center space-y-8 max-w-4xl mx-auto pt-4">
+      <section className="text-center space-y-8 sm:space-y-10 max-w-[1720px] mx-auto pt-6 px-1">
         {/* Eyebrow Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#3B82F6] text-xs font-bold uppercase tracking-wider">
-          <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
-          Personal Engineering &amp; Career Operating System
+        <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-cyan-50/90 via-sky-50/90 to-blue-50/90 border-2 border-cyan-200/90 text-cyan-900 text-[10px] sm:text-xs font-black uppercase tracking-wide sm:tracking-widest shadow-md shadow-cyan-500/10 hover:scale-105 transition-all duration-300 max-w-[90vw] mx-auto">
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+          </span>
+          <span className="truncate">Personal Engineering &amp; Career OS</span>
+          <span className="text-cyan-500 shrink-0">⚡</span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-          Turn your direction into a <span className="text-[#3B82F6]">system of execution</span>.
+        <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-indigo-950 tracking-tight leading-[1.1] max-w-5xl mx-auto">
+          Turn your direction into a{' '}
+          <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">system of execution</span>.
         </h1>
 
         {/* Supporting Copy */}
-        <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
+        <p className="text-base sm:text-xl lg:text-2xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-semibold">
           KENENISA OS connects goals, projects, tasks, daily capacity planning, learning, concrete evidence, and career opportunities into one unified personal operating environment.
         </p>
 
         {/* Primary CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
+          {/* Button 1: Get Started Free */}
           <Link
             to="/login"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-sm shadow-md shadow-blue-500/20 transition-all active:scale-95 text-center"
+            className="relative group w-full sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            Get Started Free →
+            <span className="relative w-full sm:w-auto px-9 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black text-base tracking-wide flex items-center justify-center gap-3 overflow-hidden">
+              {/* Shimmer light pass */}
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+              
+              <span>Get Started Free</span>
+
+              {/* Glowing Arrow Badge */}
+              <span className="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-sm">
+                →
+              </span>
+            </span>
           </Link>
+
+          {/* Button 2: Explore How It Works */}
           <Link
             to="/how-it-works"
-            className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-sm shadow-xs transition-all text-center"
+            className="relative group w-full sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-400 shadow-xl shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            Explore How It Works
+            <span className="relative w-full sm:w-auto px-9 py-4 rounded-full bg-white/95 backdrop-blur-xl text-indigo-950 group-hover:text-cyan-700 font-black text-base tracking-wide flex items-center justify-center gap-3 transition-colors duration-200 overflow-hidden">
+              {/* Shimmer light pass */}
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent pointer-events-none" />
+              
+              <span>Explore How It Works</span>
+
+              {/* Glowing Compass/Play Icon Badge */}
+              <span className="w-7 h-7 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300 shadow-sm shrink-0">
+                <svg className="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+            </span>
           </Link>
         </div>
 
         {/* System Architecture Bar */}
-        <div className="pt-8 max-w-5xl mx-auto">
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-4">
-            <div className="flex items-center justify-between text-xs text-slate-500 pb-3 border-b border-slate-100">
-              <span className="font-bold text-slate-900">System Flow Architecture</span>
-              <span className="text-[#3AB1EC] font-semibold">Continuous Operating Loop</span>
+        <div className="pt-8 sm:pt-10 max-w-[1720px] mx-auto">
+          <div className="relative bg-gradient-to-br from-white/95 via-cyan-50/40 to-blue-50/30 backdrop-blur-2xl border-2 border-cyan-200/90 rounded-3xl p-5 sm:p-8 shadow-2xl shadow-cyan-500/10 space-y-5 overflow-hidden group">
+            {/* Top Accent Line */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600" />
+            
+            <div className="flex flex-col xs:flex-row flex-wrap items-start xs:items-center justify-between gap-2 text-xs font-bold pb-4 border-b border-cyan-200/80">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse shrink-0" />
+                <span className="text-sm font-black text-indigo-950 tracking-wide uppercase">System Flow Architecture</span>
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black text-cyan-900 bg-cyan-100/80 border border-cyan-300/80 px-3 py-1 rounded-full uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-ping shrink-0" />
+                Continuous Operating Loop
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center text-xs">
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase">1. Direction</span>
-                <p className="font-bold text-slate-900">Workstreams</p>
+            {/* Scrollable on mobile, grid on larger screens */}
+            <div className="flex sm:grid sm:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-3 overflow-x-auto pb-1 sm:pb-0 text-center text-xs -mx-1 px-1">
+              <div className="shrink-0 w-28 sm:w-auto"></div>
+              {/* Step 1 */}
+              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-indigo-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-indigo-400 transition-all duration-300 group/step overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-500" />
+                <span className="text-[9px] sm:text-[10px] font-black text-indigo-600 uppercase tracking-widest block">1. Direction</span>
+                <p className="font-black text-xs sm:text-sm text-indigo-950 group-hover/step:text-indigo-600 transition-colors">Workstreams</p>
               </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1">
-                <span className="text-[10px] font-bold text-[#3B82F6] uppercase">2. Target</span>
-                <p className="font-bold text-[#3B82F6]">Goals</p>
+
+              {/* Step 2 */}
+              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-cyan-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-cyan-400 transition-all duration-300 group/step overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-cyan-500" />
+                <span className="text-[9px] sm:text-[10px] font-black text-cyan-600 uppercase tracking-widest block">2. Target</span>
+                <p className="font-black text-xs sm:text-sm text-cyan-950 group-hover/step:text-cyan-600 transition-colors">Goals</p>
               </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1">
-                <span className="text-[10px] font-bold text-[#6366F1] uppercase">3. Structure</span>
-                <p className="font-bold text-[#6366F1]">Projects</p>
+
+              {/* Step 3 */}
+              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-purple-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-purple-400 transition-all duration-300 group/step overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-purple-500" />
+                <span className="text-[9px] sm:text-[10px] font-black text-purple-600 uppercase tracking-widest block">3. Structure</span>
+                <p className="font-black text-xs sm:text-sm text-purple-950 group-hover/step:text-purple-600 transition-colors">Projects</p>
               </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1">
-                <span className="text-[10px] font-bold text-[#FF5A00] uppercase">4. Action</span>
-                <p className="font-bold text-[#FF5A00]">Tasks</p>
+
+              {/* Step 4 */}
+              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-orange-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-orange-400 transition-all duration-300 group/step overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-orange-500" />
+                <span className="text-[9px] sm:text-[10px] font-black text-orange-600 uppercase tracking-widest block">4. Action</span>
+                <p className="font-black text-xs sm:text-sm text-orange-950 group-hover/step:text-orange-600 transition-colors">Tasks</p>
               </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1">
-                <span className="text-[10px] font-bold text-[#22C55E] uppercase">5. Proof</span>
-                <p className="font-bold text-[#22C55E]">Evidence</p>
+
+              {/* Step 5 */}
+              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-emerald-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-emerald-400 transition-all duration-300 group/step overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500" />
+                <span className="text-[9px] sm:text-[10px] font-black text-emerald-600 uppercase tracking-widest block">5. Proof</span>
+                <p className="font-black text-xs sm:text-sm text-emerald-950 group-hover/step:text-emerald-600 transition-colors">Evidence</p>
               </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1">
-                <span className="text-[10px] font-bold text-[#A855F7] uppercase">6. Review</span>
-                <p className="font-bold text-[#A855F7]">Reflect</p>
+
+              {/* Step 6 */}
+              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-rose-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-rose-400 transition-all duration-300 group/step overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-rose-500" />
+                <span className="text-[9px] sm:text-[10px] font-black text-rose-600 uppercase tracking-widest block">6. Review</span>
+                <p className="font-black text-xs sm:text-sm text-rose-950 group-hover/step:text-rose-600 transition-colors">Reflect</p>
               </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1">
-                <span className="text-[10px] font-bold text-[#FFD700] uppercase">7. Growth</span>
-                <p className="font-bold text-amber-700">Career</p>
+
+              {/* Step 7 */}
+              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-amber-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-amber-400 transition-all duration-300 group/step overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500" />
+                <span className="text-[9px] sm:text-[10px] font-black text-amber-600 uppercase tracking-widest block">7. Growth</span>
+                <p className="font-black text-xs sm:text-sm text-amber-950 group-hover/step:text-amber-600 transition-colors">Career</p>
               </div>
             </div>
           </div>
@@ -210,210 +271,466 @@ export const HomePage: React.FC = () => {
         />
       </section>
 
-      {/* ── PROBLEM SECTION ──────────────────────────────────────────────────────── */}
-      <section className="space-y-6">
-        <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+      {/* ── PROBLEM VS SOLUTION SECTION ─────────────────────────────────────────── */}
+      <section className="space-y-10 max-w-[1720px] mx-auto">
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-2 text-xs font-black text-rose-600 bg-rose-50 border border-rose-200/90 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+            CHALLENGE &amp; SOLUTION
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
             The Problem: Fragmented Execution
           </h2>
-          <p className="text-xs text-slate-500 leading-relaxed font-normal">
+          <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-semibold">
             Academic courses, software projects, skill learning, job applications, and personal goals often exist as disconnected silos.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white border border-rose-200/90 rounded-2xl p-6 space-y-3 shadow-xs">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-              <h3 className="text-sm font-bold text-rose-900">Traditional Disconnected Workflow</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Traditional Disconnected Workflow */}
+          <div className="relative rounded-3xl bg-gradient-to-br from-rose-50/90 via-rose-100/40 to-orange-50/60 p-8 sm:p-10 border-2 border-rose-200/90 shadow-2xl shadow-rose-500/10 space-y-6 transition-all duration-300 hover:shadow-rose-500/20 hover:border-rose-300 group overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-rose-400 to-orange-500" />
+            
+            <div className="flex items-center justify-between pb-4 border-b border-rose-200/80">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-2xl bg-rose-500 flex items-center justify-center text-white font-black text-base shadow-lg shadow-rose-500/40 shrink-0">
+                  ✕
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-rose-950 tracking-tight">
+                  Traditional Disconnected Workflow
+                </h3>
+              </div>
+              <span className="text-[10px] font-black text-rose-800 bg-rose-100 border border-rose-300 px-3 py-1 rounded-full uppercase tracking-widest">
+                Fragmented
+              </span>
             </div>
-            <ul className="space-y-2 text-xs text-slate-600 list-disc pl-4 leading-relaxed font-normal">
-              <li>Tasks sit in one app while code pull requests sit in GitHub.</li>
-              <li>Courses and certifications are logged separately from active engineering projects.</li>
-              <li>Career opportunities lack observable evidence connecting them to completed work.</li>
-              <li>Daily planning is disconnected from long-term strategic direction.</li>
+
+            <ul className="space-y-4 text-base sm:text-lg text-rose-950 font-semibold">
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                <span>Tasks sit in one app while code pull requests sit in GitHub.</span>
+              </li>
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                <span>Courses and certifications are logged separately from active engineering projects.</span>
+              </li>
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                <span>Career opportunities lack observable evidence connecting them to completed work.</span>
+              </li>
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                <span>Daily planning is disconnected from long-term strategic direction.</span>
+              </li>
             </ul>
           </div>
 
-          <div className="bg-white border border-emerald-200/90 rounded-2xl p-6 space-y-3 shadow-xs">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]" />
-              <h3 className="text-sm font-bold text-emerald-900">The KENENISA OS Operating System</h3>
+          {/* The KENENISA OS Operating System */}
+          <div className="relative rounded-3xl bg-gradient-to-br from-emerald-50/90 via-teal-100/40 to-cyan-50/60 p-8 sm:p-10 border-2 border-emerald-200/90 shadow-2xl shadow-emerald-500/10 space-y-6 transition-all duration-300 hover:shadow-emerald-500/20 hover:border-emerald-300 group overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500" />
+
+            <div className="flex items-center justify-between pb-4 border-b border-emerald-200/80">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-2xl bg-emerald-600 flex items-center justify-center text-white font-black text-base shadow-lg shadow-emerald-500/40 shrink-0">
+                  ✓
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-emerald-950 tracking-tight">
+                  The KENENISA OS Operating System
+                </h3>
+              </div>
+              <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-full uppercase tracking-widest">
+                Unified Loop
+              </span>
             </div>
-            <ul className="space-y-2 text-xs text-slate-600 list-disc pl-4 leading-relaxed font-normal">
-              <li>Goals directly break down into projects, milestones, and executable tasks.</li>
-              <li>Task completions automatically produce observable evidence items.</li>
-              <li>Verified skills link directly to completed project artifacts and target opportunities.</li>
-              <li>Deterministic Next Best Action guides daily capacity execution.</li>
+
+            <ul className="space-y-4 text-base sm:text-lg text-emerald-950 font-semibold">
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                <span>Goals directly break down into projects, milestones, and executable tasks.</span>
+              </li>
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                <span>Task completions automatically produce observable evidence items.</span>
+              </li>
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                <span>Verified skills link directly to completed project artifacts and target opportunities.</span>
+              </li>
+              <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                <span>Deterministic Next Best Action guides daily capacity execution.</span>
+              </li>
             </ul>
           </div>
         </div>
       </section>
 
-      {/* ── CORE IDEA SECTION ────────────────────────────────────────────────────── */}
-      <section className="bg-white border border-slate-200/90 rounded-2xl p-8 shadow-xs space-y-6 text-center">
-        <div className="max-w-2xl mx-auto space-y-2">
-          <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
-            Core Engineering Concept
+      {/* ── CORE ENGINEERING CONCEPT SECTION ───────────────────────────────────── */}
+      <section className="relative bg-gradient-to-br from-cyan-50/90 via-indigo-50/70 to-purple-50/90 border-2 border-indigo-200/90 rounded-3xl p-8 sm:p-14 shadow-2xl shadow-indigo-500/10 space-y-10 text-center max-w-[1720px] mx-auto overflow-hidden group">
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600" />
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-blue-400/15 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="max-w-3xl mx-auto space-y-3 relative z-10">
+          <span className="inline-flex items-center gap-2 text-xs font-black text-cyan-900 bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+            CORE ENGINEERING CONCEPT
           </span>
-          <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
             One Activity. Multiple Outcomes.
           </h2>
-          <p className="text-xs text-slate-500 leading-relaxed font-normal">
+          <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-semibold">
             When you complete an engineering task in KENENISA OS, it simultaneously advances multiple strategic areas without redundant manual logging.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs font-semibold">
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[#3B82F6]">Academic</span>
-            <p className="text-[11px] text-slate-500 font-normal">Coursework &amp; Research</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5 relative z-10">
+          {/* Academic */}
+          <div className="relative p-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl space-y-3 shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/40 group/item overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              </svg>
+            </div>
+            <div>
+              <span className="text-lg font-black block">Academic</span>
+              <p className="text-xs sm:text-sm text-blue-100 font-medium">Coursework &amp; Research</p>
+            </div>
           </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[#6366F1]">Engineering</span>
-            <p className="text-[11px] text-slate-500 font-normal">Software &amp; Architecture</p>
+
+          {/* Engineering */}
+          <div className="relative p-6 bg-gradient-to-br from-purple-600 to-indigo-800 text-white rounded-2xl space-y-3 shadow-xl shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40 group/item overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+            <div>
+              <span className="text-lg font-black block">Engineering</span>
+              <p className="text-xs sm:text-sm text-purple-100 font-medium">Software &amp; Architecture</p>
+            </div>
           </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[#A855F7]">Skill Gain</span>
-            <p className="text-[11px] text-slate-500 font-normal">Verified Capabilities</p>
+
+          {/* Skill Gain */}
+          <div className="relative p-6 bg-gradient-to-br from-violet-600 to-fuchsia-700 text-white rounded-2xl space-y-3 shadow-xl shadow-violet-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-violet-500/40 group/item overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <span className="text-lg font-black block">Skill Gain</span>
+              <p className="text-xs sm:text-sm text-violet-100 font-medium">Verified Capabilities</p>
+            </div>
           </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[#22C55E]">Evidence</span>
-            <p className="text-[11px] text-slate-500 font-normal">Proof of Output</p>
+
+          {/* Evidence */}
+          <div className="relative p-6 bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl space-y-3 shadow-xl shadow-emerald-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/40 group/item overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <span className="text-lg font-black block">Evidence</span>
+              <p className="text-xs sm:text-sm text-emerald-100 font-medium">Proof of Output</p>
+            </div>
           </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-[#3AB1EC]">Portfolio</span>
-            <p className="text-[11px] text-slate-500 font-normal">Tangible Artifacts</p>
+
+          {/* Portfolio */}
+          <div className="relative p-6 bg-gradient-to-br from-cyan-600 to-sky-700 text-white rounded-2xl space-y-3 shadow-xl shadow-cyan-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/40 group/item overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <div>
+              <span className="text-lg font-black block">Portfolio</span>
+              <p className="text-xs sm:text-sm text-cyan-100 font-medium">Tangible Artifacts</p>
+            </div>
           </div>
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-            <span className="text-amber-700">Career Value</span>
-            <p className="text-[11px] text-slate-500 font-normal">Opportunity Pipeline</p>
+
+          {/* Career Value */}
+          <div className="relative p-6 bg-gradient-to-br from-amber-600 to-orange-700 text-white rounded-2xl space-y-3 shadow-xl shadow-amber-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/40 group/item overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+            <div>
+              <span className="text-lg font-black block">Career Value</span>
+              <p className="text-xs sm:text-sm text-amber-100 font-medium">Opportunity Pipeline</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── COMMAND CENTER PREVIEW ───────────────────────────────────────────────── */}
-      <section className="space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
+      <section className="space-y-8 max-w-[1720px] mx-auto">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
           <div>
-            <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
-              Operational Command
+            <span className="text-xs font-extrabold text-[#0284C7] uppercase tracking-widest block mb-1">
+              OPERATIONAL COMMAND
             </span>
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-black text-indigo-950 tracking-tight">
               Command Center &amp; Intelligence Core
             </h2>
           </div>
           <button
             onClick={() => navigate('/login')}
-            className="text-xs font-semibold text-[#3B82F6] hover:underline"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-black text-sm shadow-xl shadow-cyan-500/25 hover:scale-105 hover:shadow-cyan-500/40 transition-all duration-300 shrink-0 group"
           >
-            Launch Command Center →
+            <span>Launch Command Center</span>
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h3 className="text-sm font-bold text-slate-900">Deterministic Next Best Action</h3>
-              <span className="text-[10px] font-bold text-[#22C55E] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Deterministic Next Best Action Card */}
+          <div className="relative bg-gradient-to-br from-cyan-50/90 via-sky-50/70 to-blue-100/80 rounded-3xl p-8 space-y-6 shadow-2xl shadow-cyan-500/10 border-2 border-cyan-200/90 transition-all duration-300 hover:border-cyan-300 hover:shadow-cyan-500/20 overflow-hidden group">
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-400/25 transition-all duration-500" />
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600" />
+
+            <div className="flex flex-wrap justify-between items-center gap-3 pb-4 border-b border-cyan-200/80">
+              <h3 className="text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5">
+                <span className="w-3 h-3 rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50 animate-pulse" />
+                Deterministic Next Best Action
+              </h3>
+              <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-cyan-900 bg-white/90 px-3.5 py-1.5 rounded-full border border-cyan-300 shadow-sm uppercase tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-cyan-500 animate-ping" />
                 System Derived
               </span>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
+
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-semibold">
               Instead of guessing what to work on next, the system analyzes open priorities (P0/P1), unblocked task dependencies, and scheduled capacity to recommend your exact next engineering task.
             </p>
-            <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1">
-              <span className="text-[10px] font-bold text-[#3B82F6] uppercase">Example Recommendation</span>
-              <p className="font-semibold text-slate-900">KENENISA OS Planning Engine Pull Request</p>
-              <p className="text-[11px] text-slate-500 font-normal">Workstream: Engineering OS &bull; Priority: P0 Critical</p>
+
+            {/* Inner Recommendation Box */}
+            <div className="relative bg-white/95 backdrop-blur-xl border-2 border-cyan-300/80 p-6 rounded-2xl space-y-4 shadow-xl shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300 group/box overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600" />
+              
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-cyan-500/20">
+                  <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span>EXAMPLE RECOMMENDATION</span>
+                </div>
+                <span className="bg-rose-100 text-rose-800 border border-rose-300/80 px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wider">
+                  P0 Critical
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <p className="font-black text-lg sm:text-xl text-indigo-950 group-hover/box:text-cyan-700 transition-colors">
+                  KENENISA OS Planning Engine Pull Request
+                </p>
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200/90 px-2.5 py-1 rounded-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 shrink-0" />
+                    Engineering OS
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-rose-900 bg-rose-50 border border-rose-200/90 px-2.5 py-1 rounded-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
+                    P0 Critical
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h3 className="text-sm font-bold text-slate-900">AI Advisory Layer</h3>
-              <span className="text-[10px] font-bold text-[#7e22ce] bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+          {/* AI Advisory Layer Card */}
+          <div className="relative bg-gradient-to-br from-purple-50/90 via-fuchsia-50/70 to-indigo-100/80 rounded-3xl p-8 space-y-6 shadow-2xl shadow-purple-500/10 border-2 border-purple-200/90 transition-all duration-300 hover:border-purple-300 hover:shadow-purple-500/20 overflow-hidden group">
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-400/15 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-400/25 transition-all duration-500" />
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-600" />
+
+            <div className="flex flex-wrap justify-between items-center gap-3 pb-4 border-b border-purple-200/80">
+              <h3 className="text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5">
+                <span className="w-3 h-3 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50 animate-pulse" />
+                AI Advisory Layer
+              </h3>
+              <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-purple-900 bg-white/90 px-3.5 py-1.5 rounded-full border border-purple-300 shadow-sm uppercase tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
                 AI Advisory
               </span>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
+
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-semibold">
               Intelligence Core acts as an advisory mentor over your system state. It analyzes work structure, identifies blockers, and provides actionable recommendations while keeping human decision-making authoritative.
             </p>
-            <div className="bg-purple-50/50 p-3 rounded-xl border border-purple-200 text-xs space-y-1">
-              <span className="text-[10px] font-bold text-[#7e22ce] uppercase">[AI Advisory Context]</span>
-              <p className="text-slate-800 font-normal">
-                "3 tasks in 'Engineering' are blocked by pending PR review. Resolving these dependencies will unblock 2 upcoming milestones."
+
+            {/* Inner Advisory Context Box */}
+            <div className="relative bg-white/95 backdrop-blur-xl border-2 border-purple-300/80 p-6 rounded-2xl space-y-4 shadow-xl shadow-purple-500/10 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 group/box overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-600" />
+              
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-purple-500/20">
+                  <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  <span>AI ADVISORY CONTEXT</span>
+                </div>
+                <span className="bg-amber-100 text-amber-900 border border-amber-300/80 px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wider">
+                  Action Required
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                <p className="text-indigo-950 font-bold text-base sm:text-lg leading-relaxed">
+                  "3 tasks in <span className="underline decoration-purple-400 decoration-2 underline-offset-2 font-black text-purple-950">'Engineering'</span> are blocked by pending PR review. Resolving these dependencies will unblock 2 upcoming milestones."
+                </p>
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-purple-900 bg-purple-50 border border-purple-200/90 px-2.5 py-1 rounded-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
+                    Engineering
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-amber-900 bg-amber-50 border border-amber-200/90 px-2.5 py-1 rounded-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
+                    3 Pending PRs
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-emerald-900 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                    Unlocks 2 Milestones
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DESIGNED FOR SERIOUS PRACTITIONERS ──────────────────────────────────── */}
+      <section className="space-y-10 max-w-[1720px] mx-auto">
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-2 text-xs font-black text-purple-900 bg-purple-100/90 border border-purple-300 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+            TARGET AUDIENCE
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
+            Designed for Serious Practitioners
+          </h2>
+          <p className="text-base sm:text-lg text-slate-700 font-semibold">
+            Built for individuals who require structure, clarity, and verifiable output.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Students */}
+          <div className="relative bg-gradient-to-br from-purple-50/90 via-indigo-50/60 to-white border-2 border-purple-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-purple-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20 group overflow-hidden text-center flex flex-col items-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 to-indigo-600" />
+            <div className="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+              🎓
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-black text-purple-950">Students</h3>
+              <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                Organize university coursework, engineering projects, skill learning, and academic portfolio evidence.
+              </p>
+            </div>
+          </div>
+
+          {/* Engineers */}
+          <div className="relative bg-gradient-to-br from-cyan-50/90 via-blue-50/60 to-white border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden text-center flex flex-col items-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-600" />
+            <div className="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+              ⚡
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-black text-cyan-950">Engineers</h3>
+              <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                Connect code repositories, architecture deliverables, pull requests, and verified technical skills.
+              </p>
+            </div>
+          </div>
+
+          {/* Builders */}
+          <div className="relative bg-gradient-to-br from-blue-50/90 via-indigo-50/60 to-white border-2 border-blue-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 group overflow-hidden text-center flex flex-col items-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-600" />
+            <div className="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+              🛠️
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-black text-blue-950">Builders</h3>
+              <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                Turn product ideas into structured workstreams, goals, milestones, and shipping schedules.
+              </p>
+            </div>
+          </div>
+
+          {/* Career Growth */}
+          <div className="relative bg-gradient-to-br from-amber-50/90 via-orange-50/60 to-white border-2 border-amber-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-amber-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/20 group overflow-hidden text-center flex flex-col items-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 to-orange-600" />
+            <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+              🚀
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-black text-amber-950">Career Growth</h3>
+              <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                Track target roles, interview preparation, portfolio evidence, and skill-to-opportunity mapping.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── WHO IT IS FOR ────────────────────────────────────────────────────────── */}
-      <section className="space-y-6">
-        <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Designed for Serious Practitioners
-          </h2>
-          <p className="text-xs text-slate-500 font-normal">
-            Built for individuals who require structure, clarity, and verifiable output.
-          </p>
-        </div>
+      {/* ── FINAL CTA BANNER ────────────────────────────────────────────────────── */}
+      <section className="relative rounded-3xl bg-gradient-to-br from-indigo-50/90 via-purple-50/80 to-cyan-50/90 border-2 border-indigo-200/90 p-10 sm:p-16 text-center space-y-8 shadow-2xl shadow-purple-500/10 max-w-[1720px] mx-auto overflow-hidden group">
+        {/* Top Accent Line */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600" />
+        
+        {/* Ambient Glowing Orbs */}
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 space-y-2 shadow-xs">
-            <h3 className="text-sm font-bold text-slate-900">Students</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Organize university coursework, engineering projects, skill learning, and academic portfolio evidence.
-            </p>
-          </div>
-
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 space-y-2 shadow-xs">
-            <h3 className="text-sm font-bold text-slate-900">Engineers</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Connect code repositories, architecture deliverables, pull requests, and verified technical skills.
-            </p>
-          </div>
-
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 space-y-2 shadow-xs">
-            <h3 className="text-sm font-bold text-slate-900">Builders</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Turn product ideas into structured workstreams, goals, milestones, and shipping schedules.
-            </p>
-          </div>
-
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 space-y-2 shadow-xs">
-            <h3 className="text-sm font-bold text-slate-900">Career Growth</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Track target roles, interview preparation, portfolio evidence, and skill-to-opportunity mapping.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FINAL CTA ────────────────────────────────────────────────────────────── */}
-      <section className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-sm max-w-4xl mx-auto">
-        <div className="space-y-3 max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <div className="space-y-4 max-w-3xl mx-auto relative z-10">
+          <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight leading-tight text-indigo-950">
             Build your personal operating system.
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+          <p className="text-sm sm:text-xl text-slate-700 leading-relaxed font-semibold">
             Bring your strategic direction, daily execution, verified evidence, and career targets into one unified system.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4 relative z-10">
+          {/* Button 1: Get Started Free */}
           <Link
             to="/login"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-sm shadow-md shadow-blue-500/20 transition-all active:scale-95 text-center"
+            className="relative group/btn w-full sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            Get Started →
+            <span className="relative w-full sm:w-auto px-9 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black text-base tracking-wide flex items-center justify-center gap-3 overflow-hidden">
+              {/* Shimmer light pass */}
+              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+              
+              <span>Get Started Free</span>
+
+              {/* Glowing Arrow Badge */}
+              <span className="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-blue-600 group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-sm">
+                →
+              </span>
+            </span>
           </Link>
+
+          {/* Button 2: Sign In */}
           <Link
             to="/login"
-            className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-sm transition-colors text-center"
+            className="relative group/btn w-full sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-purple-300 via-indigo-400 to-cyan-300 shadow-lg shadow-purple-500/10 hover:shadow-xl hover:shadow-purple-500/25 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            Sign In
+            <span className="relative w-full sm:w-auto px-9 py-4 rounded-full bg-white/95 backdrop-blur-xl text-indigo-950 group-hover/btn:text-purple-700 font-black text-base tracking-wide flex items-center justify-center gap-3 transition-colors duration-200 overflow-hidden">
+              {/* Shimmer light pass */}
+              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-purple-400/20 to-transparent pointer-events-none" />
+              
+              <span>Sign In</span>
+
+              {/* Glowing User Icon Badge */}
+              <span className="w-7 h-7 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center group-hover/btn:bg-purple-600 group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0">
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+              </span>
+            </span>
           </Link>
         </div>
       </section>

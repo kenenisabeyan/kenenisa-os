@@ -48,11 +48,19 @@ export const Badge: React.FC<BadgeProps> = ({ variant, label, className = '' }) 
   const style = variantStyles[normalizedVariant] || variantStyles.NEUTRAL;
   const displayText = label || variant.replace(/_/g, ' ');
 
+  const showDot = ['READY', 'IN_PROGRESS', 'BLOCKED', 'AI', 'MILESTONE', 'URGENT'].includes(normalizedVariant);
+
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${style.bg} ${style.text} ${style.border} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider border shadow-2xs backdrop-blur-md transition-all duration-200 ${style.bg} ${style.text} ${style.border} ${className}`}
     >
-      {displayText}
+      {showDot && (
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-current opacity-75" />
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-current" />
+        </span>
+      )}
+      <span>{displayText}</span>
     </span>
   );
 };
