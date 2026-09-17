@@ -137,30 +137,30 @@ export const AnalyticsPage: React.FC = () => {
   return (
     <div id="analytics-page" className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 pb-5">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
             <span>Personal Operating Intelligence</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-medium">
+            <span className="text-[10px] px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 font-extrabold uppercase tracking-wider">
               Deterministic Analytics
             </span>
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Factual execution metrics, planning capacity, project outcomes, and continuous operational history.
           </p>
         </div>
 
         {/* Period Selector Controls */}
-        <div className="flex flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-xl border border-slate-200/90 shadow-xs">
+        <div className="flex flex-wrap items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 shadow-lg">
           {(['day', 'week', 'month', 'quarter'] as AnalyticsPeriod[]).map((p) => (
             <button
               key={p}
               id={`period-btn-${p}`}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
                 period === p
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
               }`}
             >
               {p}
@@ -169,10 +169,10 @@ export const AnalyticsPage: React.FC = () => {
           <button
             id="period-btn-custom"
             onClick={() => setPeriod('custom')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
               period === 'custom'
-                ? 'bg-blue-600 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
             }`}
           >
             Custom
@@ -182,37 +182,37 @@ export const AnalyticsPage: React.FC = () => {
 
       {/* Custom Range Picker */}
       {period === 'custom' && (
-        <div className="flex flex-wrap items-center gap-3 bg-white p-4 rounded-xl border border-slate-200/90 shadow-xs">
-          <span className="text-xs font-medium text-slate-500">Custom Date Range:</span>
+        <div className="flex flex-wrap items-center gap-3 bg-slate-950 p-4 rounded-2xl border border-slate-800 shadow-md text-white">
+          <span className="text-xs font-bold text-slate-400">Custom Date Range:</span>
           <input
             type="date"
             id="analytics-custom-from"
             value={customFrom}
             onChange={(e) => setCustomFrom(e.target.value)}
-            className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+            className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <span className="text-xs text-slate-400">to</span>
+          <span className="text-xs text-slate-500">to</span>
           <input
             type="date"
             id="analytics-custom-to"
             value={customTo}
             onChange={(e) => setCustomTo(e.target.value)}
-            className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+            className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       )}
 
       {/* Loading State */}
       {loading && (
-        <div className="flex items-center justify-center py-16 text-slate-500 gap-3">
-          <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-sm font-medium">Aggregating operating metrics...</span>
+        <div className="flex items-center justify-center py-20 text-slate-400 gap-3">
+          <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <span className="text-xs font-bold uppercase tracking-wider">Aggregating operating metrics...</span>
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div className="bg-rose-50 border border-rose-200 p-4 rounded-xl text-rose-700 text-sm">
+        <div className="bg-rose-50 border border-rose-200 p-4 rounded-2xl text-rose-700 text-xs font-semibold">
           {error}
         </div>
       )}
@@ -221,67 +221,67 @@ export const AnalyticsPage: React.FC = () => {
         <>
           {/* Top KPI Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <div className="bg-white border border-slate-200/90 p-4 rounded-xl space-y-1 shadow-xs">
-              <span className="text-xs text-slate-500 font-medium">Tasks Completed</span>
-              <div className="text-2xl font-bold text-slate-900">
+            <div className="bg-slate-950 border border-slate-800 p-4 rounded-3xl space-y-1.5 shadow-xl text-white relative overflow-hidden">
+              <span className="text-[10px] uppercase font-extrabold text-blue-400 tracking-wider">Tasks Completed</span>
+              <div className="text-2xl font-extrabold text-white">
                 {overview.execution.completedTasks}
-                <span className="text-xs text-slate-400 font-normal ml-1">/ {overview.execution.totalTasks}</span>
+                <span className="text-xs text-slate-500 font-normal ml-1">/ {overview.execution.totalTasks}</span>
               </div>
-              <div className="text-[11px] text-sky-600 font-medium">
+              <div className="text-[11px] text-cyan-400 font-semibold">
                 {overview.execution.completionRate !== null ? `${overview.execution.completionRate}% completion` : 'N/A'}
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-xl space-y-1 shadow-xs">
-              <span className="text-xs text-slate-500 font-medium">Planned Capacity</span>
-              <div className="text-2xl font-bold text-slate-900">
+            <div className="bg-slate-950 border border-slate-800 p-4 rounded-3xl space-y-1.5 shadow-xl text-white relative overflow-hidden">
+              <span className="text-[10px] uppercase font-extrabold text-emerald-400 tracking-wider">Planned Capacity</span>
+              <div className="text-2xl font-extrabold text-white">
                 {Math.round(overview.planning.plannedMinutes / 60)}h
-                <span className="text-xs text-slate-400 font-normal ml-1">
+                <span className="text-xs text-slate-500 font-normal ml-1">
                   / {Math.round((capacity?.totalAvailableMinutes || 0) / 60)}h
                 </span>
               </div>
-              <div className="text-[11px] text-emerald-600 font-medium">
+              <div className="text-[11px] text-emerald-400 font-semibold">
                 {capacity?.utilizationPercentage !== null ? `${capacity?.utilizationPercentage}% utilized` : 'N/A'}
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-xl space-y-1 shadow-xs">
-              <span className="text-xs text-slate-500 font-medium">Learning Logged</span>
-              <div className="text-2xl font-bold text-slate-900">
+            <div className="bg-slate-950 border border-slate-800 p-4 rounded-3xl space-y-1.5 shadow-xl text-white relative overflow-hidden">
+              <span className="text-[10px] uppercase font-extrabold text-purple-400 tracking-wider">Learning Logged</span>
+              <div className="text-2xl font-extrabold text-white">
                 {Math.round(overview.learning.learningMinutes / 60)}h
               </div>
-              <div className="text-[11px] text-purple-600 font-medium">
+              <div className="text-[11px] text-purple-400 font-semibold">
                 {overview.learning.learningActivityDays} active days
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-xl space-y-1 shadow-xs">
-              <span className="text-xs text-slate-500 font-medium">Evidence Produced</span>
-              <div className="text-2xl font-bold text-slate-900">{overview.evidence.evidenceCreated}</div>
-              <div className="text-[11px] text-amber-600 font-medium">
+            <div className="bg-slate-950 border border-slate-800 p-4 rounded-3xl space-y-1.5 shadow-xl text-white relative overflow-hidden">
+              <span className="text-[10px] uppercase font-extrabold text-amber-400 tracking-wider">Evidence Vault</span>
+              <div className="text-2xl font-extrabold text-white">{overview.evidence.evidenceCreated}</div>
+              <div className="text-[11px] text-amber-400 font-semibold">
                 {overview.evidence.evidenceVerified} verified
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-xl space-y-1 shadow-xs">
-              <span className="text-xs text-slate-500 font-medium">Active Projects</span>
-              <div className="text-2xl font-bold text-slate-900">{overview.projects.activeProjects}</div>
-              <div className="text-[11px] text-slate-500">
+            <div className="bg-slate-950 border border-slate-800 p-4 rounded-3xl space-y-1.5 shadow-xl text-white relative overflow-hidden">
+              <span className="text-[10px] uppercase font-extrabold text-indigo-400 tracking-wider">Active Projects</span>
+              <div className="text-2xl font-extrabold text-white">{overview.projects.activeProjects}</div>
+              <div className="text-[11px] text-slate-400 font-semibold">
                 {overview.projects.completedProjects} completed
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-xl space-y-1 shadow-xs">
-              <span className="text-xs text-slate-500 font-medium">Overdue Tasks</span>
-              <div className="text-2xl font-bold text-rose-600">{overview.execution.overdueTasks}</div>
-              <div className="text-[11px] text-amber-600">
+            <div className="bg-slate-950 border border-slate-800 p-4 rounded-3xl space-y-1.5 shadow-xl text-white relative overflow-hidden">
+              <span className="text-[10px] uppercase font-extrabold text-rose-400 tracking-wider">Overdue Tasks</span>
+              <div className="text-2xl font-extrabold text-rose-400">{overview.execution.overdueTasks}</div>
+              <div className="text-[11px] text-amber-400 font-semibold">
                 {blocked?.currentlyBlocked || 0} blocked
               </div>
             </div>
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
+          <div className="flex items-center gap-2 border-b border-slate-200/80 pb-3">
             {[
               { id: 'overview' as const, label: 'Overview & Trends' },
               { id: 'projects' as const, label: 'Projects & Goals' },
@@ -293,9 +293,9 @@ export const AnalyticsPage: React.FC = () => {
                 key={tab.id}
                 id={`tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
                   activeTab === tab.id
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-xs'
+                    ? 'bg-slate-950 text-white shadow-md border border-slate-800'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >

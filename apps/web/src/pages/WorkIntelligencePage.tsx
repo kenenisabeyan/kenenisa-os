@@ -85,24 +85,24 @@ export const WorkIntelligencePage: React.FC = () => {
   const blockedCount = blockedTasks.length;
 
   return (
-    <div className="space-y-6" id="work-intelligence-page">
+    <div className="space-y-8" id="work-intelligence-page">
       <PageHeader
-        title="Work Intelligence"
-        description="Understand the structure, movement, dependencies, and constraints of your active work."
+        title="Work Intelligence & Bottleneck Analysis"
+        description="Comprehensive visibility into operating structure, task dependencies, workload concentration, and bottleneck constraints."
         breadcrumbs={[{ label: 'Command Center' }, { label: 'Work Intelligence' }]}
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => navigate('/app/tasks')}
-              className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors"
+              className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 font-semibold text-xs transition-colors shadow-sm"
             >
               Task Engine
             </button>
             <button
               onClick={() => navigate('/app/executive')}
-              className="px-4 py-2 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold text-xs shadow-xs transition-colors"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5"
             >
-              Executive View
+              <span>Executive Overview</span>
             </button>
           </div>
         }
@@ -116,35 +116,75 @@ export const WorkIntelligencePage: React.FC = () => {
         <>
           {/* Workload Concentration Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs space-y-1">
-              <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">Ready Work</span>
-              <p className="text-2xl font-bold text-slate-900">{readyCount}</p>
-              <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                <div className="bg-[#3B82F6] h-full" style={{ width: `${Math.round((readyCount / totalTasks) * 100)}%` }} />
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl" />
+              <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">Ready Work</span>
+              <p className="text-3xl font-extrabold text-white">{readyCount}</p>
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>Share</span>
+                  <span>{Math.round((readyCount / totalTasks) * 100)}%</span>
+                </div>
+                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${Math.round((readyCount / totalTasks) * 100)}%` }}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs space-y-1">
-              <span className="text-[10px] font-bold text-[#6366F1] uppercase tracking-wider">In Progress</span>
-              <p className="text-2xl font-bold text-slate-900">{inProgressCount}</p>
-              <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                <div className="bg-[#6366F1] h-full" style={{ width: `${Math.round((inProgressCount / totalTasks) * 100)}%` }} />
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl" />
+              <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-wider">In Progress</span>
+              <p className="text-3xl font-extrabold text-white">{inProgressCount}</p>
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>Active</span>
+                  <span>{Math.round((inProgressCount / totalTasks) * 100)}%</span>
+                </div>
+                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${Math.round((inProgressCount / totalTasks) * 100)}%` }}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs space-y-1">
-              <span className="text-[10px] font-bold text-[#FF5A00] uppercase tracking-wider">Blocked Work</span>
-              <p className="text-2xl font-bold text-[#FF5A00]">{blockedCount}</p>
-              <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                <div className="bg-[#FF5A00] h-full" style={{ width: `${Math.round((blockedCount / totalTasks) * 100)}%` }} />
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/10 rounded-full blur-2xl" />
+              <span className="text-[10px] font-extrabold text-rose-400 uppercase tracking-wider">Blocked Work</span>
+              <p className="text-3xl font-extrabold text-rose-400">{blockedCount}</p>
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>Blocked</span>
+                  <span>{Math.round((blockedCount / totalTasks) * 100)}%</span>
+                </div>
+                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div
+                    className="bg-rose-500 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${Math.round((blockedCount / totalTasks) * 100)}%` }}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs space-y-1">
-              <span className="text-[10px] font-bold text-[#22C55E] uppercase tracking-wider">Completed</span>
-              <p className="text-2xl font-bold text-[#22C55E]">{doneCount}</p>
-              <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                <div className="bg-[#22C55E] h-full" style={{ width: `${Math.round((doneCount / totalTasks) * 100)}%` }} />
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl" />
+              <span className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider">Completed</span>
+              <p className="text-3xl font-extrabold text-emerald-400">{doneCount}</p>
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>Done</span>
+                  <span>{Math.round((doneCount / totalTasks) * 100)}%</span>
+                </div>
+                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${Math.round((doneCount / totalTasks) * 100)}%` }}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -152,43 +192,46 @@ export const WorkIntelligencePage: React.FC = () => {
           {/* Critical Bottlenecks & Blocker Chain */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left 2 Cols: Bottleneck Analysis */}
-            <div className="lg:col-span-2 space-y-4">
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-                    Active Bottlenecks & Execution Constraints
-                  </h2>
-                  <span className="text-xs font-semibold text-[#FF5A00]">
-                    {blockedTasks.length + overdueTasks.length} Issues Identified
-                  </span>
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div>
+                    <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                      <span>Active Execution Bottlenecks</span>
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-50 text-rose-600 border border-rose-200">
+                        {blockedTasks.length + overdueTasks.length} Flags
+                      </span>
+                    </h2>
+                    <p className="text-xs text-slate-500">System detected tasks holding up progress or past due date</p>
+                  </div>
                 </div>
 
                 {blockedTasks.length === 0 && overdueTasks.length === 0 ? (
-                  <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200/80">
-                    No active task bottlenecks or overdue items detected. Workflow pipeline is healthy.
+                  <div className="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                    No active task bottlenecks or overdue items detected. Execution flow is clear.
                   </div>
                 ) : (
                   <div className="space-y-3">
                     {blockedTasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-rose-50/50 border border-rose-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"
+                        className="bg-rose-50/60 border border-rose-200 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-rose-300 transition-all shadow-2xs"
                       >
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <span className="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-rose-100 text-rose-700 border border-rose-300">
+                        <div className="space-y-1.5 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="px-2.5 py-0.5 rounded-lg text-[9px] font-extrabold uppercase bg-rose-100 text-rose-700 border border-rose-300">
                               BLOCKED
                             </span>
                             <Badge variant={t.priority} />
-                            <span className="text-[10px] font-semibold text-slate-500">
-                              {t.project?.name || 'Task'}
+                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                              {t.project?.name || 'General Project'}
                             </span>
                           </div>
-                          <h4 className="text-xs font-semibold text-slate-900">{t.title}</h4>
+                          <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
                         </div>
                         <button
                           onClick={() => navigate('/app/tasks')}
-                          className="px-3 py-1.5 bg-white border border-rose-300 hover:bg-rose-100 text-rose-700 text-xs font-semibold rounded-lg shrink-0 transition-colors"
+                          className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
                         >
                           Resolve Blocker
                         </button>
@@ -198,25 +241,25 @@ export const WorkIntelligencePage: React.FC = () => {
                     {overdueTasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-amber-50/50 border border-amber-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"
+                        className="bg-amber-50/60 border border-amber-200 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-amber-300 transition-all shadow-2xs"
                       >
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <span className="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-amber-100 text-amber-800 border border-amber-300">
+                        <div className="space-y-1.5 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="px-2.5 py-0.5 rounded-lg text-[9px] font-extrabold uppercase bg-amber-100 text-amber-800 border border-amber-300">
                               OVERDUE
                             </span>
                             <Badge variant={t.priority} />
-                            <span className="text-[10px] font-semibold text-slate-500">
+                            <span className="text-[10px] font-mono text-amber-700 font-semibold">
                               Due: {new Date(t.dueDate!).toLocaleDateString()}
                             </span>
                           </div>
-                          <h4 className="text-xs font-semibold text-slate-900">{t.title}</h4>
+                          <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
                         </div>
                         <button
                           onClick={() => navigate('/app/tasks')}
-                          className="px-3 py-1.5 bg-white border border-amber-300 hover:bg-amber-100 text-amber-800 text-xs font-semibold rounded-lg shrink-0 transition-colors"
+                          className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
                         >
-                          Reschedule
+                          Reschedule Task
                         </button>
                       </div>
                     ))}
@@ -225,30 +268,35 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
 
               {/* Dependency Chain Viewer */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-                <h3 className="text-sm font-bold text-slate-900 tracking-tight">
-                  Task Dependency Chains & Relationships
-                </h3>
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+                <div className="border-b border-slate-100 pb-4">
+                  <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
+                    Task Dependency Chains & Prerequisites
+                  </h3>
+                  <p className="text-xs text-slate-500">Map of tasks dependent on completing prior prerequisite tasks</p>
+                </div>
 
                 {taskWithBlockers.length === 0 ? (
-                  <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200/80">
-                    No active task dependency links defined. Attach prerequisite dependencies in Task Engine.
+                  <div className="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                    No active task dependency links defined. Link dependencies in Task Engine.
                   </div>
                 ) : (
                   <div className="space-y-3">
                     {taskWithBlockers.map((t) => (
-                      <div key={t.id} className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="font-semibold text-slate-900">{t.title}</span>
+                      <div key={t.id} className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-xs text-slate-900">{t.title}</span>
                           <Badge variant={t.status} />
                         </div>
 
-                        <div className="pl-3 border-l-2 border-slate-300 space-y-1.5">
-                          <p className="text-[10px] font-bold text-slate-500 uppercase">Prerequisite Blockers:</p>
+                        <div className="pl-3 border-l-2 border-indigo-500 space-y-2">
+                          <p className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
+                            Prerequisite Blockers:
+                          </p>
                           {t.blockingDependencies?.map((dep) => (
-                            <div key={dep.id} className="flex items-center justify-between text-xs text-slate-700 bg-white p-2 rounded-lg border border-slate-200">
-                              <span className="truncate">{dep.blockingTask?.title || dep.blockingTaskId}</span>
-                              <span className="text-[10px] font-semibold text-slate-500">
+                            <div key={dep.id} className="flex items-center justify-between text-xs text-slate-800 bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+                              <span className="font-semibold truncate">{dep.blockingTask?.title || dep.blockingTaskId}</span>
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
                                 {dep.blockingTask?.status || 'PENDING'}
                               </span>
                             </div>
@@ -261,30 +309,32 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Col: Unscheduled Ready Work & Work Map Navigator */}
-            <div className="space-y-4">
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
-                <h3 className="text-sm font-bold text-slate-900 tracking-tight">Unscheduled Ready Work</h3>
-                <p className="text-xs text-slate-500">Tasks marked READY with no calendar allocation</p>
+            {/* Right Col: Unscheduled Ready Work & Quick Map */}
+            <div className="space-y-6">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4">
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Unscheduled Ready Work</h3>
+                  <p className="text-xs text-slate-500">Tasks ready for execution without target schedule dates</p>
+                </div>
 
                 {unscheduledReadyTasks.length === 0 ? (
-                  <div className="p-4 text-center text-xs text-slate-500 bg-slate-50 rounded-xl">
+                  <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl">
                     All ready tasks are scheduled.
                   </div>
                 ) : (
-                  <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+                  <div className="space-y-2.5 max-h-80 overflow-y-auto custom-scrollbar pr-1">
                     {unscheduledReadyTasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-slate-50 border border-slate-200/90 rounded-xl p-3 flex items-center justify-between gap-2"
+                        className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 flex items-center justify-between gap-3 hover:border-slate-300 transition-all"
                       >
                         <div className="space-y-0.5 min-w-0">
-                          <h4 className="text-xs font-semibold text-slate-900 truncate">{t.title}</h4>
-                          <span className="text-[10px] font-medium text-slate-500">{t.estimateMinutes} min est</span>
+                          <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
+                          <span className="text-[10px] font-mono text-slate-500">{t.estimateMinutes} min est</span>
                         </div>
                         <button
                           onClick={() => navigate('/app/planning')}
-                          className="px-2.5 py-1 bg-[#3B82F6] hover:bg-blue-600 text-white text-[11px] font-semibold rounded-lg shrink-0 transition-colors"
+                          className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold rounded-xl shrink-0 transition-colors shadow-xs"
                         >
                           Plan
                         </button>
@@ -297,14 +347,17 @@ export const WorkIntelligencePage: React.FC = () => {
           </div>
 
           {/* Active Work Map Hierarchy */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+            <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-                  Active Work Hierarchy Map
+                <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                  <span>Active Work Hierarchy Map</span>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-200">
+                    {workstreams.length} Workstream Nodes
+                  </span>
                 </h2>
                 <p className="text-xs text-slate-500">
-                  Full relational tree: Workstream → Goal → Project → Milestone → Tasks
+                  Full relational tree breakdown: Workstream → Goal → Project → Milestone → Tasks
                 </p>
               </div>
             </div>
@@ -316,51 +369,51 @@ export const WorkIntelligencePage: React.FC = () => {
                 const isExpanded = expandedWs[ws.id] ?? true;
 
                 return (
-                  <div key={ws.id} className="border border-slate-200 rounded-xl overflow-hidden bg-slate-50/50">
+                  <div key={ws.id} className="border border-slate-200/90 rounded-2xl overflow-hidden bg-slate-50/40">
                     <div
                       onClick={() => toggleExpand(ws.id)}
-                      className="p-4 bg-white border-b border-slate-200/90 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition-colors"
+                      className="p-5 bg-white border-b border-slate-200/90 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition-colors"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="text-xs text-slate-400 font-bold">{isExpanded ? '▼' : '▶'}</span>
+                        <span className="text-xs text-slate-400 font-bold w-4 text-center">{isExpanded ? '▼' : '▶'}</span>
                         <div>
-                          <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
-                            Workstream ({ws.priorityWeight}/10)
+                          <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">
+                            Workstream Pillar ({ws.priorityWeight}/10 Weight)
                           </span>
-                          <h3 className="text-sm font-bold text-slate-900 tracking-tight">{ws.name}</h3>
+                          <h3 className="text-base font-extrabold text-slate-900 tracking-tight">{ws.name}</h3>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3 text-xs text-slate-500">
-                        <span>Goals: <strong>{wsGoals.length}</strong></span>
-                        <span>Projects: <strong>{wsProjects.length}</strong></span>
+                      <div className="flex items-center gap-4 text-xs text-slate-600 font-semibold">
+                        <span>Goals: <strong className="text-slate-900">{wsGoals.length}</strong></span>
+                        <span>Projects: <strong className="text-slate-900">{wsProjects.length}</strong></span>
                       </div>
                     </div>
 
                     {isExpanded && (
-                      <div className="p-4 space-y-3 bg-slate-50/70">
+                      <div className="p-5 space-y-4 bg-slate-50/70">
                         {wsProjects.length === 0 ? (
-                          <div className="text-xs text-slate-500 italic pl-6">No projects under this workstream yet.</div>
+                          <div className="text-xs text-slate-400 italic pl-6">No projects assigned under this workstream.</div>
                         ) : (
                           wsProjects.map((p) => {
                             const pMilestones = milestones.filter((m) => m.projectId === p.id);
                             const pTasks = tasks.filter((t) => t.projectId === p.id);
 
                             return (
-                              <div key={p.id} className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-2 ml-4 shadow-xs">
+                              <div key={p.id} className="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-3 ml-6 shadow-2xs">
                                 <div className="flex items-center justify-between">
                                   <div className="space-y-0.5">
-                                    <span className="text-[10px] font-bold text-[#6366F1] uppercase tracking-wider">
+                                    <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
                                       Project
                                     </span>
-                                    <h4 className="text-xs font-semibold text-slate-900">{p.name}</h4>
+                                    <h4 className="text-sm font-extrabold text-slate-900">{p.name}</h4>
                                   </div>
                                   <Badge variant={p.status} />
                                 </div>
 
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 text-[11px] text-slate-500">
-                                  <span>Milestones: <strong className="text-slate-800">{pMilestones.length}</strong></span>
-                                  <span>Tasks: <strong className="text-slate-800">{pTasks.length}</strong></span>
+                                <div className="flex flex-wrap gap-4 pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
+                                  <span>Milestones: <strong className="text-slate-900">{pMilestones.length}</strong></span>
+                                  <span>Tasks: <strong className="text-slate-900">{pTasks.length}</strong></span>
                                 </div>
                               </div>
                             );
@@ -376,5 +429,6 @@ export const WorkIntelligencePage: React.FC = () => {
         </>
       )}
     </div>
+
   );
 };

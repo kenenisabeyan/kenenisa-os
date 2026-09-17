@@ -69,7 +69,6 @@ export const DashboardPage: React.FC = () => {
     }
   };
 
-
   if (loading && !data) {
     return (
       <div className="space-y-6" id="dashboard-loading">
@@ -91,21 +90,22 @@ export const DashboardPage: React.FC = () => {
 
   const { summary, nextBestAction, today, workstreams, activeProjects, blockedTasks, overdueTasks, upcomingTasks, recentActivity } = data;
 
-  const priorityColor = (priority: TaskDto['priority']) => {
+  const priorityBadgeStyle = (priority: TaskDto['priority']) => {
     switch (priority) {
       case 'P0':
-        return 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+        return 'bg-rose-500/10 text-rose-600 border-rose-500/30 ring-1 ring-rose-500/20';
       case 'P1':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+        return 'bg-amber-500/10 text-amber-600 border-amber-500/30 ring-1 ring-amber-500/20';
       case 'P2':
-        return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
+        return 'bg-cyan-500/10 text-cyan-700 border-cyan-500/30 ring-1 ring-cyan-500/20';
       default:
-        return 'bg-slate-800 text-slate-400 border-slate-700';
+        return 'bg-slate-100 text-slate-600 border-slate-200';
     }
   };
 
   return (
-    <div className="space-y-8 pb-12" id="command-center-dashboard">
+    <div className="space-y-8 pb-12 font-sans" id="command-center-dashboard">
+      {/* Top Bar Header */}
       <PageHeader
         title="Command Center"
         description="Deterministic execution recommendations and personal operating status."
@@ -115,189 +115,240 @@ export const DashboardPage: React.FC = () => {
             id="refresh-dashboard-btn"
             onClick={() => { void loadDashboard(); }}
             disabled={loading}
-            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-200 flex items-center gap-2 transition-all shadow-sm"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-xs font-bold text-slate-700 flex items-center gap-2 transition-all shadow-sm active:scale-95 disabled:opacity-50"
           >
             <svg
-              className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`}
+              className={`w-4 h-4 text-cyan-600 ${loading ? 'animate-spin' : ''}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            Refresh System
+            <span>Refresh System</span>
           </button>
         }
       />
 
-      {/* Hero: Next Best Action Card */}
-      <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm relative" id="next-best-action-card">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-[#3AB1EC] animate-ping" />
-            <span className="text-xs font-extrabold uppercase tracking-wider text-[#0284c7]">
-              DETERMINISTIC RECOMMENDATION
-            </span>
-          </div>
-          {nextBestAction && (
-            <div className="flex items-center gap-2 bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200 shadow-xs">
-              <span className="text-xs text-slate-600 font-semibold">Evaluation Score</span>
-              <span className="text-base font-extrabold text-[#2563eb]" id="nba-score">
-                {nextBestAction.score}/100
+      {/* Hero: Next Best Action / Deterministic Recommendation */}
+      <div
+        className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-700/80"
+        id="next-best-action-card"
+      >
+        {/* Background Decorative Accent Mesh & Glows */}
+        <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 -mb-12 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500" />
               </span>
+              <span className="text-xs font-black uppercase tracking-widest text-cyan-400">
+                DETERMINISTIC RECOMMENDATION
+              </span>
+            </div>
+
+            {nextBestAction && (
+              <div className="flex items-center gap-2.5 bg-slate-800/80 backdrop-blur px-4 py-1.5 rounded-full border border-cyan-500/30 shadow-md">
+                <span className="text-xs text-slate-300 font-medium">Execution Priority Index</span>
+                <span className="text-base font-black text-cyan-400" id="nba-score">
+                  {nextBestAction.score}/100
+                </span>
+              </div>
+            )}
+          </div>
+
+          {nextBestAction && nextBestAction.recommendedTask ? (
+            <div>
+              <div className="flex flex-wrap items-center gap-2.5 mb-3">
+                <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase border ${priorityBadgeStyle(nextBestAction.recommendedTask.priority)}`}>
+                  {nextBestAction.recommendedTask.priority} Priority
+                </span>
+                <span className="px-3 py-1 rounded-lg text-xs font-extrabold uppercase bg-slate-800 text-slate-300 border border-slate-700">
+                  Status: {nextBestAction.recommendedTask.status}
+                </span>
+                {nextBestAction.recommendedTask.project && (
+                  <span className="text-xs text-cyan-300 bg-cyan-950/60 px-3 py-1 rounded-lg border border-cyan-800/60 font-semibold flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                    </svg>
+                    {nextBestAction.recommendedTask.project.name}
+                  </span>
+                )}
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight leading-tight" id="nba-task-title">
+                {nextBestAction.recommendedTask.title}
+              </h2>
+
+              {nextBestAction.recommendedTask.description && (
+                <p className="text-slate-300 text-sm mb-6 max-w-3xl leading-relaxed">
+                  {nextBestAction.recommendedTask.description}
+                </p>
+              )}
+
+              {/* Algorithm Scoring Breakdown Grid */}
+              <div className="bg-slate-800/60 backdrop-blur border border-slate-700/80 rounded-2xl p-4 mb-6">
+                <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  Algorithm Scoring Criteria
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                  {nextBestAction.reasons.map((r, idx) => (
+                    <div key={idx} className="bg-slate-900/80 rounded-xl p-3 border border-slate-700/60 flex flex-col justify-between">
+                      <div className="flex items-center justify-between text-xs mb-1">
+                        <span className="text-slate-300 font-bold">{r.category}</span>
+                        <span className="text-cyan-400 font-black">+{r.points}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-snug line-clamp-2">{r.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3">
+                {nextBestAction.recommendedTask.status === 'READY' && (
+                  <button
+                    id="nba-start-btn"
+                    onClick={() => { void handleStartTask(nextBestAction.recommendedTask!.id); }}
+                    disabled={actionLoading === nextBestAction.recommendedTask.id}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-sm shadow-lg shadow-cyan-500/25 transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    </svg>
+                    Start Execution Now
+                  </button>
+                )}
+
+                {nextBestAction.recommendedTask.status === 'IN_PROGRESS' && (
+                  <button
+                    id="nba-complete-btn"
+                    onClick={() => { void handleCompleteTask(nextBestAction.recommendedTask!.id); }}
+                    disabled={actionLoading === nextBestAction.recommendedTask.id}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Mark Complete & Verify
+                  </button>
+                )}
+
+                <button
+                  id="nba-block-btn"
+                  onClick={() => { void handleBlockTask(nextBestAction.recommendedTask!.id); }}
+                  disabled={actionLoading === nextBestAction.recommendedTask.id}
+                  className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-800 text-xs font-bold transition-all disabled:opacity-50"
+                >
+                  Flag Blocked
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-10">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto mb-4 font-black text-2xl shadow-lg shadow-emerald-500/10">
+                ✓
+              </div>
+              <h3 className="text-xl font-extrabold text-white mb-2">Execution Queue Cleared!</h3>
+              <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
+                No active or ready tasks found in your candidate pool. All tasks are completed or blocked. Create new tasks in Projects or Milestones to populate the execution pipeline.
+              </p>
             </div>
           )}
         </div>
-
-        {nextBestAction && nextBestAction.recommendedTask ? (
-          <div>
-            <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className={`px-2.5 py-0.5 rounded-md text-xs font-bold border ${priorityColor(nextBestAction.recommendedTask.priority)}`}>
-                {nextBestAction.recommendedTask.priority}
-              </span>
-              <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300">
-                {nextBestAction.recommendedTask.status}
-              </span>
-              {nextBestAction.recommendedTask.project && (
-                <span className="text-xs text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200">
-                  Project: {nextBestAction.recommendedTask.project.name}
-                </span>
-              )}
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight" id="nba-task-title">
-              {nextBestAction.recommendedTask.title}
-            </h2>
-
-            {nextBestAction.recommendedTask.description && (
-              <p className="text-slate-600 text-sm mb-6 max-w-3xl leading-relaxed">
-                {nextBestAction.recommendedTask.description}
-              </p>
-            )}
-
-            {/* Score Breakdown Reasons */}
-            <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 mb-6">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
-                Scoring Breakdown Criteria
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                {nextBestAction.reasons.map((r, idx) => (
-                  <div key={idx} className="bg-white rounded-xl p-3 border border-slate-200 shadow-xs">
-                    <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="text-slate-600 font-semibold">{r.category}</span>
-                      <span className="text-[#0284c7] font-bold">+{r.points}</span>
-                    </div>
-                    <p className="text-[11px] text-slate-700 line-clamp-2">{r.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3">
-              {nextBestAction.recommendedTask.status === 'READY' && (
-                <button
-                  id="nba-start-btn"
-                  onClick={() => { void handleStartTask(nextBestAction.recommendedTask!.id); }}
-                  disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="px-6 py-3 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-sm shadow-md shadow-blue-500/20 transition-all flex items-center gap-2 active:scale-[0.99]"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  </svg>
-                  Start Task Now
-                </button>
-              )}
-
-              {nextBestAction.recommendedTask.status === 'IN_PROGRESS' && (
-                <button
-                  id="nba-complete-btn"
-                  onClick={() => { void handleCompleteTask(nextBestAction.recommendedTask!.id); }}
-                  disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="px-6 py-3 rounded-xl bg-[#22C55E] hover:bg-emerald-600 text-white font-bold text-sm shadow-md shadow-emerald-500/20 transition-all flex items-center gap-2 active:scale-[0.99]"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Mark Complete
-                </button>
-              )}
-
-              <button
-                id="nba-block-btn"
-                onClick={() => { void handleBlockTask(nextBestAction.recommendedTask!.id); }}
-                disabled={actionLoading === nextBestAction.recommendedTask.id}
-                className="px-4 py-3 rounded-xl bg-slate-100 hover:bg-orange-50 hover:text-[#c2410c] border border-slate-300 text-slate-700 font-bold text-xs transition-all"
-              >
-                Mark Blocked
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="text-center py-8">
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-[#2563eb] flex items-center justify-center mx-auto mb-3 font-bold text-lg shadow-xs">
-              ✓
-            </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-1">Queue Cleared!</h3>
-            <p className="text-slate-600 text-sm max-w-md mx-auto">
-              No active or ready tasks found in your candidate pool. All blocked or done. Create new tasks in Projects or Milestones to populate execution plan.
-            </p>
-          </div>
-        )}
       </div>
 
       {/* Summary Metrics Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3" id="summary-metrics">
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">Workstreams</div>
-          <div className="text-2xl font-black text-slate-900 mt-1">{summary.activeWorkstreams}</div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Active</div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3.5" id="summary-metrics">
+        {/* Workstreams */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-blue-300 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Workstreams</span>
+            <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+          </div>
+          <div className="text-2xl font-black text-slate-900 mt-2">{summary.activeWorkstreams}</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Core</div>
         </div>
 
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">Goals</div>
-          <div className="text-2xl font-black text-slate-900 mt-1">{summary.activeGoals}</div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">In Progress</div>
+        {/* Goals */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-indigo-300 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Goals</span>
+            <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
+          </div>
+          <div className="text-2xl font-black text-slate-900 mt-2">{summary.activeGoals}</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">In Progress</div>
         </div>
 
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">Projects</div>
-          <div className="text-2xl font-black text-slate-900 mt-1">{summary.activeProjects}</div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Active</div>
+        {/* Projects */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-cyan-300 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Projects</span>
+            <span className="w-2 h-2 rounded-full bg-cyan-500 group-hover:scale-125 transition-transform" />
+          </div>
+          <div className="text-2xl font-black text-slate-900 mt-2">{summary.activeProjects}</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Build</div>
         </div>
 
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">Ready Tasks</div>
-          <div className="text-2xl font-black text-[#0284c7] mt-1">{summary.readyTasks}</div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Queue</div>
+        {/* Ready Tasks */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-sky-300 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Ready</span>
+            <span className="w-2 h-2 rounded-full bg-sky-500 group-hover:scale-125 transition-transform" />
+          </div>
+          <div className="text-2xl font-black text-sky-600 mt-2">{summary.readyTasks}</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">Candidate Queue</div>
         </div>
 
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">In Progress</div>
-          <div className="text-2xl font-black text-[#2563eb] mt-1">{summary.inProgressTasks}</div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Current</div>
+        {/* In Progress */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-blue-400 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">In Progress</span>
+            <span className="w-2 h-2 rounded-full bg-blue-600 group-hover:scale-125 transition-transform" />
+          </div>
+          <div className="text-2xl font-black text-blue-600 mt-2">{summary.inProgressTasks}</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Focus</div>
         </div>
 
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">Blocked</div>
-          <div className={`text-2xl font-black mt-1 ${summary.blockedTasks > 0 ? 'text-[#c2410c]' : 'text-slate-400'}`}>
+        {/* Blocked */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-rose-300 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Blocked</span>
+            <span className={`w-2 h-2 rounded-full ${summary.blockedTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+          </div>
+          <div className={`text-2xl font-black mt-2 ${summary.blockedTasks > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
             {summary.blockedTasks}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Needs Action</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">Needs Action</div>
         </div>
 
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">Overdue</div>
-          <div className={`text-2xl font-black mt-1 ${summary.overdueTasks > 0 ? 'text-[#b45309]' : 'text-slate-400'}`}>
+        {/* Overdue */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-amber-300 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Overdue</span>
+            <span className={`w-2 h-2 rounded-full ${summary.overdueTasks > 0 ? 'bg-amber-500 animate-pulse' : 'bg-slate-300'}`} />
+          </div>
+          <div className={`text-2xl font-black mt-2 ${summary.overdueTasks > 0 ? 'text-amber-600' : 'text-slate-400'}`}>
             {summary.overdueTasks}
           </div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Late</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">Past Target</div>
         </div>
 
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-slate-500">7d Completed</div>
-          <div className="text-2xl font-black text-[#15803d] mt-1">{summary.completedTasksRecent}</div>
-          <div className="text-[10px] text-slate-500 mt-1 font-semibold">Verified</div>
+        {/* 7d Completed */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-emerald-300 transition-all group">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">7d Done</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
+          </div>
+          <div className="text-2xl font-black text-emerald-600 mt-2">{summary.completedTasksRecent}</div>
+          <div className="text-[10px] text-slate-500 font-semibold mt-1">Verified Impact</div>
         </div>
       </div>
 
@@ -306,51 +357,51 @@ export const DashboardPage: React.FC = () => {
         {/* Left Column (2 cols wide): Today Focus & Critical Items */}
         <div className="lg:col-span-2 space-y-8">
           {/* Today's Focus */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="today-focus-section">
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="today-focus-section">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
-                <h3 className="text-xl font-bold text-slate-900">Today&apos;s Focus</h3>
-                <p className="text-slate-600 text-xs mt-0.5">Tasks due today or currently in progress</p>
+                <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">Today&apos;s Execution Focus</h3>
+                <p className="text-slate-500 text-xs mt-0.5 font-medium">Tasks scheduled for today or active right now</p>
               </div>
-              <span className="px-3 py-1 bg-slate-100 rounded-full text-xs font-semibold text-slate-700 border border-slate-200">
+              <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-extrabold border border-blue-200/80">
                 {today.dueToday.length + today.inProgress.length} items
               </span>
             </div>
 
             {today.dueToday.length === 0 && today.inProgress.length === 0 ? (
-              <div className="text-center py-6 border border-dashed border-slate-300 rounded-2xl text-slate-500 text-xs">
-                No tasks due today or in progress right now.
+              <div className="text-center py-8 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-medium">
+                No tasks scheduled for today or currently in progress.
               </div>
             ) : (
               <div className="space-y-3">
                 {[...today.inProgress, ...today.dueToday].map((task) => (
                   <div
                     key={task.id}
-                    className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 flex items-center justify-between gap-4 hover:border-slate-300 transition-all"
+                    className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-blue-200 hover:bg-blue-50/20 transition-all shadow-xs"
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${priorityColor(task.priority)}`}>
+                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase border ${priorityBadgeStyle(task.priority)}`}>
                           {task.priority}
                         </span>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200/80 text-slate-700 border border-slate-300">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200/80 text-slate-700 border border-slate-300 uppercase">
                           {task.status}
                         </span>
                         {task.project && (
-                          <span className="text-[11px] text-slate-600 truncate font-medium">
-                            • {task.project.name}
+                          <span className="text-[11px] text-slate-600 truncate font-semibold flex items-center gap-1">
+                            &bull; {task.project.name}
                           </span>
                         )}
                       </div>
                       <h4 className="text-sm font-bold text-slate-900 truncate">{task.title}</h4>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 shrink-0">
                       {task.status === 'READY' && (
                         <button
                           onClick={() => { void handleStartTask(task.id); }}
                           disabled={actionLoading === task.id}
-                          className="px-3 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold rounded-lg text-xs transition-all shadow-xs"
+                          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-all shadow-sm active:scale-95 disabled:opacity-50"
                         >
                           Start
                         </button>
@@ -359,7 +410,7 @@ export const DashboardPage: React.FC = () => {
                         <button
                           onClick={() => { void handleCompleteTask(task.id); }}
                           disabled={actionLoading === task.id}
-                          className="px-3 py-1.5 bg-[#22C55E] hover:bg-emerald-600 text-white font-semibold rounded-lg text-xs transition-all shadow-xs"
+                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition-all shadow-sm active:scale-95 disabled:opacity-50"
                         >
                           Complete
                         </button>
@@ -371,43 +422,43 @@ export const DashboardPage: React.FC = () => {
             )}
           </div>
 
-          {/* Blocked Tasks Section */}
+          {/* Blocked Tasks Alert Section */}
           {blockedTasks.length > 0 && (
-            <div className="bg-white border border-[#FF5A00]/30 rounded-3xl p-6 shadow-xs" id="blocked-tasks-section">
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-white border border-rose-200 rounded-3xl p-6 shadow-sm space-y-4" id="blocked-tasks-section">
+              <div className="flex items-center justify-between pb-3 border-b border-rose-100">
                 <div>
-                  <h3 className="text-xl font-bold text-[#c2410c] flex items-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h3 className="text-base font-extrabold text-rose-700 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                     Blocked Tasks Attention Needed
                   </h3>
-                  <p className="text-slate-600 text-xs mt-0.5">Tasks waiting on dependencies or external blockers</p>
+                  <p className="text-slate-500 text-xs mt-0.5 font-medium">Tasks waiting on dependencies or external blockers</p>
                 </div>
-                <span className="px-3 py-1 bg-orange-50 border border-orange-200 text-[#c2410c] rounded-full text-xs font-bold">
+                <span className="px-3 py-1 bg-rose-50 border border-rose-200 text-rose-700 rounded-full text-xs font-black">
                   {blockedTasks.length} Blocked
                 </span>
               </div>
 
               <div className="space-y-3">
                 {blockedTasks.map((task) => (
-                  <div key={task.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
-                    <div className="flex items-center justify-between mb-2">
+                  <div key={task.id} className="bg-rose-50/40 border border-rose-200/80 rounded-2xl p-4 space-y-3">
+                    <div className="flex items-center justify-between">
                       <h4 className="text-sm font-bold text-slate-900">{task.title}</h4>
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${priorityColor(task.priority)}`}>
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-black border ${priorityBadgeStyle(task.priority)}`}>
                         {task.priority}
                       </span>
                     </div>
 
                     {task.blockingDependencies && task.blockingDependencies.length > 0 && (
-                      <div className="bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-700 space-y-1">
-                        <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      <div className="bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-700 space-y-1.5 shadow-2xs">
+                        <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
                           Blocked By:
                         </div>
                         {task.blockingDependencies.map((dep) => (
                           <div key={dep.id} className="flex items-center justify-between text-xs">
-                            <span className="text-slate-800 font-medium">• {dep.blockingTask?.title || 'Unknown Task'}</span>
-                            <span className="text-slate-600 text-[10px] font-bold px-1.5 py-0.5 bg-slate-100 rounded border border-slate-200">
+                            <span className="text-slate-800 font-semibold">• {dep.blockingTask?.title || 'Unknown Task'}</span>
+                            <span className="text-slate-600 text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded border border-slate-200">
                               {dep.blockingTask?.status}
                             </span>
                           </div>
@@ -422,31 +473,31 @@ export const DashboardPage: React.FC = () => {
 
           {/* Overdue Tasks Section */}
           {overdueTasks.length > 0 && (
-            <div className="bg-white border border-[#FFD700]/50 rounded-3xl p-6 shadow-xs" id="overdue-tasks-section">
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-white border border-amber-200 rounded-3xl p-6 shadow-sm space-y-4" id="overdue-tasks-section">
+              <div className="flex items-center justify-between pb-3 border-b border-amber-100">
                 <div>
-                  <h3 className="text-xl font-bold text-[#b45309]">Overdue Tasks</h3>
-                  <p className="text-slate-600 text-xs mt-0.5">Tasks past their scheduled target date</p>
+                  <h3 className="text-base font-extrabold text-amber-800">Overdue Target Items</h3>
+                  <p className="text-slate-500 text-xs mt-0.5 font-medium">Tasks past their scheduled target date</p>
                 </div>
-                <span className="px-3 py-1 bg-amber-50 border border-amber-200 text-[#b45309] rounded-full text-xs font-bold">
+                <span className="px-3 py-1 bg-amber-50 border border-amber-200 text-amber-800 rounded-full text-xs font-black">
                   {overdueTasks.length} Overdue
                 </span>
               </div>
 
               <div className="space-y-3">
                 {overdueTasks.map((task) => (
-                  <div key={task.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4 flex items-center justify-between gap-4">
+                  <div key={task.id} className="bg-amber-50/40 border border-amber-200/80 rounded-2xl p-4 flex items-center justify-between gap-4">
                     <div>
                       <h4 className="text-sm font-bold text-slate-900">{task.title}</h4>
-                      <p className="text-xs text-[#b45309] font-semibold mt-0.5">
-                        Due: {task.dueDate ? task.dueDate.split('T')[0] : 'N/A'}
+                      <p className="text-xs text-amber-700 font-semibold mt-0.5">
+                        Target Date: {task.dueDate ? task.dueDate.split('T')[0] : 'N/A'}
                       </p>
                     </div>
 
                     <button
                       onClick={() => { void handleStartTask(task.id); }}
                       disabled={actionLoading === task.id}
-                      className="px-3 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold rounded-lg text-xs transition-all shadow-xs"
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-all shadow-sm active:scale-95 disabled:opacity-50"
                     >
                       Start Task
                     </button>
@@ -456,21 +507,23 @@ export const DashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* Upcoming Tasks (Next 7 Days) */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="upcoming-tasks-section">
-            <h3 className="text-xl font-bold text-slate-900 mb-1">Upcoming (Next 7 Days)</h3>
-            <p className="text-slate-600 text-xs mb-4">Scheduled workload timeline preview</p>
+          {/* Upcoming Timeline (Next 7 Days) */}
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="upcoming-tasks-section">
+            <div>
+              <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Upcoming (Next 7 Days)</h3>
+              <p className="text-slate-500 text-xs mt-0.5 font-medium">Scheduled workload timeline preview</p>
+            </div>
 
             {upcomingTasks.length === 0 ? (
-              <div className="text-center py-6 border border-dashed border-slate-300 rounded-2xl text-slate-500 text-xs">
+              <div className="text-center py-6 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-medium">
                 No tasks scheduled for the next 7 days.
               </div>
             ) : (
               <div className="space-y-2">
                 {upcomingTasks.map((task) => (
-                  <div key={task.id} className="bg-slate-50/80 border border-slate-200/90 rounded-xl p-3 flex items-center justify-between text-xs">
+                  <div key={task.id} className="bg-slate-50/80 border border-slate-200/90 rounded-xl p-3 flex items-center justify-between text-xs hover:bg-slate-100/60 transition-colors">
                     <span className="font-semibold text-slate-800 truncate">{task.title}</span>
-                    <span className="text-slate-500 font-mono text-[11px] shrink-0">
+                    <span className="text-slate-500 font-mono text-[11px] shrink-0 font-medium">
                       {task.dueDate ? task.dueDate.split('T')[0] : ''}
                     </span>
                   </div>
@@ -483,20 +536,20 @@ export const DashboardPage: React.FC = () => {
         {/* Right Column (1 col wide): Workstreams, Active Projects & Audit Activity */}
         <div className="space-y-8">
           {/* Workstreams Overview */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="workstreams-overview-section">
-            <h3 className="text-lg font-bold text-slate-900 mb-4">Workstreams</h3>
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="workstreams-overview-section">
+            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Workstreams Overview</h3>
             <div className="space-y-3">
               {workstreams.map((ws) => (
-                <div key={ws.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
-                  <div className="flex items-center justify-between mb-1">
-                    <h4 className="text-sm font-bold text-slate-900">{ws.name}</h4>
-                    <span className="text-[10px] font-bold text-[#0284c7] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
-                      Weight {ws.priorityWeight}
+                <div key={ws.id} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 hover:border-blue-200 transition-all">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <h4 className="text-xs font-extrabold text-slate-900">{ws.name}</h4>
+                    <span className="text-[10px] font-black text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded uppercase">
+                      Priority {ws.priorityWeight}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-500 mt-2 font-medium">
+                  <div className="flex items-center gap-3 text-xs text-slate-500 font-medium mt-2">
                     <span>{ws._count?.goals || 0} Goals</span>
-                    <span>•</span>
+                    <span>&bull;</span>
                     <span>{ws._count?.projects || 0} Projects</span>
                   </div>
                 </div>
@@ -505,25 +558,25 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Active Projects */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="active-projects-section">
-            <h3 className="text-lg font-bold text-slate-900 mb-4">Active Projects</h3>
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="active-projects-section">
+            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Active Projects</h3>
             <div className="space-y-3">
               {activeProjects.map((proj) => (
-                <div key={proj.id} className="bg-slate-50/80 border border-slate-200 rounded-2xl p-4">
+                <div key={proj.id} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 hover:border-blue-200 transition-all">
                   <div className="flex items-center justify-between mb-1">
-                    <h4 className="text-sm font-bold text-slate-900 truncate">{proj.name}</h4>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${priorityColor(proj.priority)}`}>
+                    <h4 className="text-xs font-extrabold text-slate-900 truncate">{proj.name}</h4>
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-black border ${priorityBadgeStyle(proj.priority)}`}>
                       {proj.priority}
                     </span>
                   </div>
                   {proj.workstream && (
-                    <div className="text-xs text-slate-500 mt-1 font-medium">
+                    <div className="text-[11px] text-slate-500 font-medium mt-0.5">
                       {proj.workstream.name}
                     </div>
                   )}
-                  <div className="flex items-center gap-3 text-xs text-slate-500 mt-2 font-medium">
+                  <div className="flex items-center gap-3 text-xs text-slate-500 font-medium mt-2">
                     <span>{proj._count?.tasks || 0} Tasks</span>
-                    <span>•</span>
+                    <span>&bull;</span>
                     <span>{proj._count?.milestones || 0} Milestones</span>
                   </div>
                 </div>
@@ -531,17 +584,17 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Recent Activity Feed */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs" id="recent-activity-section">
-            <h3 className="text-lg font-bold text-slate-900 mb-4">Recent Audit Activity</h3>
-            <div className="space-y-3">
+          {/* Recent Operating Audit Activity */}
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="recent-activity-section">
+            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Recent Operating Activity</h3>
+            <div className="space-y-2.5">
               {recentActivity.length === 0 ? (
-                <p className="text-xs text-slate-500 text-center py-4">No recent activity logs.</p>
+                <p className="text-xs text-slate-400 text-center py-4 font-medium">No recent operating activity.</p>
               ) : (
                 recentActivity.map((act) => (
-                  <div key={act.id} className="bg-slate-50/80 border border-slate-200 rounded-xl p-3 text-xs">
-                    <div className="text-slate-800 font-medium">{act.description}</div>
-                    <div className="text-[10px] text-slate-500 mt-1 font-mono">
+                  <div key={act.id} className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3 text-xs space-y-1">
+                    <div className="text-slate-800 font-semibold leading-snug">{act.description}</div>
+                    <div className="text-[10px] text-slate-400 font-mono">
                       {new Date(act.createdAt).toLocaleString()}
                     </div>
                   </div>
@@ -551,7 +604,6 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

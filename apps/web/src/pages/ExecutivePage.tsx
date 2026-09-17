@@ -69,29 +69,34 @@ export const ExecutivePage: React.FC = () => {
 
   const p0P1Tasks = tasks
     .filter((t) => (t.priority === 'P0' || t.priority === 'P1') && t.status !== 'DONE')
-    .slice(0, 5);
+    .slice(0, 6);
 
   const recentReviews = reviews.slice(0, 3);
 
+  // Strategic Executive Readiness Ratio calculation
+  const totalItems = tasks.length || 1;
+  const executionEfficiency = Math.round((completedTasks.length / totalItems) * 100);
+  const healthScore = Math.max(0, 100 - (blockedTasks.length * 15 + blockedProjects.length * 10));
+
   return (
-    <div className="space-y-6" id="executive-overview-page">
+    <div className="space-y-8" id="executive-overview-page">
       <PageHeader
-        title="Executive Overview"
-        description="A high-level strategic view of academic, engineering, product, career, and personal direction."
+        title="Executive Overview & Strategic Command"
+        description="High-level strategic alignment across academic, engineering, product, career, and personal domain trajectories."
         breadcrumbs={[{ label: 'Command Center' }, { label: 'Executive Overview' }]}
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => navigate('/app/dashboard')}
-              className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors"
+              className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-200 font-semibold text-xs shadow-sm transition-all"
             >
               Command Center
             </button>
             <button
               onClick={() => navigate('/app/planning')}
-              className="px-4 py-2 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold text-xs shadow-xs transition-colors"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-blue-500/20 transition-all flex items-center gap-1.5"
             >
-              Plan Today
+              <span>⚡ Strategic Planning</span>
             </button>
           </div>
         }
@@ -103,49 +108,133 @@ export const ExecutivePage: React.FC = () => {
         <ErrorStateCard message={error} onRetry={() => void loadData()} />
       ) : (
         <>
+          {/* Executive Hero glassmorphic status card */}
+          <div className="relative overflow-hidden bg-slate-950 border border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-white">
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-blue-600/30 via-purple-600/20 to-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-tr from-indigo-600/20 to-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-3 max-w-2xl">
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/30 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                    Strategic Operating Status
+                  </span>
+                  <span className="text-xs text-slate-400 font-mono">
+                    System Time: {new Date().toLocaleDateString()}
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                  High-Level Executive Execution Dashboard
+                </h2>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Real-time visibility into strategy, active workstreams, priority blockers, and verifiable milestones. Deterministic synchronization across all domain layers.
+                </p>
+              </div>
+
+              {/* Health Score Gauge Tile */}
+              <div className="flex items-center gap-4 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 shrink-0 backdrop-blur-md">
+                <div className="relative w-16 h-16 flex items-center justify-center">
+                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                    <path
+                      className="text-slate-800"
+                      strokeWidth="3.5"
+                      stroke="currentColor"
+                      fill="none"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path
+                      className={healthScore > 75 ? "text-emerald-400" : healthScore > 40 ? "text-amber-400" : "text-rose-500"}
+                      strokeDasharray={`${healthScore}, 100`}
+                      strokeWidth="3.5"
+                      strokeLinecap="round"
+                      stroke="currentColor"
+                      fill="none"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                  </svg>
+                  <span className="absolute text-sm font-extrabold text-white">{healthScore}%</span>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Executive Health</p>
+                  <p className="text-sm font-bold text-white mt-0.5">
+                    {healthScore > 80 ? 'Optimal Alignment' : healthScore > 50 ? 'Moderate Blockers' : 'Attention Needed'}
+                  </p>
+                  <p className="text-[11px] text-slate-400 mt-1">
+                    {executionEfficiency}% completion velocity
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Strategic Direction Workstreams */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-bold text-slate-900 tracking-tight uppercase text-slate-500">
-                Strategic Direction & Active Workstreams
-              </h2>
-              <span className="text-xs text-slate-500 font-medium">
-                {workstreams.length} Configured Domains
-              </span>
+              <div>
+                <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                  <span>Strategic Workstream Domains</span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-200">
+                    {workstreams.length} Active
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-500 mt-0.5">Categorized strategic domain pillars guiding goal allocation</p>
+              </div>
+              <button
+                onClick={() => navigate('/app/workstreams')}
+                className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
+              >
+                Manage Workstreams →
+              </button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {workstreams.map((ws) => {
                 const wsGoals = goals.filter((g) => g.workstreamId === ws.id);
                 const wsProjects = projects.filter((p) => p.workstreamId === ws.id);
+                const weightPercentage = Math.round((ws.priorityWeight / 10) * 100);
 
                 return (
                   <div
                     key={ws.id}
                     onClick={() => navigate('/app/workstreams')}
-                    className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-slate-300 transition-all cursor-pointer space-y-3"
+                    className="group relative bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs hover:shadow-xl hover:border-blue-400 transition-all cursor-pointer space-y-4 flex flex-col justify-between"
                   >
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-0.5">
-                        <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
+                    <div className="space-y-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold uppercase tracking-wider">
                           Weight: {ws.priorityWeight}/10
                         </span>
-                        <h3 className="text-sm font-bold text-slate-900 tracking-tight">{ws.name}</h3>
+                        <span className="w-3 h-3 rounded-full bg-emerald-500 ring-4 ring-emerald-100 group-hover:scale-110 transition-transform" />
                       </div>
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#3AB1EC]" title="Active Workstream" />
+                      <h3 className="text-base font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                        {ws.name}
+                      </h3>
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                        {ws.description || 'Primary strategic operating domain.'}
+                      </p>
                     </div>
 
-                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-normal">
-                      {ws.description || 'Primary operating workstream domain.'}
-                    </p>
+                    <div className="space-y-2 pt-3 border-t border-slate-100">
+                      <div className="flex items-center justify-between text-xs text-slate-600 font-medium">
+                        <span>Domain Weight</span>
+                        <span className="font-bold text-slate-900">{weightPercentage}%</span>
+                      </div>
+                      <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div
+                          className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full transition-all duration-500"
+                          style={{ width: `${weightPercentage}%` }}
+                        />
+                      </div>
 
-                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
-                      <span>
-                        Goals: <strong className="text-slate-800">{wsGoals.length}</strong>
-                      </span>
-                      <span>
-                        Projects: <strong className="text-slate-800">{wsProjects.length}</strong>
-                      </span>
+                      <div className="pt-2 flex items-center justify-between text-[11px] text-slate-500 font-semibold">
+                        <span className="flex items-center gap-1">
+                          Goals: <strong className="text-slate-900">{wsGoals.length}</strong>
+                        </span>
+                        <span className="flex items-center gap-1">
+                          Projects: <strong className="text-slate-900">{wsProjects.length}</strong>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -154,92 +243,98 @@ export const ExecutivePage: React.FC = () => {
           </div>
 
           {/* Strategic Flow Pipeline */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-                Strategic Execution Flow Pipeline
-              </h2>
-              <span className="text-xs text-slate-500">Intent → Execution → Verified Output</span>
+          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-5 text-white">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+              <div>
+                <h2 className="text-base font-extrabold text-white tracking-tight flex items-center gap-2">
+                  <span>Strategic Execution Flow Pipeline</span>
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                    7 Delivery Nodes
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-0.5">End-to-end alignment from high-level intent to verified output proof</p>
+              </div>
+              <span className="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-lg border border-slate-800">
+                Intent → Verification
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-center">
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Workstreams</p>
-                <p className="text-xl font-bold text-slate-900 mt-1">{workstreams.length}</p>
-              </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">Goals</p>
-                <p className="text-xl font-bold text-[#3B82F6] mt-1">{goals.length}</p>
-              </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-[#6366F1] uppercase tracking-wider">Projects</p>
-                <p className="text-xl font-bold text-[#6366F1] mt-1">{projects.length}</p>
-              </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-[#FFD700] uppercase tracking-wider">Tasks Ready</p>
-                <p className="text-xl font-bold text-amber-600 mt-1">{readyTasks.length}</p>
-              </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-[#22C55E] uppercase tracking-wider">Tasks Done</p>
-                <p className="text-xl font-bold text-[#22C55E] mt-1">{completedTasks.length}</p>
-              </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-[#3AB1EC] uppercase tracking-wider">Evidence</p>
-                <p className="text-xl font-bold text-[#3AB1EC] mt-1">{evidence.length}</p>
-              </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-[#A855F7] uppercase tracking-wider">Reviews</p>
-                <p className="text-xl font-bold text-[#A855F7] mt-1">{reviews.length}</p>
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+              {[
+                { label: 'Workstreams', count: workstreams.length, color: 'from-slate-700 to-slate-800', textColor: 'text-slate-200' },
+                { label: 'Goals', count: goals.length, color: 'from-blue-600 to-blue-700', textColor: 'text-blue-300' },
+                { label: 'Projects', count: projects.length, color: 'from-indigo-600 to-indigo-700', textColor: 'text-indigo-300' },
+                { label: 'Ready Tasks', count: readyTasks.length, color: 'from-amber-500 to-amber-600', textColor: 'text-amber-300' },
+                { label: 'Tasks Done', count: completedTasks.length, color: 'from-emerald-600 to-emerald-700', textColor: 'text-emerald-300' },
+                { label: 'Evidence Vault', count: evidence.length, color: 'from-cyan-600 to-cyan-700', textColor: 'text-cyan-300' },
+                { label: 'Reviews', count: reviews.length, color: 'from-purple-600 to-purple-700', textColor: 'text-purple-300' },
+              ].map((step, idx) => (
+                <div
+                  key={step.label}
+                  className="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-4 text-center hover:border-slate-700 transition-all flex flex-col justify-between"
+                >
+                  <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+                    Step 0{idx + 1}
+                  </div>
+                  <div className="my-2">
+                    <p className={`text-2xl font-extrabold ${step.textColor}`}>{step.count}</p>
+                    <p className="text-xs font-semibold text-slate-300 mt-0.5">{step.label}</p>
+                  </div>
+                  <div className={`w-full h-1 bg-gradient-to-r ${step.color} rounded-full`} />
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Executive Health Indicators & Top Priorities */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left 2 Cols: Strategic Priorities & High Impact Work */}
-            <div className="lg:col-span-2 space-y-4">
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="flex items-center justify-between">
+            {/* Left 2 Cols: Critical Strategic Priorities & Concrete Evidence */}
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 tracking-tight">
-                      Critical Strategic Priorities (P0 & P1)
+                    <h3 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                      <span>Critical Strategic Priorities (P0 & P1)</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-600 border border-rose-200">
+                        {p0P1Tasks.length} Active
+                      </span>
                     </h3>
-                    <p className="text-xs text-slate-500">System-derived high priority active commitments</p>
+                    <p className="text-xs text-slate-500">System-derived high priority active commitments requiring immediate focus</p>
                   </div>
                   <button
                     onClick={() => navigate('/app/tasks')}
-                    className="text-xs font-semibold text-[#3B82F6] hover:underline"
+                    className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline"
                   >
                     View All Tasks →
                   </button>
                 </div>
 
                 {p0P1Tasks.length === 0 ? (
-                  <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200/80">
-                    No critical open P0 or P1 tasks. Excellent operational baseline.
+                  <div className="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                    No critical open P0 or P1 tasks. Operational baseline is clear.
                   </div>
                 ) : (
-                  <div className="space-y-2.5">
+                  <div className="space-y-3">
                     {p0P1Tasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 flex items-center justify-between gap-3 hover:border-slate-300 transition-all"
+                        className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-slate-300 hover:bg-white transition-all shadow-2xs"
                       >
-                        <div className="space-y-1 min-w-0">
-                          <div className="flex items-center gap-2">
+                        <div className="space-y-1.5 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <Badge variant={t.priority} />
                             <Badge variant={t.status} />
-                            <span className="text-[10px] font-semibold text-slate-500 truncate">
+                            <span className="text-[10px] font-bold uppercase text-slate-500 tracking-wider truncate">
                               {t.project?.name || 'General Project'}
                             </span>
                           </div>
-                          <h4 className="text-xs font-semibold text-slate-900 truncate">{t.title}</h4>
+                          <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
                         </div>
                         <button
                           onClick={() => navigate('/app/tasks')}
-                          className="px-3 py-1 bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg shrink-0 transition-colors"
+                          className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
                         >
-                          Execute
+                          Execute Task
                         </button>
                       </div>
                     ))}
@@ -247,38 +342,44 @@ export const ExecutivePage: React.FC = () => {
                 )}
               </div>
 
-              {/* Executive Recent Activity & Evidence */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-900 tracking-tight">
-                    Recent Concrete Evidence & Verified Proof
-                  </h3>
+              {/* Evidence Vault preview */}
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div>
+                    <h3 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                      <span>Recent Verified Proof & Evidence</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200">
+                        {evidence.length} Total
+                      </span>
+                    </h3>
+                    <p className="text-xs text-slate-500">Commits, pull requests, documents, and verified outcomes</p>
+                  </div>
                   <button
                     onClick={() => navigate('/app/evidence')}
-                    className="text-xs font-semibold text-[#3B82F6] hover:underline"
+                    className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline"
                   >
                     Evidence Vault →
                   </button>
                 </div>
 
                 {evidence.length === 0 ? (
-                  <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200/80">
-                    No evidence items captured yet. Attach pull requests, commits, and artifacts.
+                  <div className="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                    No evidence items captured yet. Log pull requests, commits, and artifacts in Evidence Vault.
                   </div>
                 ) : (
-                  <div className="space-y-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {evidence.slice(0, 4).map((ev) => (
                       <div
                         key={ev.id}
-                        className="bg-slate-50 border border-slate-200/90 rounded-xl p-3 flex items-center justify-between gap-3"
+                        className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 space-y-2 hover:border-slate-300 transition-all"
                       >
-                        <div className="space-y-0.5 min-w-0">
-                          <span className="text-[10px] font-bold text-[#22C55E] uppercase tracking-wider">
-                            {ev.type.replace('_', ' ')}
+                        <div className="flex items-center justify-between">
+                          <span className="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-100 text-emerald-800 border border-emerald-300">
+                            ✓ {ev.type.replace('_', ' ')}
                           </span>
-                          <h4 className="text-xs font-semibold text-slate-900 truncate">{ev.title}</h4>
+                          <span className="text-[11px] font-mono text-slate-400">{ev.date}</span>
                         </div>
-                        <span className="text-xs text-slate-500 font-medium shrink-0">{ev.date}</span>
+                        <h4 className="text-xs font-bold text-slate-900 truncate">{ev.title}</h4>
                       </div>
                     ))}
                   </div>
@@ -286,71 +387,83 @@ export const ExecutivePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Col: System Health & Action Matrix */}
-            <div className="space-y-4">
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-                <h3 className="text-sm font-bold text-slate-900 tracking-tight">Executive System Health</h3>
+            {/* Right Col: Executive System Health & Quick Action Matrix */}
+            <div className="space-y-6">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+                <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Executive System Health</h3>
 
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                  <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs">
                     <span className="font-semibold text-slate-700">Active Projects</span>
-                    <span className="font-bold text-slate-900">{activeProjects.length}</span>
+                    <span className="font-extrabold text-slate-900">{activeProjects.length}</span>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                    <span className="font-semibold text-slate-700">Blocked Work Items</span>
-                    <span className={`font-bold ${blockedTasks.length > 0 ? 'text-[#FF5A00]' : 'text-slate-900'}`}>
+                  <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs">
+                    <span className="font-semibold text-slate-700">Blocked Tasks</span>
+                    <span className={`font-extrabold ${blockedTasks.length > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
                       {blockedTasks.length}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                  <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs">
                     <span className="font-semibold text-slate-700">Paused Projects</span>
-                    <span className="font-bold text-slate-900">{blockedProjects.length}</span>
+                    <span className="font-extrabold text-slate-900">{blockedProjects.length}</span>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                    <span className="font-semibold text-slate-700">Recent Reviews Completed</span>
-                    <span className="font-bold text-[#22C55E]">{recentReviews.length}</span>
+                  <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs">
+                    <span className="font-semibold text-slate-700">Weekly Reviews</span>
+                    <span className="font-extrabold text-emerald-600">{recentReviews.length}</span>
                   </div>
                 </div>
               </div>
 
               {/* Navigation Action Matrix */}
-              <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-3">
-                <h3 className="text-sm font-bold text-slate-900 tracking-tight">Navigation Actions</h3>
+              <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4 text-white">
+                <h3 className="text-base font-extrabold text-white tracking-tight">Strategic Portals</h3>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <button
                     onClick={() => navigate('/app/work-intelligence')}
-                    className="w-full px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-left text-xs font-semibold text-slate-800 flex items-center justify-between transition-colors"
+                    className="w-full p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left text-xs font-bold text-slate-200 flex items-center justify-between transition-all group"
                   >
-                    <span>Work Intelligence Map</span>
-                    <span>→</span>
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-400 group-hover:scale-125 transition-transform" />
+                      Work Intelligence Map
+                    </span>
+                    <span className="text-slate-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all">→</span>
                   </button>
 
                   <button
                     onClick={() => navigate('/app/reviews')}
-                    className="w-full px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-left text-xs font-semibold text-slate-800 flex items-center justify-between transition-colors"
+                    className="w-full p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-purple-500/50 text-left text-xs font-bold text-slate-200 flex items-center justify-between transition-all group"
                   >
-                    <span>Weekly Review Loop</span>
-                    <span>→</span>
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-125 transition-transform" />
+                      Weekly Review Loop
+                    </span>
+                    <span className="text-slate-400 group-hover:text-purple-400 group-hover:translate-x-1 transition-all">→</span>
                   </button>
 
                   <button
                     onClick={() => navigate('/app/career')}
-                    className="w-full px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-left text-xs font-semibold text-slate-800 flex items-center justify-between transition-colors"
+                    className="w-full p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 text-left text-xs font-bold text-slate-200 flex items-center justify-between transition-all group"
                   >
-                    <span>Career & Opportunity Hub</span>
-                    <span>→</span>
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform" />
+                      Career & Opportunity Hub
+                    </span>
+                    <span className="text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
                   </button>
 
                   <button
                     onClick={() => navigate('/app/intelligence')}
-                    className="w-full px-3.5 py-2 rounded-xl bg-[#A855F7]/10 hover:bg-[#A855F7]/20 border border-[#A855F7]/30 text-left text-xs font-semibold text-[#7e22ce] flex items-center justify-between transition-colors"
+                    className="w-full p-3.5 rounded-2xl bg-gradient-to-r from-purple-900/50 to-indigo-900/50 hover:from-purple-800/60 hover:to-indigo-800/60 border border-purple-500/40 text-left text-xs font-bold text-purple-200 flex items-center justify-between transition-all group shadow-lg shadow-purple-900/30"
                   >
-                    <span>AI Advisory Mentor</span>
-                    <span>→</span>
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-300 animate-ping" />
+                      AI Advisory Mentor
+                    </span>
+                    <span className="text-purple-300 group-hover:translate-x-1 transition-transform">→</span>
                   </button>
                 </div>
               </div>
