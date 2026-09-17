@@ -151,3 +151,36 @@ export async function cleanupExpiredSessions(): Promise<number> {
   });
   return result.count;
 }
+
+/**
+ * Retrieves all active (non-revoked and non-expired) sessions for a user.
+ */
+export async function getUserActiveSessions(userId: string) {
+  const now = new Date();
+  return prisma.session.findMany({
+    where: {
+      userId,
+      revokedAt: null,
+      expiresAt: { gt: now },
+    },
+    orderBy: { lastUsedAt: 'desc' },
+  });
+}
+
+/**
+ * Revokes a specific session belonging to a specific user.
+ */
+export async function revokeSessionForUser(userId: string, sessionId: string): Promise<boolean> {
+  const result = await prisma.session.updateMany({
+    where: {
+      id: sessionId,
+      userId,
+      revokedAt: null,
+    },
+    data: {
+      revokedAt: new Date(),
+    },
+  });
+  return result.count > 0;
+}
+

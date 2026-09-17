@@ -11,9 +11,9 @@ import { UserRole, TaskPriority } from '@prisma/client';
 async function bootstrapOwner() {
   console.info('🔒 Starting KENENISA OS Owner Account Provisioning...');
 
-  const inputEmail = process.env.OWNER_EMAIL || process.argv[2] || 'kenenisa@kenenisa-os.internal';
+  const inputEmail = process.env.OWNER_EMAIL || process.argv[2] || 'beyankenenisa@kenenisa.com';
   const inputPassword =
-    process.env.OWNER_PASSWORD || process.argv[3] || 'KenenisaOS#2026!SecureOwnerPass';
+    process.env.OWNER_PASSWORD || process.argv[3] || 'kenenisa@3077215';
   const inputFirstName = process.env.OWNER_FIRST_NAME || process.argv[4] || 'Kenenisa';
   const inputLastName = process.env.OWNER_LAST_NAME || process.argv[5] || 'Beyan';
   const inputDisplayName = `${inputFirstName} ${inputLastName}`.trim();

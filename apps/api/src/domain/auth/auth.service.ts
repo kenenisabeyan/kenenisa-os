@@ -1,10 +1,10 @@
 import { prisma } from '../../lib/prisma.js';
-import { verifyPassword } from '../../utils/password.js';
+import { verifyPassword, hashPassword } from '../../utils/password.js';
 import { AuthenticationError } from '../../utils/errors.js';
 import { createSession, revokeSession, revokeAllSessionsForUser } from './session.service.js';
 import { toPublicUser } from './auth.utils.js';
 import { recordAuditLog } from '../../services/audit.service.js';
-import type { LoginInput, PublicUserDto } from '@kenenisa-os/shared';
+import type { LoginInput, PublicUserDto, ChangePasswordInput } from '@kenenisa-os/shared';
 
 export interface LoginResult {
   rawToken: string;
@@ -104,4 +104,69 @@ export class AuthService {
     });
     return count;
   }
+
+  /**
+   * Updates user password after verifying current password.
+   */
+  public static async changePassword(
+    userId: string,
+    input: ChangePasswordInput,
+    ipAddress?: string,
+  ): Promise<void> {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user || !user.isActive) {
+      throw new AuthenticationError('User not found or inactive');
+    }
+
+    const isCurrentValid = await verifyPassword(user.passwordHash, input.currentPassword);
+    if (!isCurrentValid) {
+      await recordAuditLog({
+        userId: user.id,
+        entityType: 'User',
+        entityId: user.id,
+        action: 'PASSWORD_CHANGE_FAILURE',
+        metadata: { reason: 'Incorrect current password', ipAddress },
+      });
+      throw new AuthenticationError('Current password is incorrect');
+    }
+
+    const newPasswordHash = await hashPassword(input.newPassword);
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { passwordHash: newPasswordHash },
+    });
+
+    await recordAuditLog({
+      userId: user.id,
+      entityType: 'User',
+      entityId: user.id,
+      action: 'PASSWORD_CHANGE_SUCCESS',
+      metadata: { ipAddress },
+    });
+  }
+
+  /**
+   * Retrieves security audit logs for a user.
+   */
+  public static async getAuditLogsForUser(userId: string, limit = 50) {
+    const logs = await prisma.auditLog.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    });
+    return logs.map((log) => ({
+      id: log.id,
+      entityType: log.entityType,
+      entityId: log.entityId,
+      action: log.action,
+      metadata: log.metadata as Record<string, unknown> | null,
+      createdAt: log.createdAt.toISOString(),
+    }));
+  }
 }
+
+

@@ -19,6 +19,7 @@ import { IntelligencePage } from './IntelligencePage.js';
 import { ExecutivePage } from './ExecutivePage.js';
 import { WorkIntelligencePage } from './WorkIntelligencePage.js';
 import { CareerPage } from './CareerPage.js';
+import { SettingsPage } from './SettingsPage.js';
 import { NotFoundPage } from './NotFoundPage.js';
 
 export const AppShellPage: React.FC = () => {
@@ -31,6 +32,7 @@ export const AppShellPage: React.FC = () => {
         <Route path="intelligence" element={<IntelligencePage />} />
         <Route path="analytics" element={<AnalyticsPage />} />
         <Route path="career" element={<CareerPage />} />
+        <Route path="settings" element={<SettingsPage />} />
         <Route path="opportunities" element={<OpportunitiesPage />} />
         <Route path="opportunities/:id" element={<OpportunityDetailPage />} />
         <Route path="planning/*" element={<PlanningPage />} />

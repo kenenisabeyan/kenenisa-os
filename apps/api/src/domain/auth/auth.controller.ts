@@ -1,9 +1,10 @@
 import type { Request, Response, NextFunction } from 'express';
 import { AuthService } from './auth.service.js';
+import { getUserActiveSessions, revokeSessionForUser } from './session.service.js';
 import { setAuthCookie, clearAuthCookie } from '../../utils/cookies.js';
 import { sendSuccess } from '../../utils/response.js';
 import { toPublicUser } from './auth.utils.js';
-import { loginSchema } from '@kenenisa-os/shared';
+import { loginSchema, changePasswordSchema } from '@kenenisa-os/shared';
 import type { AuthenticatedRequest } from './auth.types.js';
 
 export class AuthController {
@@ -100,4 +101,117 @@ export class AuthController {
       next(error);
     }
   }
+
+  /**
+   * POST /api/v1/auth/change-password
+   */
+  public static async changePassword(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const validatedInput = changePasswordSchema.parse(req.body);
+      const ipAddress = req.ip || req.socket.remoteAddress;
+
+      await AuthService.changePassword(authReq.user.id, validatedInput, ipAddress);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'Password changed successfully',
+        data: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * GET /api/v1/auth/sessions
+   */
+  public static async getActiveSessions(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const rawSessions = await getUserActiveSessions(authReq.user.id);
+
+      const sessions = rawSessions.map((s) => ({
+        id: s.id,
+        expiresAt: s.expiresAt.toISOString(),
+        createdAt: s.createdAt.toISOString(),
+        lastUsedAt: s.lastUsedAt.toISOString(),
+        userAgent: s.userAgent,
+        ipAddress: s.ipAddress,
+        isCurrent: s.id === authReq.session.id,
+      }));
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'Active sessions retrieved successfully',
+        data: { sessions },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * DELETE /api/v1/auth/sessions/:sessionId
+   */
+  public static async revokeSession(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const { sessionId } = req.params;
+
+      await revokeSessionForUser(authReq.user.id, sessionId);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'Session revoked successfully',
+        data: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * GET /api/v1/auth/audit-logs
+   */
+  public static async getAuditLogs(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const logs = await AuthService.getAuditLogsForUser(authReq.user.id);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'Security audit logs retrieved successfully',
+        data: { logs },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
+
+

@@ -58,19 +58,19 @@ const CORE_WORKSTREAMS = [
 async function main() {
   console.info('🌱 Starting KENENISA OS database seed...');
 
-  const defaultPasswordHash = await argon2.hash('KenenisaOS#2026!SecureOwnerPass', {
+  const defaultPasswordHash = await argon2.hash('kenenisa@3077215', {
     type: argon2.argon2id,
   });
 
   // 1. Create or upsert primary user
   const user = await prisma.user.upsert({
-    where: { email: 'kenenisa@kenenisa-os.internal' },
+    where: { email: 'beyankenenisa@kenenisa.com' },
     update: {
       passwordHash: defaultPasswordHash,
       role: UserRole.OWNER,
     },
     create: {
-      email: 'kenenisa@kenenisa-os.internal',
+      email: 'beyankenenisa@kenenisa.com',
       passwordHash: defaultPasswordHash,
       firstName: 'Kenenisa',
       lastName: 'Beyan',

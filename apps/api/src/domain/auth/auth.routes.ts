@@ -13,3 +13,17 @@ authRouter.get('/me', requireAuth, (req, res, next) => AuthController.me(req, re
 authRouter.post('/logout-all', requireAuth, (req, res, next) =>
   AuthController.logoutAll(req, res, next),
 );
+authRouter.post('/change-password', requireAuth, authRateLimiter, (req, res, next) =>
+  AuthController.changePassword(req, res, next),
+);
+authRouter.get('/sessions', requireAuth, (req, res, next) =>
+  AuthController.getActiveSessions(req, res, next),
+);
+authRouter.delete('/sessions/:sessionId', requireAuth, (req, res, next) =>
+  AuthController.revokeSession(req, res, next),
+);
+authRouter.get('/audit-logs', requireAuth, (req, res, next) =>
+  AuthController.getAuditLogs(req, res, next),
+);
+
+

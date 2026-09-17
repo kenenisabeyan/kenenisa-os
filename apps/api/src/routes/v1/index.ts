@@ -14,11 +14,13 @@ import reviewRouter from '../../domain/reviews/review.routes.js';
 import analyticsRouter from '../../domain/analytics/analytics.routes.js';
 import opportunityRouter from '../../domain/opportunities/opportunity.routes.js';
 import intelligenceRouter from '../../domain/intelligence/intelligence.routes.js';
+import { userRouter } from '../../domain/users/user.routes.js';
 
 export const v1Router = Router();
 
 v1Router.use('/', healthRouter);
 v1Router.use('/auth', authRouter);
+v1Router.use('/users', userRouter);
 v1Router.use('/workstreams', workstreamRouter);
 v1Router.use('/goals', goalRouter);
 v1Router.use('/projects', projectRouter);

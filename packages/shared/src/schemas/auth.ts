@@ -44,3 +44,47 @@ export const createOwnerSchema = z.object({
 });
 
 export type CreateOwnerInput = z.infer<typeof createOwnerSchema>;
+
+/**
+ * Change password schema.
+ */
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, 'Current password is required'),
+    newPassword: passwordSchema,
+  })
+  .refine((data) => data.currentPassword !== data.newPassword, {
+    message: 'New password must be different from current password',
+    path: ['newPassword'],
+  });
+
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
+
+/**
+ * Create user payload schema (Owner / Admin user creation).
+ */
+export const createUserSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  displayName: z.string().optional(),
+  role: z.enum(['OWNER', 'ADMIN', 'USER']).default('USER'),
+});
+
+export type CreateUserInput = z.infer<typeof createUserSchema>;
+
+/**
+ * Update user payload schema.
+ */
+export const updateUserSchema = z.object({
+  firstName: z.string().min(1).optional(),
+  lastName: z.string().min(1).optional(),
+  displayName: z.string().optional(),
+  role: z.enum(['OWNER', 'ADMIN', 'USER']).optional(),
+  isActive: z.boolean().optional(),
+});
+
+export type UpdateUserInput = z.infer<typeof updateUserSchema>;
+
+

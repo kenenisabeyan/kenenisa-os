@@ -55,11 +55,11 @@ vi.mock('../lib/prisma.js', () => {
 const app = createApp();
 
 describe('Authentication & Session Comprehensive Test Suite', () => {
-  const testPassword = 'KenenisaOS#2026!SecureOwnerPass';
+  const testPassword = 'kenenisa@3077215';
   let mockPasswordHash: string;
   const mockUser = {
     id: '11111111-1111-1111-1111-111111111111',
-    email: 'kenenisa@kenenisa-os.internal',
+    email: 'beyankenenisa@kenenisa.com',
     passwordHash: '',
     firstName: 'Kenenisa',
     lastName: 'Beyan',
@@ -113,14 +113,14 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       });
 
       const res = await request(app).post('/api/v1/auth/login').send({
-        email: 'kenenisa@kenenisa-os.internal',
+        email: 'beyankenenisa@kenenisa.com',
         password: testPassword,
       });
 
       expect(res.status).toBe(200);
       const body = res.body as ApiSuccessResponse<{ user: PublicUserDto }>;
       expect(body.success).toBe(true);
-      expect(body.data.user.email).toBe('kenenisa@kenenisa-os.internal');
+      expect(body.data.user.email).toBe('beyankenenisa@kenenisa.com');
       expect(body.data.user.role).toBe('OWNER');
 
       // Verify passwordHash is NOT returned in response DTO
@@ -140,7 +140,7 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       mockUserRepo.findUnique.mockResolvedValue(mockUser);
 
       const res = await request(app).post('/api/v1/auth/login').send({
-        email: 'kenenisa@kenenisa-os.internal',
+        email: 'beyankenenisa@kenenisa.com',
         password: 'IncorrectPassword123!',
       });
 
@@ -156,7 +156,7 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       mockUserRepo.findUnique.mockResolvedValue(null);
 
       const res = await request(app).post('/api/v1/auth/login').send({
-        email: 'nonexistent@kenenisa-os.internal',
+        email: 'nonexistent@kenenisa.com',
         password: testPassword,
       });
 
@@ -174,7 +174,7 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       });
 
       const res = await request(app).post('/api/v1/auth/login').send({
-        email: 'kenenisa@kenenisa-os.internal',
+        email: 'beyankenenisa@kenenisa.com',
         password: testPassword,
       });
 
@@ -206,7 +206,7 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       expect(res.status).toBe(200);
       const body = res.body as ApiSuccessResponse<{ user: PublicUserDto }>;
       expect(body.success).toBe(true);
-      expect(body.data.user.email).toBe('kenenisa@kenenisa-os.internal');
+      expect(body.data.user.email).toBe('beyankenenisa@kenenisa.com');
       expect(body.data.user.role).toBe('OWNER');
     });
 
@@ -269,6 +269,72 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
 
       const cookies = res.headers['set-cookie'] as unknown as string[];
       expect(cookies[0]).toContain('auth_session=;');
+    });
+  });
+
+  describe('POST /api/v1/auth/change-password', () => {
+    it('successfully changes password with valid current password and new valid password', async () => {
+      const { rawToken, tokenHash } = generateSessionToken();
+      const mockSessionRepo = prisma.session as unknown as MockPrismaSession;
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+
+      mockSessionRepo.findUnique.mockResolvedValue({
+        id: 'session-123',
+        userId: mockUser.id,
+        tokenHash,
+        expiresAt: new Date(Date.now() + 86400000),
+        lastUsedAt: new Date(),
+        revokedAt: null,
+        user: mockUser,
+      });
+
+      mockUserRepo.findUnique.mockResolvedValue(mockUser);
+      mockUserRepo.update.mockResolvedValue({
+        ...mockUser,
+        passwordHash: 'new-hashed-password',
+      });
+
+      const res = await request(app)
+        .post('/api/v1/auth/change-password')
+        .set('Cookie', [`auth_session=${rawToken}`])
+        .send({
+          currentPassword: testPassword,
+          newPassword: 'NewSecurePassword#2026!',
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.message).toBe('Password changed successfully');
+    });
+
+    it('fails when current password is incorrect', async () => {
+      const { rawToken, tokenHash } = generateSessionToken();
+      const mockSessionRepo = prisma.session as unknown as MockPrismaSession;
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+
+      mockSessionRepo.findUnique.mockResolvedValue({
+        id: 'session-123',
+        userId: mockUser.id,
+        tokenHash,
+        expiresAt: new Date(Date.now() + 86400000),
+        lastUsedAt: new Date(),
+        revokedAt: null,
+        user: mockUser,
+      });
+
+      mockUserRepo.findUnique.mockResolvedValue(mockUser);
+
+      const res = await request(app)
+        .post('/api/v1/auth/change-password')
+        .set('Cookie', [`auth_session=${rawToken}`])
+        .send({
+          currentPassword: 'WrongCurrentPassword!',
+          newPassword: 'NewSecurePassword#2026!',
+        });
+
+      expect(res.status).toBe(401);
+      expect(res.body.success).toBe(false);
+      expect(res.body.message).toBe('Current password is incorrect');
     });
   });
 });

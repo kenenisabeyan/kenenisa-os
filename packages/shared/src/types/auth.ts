@@ -23,6 +23,17 @@ export interface AuthSessionDto {
   createdAt: string;
   lastUsedAt: string;
   userAgent?: string | null;
+  ipAddress?: string | null;
+  isCurrent?: boolean;
+}
+
+export interface AuditLogDto {
+  id: string;
+  entityType: string;
+  entityId: string;
+  action: string;
+  metadata?: Record<string, unknown> | null;
+  createdAt: string;
 }
 
 export interface AuthResponseData {
@@ -30,3 +41,4 @@ export interface AuthResponseData {
 }
 
 export type AuthState = 'UNKNOWN' | 'AUTHENTICATED' | 'UNAUTHENTICATED';
+
