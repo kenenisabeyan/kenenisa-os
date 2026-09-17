@@ -109,42 +109,42 @@ export const ExecutivePage: React.FC = () => {
       ) : (
         <>
           {/* Executive Hero glassmorphic status card */}
-          <div className="relative overflow-hidden bg-slate-950 border border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-white">
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-blue-600/30 via-purple-600/20 to-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-tr from-indigo-600/20 to-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 border border-blue-500/30 rounded-3xl p-6 sm:p-8 shadow-xl text-white">
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div className="space-y-3 max-w-2xl">
                 <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/30 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                  <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/20 text-white border border-white/30 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
                     Strategic Operating Status
                   </span>
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-blue-100 font-mono">
                     System Time: {new Date().toLocaleDateString()}
                   </span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
                   High-Level Executive Execution Dashboard
                 </h2>
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                <p className="text-blue-100 text-xs sm:text-sm leading-relaxed">
                   Real-time visibility into strategy, active workstreams, priority blockers, and verifiable milestones. Deterministic synchronization across all domain layers.
                 </p>
               </div>
 
               {/* Health Score Gauge Tile */}
-              <div className="flex items-center gap-4 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 shrink-0 backdrop-blur-md">
+              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-5 shrink-0">
                 <div className="relative w-16 h-16 flex items-center justify-center">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                     <path
-                      className="text-slate-800"
+                      className="text-blue-900/40"
                       strokeWidth="3.5"
                       stroke="currentColor"
                       fill="none"
                       d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     />
                     <path
-                      className={healthScore > 75 ? "text-emerald-400" : healthScore > 40 ? "text-amber-400" : "text-rose-500"}
+                      className={healthScore > 75 ? "text-emerald-300" : healthScore > 40 ? "text-amber-300" : "text-rose-300"}
                       strokeDasharray={`${healthScore}, 100`}
                       strokeWidth="3.5"
                       strokeLinecap="round"
@@ -156,11 +156,11 @@ export const ExecutivePage: React.FC = () => {
                   <span className="absolute text-sm font-extrabold text-white">{healthScore}%</span>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Executive Health</p>
+                  <p className="text-[10px] uppercase font-extrabold text-blue-200 tracking-wider">Executive Health</p>
                   <p className="text-sm font-bold text-white mt-0.5">
                     {healthScore > 80 ? 'Optimal Alignment' : healthScore > 50 ? 'Moderate Blockers' : 'Attention Needed'}
                   </p>
-                  <p className="text-[11px] text-slate-400 mt-1">
+                  <p className="text-[11px] text-blue-100 mt-1">
                     {executionEfficiency}% completion velocity
                   </p>
                 </div>
@@ -243,44 +243,44 @@ export const ExecutivePage: React.FC = () => {
           </div>
 
           {/* Strategic Flow Pipeline */}
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-5 text-white">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
               <div>
-                <h2 className="text-base font-extrabold text-white tracking-tight flex items-center gap-2">
+                <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                   <span>Strategic Execution Flow Pipeline</span>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200 font-bold">
                     7 Delivery Nodes
                   </span>
                 </h2>
-                <p className="text-xs text-slate-400 mt-0.5">End-to-end alignment from high-level intent to verified output proof</p>
+                <p className="text-xs text-slate-500 mt-0.5">End-to-end alignment from high-level intent to verified output proof</p>
               </div>
-              <span className="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-lg border border-slate-800">
+              <span className="text-xs font-mono text-slate-600 bg-slate-50 px-3 py-1 rounded-lg border border-slate-200 font-medium">
                 Intent → Verification
               </span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
               {[
-                { label: 'Workstreams', count: workstreams.length, color: 'from-slate-700 to-slate-800', textColor: 'text-slate-200' },
-                { label: 'Goals', count: goals.length, color: 'from-blue-600 to-blue-700', textColor: 'text-blue-300' },
-                { label: 'Projects', count: projects.length, color: 'from-indigo-600 to-indigo-700', textColor: 'text-indigo-300' },
-                { label: 'Ready Tasks', count: readyTasks.length, color: 'from-amber-500 to-amber-600', textColor: 'text-amber-300' },
-                { label: 'Tasks Done', count: completedTasks.length, color: 'from-emerald-600 to-emerald-700', textColor: 'text-emerald-300' },
-                { label: 'Evidence Vault', count: evidence.length, color: 'from-cyan-600 to-cyan-700', textColor: 'text-cyan-300' },
-                { label: 'Reviews', count: reviews.length, color: 'from-purple-600 to-purple-700', textColor: 'text-purple-300' },
+                { label: 'Workstreams', count: workstreams.length, color: 'from-slate-600 to-slate-800', textColor: 'text-slate-900' },
+                { label: 'Goals', count: goals.length, color: 'from-blue-500 to-blue-600', textColor: 'text-blue-600' },
+                { label: 'Projects', count: projects.length, color: 'from-indigo-500 to-indigo-600', textColor: 'text-indigo-600' },
+                { label: 'Ready Tasks', count: readyTasks.length, color: 'from-amber-500 to-amber-600', textColor: 'text-amber-600' },
+                { label: 'Tasks Done', count: completedTasks.length, color: 'from-emerald-500 to-emerald-600', textColor: 'text-emerald-600' },
+                { label: 'Evidence Vault', count: evidence.length, color: 'from-cyan-500 to-cyan-600', textColor: 'text-cyan-600' },
+                { label: 'Reviews', count: reviews.length, color: 'from-purple-500 to-purple-600', textColor: 'text-purple-600' },
               ].map((step, idx) => (
                 <div
                   key={step.label}
-                  className="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-4 text-center hover:border-slate-700 transition-all flex flex-col justify-between"
+                  className="relative bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 text-center hover:border-slate-300 transition-all flex flex-col justify-between shadow-2xs"
                 >
                   <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
                     Step 0{idx + 1}
                   </div>
                   <div className="my-2">
                     <p className={`text-2xl font-extrabold ${step.textColor}`}>{step.count}</p>
-                    <p className="text-xs font-semibold text-slate-300 mt-0.5">{step.label}</p>
+                    <p className="text-xs font-bold text-slate-700 mt-0.5">{step.label}</p>
                   </div>
-                  <div className={`w-full h-1 bg-gradient-to-r ${step.color} rounded-full`} />
+                  <div className={`w-full h-1.5 bg-gradient-to-r ${step.color} rounded-full`} />
                 </div>
               ))}
             </div>

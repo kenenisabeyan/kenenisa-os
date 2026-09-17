@@ -116,34 +116,32 @@ export const WorkIntelligencePage: React.FC = () => {
         <>
           {/* Workload Concentration Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl" />
-              <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider">Ready Work</span>
-              <p className="text-3xl font-extrabold text-white">{readyCount}</p>
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+              <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Ready Work</span>
+              <p className="text-3xl font-extrabold text-slate-900">{readyCount}</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Share</span>
                   <span>{Math.round((readyCount / totalTasks) * 100)}%</span>
                 </div>
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-blue-500 to-cyan-500 h-full rounded-full transition-all duration-500"
                     style={{ width: `${Math.round((readyCount / totalTasks) * 100)}%` }}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl" />
-              <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-wider">In Progress</span>
-              <p className="text-3xl font-extrabold text-white">{inProgressCount}</p>
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+              <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">In Progress</span>
+              <p className="text-3xl font-extrabold text-slate-900">{inProgressCount}</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Active</span>
                   <span>{Math.round((inProgressCount / totalTasks) * 100)}%</span>
                 </div>
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full transition-all duration-500"
                     style={{ width: `${Math.round((inProgressCount / totalTasks) * 100)}%` }}
@@ -152,16 +150,15 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/10 rounded-full blur-2xl" />
-              <span className="text-[10px] font-extrabold text-rose-400 uppercase tracking-wider">Blocked Work</span>
-              <p className="text-3xl font-extrabold text-rose-400">{blockedCount}</p>
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+              <span className="text-[10px] font-extrabold text-rose-600 uppercase tracking-wider">Blocked Work</span>
+              <p className="text-3xl font-extrabold text-rose-600">{blockedCount}</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Blocked</span>
                   <span>{Math.round((blockedCount / totalTasks) * 100)}%</span>
                 </div>
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div
                     className="bg-rose-500 h-full rounded-full transition-all duration-500"
                     style={{ width: `${Math.round((blockedCount / totalTasks) * 100)}%` }}
@@ -170,18 +167,17 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl" />
-              <span className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider">Completed</span>
-              <p className="text-3xl font-extrabold text-emerald-400">{doneCount}</p>
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+              <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider">Completed</span>
+              <p className="text-3xl font-extrabold text-emerald-600">{doneCount}</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Done</span>
                   <span>{Math.round((doneCount / totalTasks) * 100)}%</span>
                 </div>
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-emerald-500 to-teal-500 h-full rounded-full transition-all duration-500"
                     style={{ width: `${Math.round((doneCount / totalTasks) * 100)}%` }}
                   />
                 </div>
