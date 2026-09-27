@@ -270,11 +270,31 @@ export const dashboardQuerySchema = z.object({
 
 export const timeBlockStatusSchema = z.enum(['PLANNED', 'IN_PROGRESS', 'COMPLETED', 'INTERRUPTED']);
 
+export const planHorizonSchema = z.enum(['YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY']);
+
+export const planOutcomeStateSchema = z.enum([
+  'PLANNED',
+  'IN_PROGRESS',
+  'COMPLETED',
+  'PARTIALLY_COMPLETED',
+  'MISSED',
+  'CANCELLED',
+  'RESCHEDULED',
+  'BLOCKED',
+  'UNKNOWN',
+]);
+
+export const outcomeVerificationStateSchema = z.enum(['PLANNED', 'OBSERVED', 'VERIFIED']);
+
 export const createDailyPlanSchema = z.object({
+  weeklyPlanId: z.string().uuid('Invalid weekly plan ID').optional().nullable(),
   date: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be formatted YYYY-MM-DD'),
+  primaryObjective: z.string().trim().max(500).optional().nullable(),
   mustWinTaskId: z.string().uuid('Invalid task ID').optional().nullable(),
+  expectedOutcomes: z.string().trim().max(3000).optional().nullable(),
+  actualOutcomes: z.string().trim().max(3000).optional().nullable(),
   notes: z.string().trim().max(2000).optional().nullable(),
   status: z.string().trim().default('active'),
 });
@@ -314,10 +334,18 @@ export const timeBlockQuerySchema = z.object({
 });
 
 export const createWeeklyPlanSchema = z.object({
+  monthPlanId: z.string().uuid('Invalid month plan ID').optional().nullable(),
+  workstreamId: z.string().uuid('Invalid workstream ID').optional().nullable(),
+  goalId: z.string().uuid('Invalid goal ID').optional().nullable(),
+  projectId: z.string().uuid('Invalid project ID').optional().nullable(),
   weekStart: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'Week start must be formatted YYYY-MM-DD'),
   theme: z.string().trim().max(300).optional().nullable(),
+  expectedOutcomes: z.string().trim().max(3000).optional().nullable(),
+  actualOutcomes: z.string().trim().max(3000).optional().nullable(),
+  capacityMinutes: z.number().int().min(0).default(2400),
+  plannedWorkloadMinutes: z.number().int().min(0).default(0),
   notes: z.string().trim().max(3000).optional().nullable(),
   status: z.string().trim().default('active'),
 });
@@ -330,6 +358,102 @@ export const weeklyPlanQuerySchema = z.object({
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'Week start must be formatted YYYY-MM-DD')
     .optional(),
   timezone: z.string().trim().optional(),
+});
+
+export const createYearPlanSchema = z.object({
+  year: z.number().int().min(2000).max(2100),
+  title: z.string().trim().min(1, 'Yearly plan title is required').max(300),
+  description: z.string().trim().max(3000).optional().nullable(),
+  startDate: z.string().datetime('startDate must be an ISO date'),
+  endDate: z.string().datetime('endDate must be an ISO date'),
+  status: z.string().trim().default('ACTIVE'),
+  priority: taskPrioritySchema.default('P1'),
+  expectedOutcomes: z.string().trim().max(4000).optional().nullable(),
+  actualOutcomes: z.string().trim().max(4000).optional().nullable(),
+  notes: z.string().trim().max(3000).optional().nullable(),
+  workstreamId: z.string().uuid().optional().nullable(),
+  goalId: z.string().uuid().optional().nullable(),
+  projectId: z.string().uuid().optional().nullable(),
+});
+
+export const updateYearPlanSchema = createYearPlanSchema.partial().omit({ year: true });
+
+export const yearPlanQuerySchema = z.object({
+  year: z.coerce.number().int().optional(),
+  status: z.string().optional(),
+});
+
+export const createMonthPlanSchema = z.object({
+  yearPlanId: z.string().uuid().optional().nullable(),
+  year: z.number().int().min(2000).max(2100),
+  month: z.number().int().min(1).max(12),
+  title: z.string().trim().min(1, 'Monthly plan title is required').max(300),
+  description: z.string().trim().max(3000).optional().nullable(),
+  startDate: z.string().datetime('startDate must be an ISO date'),
+  endDate: z.string().datetime('endDate must be an ISO date'),
+  status: z.string().trim().default('ACTIVE'),
+  priority: taskPrioritySchema.default('P1'),
+  expectedOutcomes: z.string().trim().max(4000).optional().nullable(),
+  actualOutcomes: z.string().trim().max(4000).optional().nullable(),
+  notes: z.string().trim().max(3000).optional().nullable(),
+  workstreamId: z.string().uuid().optional().nullable(),
+  goalId: z.string().uuid().optional().nullable(),
+  projectId: z.string().uuid().optional().nullable(),
+});
+
+export const updateMonthPlanSchema = createMonthPlanSchema.partial().omit({ year: true, month: true });
+
+export const monthPlanQuerySchema = z.object({
+  year: z.coerce.number().int().optional(),
+  month: z.coerce.number().int().min(1).max(12).optional(),
+  yearPlanId: z.string().uuid().optional(),
+  status: z.string().optional(),
+});
+
+export const createPlanOutcomeSchema = z.object({
+  horizon: planHorizonSchema,
+  yearPlanId: z.string().uuid().optional().nullable(),
+  monthPlanId: z.string().uuid().optional().nullable(),
+  weeklyPlanId: z.string().uuid().optional().nullable(),
+  dailyPlanId: z.string().uuid().optional().nullable(),
+  workstreamId: z.string().uuid().optional().nullable(),
+  goalId: z.string().uuid().optional().nullable(),
+  projectId: z.string().uuid().optional().nullable(),
+  milestoneId: z.string().uuid().optional().nullable(),
+  taskId: z.string().uuid().optional().nullable(),
+  title: z.string().trim().min(1, 'Outcome title is required').max(300),
+  description: z.string().trim().max(3000).optional().nullable(),
+  startDate: z.string().datetime().optional().nullable(),
+  endDate: z.string().datetime().optional().nullable(),
+  plannedMinutes: z.number().int().min(0).optional().nullable(),
+  priority: taskPrioritySchema.default('P2'),
+  expectedResult: z.string().trim().max(2000).optional().nullable(),
+  actualResult: z.string().trim().max(2000).optional().nullable(),
+  outcomeState: planOutcomeStateSchema.default('PLANNED'),
+  isUserConfirmed: z.boolean().default(false),
+  userExplanation: z.string().trim().max(2000).optional().nullable(),
+  rescheduledTo: z.string().datetime().optional().nullable(),
+  carriedForwardToId: z.string().uuid().optional().nullable(),
+});
+
+export const updatePlanOutcomeSchema = createPlanOutcomeSchema.partial().omit({ horizon: true });
+
+export const planOutcomeQuerySchema = z.object({
+  horizon: planHorizonSchema.optional(),
+  yearPlanId: z.string().uuid().optional(),
+  monthPlanId: z.string().uuid().optional(),
+  weeklyPlanId: z.string().uuid().optional(),
+  dailyPlanId: z.string().uuid().optional(),
+  workstreamId: z.string().uuid().optional(),
+  goalId: z.string().uuid().optional(),
+  projectId: z.string().uuid().optional(),
+  taskId: z.string().uuid().optional(),
+  outcomeState: planOutcomeStateSchema.optional(),
+});
+
+export const linkPlanOutcomeEvidenceSchema = z.object({
+  evidenceId: z.string().uuid('Invalid evidence ID'),
+  verificationState: outcomeVerificationStateSchema.default('OBSERVED'),
 });
 
 export const capacityQuerySchema = z.object({

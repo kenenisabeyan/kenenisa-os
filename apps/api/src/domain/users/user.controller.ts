@@ -28,7 +28,7 @@ export class UserController {
    */
   public static async getUserById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const user = await UserService.getUserById(id);
       sendSuccess({
         res,
@@ -71,7 +71,7 @@ export class UserController {
   public static async updateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const authReq = req as AuthenticatedRequest;
-      const { id } = req.params;
+      const id = req.params.id as string;
       const validatedInput = updateUserSchema.parse(req.body);
       const ipAddress = req.ip || req.socket.remoteAddress;
 
@@ -95,7 +95,7 @@ export class UserController {
   public static async deleteUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const authReq = req as AuthenticatedRequest;
-      const { id } = req.params;
+      const id = req.params.id as string;
       const ipAddress = req.ip || req.socket.remoteAddress;
 
       await UserService.deleteUser(id, authReq.user.id, ipAddress);

@@ -186,73 +186,162 @@ export const HomePage: React.FC = () => {
 
         {/* System Architecture Bar */}
         <div className="pt-8 sm:pt-10 max-w-[1720px] mx-auto">
-          <div className="relative bg-gradient-to-br from-white/95 via-cyan-50/40 to-blue-50/30 backdrop-blur-2xl border-2 border-cyan-200/90 rounded-3xl p-5 sm:p-8 shadow-2xl shadow-cyan-500/10 space-y-5 overflow-hidden group">
-            {/* Top Accent Line */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600" />
-            
-            <div className="flex flex-col xs:flex-row flex-wrap items-start xs:items-center justify-between gap-2 text-xs font-bold pb-4 border-b border-cyan-200/80">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse shrink-0" />
-                <span className="text-sm font-black text-indigo-950 tracking-wide uppercase">System Flow Architecture</span>
+          {/* 7-Step Grid Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3.5 sm:gap-4 relative z-10">
+            {/* Step 1 */}
+            <Link
+              to="/workstreams"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-indigo-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+            >
+              {/* Centered Squircle Icon Box */}
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-indigo-300 group-hover/step:shadow-indigo-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
               </div>
-              <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black text-cyan-900 bg-cyan-100/80 border border-cyan-300/80 px-3 py-1 rounded-full uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-ping shrink-0" />
-                Continuous Operating Loop
-              </span>
-            </div>
+              {/* Title & Subtitle */}
+              <div className="space-y-1 text-center w-full">
+                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-indigo-600 transition-colors">
+                  Workstreams
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-500 leading-tight">
+                  Strategic Direction &amp; Workstreams
+                </p>
+              </div>
+            </Link>
 
-            {/* Scrollable on mobile, grid on larger screens */}
-            <div className="flex sm:grid sm:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-3 overflow-x-auto pb-1 sm:pb-0 text-center text-xs -mx-1 px-1">
-              <div className="shrink-0 w-28 sm:w-auto"></div>
-              {/* Step 1 */}
-              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-indigo-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-indigo-400 transition-all duration-300 group/step overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-500" />
-                <span className="text-[9px] sm:text-[10px] font-black text-indigo-600 uppercase tracking-widest block">1. Direction</span>
-                <p className="font-black text-xs sm:text-sm text-indigo-950 group-hover/step:text-indigo-600 transition-colors">Workstreams</p>
+            {/* Step 2 */}
+            <Link
+              to="/goals"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-blue-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+            >
+              {/* Centered Squircle Icon Box */}
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-blue-300 group-hover/step:shadow-blue-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9" strokeWidth={2} />
+                  <circle cx="12" cy="12" r="4" strokeWidth={2} />
+                </svg>
               </div>
+              {/* Title & Subtitle */}
+              <div className="space-y-1 text-center w-full">
+                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-cyan-600 transition-colors">
+                  Goals
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-500 leading-tight">
+                  Measurable Target Objectives
+                </p>
+              </div>
+            </Link>
 
-              {/* Step 2 */}
-              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-cyan-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-cyan-400 transition-all duration-300 group/step overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-cyan-500" />
-                <span className="text-[9px] sm:text-[10px] font-black text-cyan-600 uppercase tracking-widest block">2. Target</span>
-                <p className="font-black text-xs sm:text-sm text-cyan-950 group-hover/step:text-cyan-600 transition-colors">Goals</p>
+            {/* Step 3 */}
+            <Link
+              to="/projects"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-purple-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+            >
+              {/* Centered Squircle Icon Box */}
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-purple-300 group-hover/step:shadow-purple-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
               </div>
+              {/* Title & Subtitle */}
+              <div className="space-y-1 text-center w-full">
+                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-purple-600 transition-colors">
+                  Projects
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-500 leading-tight">
+                  Structured Project Modules
+                </p>
+              </div>
+            </Link>
 
-              {/* Step 3 */}
-              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-purple-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-purple-400 transition-all duration-300 group/step overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-purple-500" />
-                <span className="text-[9px] sm:text-[10px] font-black text-purple-600 uppercase tracking-widest block">3. Structure</span>
-                <p className="font-black text-xs sm:text-sm text-purple-950 group-hover/step:text-purple-600 transition-colors">Projects</p>
+            {/* Step 4 */}
+            <Link
+              to="/tasks"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-amber-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-amber-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+            >
+              {/* Centered Squircle Icon Box */}
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-amber-300 group-hover/step:shadow-amber-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
+              {/* Title & Subtitle */}
+              <div className="space-y-1 text-center w-full">
+                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-amber-600 transition-colors">
+                  Tasks
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-500 leading-tight">
+                  Actionable Daily Capacity Tasks
+                </p>
+              </div>
+            </Link>
 
-              {/* Step 4 */}
-              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-orange-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-orange-400 transition-all duration-300 group/step overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-orange-500" />
-                <span className="text-[9px] sm:text-[10px] font-black text-orange-600 uppercase tracking-widest block">4. Action</span>
-                <p className="font-black text-xs sm:text-sm text-orange-950 group-hover/step:text-orange-600 transition-colors">Tasks</p>
+            {/* Step 5 */}
+            <Link
+              to="/evidence"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-emerald-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+            >
+              {/* Centered Squircle Icon Box */}
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-emerald-300 group-hover/step:shadow-emerald-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
               </div>
+              {/* Title & Subtitle */}
+              <div className="space-y-1 text-center w-full">
+                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-emerald-600 transition-colors">
+                  Evidence
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-500 leading-tight">
+                  Observable Digital Proof Vault
+                </p>
+              </div>
+            </Link>
 
-              {/* Step 5 */}
-              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-emerald-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-emerald-400 transition-all duration-300 group/step overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500" />
-                <span className="text-[9px] sm:text-[10px] font-black text-emerald-600 uppercase tracking-widest block">5. Proof</span>
-                <p className="font-black text-xs sm:text-sm text-emerald-950 group-hover/step:text-emerald-600 transition-colors">Evidence</p>
+            {/* Step 6 */}
+            <Link
+              to="/reflection"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-rose-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-rose-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+            >
+              {/* Centered Squircle Icon Box */}
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-rose-300 group-hover/step:shadow-rose-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
               </div>
+              {/* Title & Subtitle */}
+              <div className="space-y-1 text-center w-full">
+                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-rose-600 transition-colors">
+                  Reflect
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-500 leading-tight">
+                  Continuous System Reflection
+                </p>
+              </div>
+            </Link>
 
-              {/* Step 6 */}
-              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-rose-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-rose-400 transition-all duration-300 group/step overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-rose-500" />
-                <span className="text-[9px] sm:text-[10px] font-black text-rose-600 uppercase tracking-widest block">6. Review</span>
-                <p className="font-black text-xs sm:text-sm text-rose-950 group-hover/step:text-rose-600 transition-colors">Reflect</p>
+            {/* Step 7 */}
+            <Link
+              to="/career"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-sky-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-sky-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px] col-span-2 sm:col-span-1 lg:col-span-1"
+            >
+              {/* Centered Squircle Icon Box */}
+              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-sky-300 group-hover/step:shadow-sky-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
               </div>
-
-              {/* Step 7 */}
-              <div className="shrink-0 w-28 sm:w-auto relative bg-white/90 border-2 border-amber-200/90 rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-md hover:shadow-xl hover:-translate-y-1 hover:border-amber-400 transition-all duration-300 group/step overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500" />
-                <span className="text-[9px] sm:text-[10px] font-black text-amber-600 uppercase tracking-widest block">7. Growth</span>
-                <p className="font-black text-xs sm:text-sm text-amber-950 group-hover/step:text-amber-600 transition-colors">Career</p>
+              {/* Title & Subtitle */}
+              <div className="space-y-1 text-center w-full">
+                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-sky-600 transition-colors">
+                  Career
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-500 leading-tight">
+                  Verified Trajectory &amp; Growth
+                </p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -366,10 +455,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── CORE ENGINEERING CONCEPT SECTION ───────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-cyan-50/90 via-indigo-50/70 to-purple-50/90 border-2 border-indigo-200/90 rounded-3xl p-8 sm:p-14 shadow-2xl shadow-indigo-500/10 space-y-10 text-center max-w-[1720px] mx-auto overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600" />
-        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-blue-400/15 rounded-full blur-3xl pointer-events-none" />
-        
+      <section className="space-y-10 text-center max-w-[1720px] mx-auto py-6">
         <div className="max-w-3xl mx-auto space-y-3 relative z-10">
           <span className="inline-flex items-center gap-2 text-xs font-black text-cyan-900 bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
             <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />

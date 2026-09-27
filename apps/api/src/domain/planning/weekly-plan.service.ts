@@ -123,8 +123,8 @@ export class WeeklyPlanService {
       weekEnd: endStr,
       plan: weeklyPlanRaw ? this.formatWeeklyPlan(weeklyPlanRaw) : null,
       capacity,
-      dailyPlans: dailyPlansRaw.map(formatDailyPlanShort),
-      unscheduledReadyTasks: unscheduledTasksRaw.map(formatTask),
+      dailyPlans: (dailyPlansRaw || []).map(formatDailyPlanShort),
+      unscheduledReadyTasks: (unscheduledTasksRaw || []).map(formatTask),
     };
   }
 

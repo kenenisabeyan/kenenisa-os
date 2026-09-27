@@ -173,7 +173,7 @@ export class AuthController {
   ): Promise<void> {
     try {
       const authReq = req as AuthenticatedRequest;
-      const { sessionId } = req.params;
+      const sessionId = req.params.sessionId as string;
 
       await revokeSessionForUser(authReq.user.id, sessionId);
 

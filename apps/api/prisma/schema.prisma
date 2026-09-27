@@ -77,6 +77,31 @@ enum ReviewStatus {
   COMPLETED
 }
 
+enum PlanHorizon {
+  YEARLY
+  MONTHLY
+  WEEKLY
+  DAILY
+}
+
+enum PlanOutcomeState {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  PARTIALLY_COMPLETED
+  MISSED
+  CANCELLED
+  RESCHEDULED
+  BLOCKED
+  UNKNOWN
+}
+
+enum OutcomeVerificationState {
+  PLANNED
+  OBSERVED
+  VERIFIED
+}
+
 // ── Models ───────────────────────────────────────────────────────────────────
 
 model User {
@@ -103,6 +128,10 @@ model User {
   timeBlocks    TimeBlock[]
   weeklyPlans   WeeklyPlan[]
   weeklyReviews WeeklyReview[]
+  yearPlans     YearPlan[]
+  monthPlans    MonthPlan[]
+  planOutcomes  PlanOutcome[]
+  planResultSnapshots PlanResultSnapshot[]
   auditLogs     AuditLog[]
   skills        Skill[]
   learningItems LearningItem[]
@@ -143,8 +172,12 @@ model Workstream {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
 
-  goals    Goal[]
-  projects Project[]
+  goals        Goal[]
+  projects     Project[]
+  yearPlans    YearPlan[]
+  monthPlans   MonthPlan[]
+  weeklyPlans  WeeklyPlan[]
+  planOutcomes PlanOutcome[]
 
   @@unique([userId, slug])
   @@index([userId, status])
@@ -167,7 +200,11 @@ model Goal {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
-  projects Project[]
+  projects     Project[]
+  yearPlans    YearPlan[]
+  monthPlans   MonthPlan[]
+  weeklyPlans  WeeklyPlan[]
+  planOutcomes PlanOutcome[]
 
   @@index([workstreamId, status])
   @@index([userId, targetDate])
@@ -193,11 +230,15 @@ model Project {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
-  milestones Milestone[]
-  tasks      Task[]
-  learningItems LearningItem[]
-  evidence   EvidenceProject[]
+  milestones       Milestone[]
+  tasks            Task[]
+  learningItems    LearningItem[]
+  evidence         EvidenceProject[]
   opportunityLinks OpportunityProject[]
+  yearPlans        YearPlan[]
+  monthPlans       MonthPlan[]
+  weeklyPlans      WeeklyPlan[]
+  planOutcomes     PlanOutcome[]
 
   @@unique([userId, slug])
   @@index([workstreamId, status])
@@ -220,7 +261,8 @@ model Milestone {
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 
-  tasks Task[]
+  tasks        Task[]
+  planOutcomes PlanOutcome[]
 
   @@index([projectId, sortOrder])
   @@index([projectId, targetDate])
@@ -257,6 +299,7 @@ model Task {
   timeBlocks            TimeBlock[]
   evidence              EvidenceTask[]
   opportunityLinks      OpportunityTask[]
+  planOutcomes          PlanOutcome[]
 
   @@index([projectId, status])
   @@index([projectId, dueDate])
@@ -308,22 +351,99 @@ model TaskTag {
   @@index([tagId])
 }
 
-model DailyPlan {
-  id             String    @id @default(uuid())
-  userId         String
-  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date           DateTime
-  mustWinTaskId String?
-  mustWinTask    Task?     @relation("MustWinTask", fields: [mustWinTaskId], references: [id], onDelete: SetNull)
-  notes          String?
-  status         String    @default("active")
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+model YearPlan {
+  id               String       @id @default(uuid())
+  userId           String
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  year             Int
+  title            String
+  description      String?
+  startDate        DateTime
+  endDate          DateTime
+  status           String       @default("ACTIVE")
+  priority         TaskPriority @default(P1)
+  expectedOutcomes String?
+  actualOutcomes   String?
+  notes            String?
+  workstreamId     String?
+  workstream       Workstream?  @relation(fields: [workstreamId], references: [id], onDelete: SetNull)
+  goalId           String?
+  goal             Goal?        @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  projectId        String?
+  project          Project?     @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 
-  timeBlocks TimeBlock[]
+  monthPlans   MonthPlan[]
+  planOutcomes PlanOutcome[]
+
+  @@unique([userId, year])
+  @@index([userId, year])
+  @@index([workstreamId])
+  @@index([goalId])
+  @@index([projectId])
+}
+
+model MonthPlan {
+  id               String       @id @default(uuid())
+  userId           String
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  yearPlanId       String?
+  yearPlan         YearPlan?    @relation(fields: [yearPlanId], references: [id], onDelete: SetNull)
+  year             Int
+  month            Int
+  title            String
+  description      String?
+  startDate        DateTime
+  endDate          DateTime
+  status           String       @default("ACTIVE")
+  priority         TaskPriority @default(P1)
+  expectedOutcomes String?
+  actualOutcomes   String?
+  notes            String?
+  workstreamId     String?
+  workstream       Workstream?  @relation(fields: [workstreamId], references: [id], onDelete: SetNull)
+  goalId           String?
+  goal             Goal?        @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  projectId        String?
+  project          Project?     @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  weeklyPlans  WeeklyPlan[]
+  planOutcomes PlanOutcome[]
+
+  @@unique([userId, year, month])
+  @@index([userId, year, month])
+  @@index([yearPlanId])
+  @@index([workstreamId])
+  @@index([goalId])
+  @@index([projectId])
+}
+
+model DailyPlan {
+  id               String      @id @default(uuid())
+  userId           String
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weeklyPlanId     String?
+  weeklyPlan       WeeklyPlan? @relation(fields: [weeklyPlanId], references: [id], onDelete: SetNull)
+  date             DateTime
+  primaryObjective String?
+  mustWinTaskId   String?
+  mustWinTask      Task?       @relation("MustWinTask", fields: [mustWinTaskId], references: [id], onDelete: SetNull)
+  expectedOutcomes String?
+  actualOutcomes   String?
+  notes            String?
+  status           String      @default("active")
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  timeBlocks   TimeBlock[]
+  planOutcomes PlanOutcome[]
 
   @@unique([userId, date])
   @@index([userId, date])
+  @@index([weeklyPlanId])
 }
 
 model TimeBlock {
@@ -348,21 +468,39 @@ model TimeBlock {
 }
 
 model WeeklyPlan {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  weekStart DateTime
-  weekEnd   DateTime
-  theme     String?
-  notes     String?
-  status    String   @default("active")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                     String      @id @default(uuid())
+  userId                 String
+  user                   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  monthPlanId            String?
+  monthPlan              MonthPlan?  @relation(fields: [monthPlanId], references: [id], onDelete: SetNull)
+  workstreamId           String?
+  workstream             Workstream? @relation(fields: [workstreamId], references: [id], onDelete: SetNull)
+  goalId                 String?
+  goal                   Goal?       @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  projectId              String?
+  project                Project?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  weekStart              DateTime
+  weekEnd                DateTime
+  theme                  String?
+  expectedOutcomes       String?
+  actualOutcomes         String?
+  capacityMinutes        Int         @default(2400)
+  plannedWorkloadMinutes Int         @default(0)
+  notes                  String?
+  status                 String      @default("active")
+  createdAt              DateTime    @default(now())
+  updatedAt              DateTime    @updatedAt
 
+  dailyPlans    DailyPlan[]
   weeklyReviews WeeklyReview[]
+  planOutcomes  PlanOutcome[]
 
   @@unique([userId, weekStart])
   @@index([userId, weekStart])
+  @@index([monthPlanId])
+  @@index([workstreamId])
+  @@index([goalId])
+  @@index([projectId])
 }
 
 model WeeklyReview {
@@ -382,6 +520,94 @@ model WeeklyReview {
 
   @@index([userId, createdAt])
   @@index([weeklyPlanId])
+}
+
+model PlanOutcome {
+  id                 String           @id @default(uuid())
+  userId             String
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  horizon            PlanHorizon
+  yearPlanId         String?
+  yearPlan           YearPlan?        @relation(fields: [yearPlanId], references: [id], onDelete: Cascade)
+  monthPlanId        String?
+  monthPlan          MonthPlan?       @relation(fields: [monthPlanId], references: [id], onDelete: Cascade)
+  weeklyPlanId       String?
+  weeklyPlan         WeeklyPlan?      @relation(fields: [weeklyPlanId], references: [id], onDelete: Cascade)
+  dailyPlanId        String?
+  dailyPlan          DailyPlan?       @relation(fields: [dailyPlanId], references: [id], onDelete: Cascade)
+  workstreamId       String?
+  workstream         Workstream?      @relation(fields: [workstreamId], references: [id], onDelete: SetNull)
+  goalId             String?
+  goal               Goal?            @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  projectId          String?
+  project            Project?         @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  milestoneId        String?
+  milestone          Milestone?       @relation(fields: [milestoneId], references: [id], onDelete: SetNull)
+  taskId             String?
+  task               Task?            @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  title              String
+  description        String?
+  startDate          DateTime?
+  endDate            DateTime?
+  plannedMinutes     Int?
+  priority           TaskPriority     @default(P2)
+  expectedResult     String?
+  actualResult       String?
+  outcomeState       PlanOutcomeState @default(PLANNED)
+  isUserConfirmed    Boolean          @default(false)
+  userExplanation    String?
+  rescheduledTo      DateTime?
+  carriedForwardToId String?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  evidenceLinks PlanOutcomeEvidence[]
+
+  @@index([userId, horizon])
+  @@index([dailyPlanId])
+  @@index([weeklyPlanId])
+  @@index([monthPlanId])
+  @@index([yearPlanId])
+  @@index([taskId])
+  @@index([projectId])
+  @@index([goalId])
+  @@index([workstreamId])
+  @@index([outcomeState])
+}
+
+model PlanOutcomeEvidence {
+  id                String                   @id @default(uuid())
+  planOutcomeId     String
+  planOutcome       PlanOutcome              @relation(fields: [planOutcomeId], references: [id], onDelete: Cascade)
+  evidenceId        String
+  evidence          Evidence                 @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  verificationState OutcomeVerificationState @default(OBSERVED)
+  createdAt         DateTime                 @default(now())
+
+  @@unique([planOutcomeId, evidenceId])
+  @@index([planOutcomeId])
+  @@index([evidenceId])
+}
+
+model PlanResultSnapshot {
+  id               String      @id @default(uuid())
+  userId           String
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  horizon          PlanHorizon
+  periodKey        String
+  summaryText      String?
+  totalPlanned     Int         @default(0)
+  totalCompleted   Int         @default(0)
+  totalPartial     Int         @default(0)
+  totalMissed      Int         @default(0)
+  totalBlocked     Int         @default(0)
+  totalRescheduled Int         @default(0)
+  totalCancelled   Int         @default(0)
+  snapshotData     Json?
+  createdAt        DateTime    @default(now())
+
+  @@unique([userId, horizon, periodKey])
+  @@index([userId, horizon])
 }
 
 model AuditLog {
@@ -578,6 +804,7 @@ model Evidence {
   learningItems EvidenceLearningItem[]
   skills        EvidenceSkill[]
   opportunityLinks OpportunityEvidence[]
+  planOutcomeLinks PlanOutcomeEvidence[]
 
   @@index([userId, date])
   @@index([userId, type])

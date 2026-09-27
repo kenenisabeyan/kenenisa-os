@@ -350,16 +350,293 @@ export interface TimeBlockDto {
   durationMinutes?: number;
 }
 
+export type PlanHorizon = 'YEARLY' | 'MONTHLY' | 'WEEKLY' | 'DAILY';
+
+export type PlanOutcomeState =
+  | 'PLANNED'
+  | 'IN_PROGRESS'
+  | 'COMPLETED'
+  | 'PARTIALLY_COMPLETED'
+  | 'MISSED'
+  | 'CANCELLED'
+  | 'RESCHEDULED'
+  | 'BLOCKED'
+  | 'UNKNOWN';
+
+export type OutcomeVerificationState = 'PLANNED' | 'OBSERVED' | 'VERIFIED';
+
+export interface PlanOutcomeEvidenceDto {
+  id: string;
+  planOutcomeId: string;
+  evidenceId: string;
+  verificationState: OutcomeVerificationState;
+  createdAt: string;
+  evidence?: EvidenceDto | null;
+}
+
+export interface PlanOutcomeDto {
+  id: string;
+  userId: string;
+  horizon: PlanHorizon;
+  yearPlanId: string | null;
+  monthPlanId: string | null;
+  weeklyPlanId: string | null;
+  dailyPlanId: string | null;
+  workstreamId: string | null;
+  goalId: string | null;
+  projectId: string | null;
+  milestoneId: string | null;
+  taskId: string | null;
+  title: string;
+  description: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  plannedMinutes: number | null;
+  priority: TaskPriority;
+  expectedResult: string | null;
+  actualResult: string | null;
+  outcomeState: PlanOutcomeState;
+  isUserConfirmed: boolean;
+  userExplanation: string | null;
+  rescheduledTo: string | null;
+  carriedForwardToId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  workstream?: WorkstreamDto | null;
+  goal?: GoalDto | null;
+  project?: ProjectDto | null;
+  milestone?: MilestoneDto | null;
+  task?: TaskDto | null;
+  evidenceLinks?: PlanOutcomeEvidenceDto[];
+}
+
+export interface YearPlanDto {
+  id: string;
+  userId: string;
+  year: number;
+  title: string;
+  description: string | null;
+  startDate: string;
+  endDate: string;
+  status: string;
+  priority: TaskPriority;
+  expectedOutcomes: string | null;
+  actualOutcomes: string | null;
+  notes: string | null;
+  workstreamId: string | null;
+  goalId: string | null;
+  projectId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  workstream?: WorkstreamDto | null;
+  goal?: GoalDto | null;
+  project?: ProjectDto | null;
+  monthPlans?: MonthPlanDto[];
+  planOutcomes?: PlanOutcomeDto[];
+}
+
+export interface MonthPlanDto {
+  id: string;
+  userId: string;
+  yearPlanId: string | null;
+  year: number;
+  month: number;
+  title: string;
+  description: string | null;
+  startDate: string;
+  endDate: string;
+  status: string;
+  priority: TaskPriority;
+  expectedOutcomes: string | null;
+  actualOutcomes: string | null;
+  notes: string | null;
+  workstreamId: string | null;
+  goalId: string | null;
+  projectId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  workstream?: WorkstreamDto | null;
+  goal?: GoalDto | null;
+  project?: ProjectDto | null;
+  weeklyPlans?: WeeklyPlanDto[];
+  planOutcomes?: PlanOutcomeDto[];
+}
+
 export interface WeeklyPlanDto {
   id: string;
   userId: string;
+  monthPlanId?: string | null;
+  workstreamId?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
   weekStart: string; // YYYY-MM-DD
   weekEnd: string; // YYYY-MM-DD
   theme: string | null;
+  expectedOutcomes?: string | null;
+  actualOutcomes?: string | null;
+  capacityMinutes?: number;
+  plannedWorkloadMinutes?: number;
   notes: string | null;
   status: string;
   createdAt: string;
   updatedAt: string;
+  workstream?: WorkstreamDto | null;
+  goal?: GoalDto | null;
+  project?: ProjectDto | null;
+  dailyPlans?: DailyPlanDto[];
+  planOutcomes?: PlanOutcomeDto[];
+}
+
+export interface PlanResultSnapshotDto {
+  id: string;
+  userId: string;
+  horizon: PlanHorizon;
+  periodKey: string;
+  summaryText: string | null;
+  totalPlanned: number;
+  totalCompleted: number;
+  totalPartial: number;
+  totalMissed: number;
+  totalBlocked: number;
+  totalRescheduled: number;
+  totalCancelled: number;
+  snapshotData: Record<string, unknown> | null;
+  createdAt: string;
+}
+
+export interface MultiHorizonOverviewDto {
+  activeYearPlan: YearPlanDto | null;
+  activeMonthPlan: MonthPlanDto | null;
+  activeWeeklyPlan: WeeklyPlanDto | null;
+  activeDailyPlan: DailyPlanDto | null;
+  todaySummary: {
+    totalPlanned: number;
+    totalCompleted: number;
+    totalPartial: number;
+    totalMissed: number;
+    totalBlocked: number;
+    scheduledMinutes: number;
+    actualMinutes: number;
+  };
+  upcomingOutcomes: PlanOutcomeDto[];
+  blockedOutcomes: PlanOutcomeDto[];
+  missedOutcomes: PlanOutcomeDto[];
+}
+
+export interface CreateYearPlanInput {
+  year: number;
+  title: string;
+  description?: string | null;
+  startDate: string;
+  endDate: string;
+  status?: string;
+  priority?: TaskPriority;
+  expectedOutcomes?: string | null;
+  actualOutcomes?: string | null;
+  notes?: string | null;
+  workstreamId?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
+}
+
+export interface UpdateYearPlanInput {
+  title?: string;
+  description?: string | null;
+  startDate?: string;
+  endDate?: string;
+  status?: string;
+  priority?: TaskPriority;
+  expectedOutcomes?: string | null;
+  actualOutcomes?: string | null;
+  notes?: string | null;
+  workstreamId?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
+}
+
+export interface CreateMonthPlanInput {
+  yearPlanId?: string | null;
+  year: number;
+  month: number;
+  title: string;
+  description?: string | null;
+  startDate: string;
+  endDate: string;
+  status?: string;
+  priority?: TaskPriority;
+  expectedOutcomes?: string | null;
+  actualOutcomes?: string | null;
+  notes?: string | null;
+  workstreamId?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
+}
+
+export interface UpdateMonthPlanInput {
+  yearPlanId?: string | null;
+  title?: string;
+  description?: string | null;
+  startDate?: string;
+  endDate?: string;
+  status?: string;
+  priority?: TaskPriority;
+  expectedOutcomes?: string | null;
+  actualOutcomes?: string | null;
+  notes?: string | null;
+  workstreamId?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
+}
+
+export interface CreatePlanOutcomeInput {
+  horizon: PlanHorizon;
+  yearPlanId?: string | null;
+  monthPlanId?: string | null;
+  weeklyPlanId?: string | null;
+  dailyPlanId?: string | null;
+  workstreamId?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
+  milestoneId?: string | null;
+  taskId?: string | null;
+  title: string;
+  description?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  plannedMinutes?: number | null;
+  priority?: TaskPriority;
+  expectedResult?: string | null;
+  actualResult?: string | null;
+  outcomeState?: PlanOutcomeState;
+  isUserConfirmed?: boolean;
+  userExplanation?: string | null;
+  rescheduledTo?: string | null;
+  carriedForwardToId?: string | null;
+}
+
+export interface UpdatePlanOutcomeInput {
+  yearPlanId?: string | null;
+  monthPlanId?: string | null;
+  weeklyPlanId?: string | null;
+  dailyPlanId?: string | null;
+  workstreamId?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
+  milestoneId?: string | null;
+  taskId?: string | null;
+  title?: string;
+  description?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  plannedMinutes?: number | null;
+  priority?: TaskPriority;
+  expectedResult?: string | null;
+  actualResult?: string | null;
+  outcomeState?: PlanOutcomeState;
+  isUserConfirmed?: boolean;
+  userExplanation?: string | null;
+  rescheduledTo?: string | null;
+  carriedForwardToId?: string | null;
 }
 
 export interface DailyCapacityDto {

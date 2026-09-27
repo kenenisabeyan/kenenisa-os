@@ -129,8 +129,8 @@ export class DailyPlanService {
     ]);
 
     // Filter executable unscheduled tasks (no active blockers)
-    const executableUnscheduled = unscheduledTasksRaw.filter((t) => {
-      const activeBlockers = t.blockingDependencies.filter((dep) =>
+    const executableUnscheduled = (unscheduledTasksRaw || []).filter((t) => {
+      const activeBlockers = (t.blockingDependencies || []).filter((dep) =>
         dep.blockingTask && dep.blockingTask.status !== TaskStatus.DONE && dep.blockingTask.status !== TaskStatus.CANCELLED,
       );
       return activeBlockers.length === 0;
