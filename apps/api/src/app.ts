@@ -21,7 +21,17 @@ export function createApp(): express.Application {
   app.use(helmet());
   app.use(
     cors({
-      origin: config.CORS_ORIGIN,
+      origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps, curl, postman)
+        if (!origin) return callback(null, true);
+        if (
+          origin === config.CORS_ORIGIN ||
+          /^http:\/\/(localhost|127\.0\.0\.1):[0-9]+$/.test(origin)
+        ) {
+          return callback(null, true);
+        }
+        callback(null, false);
+      },
       credentials: true,
     }),
   );
