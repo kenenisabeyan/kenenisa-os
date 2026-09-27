@@ -364,6 +364,7 @@ export type PlanOutcomeState =
   | 'UNKNOWN';
 
 export type OutcomeVerificationState = 'PLANNED' | 'OBSERVED' | 'VERIFIED';
+export type ResultSource = 'AUTOMATIC' | 'USER_CONFIRMED' | 'SYSTEM_VERIFIED' | 'UNKNOWN';
 
 export interface PlanOutcomeEvidenceDto {
   id: string;
@@ -396,6 +397,7 @@ export interface PlanOutcomeDto {
   expectedResult: string | null;
   actualResult: string | null;
   outcomeState: PlanOutcomeState;
+  source?: ResultSource;
   isUserConfirmed: boolean;
   userExplanation: string | null;
   rescheduledTo: string | null;
@@ -1662,6 +1664,104 @@ export interface UpdateUserMemoryInput {
   value?: string;
   category?: MemoryCategory;
   archived?: boolean;
+}
+
+// ── Result Intelligence & Excel Reporting DTOs ───────────────────────────────
+
+export interface ResultOverviewDto {
+  period: string;
+  totalPlanned: number;
+  completed: number;
+  partiallyCompleted: number;
+  missed: number;
+  blocked: number;
+  inProgress: number;
+  rescheduled: number;
+  cancelled: number;
+  unknown: number;
+  byHorizon: Record<PlanHorizon, { total: number; completed: number }>;
+}
+
+export interface ResultTrendDto {
+  periodLabel: string;
+  startDate: string;
+  endDate: string;
+  planned: number;
+  completed: number;
+  partiallyCompleted: number;
+  missed: number;
+  blocked: number;
+  completionRatePercent: number;
+}
+
+export interface PatternObservationDto {
+  id: string;
+  category: 'RESCHEDULE_RECURRENCE' | 'BLOCKER_RECURRENCE' | 'WEEKDAY_CONCENTRATION' | 'CAPACITY_OVERLOAD';
+  summary: string;
+  evidence: string;
+  affectedItemCount: number;
+  detectedAt: string;
+}
+
+export interface ResultRecommendationDto {
+  id: string;
+  actionNumber: number;
+  title: string;
+  reason: string;
+  priority: TaskPriority;
+  relatedOutcomeId?: string;
+  relatedTaskId?: string;
+  actionType: 'RESOLVE_BLOCKER' | 'REVIEW_MISSED' | 'CARRY_FORWARD' | 'ADJUST_CAPACITY' | 'EXECUTE_NEXT';
+}
+
+export interface ResultAnalysisDto {
+  overview: ResultOverviewDto;
+  observations: string[];
+  patterns: PatternObservationDto[];
+  recommendations: ResultRecommendationDto[];
+  trends: ResultTrendDto[];
+  aiAdvisory?: string;
+}
+
+export interface SpreadsheetColumnDto {
+  key: string;
+  header: string;
+  width: number;
+  type: 'string' | 'number' | 'date' | 'badge';
+}
+
+export interface SpreadsheetRowDto {
+  id: string;
+  [key: string]: unknown;
+}
+
+export interface SpreadsheetSheetDto {
+  name: string;
+  columns: SpreadsheetColumnDto[];
+  rows: SpreadsheetRowDto[];
+  totalRows: number;
+}
+
+export interface SpreadsheetReportDto {
+  title: string;
+  generatedAt: string;
+  userDisplayName: string;
+  scope: 'current' | 'day' | 'week' | 'month' | 'year' | 'custom' | 'full';
+  dateRange: { from: string; to: string };
+  sheets: SpreadsheetSheetDto[];
+}
+
+export interface ExportQueryInput {
+  scope?: 'current' | 'day' | 'week' | 'month' | 'year' | 'custom' | 'full';
+  format?: 'XLSX' | 'JSON';
+  fromDate?: string;
+  toDate?: string;
+  horizon?: PlanHorizon;
+  status?: PlanOutcomeState;
+  source?: ResultSource;
+  workstreamId?: string;
+  projectId?: string;
+  search?: string;
 }
 
 

@@ -14,6 +14,7 @@ import reviewRouter from '../../domain/reviews/review.routes.js';
 import analyticsRouter from '../../domain/analytics/analytics.routes.js';
 import opportunityRouter from '../../domain/opportunities/opportunity.routes.js';
 import intelligenceRouter from '../../domain/intelligence/intelligence.routes.js';
+import resultsRouter from '../../domain/results/results.routes.js';
 import { userRouter } from '../../domain/users/user.routes.js';
 
 export const v1Router = Router();
@@ -28,6 +29,7 @@ v1Router.use('/milestones', milestoneRouter);
 v1Router.use('/tasks', taskRouter);
 v1Router.use('/dashboard', dashboardRouter);
 v1Router.use('/planning', planningRouter);
+v1Router.use('/results', resultsRouter);
 v1Router.use('/learning', learningRouter);
 v1Router.use('/skills', skillRouter);
 v1Router.use('/evidence', evidenceRouter);

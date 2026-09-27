@@ -42,6 +42,7 @@ export const navSections: NavSection[] = [
     title: 'PROOF',
     items: [
       { label: 'Evidence', path: '/app/evidence' },
+      { label: 'Results', path: '/app/results', badge: 'EXCEL' },
       { label: 'Weekly Review', path: '/app/reviews' },
     ],
   },

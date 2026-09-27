@@ -1,0 +1,18 @@
+import { Router } from 'express';
+import { requireAuth } from '../../middleware/auth.js';
+import { ResultsController } from './results.controller.js';
+
+const router = Router();
+
+router.use(requireAuth);
+
+router.get('/', ResultsController.getResults);
+router.get('/overview', ResultsController.getOverview);
+router.get('/trends', ResultsController.getTrends);
+router.get('/recommendations', ResultsController.getRecommendations);
+router.get('/patterns', ResultsController.getPatterns);
+router.get('/analysis', ResultsController.getAnalysis);
+router.get('/export/preview', ResultsController.getExportPreview);
+router.get('/export/xlsx', ResultsController.downloadXlsx);
+
+export default router;

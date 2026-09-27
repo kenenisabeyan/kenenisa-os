@@ -11,6 +11,7 @@ import { PlanningPage } from './PlanningPage.js';
 import { LearningPage } from './LearningPage.js';
 import { SkillsPage } from './SkillsPage.js';
 import { EvidencePage } from './EvidencePage.js';
+import { ResultsPage } from './ResultsPage.js';
 import { ReviewsPage } from './ReviewsPage.js';
 import { AnalyticsPage } from './AnalyticsPage.js';
 import { OpportunitiesPage } from './OpportunitiesPage.js';
@@ -39,6 +40,7 @@ export const AppShellPage: React.FC = () => {
         <Route path="learning" element={<LearningPage />} />
         <Route path="skills" element={<SkillsPage />} />
         <Route path="evidence" element={<EvidencePage />} />
+        <Route path="results" element={<ResultsPage />} />
         <Route path="reviews" element={<ReviewsPage />} />
         <Route path="workstreams" element={<WorkstreamsPage />} />
         <Route path="goals" element={<GoalsPage />} />

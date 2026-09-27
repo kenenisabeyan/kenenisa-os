@@ -102,6 +102,13 @@ enum OutcomeVerificationState {
   VERIFIED
 }
 
+enum ResultSource {
+  AUTOMATIC
+  USER_CONFIRMED
+  SYSTEM_VERIFIED
+  UNKNOWN
+}
+
 // ── Models ───────────────────────────────────────────────────────────────────
 
 model User {
@@ -132,6 +139,7 @@ model User {
   monthPlans    MonthPlan[]
   planOutcomes  PlanOutcome[]
   planResultSnapshots PlanResultSnapshot[]
+  resultExportLogs    ResultExportLog[]
   auditLogs     AuditLog[]
   skills        Skill[]
   learningItems LearningItem[]
@@ -554,6 +562,7 @@ model PlanOutcome {
   expectedResult     String?
   actualResult       String?
   outcomeState       PlanOutcomeState @default(PLANNED)
+  source             ResultSource     @default(AUTOMATIC)
   isUserConfirmed    Boolean          @default(false)
   userExplanation    String?
   rescheduledTo      DateTime?
@@ -1089,6 +1098,21 @@ model UserMemory {
   @@index([userId, category])
   @@index([userId, archivedAt])
 }
+
+model ResultExportLog {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scope       String   // current, day, week, month, year, custom, full
+  format      String   // XLSX, JSON
+  rangeFrom   String?
+  rangeTo     String?
+  recordCount Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
 
 
 

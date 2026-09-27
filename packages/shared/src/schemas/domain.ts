@@ -845,6 +845,62 @@ export const confirmActionSchema = z.object({
   overrides: z.record(z.unknown()).optional(),
 });
 
+// ── Result Intelligence & Excel Export Schemas ────────────────────────────────
+
+export const resultSourceSchema = z.enum([
+  'AUTOMATIC',
+  'USER_CONFIRMED',
+  'SYSTEM_VERIFIED',
+  'UNKNOWN',
+]);
+
+export const resultQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  pageSize: z.coerce.number().int().positive().max(500).default(50),
+  horizon: z.enum(['YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY']).optional(),
+  status: z.enum([
+    'PLANNED',
+    'IN_PROGRESS',
+    'COMPLETED',
+    'PARTIALLY_COMPLETED',
+    'MISSED',
+    'CANCELLED',
+    'RESCHEDULED',
+    'BLOCKED',
+    'UNKNOWN',
+  ]).optional(),
+  source: resultSourceSchema.optional(),
+  workstreamId: z.string().uuid().optional(),
+  projectId: z.string().uuid().optional(),
+  fromDate: z.string().optional(),
+  toDate: z.string().optional(),
+  search: z.string().trim().optional(),
+});
+
+export const exportQuerySchema = z.object({
+  scope: z.enum(['current', 'day', 'week', 'month', 'year', 'custom', 'full']).default('current'),
+  format: z.enum(['XLSX', 'JSON']).default('XLSX'),
+  fromDate: z.string().optional(),
+  toDate: z.string().optional(),
+  horizon: z.enum(['YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY']).optional(),
+  status: z.enum([
+    'PLANNED',
+    'IN_PROGRESS',
+    'COMPLETED',
+    'PARTIALLY_COMPLETED',
+    'MISSED',
+    'CANCELLED',
+    'RESCHEDULED',
+    'BLOCKED',
+    'UNKNOWN',
+  ]).optional(),
+  source: resultSourceSchema.optional(),
+  workstreamId: z.string().uuid().optional(),
+  projectId: z.string().uuid().optional(),
+  search: z.string().trim().optional(),
+});
+
+
 
 
 
