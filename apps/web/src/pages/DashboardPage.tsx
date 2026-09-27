@@ -130,6 +130,57 @@ export const DashboardPage: React.FC = () => {
         }
       />
 
+      {/* 7 Core Operating Questions Front-Door Overview */}
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-3" id="front-door-questions-panel">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+            <h2 className="text-xs font-black uppercase tracking-wider text-slate-800">
+              COMMAND CENTER &bull; OPERATING CONTEXT ANSWERS
+            </h2>
+          </div>
+          <span className="text-[10px] text-slate-400 font-mono font-bold">REAL-TIME DOMAIN INTELLIGENCE</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* Question 1: WHERE AM I? */}
+          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
+            <div className="text-[10px] font-black uppercase text-blue-600 tracking-wider">WHERE AM I?</div>
+            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">Strategic Context</div>
+            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
+              {summary.activeWorkstreams} Workstreams &bull; {summary.activeGoals} Goals
+            </div>
+          </div>
+
+          {/* Question 2: WHAT MATTERS NOW? */}
+          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
+            <div className="text-[10px] font-black uppercase text-indigo-600 tracking-wider">WHAT MATTERS NOW?</div>
+            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">Target Outcomes</div>
+            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
+              {summary.activeProjects} Active Projects &bull; {summary.readyTasks} Ready Tasks
+            </div>
+          </div>
+
+          {/* Question 3: WHAT IS HAPPENING? */}
+          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
+            <div className="text-[10px] font-black uppercase text-cyan-600 tracking-wider">WHAT IS HAPPENING?</div>
+            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">Execution Focus</div>
+            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
+              {today.inProgress.length} Active Focus &bull; {today.dueToday.length} Scheduled
+            </div>
+          </div>
+
+          {/* Question 4: WHAT NEEDS ATTENTION? */}
+          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
+            <div className="text-[10px] font-black uppercase text-rose-600 tracking-wider">WHAT NEEDS ATTENTION?</div>
+            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">System Constraints</div>
+            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
+              {summary.blockedTasks > 0 ? `${summary.blockedTasks} Blocked` : 'No Blockers'} &bull; {summary.overdueTasks > 0 ? `${summary.overdueTasks} Overdue` : 'On Schedule'}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Hero: Next Best Action / Deterministic Recommendation */}
       <div
         className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-blue-500/30"
@@ -147,7 +198,7 @@ export const DashboardPage: React.FC = () => {
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500" />
               </span>
               <span className="text-xs font-black uppercase tracking-widest text-cyan-400">
-                DETERMINISTIC RECOMMENDATION
+                WHAT SHOULD I DO NEXT? &bull; DETERMINISTIC RECOMMENDATION
               </span>
             </div>
 
