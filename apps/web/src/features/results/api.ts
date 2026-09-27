@@ -6,6 +6,11 @@ import {
   ResultAnalysisDto,
   SpreadsheetReportDto,
   PlanOutcomeDto,
+  ResultTimelineEntryDto,
+  PeriodComparisonDto,
+  WorkstreamResultBreakdownDto,
+  ProjectResultBreakdownDto,
+  CapacityTimeAnalysisDto,
 } from '@kenenisa-os/shared';
 
 function buildQueryString(params?: Record<string, string>): string {
@@ -38,6 +43,26 @@ export async function fetchResultAnalysis(params?: Record<string, string>): Prom
 
 export async function fetchDetailedResults(params?: Record<string, string>): Promise<{ items: PlanOutcomeDto[]; pagination: any }> {
   return apiClient<{ items: PlanOutcomeDto[]; pagination: any }>(`/api/v1/results${buildQueryString(params)}`);
+}
+
+export async function fetchResultTimeline(params?: Record<string, string>): Promise<ResultTimelineEntryDto[]> {
+  return apiClient<ResultTimelineEntryDto[]>(`/api/v1/results/timeline${buildQueryString(params)}`);
+}
+
+export async function fetchPeriodComparison(scope = 'week'): Promise<PeriodComparisonDto> {
+  return apiClient<PeriodComparisonDto>(`/api/v1/results/comparison?scope=${scope}`);
+}
+
+export async function fetchWorkstreamBreakdown(): Promise<WorkstreamResultBreakdownDto[]> {
+  return apiClient<WorkstreamResultBreakdownDto[]>('/api/v1/results/workstreams');
+}
+
+export async function fetchProjectBreakdown(): Promise<ProjectResultBreakdownDto[]> {
+  return apiClient<ProjectResultBreakdownDto[]>('/api/v1/results/projects');
+}
+
+export async function fetchCapacityAnalysis(): Promise<CapacityTimeAnalysisDto> {
+  return apiClient<CapacityTimeAnalysisDto>('/api/v1/results/capacity-analysis');
 }
 
 export async function fetchSpreadsheetPreview(params?: Record<string, string>): Promise<SpreadsheetReportDto> {

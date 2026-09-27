@@ -125,6 +125,76 @@ export class ResultsController {
   }
 
   /**
+   * GET /api/v1/results/timeline
+   */
+  static async getTimeline(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id;
+      const { fromDate, toDate } = req.query;
+      const timeline = await ResultIntelligenceService.getTimeline(userId, {
+        fromDate: fromDate as string,
+        toDate: toDate as string,
+      });
+      res.json(timeline);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * GET /api/v1/results/comparison
+   */
+  static async getPeriodComparison(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id;
+      const { scope } = req.query;
+      const comparison = await ResultIntelligenceService.getPeriodComparison(userId, (scope as string) || 'week');
+      res.json(comparison);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * GET /api/v1/results/workstreams
+   */
+  static async getWorkstreamBreakdown(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id;
+      const breakdown = await ResultIntelligenceService.getWorkstreamBreakdown(userId);
+      res.json(breakdown);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * GET /api/v1/results/projects
+   */
+  static async getProjectBreakdown(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id;
+      const breakdown = await ResultIntelligenceService.getProjectBreakdown(userId);
+      res.json(breakdown);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * GET /api/v1/results/capacity-analysis
+   */
+  static async getCapacityAnalysis(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.id;
+      const analysis = await ResultIntelligenceService.getCapacityAnalysis(userId);
+      res.json(analysis);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
    * GET /api/v1/results/export/xlsx
    */
   static async downloadXlsx(req: Request, res: Response, next: NextFunction) {

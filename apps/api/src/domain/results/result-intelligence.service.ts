@@ -359,4 +359,217 @@ export class ResultIntelligenceService {
       },
     };
   }
+
+  /**
+   * Generates chronological timeline entries distinguishing planned time, actual activity, and results
+   */
+  static async getTimeline(userId: string, options?: { fromDate?: string; toDate?: string }) {
+    const where: any = { userId };
+    if (options?.fromDate || options?.toDate) {
+      where.createdAt = {};
+      if (options.fromDate) where.createdAt.gte = new Date(options.fromDate);
+      if (options.toDate) where.createdAt.lte = new Date(options.toDate);
+    }
+
+    const items = await prisma.planOutcome.findMany({
+      where,
+      include: {
+        task: true,
+        project: true,
+        evidenceLinks: true,
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 100,
+    });
+
+    return (items || []).map((o) => {
+      const timeLabel = o.startDate
+        ? o.startDate.toISOString().split('T')[1]?.substring(0, 5) || o.createdAt.toISOString().substring(11, 16)
+        : o.createdAt.toISOString().substring(11, 16);
+
+      return {
+        id: o.id,
+        timeLabel,
+        title: o.title,
+        horizon: o.horizon,
+        outcomeState: o.outcomeState,
+        source: o.source || 'AUTOMATIC',
+        expectedResult: o.expectedResult || '—',
+        actualResult: o.actualResult || '—',
+        plannedMinutes: o.plannedMinutes || 0,
+        actualMinutes: o.task?.actualMinutes || 0,
+        taskTitle: o.task?.title,
+        projectName: o.project?.name,
+        evidenceCount: o.evidenceLinks?.length || 0,
+      };
+    });
+  }
+
+  /**
+   * Computes period-over-period comparative metrics (e.g. This Week vs Last Week)
+   */
+  static async getPeriodComparison(userId: string, scope = 'week') {
+    const now = new Date();
+    let currentStart: Date;
+    let previousStart: Date;
+
+    if (scope === 'month') {
+      currentStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+      previousStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
+    } else {
+      // week
+      currentStart = new Date(now.valueOf() - 7 * 24 * 60 * 60 * 1000);
+      previousStart = new Date(now.valueOf() - 14 * 24 * 60 * 60 * 1000);
+    }
+
+    const [currentOutcomes, previousOutcomes] = await Promise.all([
+      prisma.planOutcome.findMany({ where: { userId, createdAt: { gte: currentStart } } }),
+      prisma.planOutcome.findMany({ where: { userId, createdAt: { gte: previousStart, lt: currentStart } } }),
+    ]);
+
+    const countState = (items: any[], state: string) => (items || []).filter((i) => i.outcomeState === state).length;
+    const calcChange = (curr: number, prev: number): 'increased' | 'decreased' | 'unchanged' => {
+      if (curr > prev) return 'increased';
+      if (curr < prev) return 'decreased';
+      return 'unchanged';
+    };
+
+    const currComp = countState(currentOutcomes, 'COMPLETED');
+    const prevComp = countState(previousOutcomes, 'COMPLETED');
+
+    const currPart = countState(currentOutcomes, 'PARTIALLY_COMPLETED');
+    const prevPart = countState(previousOutcomes, 'PARTIALLY_COMPLETED');
+
+    const currMiss = countState(currentOutcomes, 'MISSED');
+    const prevMiss = countState(previousOutcomes, 'MISSED');
+
+    const currBlock = countState(currentOutcomes, 'BLOCKED');
+    const prevBlock = countState(previousOutcomes, 'BLOCKED');
+
+    const currProg = countState(currentOutcomes, 'IN_PROGRESS');
+    const prevProg = countState(previousOutcomes, 'IN_PROGRESS');
+
+    return {
+      currentPeriodLabel: `Current ${scope.toUpperCase()}`,
+      previousPeriodLabel: `Previous ${scope.toUpperCase()}`,
+      metrics: {
+        completed: { current: currComp, previous: prevComp, change: calcChange(currComp, prevComp) },
+        partiallyCompleted: { current: currPart, previous: prevPart, change: calcChange(currPart, prevPart) },
+        missed: { current: currMiss, previous: prevMiss, change: calcChange(currMiss, prevMiss) },
+        blocked: { current: currBlock, previous: prevBlock, change: calcChange(currBlock, prevBlock) },
+        inProgress: { current: currProg, previous: prevProg, change: calcChange(currProg, prevProg) },
+      },
+    };
+  }
+
+  /**
+   * Aggregates results grouped by user Workstreams
+   */
+  static async getWorkstreamBreakdown(userId: string) {
+    const workstreams = await prisma.workstream.findMany({
+      where: { userId },
+      include: {
+        planOutcomes: true,
+      },
+    });
+
+    return (workstreams || []).map((w) => {
+      const outcomes = w.planOutcomes || [];
+      const totalPlanned = outcomes.length;
+      const completed = outcomes.filter((o) => o.outcomeState === 'COMPLETED').length;
+      const partiallyCompleted = outcomes.filter((o) => o.outcomeState === 'PARTIALLY_COMPLETED').length;
+      const missed = outcomes.filter((o) => o.outcomeState === 'MISSED').length;
+      const blocked = outcomes.filter((o) => o.outcomeState === 'BLOCKED').length;
+
+      return {
+        workstreamId: w.id,
+        workstreamName: w.name,
+        totalPlanned,
+        completed,
+        partiallyCompleted,
+        missed,
+        blocked,
+        completionRatePercent: totalPlanned > 0 ? Math.round((completed / totalPlanned) * 100) : 0,
+      };
+    });
+  }
+
+  /**
+   * Aggregates results grouped by user Projects
+   */
+  static async getProjectBreakdown(userId: string) {
+    const projects = await prisma.project.findMany({
+      where: { userId },
+      include: {
+        planOutcomes: true,
+      },
+    });
+
+    return (projects || []).map((p) => {
+      const outcomes = p.planOutcomes || [];
+      const totalPlanned = outcomes.length;
+      const completed = outcomes.filter((o) => o.outcomeState === 'COMPLETED').length;
+      const partiallyCompleted = outcomes.filter((o) => o.outcomeState === 'PARTIALLY_COMPLETED').length;
+      const missed = outcomes.filter((o) => o.outcomeState === 'MISSED').length;
+      const blocked = outcomes.filter((o) => o.outcomeState === 'BLOCKED').length;
+
+      return {
+        projectId: p.id,
+        projectName: p.name,
+        totalPlanned,
+        completed,
+        partiallyCompleted,
+        missed,
+        blocked,
+        completionRatePercent: totalPlanned > 0 ? Math.round((completed / totalPlanned) * 100) : 0,
+      };
+    });
+  }
+
+  /**
+   * Analyzes Estimated vs Scheduled vs Actual time and capacity conflicts
+   */
+  static async getCapacityAnalysis(userId: string) {
+    const userSettings = await prisma.userSettings.findUnique({ where: { userId } });
+    const capacity = userSettings?.dailyWorkCapacityMinutes || 480;
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    const todayPlan = await prisma.dailyPlan.findFirst({
+      where: { userId, date: new Date(`${todayStr}T00:00:00.000Z`) },
+      include: {
+        timeBlocks: {
+          include: { task: true },
+        },
+      },
+    });
+
+    const blocks = todayPlan?.timeBlocks || [];
+    let totalScheduled = 0;
+    let totalEstimated = 0;
+    let totalActual = 0;
+
+    for (const tb of blocks) {
+      const mins = Math.round((tb.endAt.getTime() - tb.startAt.getTime()) / 60000);
+      totalScheduled += mins > 0 ? mins : 0;
+      if (tb.task) {
+        totalEstimated += tb.task.estimateMinutes || 0;
+        totalActual += tb.task.actualMinutes || 0;
+      }
+    }
+
+    const isOverCapacity = totalScheduled > capacity;
+    const capacityConflictNotes = isOverCapacity
+      ? `Scheduled work (${Math.round(totalScheduled / 60)}h) exceeds configured daily capacity (${Math.round(capacity / 60)}h).`
+      : 'Workload is within configured capacity.';
+
+    return {
+      totalEstimatedMinutes: totalEstimated,
+      totalScheduledMinutes: totalScheduled,
+      totalActualMinutes: totalActual,
+      availableCapacityMinutes: capacity,
+      isOverCapacity,
+      capacityConflictNotes,
+    };
+  }
 }
+

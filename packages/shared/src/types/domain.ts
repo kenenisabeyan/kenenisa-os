@@ -1764,6 +1764,65 @@ export interface ExportQueryInput {
   search?: string;
 }
 
+export interface ResultTimelineEntryDto {
+  id: string;
+  timeLabel: string;
+  title: string;
+  horizon: PlanHorizon;
+  outcomeState: PlanOutcomeState;
+  source: ResultSource;
+  expectedResult: string;
+  actualResult?: string;
+  plannedMinutes: number;
+  actualMinutes: number;
+  taskTitle?: string;
+  projectName?: string;
+  evidenceCount: number;
+}
+
+export interface PeriodComparisonDto {
+  currentPeriodLabel: string;
+  previousPeriodLabel: string;
+  metrics: {
+    completed: { current: number; previous: number; change: 'increased' | 'decreased' | 'unchanged' };
+    partiallyCompleted: { current: number; previous: number; change: 'increased' | 'decreased' | 'unchanged' };
+    missed: { current: number; previous: number; change: 'increased' | 'decreased' | 'unchanged' };
+    blocked: { current: number; previous: number; change: 'increased' | 'decreased' | 'unchanged' };
+    inProgress: { current: number; previous: number; change: 'increased' | 'decreased' | 'unchanged' };
+  };
+}
+
+export interface WorkstreamResultBreakdownDto {
+  workstreamId: string;
+  workstreamName: string;
+  totalPlanned: number;
+  completed: number;
+  partiallyCompleted: number;
+  missed: number;
+  blocked: number;
+  completionRatePercent: number;
+}
+
+export interface ProjectResultBreakdownDto {
+  projectId: string;
+  projectName: string;
+  totalPlanned: number;
+  completed: number;
+  partiallyCompleted: number;
+  missed: number;
+  blocked: number;
+  completionRatePercent: number;
+}
+
+export interface CapacityTimeAnalysisDto {
+  totalEstimatedMinutes: number;
+  totalScheduledMinutes: number;
+  totalActualMinutes: number;
+  availableCapacityMinutes: number;
+  isOverCapacity: boolean;
+  capacityConflictNotes?: string;
+}
+
 
 
 

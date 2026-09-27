@@ -5,15 +5,27 @@ import {
   PlanOutcomeDto,
   PlanOutcomeState,
   ResultSource,
+  ResultTimelineEntryDto,
+  PeriodComparisonDto,
+  WorkstreamResultBreakdownDto,
+  ProjectResultBreakdownDto,
+  CapacityTimeAnalysisDto,
 } from '@kenenisa-os/shared';
 import {
   fetchResultAnalysis,
   fetchDetailedResults,
   fetchSpreadsheetPreview,
   downloadXlsxReport,
+  fetchResultTimeline,
+  fetchPeriodComparison,
+  fetchWorkstreamBreakdown,
+  fetchProjectBreakdown,
+  fetchCapacityAnalysis,
 } from '../features/results/api.js';
 
 export const ResultsPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'overview' | 'timeline' | 'analysis' | 'recommendations' | 'reports'>('overview');
+
   const [period, setPeriod] = useState<'today' | 'week' | 'month' | 'year' | 'custom'>('week');
   const [horizonFilter, setHorizonFilter] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('');
@@ -22,7 +34,13 @@ export const ResultsPage: React.FC = () => {
   const [analysis, setAnalysis] = useState<ResultAnalysisDto | null>(null);
   const [detailedOutcomes, setDetailedOutcomes] = useState<PlanOutcomeDto[]>([]);
   const [spreadsheet, setSpreadsheet] = useState<SpreadsheetReportDto | null>(null);
-  const [activeSheetIndex, setActiveSheetIndex] = useState<number>(1); // Default to Outcomes sheet
+  const [timelineEntries, setTimelineEntries] = useState<ResultTimelineEntryDto[]>([]);
+  const [periodComparison, setPeriodComparison] = useState<PeriodComparisonDto | null>(null);
+  const [workstreams, setWorkstreams] = useState<WorkstreamResultBreakdownDto[]>([]);
+  const [projects, setProjects] = useState<ProjectResultBreakdownDto[]>([]);
+  const [capacityAnalysis, setCapacityAnalysis] = useState<CapacityTimeAnalysisDto | null>(null);
+
+  const [activeSheetIndex, setActiveSheetIndex] = useState<number>(1);
   const [selectedOutcome, setSelectedOutcome] = useState<PlanOutcomeDto | null>(null);
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -31,10 +49,10 @@ export const ResultsPage: React.FC = () => {
   const [exporting, setExporting] = useState<boolean>(false);
 
   useEffect(() => {
-    loadResultsData();
+    loadWorkspaceData();
   }, [period, horizonFilter, statusFilter]);
 
-  const loadResultsData = async () => {
+  const loadWorkspaceData = async () => {
     setLoading(true);
     try {
       const queryParams: Record<string, string> = {};
@@ -42,17 +60,36 @@ export const ResultsPage: React.FC = () => {
       if (statusFilter) queryParams.status = statusFilter;
       if (searchQuery) queryParams.search = searchQuery;
 
-      const [analysisRes, detailedRes, spreadsheetRes] = await Promise.all([
+      const [
+        analysisRes,
+        detailedRes,
+        spreadsheetRes,
+        timelineRes,
+        comparisonRes,
+        workstreamsRes,
+        projectsRes,
+        capacityRes,
+      ] = await Promise.all([
         fetchResultAnalysis(queryParams),
         fetchDetailedResults(queryParams),
         fetchSpreadsheetPreview({ ...queryParams, scope: period }),
+        fetchResultTimeline(queryParams),
+        fetchPeriodComparison(period === 'month' ? 'month' : 'week'),
+        fetchWorkstreamBreakdown(),
+        fetchProjectBreakdown(),
+        fetchCapacityAnalysis(),
       ]);
 
       setAnalysis(analysisRes);
       setDetailedOutcomes(detailedRes.items || []);
       setSpreadsheet(spreadsheetRes);
+      setTimelineEntries(timelineRes || []);
+      setPeriodComparison(comparisonRes);
+      setWorkstreams(workstreamsRes || []);
+      setProjects(projectsRes || []);
+      setCapacityAnalysis(capacityRes);
     } catch (err) {
-      console.error('Failed to load result intelligence data:', err);
+      console.error('Failed to load results workspace data:', err);
     } finally {
       setLoading(false);
     }
@@ -78,17 +115,17 @@ export const ResultsPage: React.FC = () => {
   const getStatusBadge = (state: PlanOutcomeState) => {
     switch (state) {
       case 'COMPLETED':
-        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300">🟢 Completed</span>;
+        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-emerald-100 text-[#22C55E] border border-emerald-300">🟢 Completed</span>;
       case 'PARTIALLY_COMPLETED':
-        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-yellow-100 text-yellow-800 border border-yellow-300">🟡 Partially Completed</span>;
+        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-yellow-100 text-[#FFD700] border border-yellow-300">🟡 Partially Completed</span>;
       case 'MISSED':
-        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-rose-100 text-rose-800 border border-rose-300">🔴 Missed</span>;
+        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-rose-100 text-[#FF5A00] border border-rose-300">🔴 Missed</span>;
       case 'BLOCKED':
-        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-orange-100 text-orange-800 border border-orange-300">🟠 Blocked</span>;
+        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-orange-100 text-[#FF5A00] border border-orange-300">🟠 Blocked</span>;
       case 'IN_PROGRESS':
-        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-blue-100 text-blue-800 border border-blue-300">🔵 In Progress</span>;
+        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-blue-100 text-[#3B82F6] border border-blue-300">🔵 In Progress</span>;
       case 'RESCHEDULED':
-        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-purple-100 text-purple-800 border border-purple-300">↪ Rescheduled</span>;
+        return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-purple-100 text-[#6366F1] border border-purple-300">↪ Rescheduled</span>;
       case 'CANCELLED':
         return <span className="px-2 py-0.5 text-[11px] font-bold rounded-md bg-slate-200 text-slate-700 border border-slate-300">⚫ Cancelled</span>;
       default:
@@ -99,32 +136,32 @@ export const ResultsPage: React.FC = () => {
   const getSourceBadge = (source?: ResultSource) => {
     switch (source) {
       case 'SYSTEM_VERIFIED':
-        return <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-cyan-100 text-cyan-800 border border-cyan-200">Verified Evidence</span>;
+        return <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-cyan-100 text-cyan-800 border border-cyan-200">System Verified</span>;
       case 'USER_CONFIRMED':
         return <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-indigo-100 text-indigo-800 border border-indigo-200">User Confirmed</span>;
       case 'AUTOMATIC':
-        return <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Automatic Engine</span>;
+        return <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Automatic</span>;
       default:
-        return <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-slate-100 text-slate-600">Insufficient Telemetry</span>;
+        return <span className="px-2 py-0.5 text-[10px] font-semibold rounded bg-slate-100 text-slate-600">Unknown Telemetry</span>;
     }
   };
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6 font-sans text-slate-800">
-      {/* Page Header */}
+      {/* Workspace Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/90 pb-5">
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/10 text-emerald-700 border border-emerald-500/30 uppercase tracking-wide">
-              Factual Telemetry
+              Results & Insights Workspace
             </span>
             <span className="text-xs font-semibold text-slate-500">RES-001</span>
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight mt-1">
-            Automatic Result Intelligence & Excel Workspace
+            Results & Insights
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Objective outcome detection, evidence analysis, actionable advance recommendations, and in-app spreadsheet view.
+            Understand what you planned, what actually happened, why, and what needs attention next.
           </p>
         </div>
 
@@ -142,33 +179,52 @@ export const ResultsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Period Horizon Selector Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200/90 shadow-sm">
+      {/* Sub-Navigation Tabs */}
+      <div className="flex items-center justify-between border-b border-slate-200 pb-1">
+        <div className="flex items-center gap-2">
+          {(['overview', 'timeline', 'analysis', 'recommendations', 'reports'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 text-xs font-extrabold capitalize transition-all border-b-2 -mb-[5px] ${
+                activeTab === tab
+                  ? 'border-[#3AB1EC] text-[#0284c7]'
+                  : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              {tab === 'reports' ? 'Reports (Spreadsheet)' : tab}
+            </button>
+          ))}
+        </div>
+
+        {/* Period Horizon Selector */}
         <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
           {(['today', 'week', 'month', 'year', 'custom'] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg capitalize transition-all ${
+              className={`px-3 py-1 text-xs font-bold rounded-lg capitalize transition-all ${
                 period === p
                   ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              {p === 'today' ? 'Today' : p === 'week' ? 'This Week' : p === 'month' ? 'This Month' : p === 'year' ? 'This Year' : 'Custom Range'}
+              {p === 'today' ? 'Today' : p === 'week' ? 'This Week' : p === 'month' ? 'This Month' : p === 'year' ? 'This Year' : 'Custom'}
             </button>
           ))}
         </div>
+      </div>
 
-        {/* Filters & Search */}
+      {/* Search & Filter Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200/90 shadow-sm">
         <div className="flex items-center gap-2">
           <input
             type="text"
-            placeholder="Search outcomes..."
+            placeholder="Search activities..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && loadResultsData()}
-            className="px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 w-44"
+            onKeyDown={(e) => e.key === 'Enter' && loadWorkspaceData()}
+            className="px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 w-52"
           />
 
           <select
@@ -198,39 +254,39 @@ export const ResultsPage: React.FC = () => {
             <option value="CANCELLED">⚫ Cancelled</option>
             <option value="UNKNOWN">⚪ Unknown</option>
           </select>
-
-          {loading && <span className="w-4 h-4 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin shrink-0" />}
         </div>
+
+        {loading && <span className="w-4 h-4 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin shrink-0" />}
       </div>
 
-      {/* Counter Stat Cards */}
+      {/* Overview Stat Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
         <div className="bg-white p-3 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col">
-          <span className="text-[10px] font-bold uppercase text-slate-500">Total Planned</span>
+          <span className="text-[10px] font-bold uppercase text-slate-500">Planned</span>
           <span className="text-xl font-black text-slate-900 mt-1">{analysis?.overview.totalPlanned || 0}</span>
         </div>
         <div className="bg-emerald-50/50 p-3 rounded-2xl border border-emerald-200/80 shadow-sm flex flex-col">
-          <span className="text-[10px] font-bold uppercase text-emerald-700">Completed 🟢</span>
+          <span className="text-[10px] font-bold uppercase text-[#22C55E]">Completed 🟢</span>
           <span className="text-xl font-black text-emerald-900 mt-1">{analysis?.overview.completed || 0}</span>
         </div>
         <div className="bg-yellow-50/50 p-3 rounded-2xl border border-yellow-200/80 shadow-sm flex flex-col">
-          <span className="text-[10px] font-bold uppercase text-yellow-700">Partial 🟡</span>
+          <span className="text-[10px] font-bold uppercase text-[#FFD700]">Partial 🟡</span>
           <span className="text-xl font-black text-yellow-900 mt-1">{analysis?.overview.partiallyCompleted || 0}</span>
         </div>
         <div className="bg-rose-50/50 p-3 rounded-2xl border border-rose-200/80 shadow-sm flex flex-col">
-          <span className="text-[10px] font-bold uppercase text-rose-700">Missed 🔴</span>
+          <span className="text-[10px] font-bold uppercase text-[#FF5A00]">Missed 🔴</span>
           <span className="text-xl font-black text-rose-900 mt-1">{analysis?.overview.missed || 0}</span>
         </div>
         <div className="bg-orange-50/50 p-3 rounded-2xl border border-orange-200/80 shadow-sm flex flex-col">
-          <span className="text-[10px] font-bold uppercase text-orange-700">Blocked 🟠</span>
+          <span className="text-[10px] font-bold uppercase text-[#FF5A00]">Blocked 🟠</span>
           <span className="text-xl font-black text-orange-900 mt-1">{analysis?.overview.blocked || 0}</span>
         </div>
         <div className="bg-blue-50/50 p-3 rounded-2xl border border-blue-200/80 shadow-sm flex flex-col">
-          <span className="text-[10px] font-bold uppercase text-blue-700">In Progress 🔵</span>
+          <span className="text-[10px] font-bold uppercase text-[#3B82F6]">In Progress 🔵</span>
           <span className="text-xl font-black text-blue-900 mt-1">{analysis?.overview.inProgress || 0}</span>
         </div>
         <div className="bg-purple-50/50 p-3 rounded-2xl border border-purple-200/80 shadow-sm flex flex-col">
-          <span className="text-[10px] font-bold uppercase text-purple-700">Rescheduled ↪</span>
+          <span className="text-[10px] font-bold uppercase text-[#6366F1]">Rescheduled ↪</span>
           <span className="text-xl font-black text-purple-900 mt-1">{analysis?.overview.rescheduled || 0}</span>
         </div>
         <div className="bg-slate-100/70 p-3 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col">
@@ -239,233 +295,321 @@ export const ResultsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Split Grid: Actionable Recommendations & Factual AI Advisory */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Next Actions & Recommendations */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-black text-slate-900 uppercase tracking-wide flex items-center gap-2">
-              <span>⚡</span> Actionable Advance Recommendations
+      {/* TAB 1: OVERVIEW SUB-VIEW */}
+      {activeTab === 'overview' && (
+        <div className="space-y-6">
+          {/* Main Outcome Records Grid */}
+          <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-4">
+            <h2 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+              What Happened (Factual Outcome Records)
             </h2>
-            <span className="text-[11px] font-semibold text-slate-500">
-              Integrated with Next Best Action Engine
-            </span>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {detailedOutcomes.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedOutcome(item)}
+                  className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-blue-300 transition-colors cursor-pointer space-y-3"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <span className="text-[10px] font-extrabold uppercase text-slate-400">
+                        {item.horizon} · {item.startDate ? new Date(item.startDate).toLocaleDateString() : 'Active Schedule'}
+                      </span>
+                      <h3 className="text-xs font-bold text-slate-900 mt-0.5">{item.title}</h3>
+                    </div>
+                    {getStatusBadge(item.outcomeState)}
+                  </div>
+
+                  {/* Expected vs Actual */}
+                  <div className="grid grid-cols-2 gap-2 text-xs bg-white p-2.5 rounded-xl border border-slate-200/60">
+                    <div>
+                      <span className="text-[9px] font-bold text-slate-400 uppercase block">Expected</span>
+                      <span className="text-slate-700 font-medium truncate block">{item.expectedResult || '—'}</span>
+                    </div>
+                    <div>
+                      <span className="text-[9px] font-bold text-slate-400 uppercase block">Actual</span>
+                      <span className="text-slate-700 font-medium truncate block">{item.actualResult || '—'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 border-t border-slate-200/60 pt-2">
+                    <span className="font-semibold">{item.project?.name || 'General Execution'}</span>
+                    <div className="flex items-center gap-2">
+                      {getSourceBadge(item.source)}
+                      <span className="font-bold text-slate-700">{item.evidenceLinks?.length || 0} proof</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {detailedOutcomes.length === 0 && (
+                <div className="col-span-2 text-xs text-slate-500 italic p-8 text-center">
+                  Zero outcome records found for current filters.
+                </div>
+              )}
+            </div>
           </div>
+
+          {/* AI Advisory Panel */}
+          <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-sm space-y-4">
+            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <h2 className="text-xs font-black text-cyan-400 uppercase tracking-wider">
+                Intelligence Core Advisory
+              </h2>
+            </div>
+            <p className="text-slate-300 text-xs leading-relaxed">
+              {analysis?.aiAdvisory || 'System evaluating outcome telemetries...'}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 2: TIMELINE SUB-VIEW */}
+      {activeTab === 'timeline' && (
+        <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-4">
+          <h2 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+            Chronological Timeline View
+          </h2>
+
+          <div className="relative border-l-2 border-slate-200 ml-4 space-y-6 pl-6 pt-2">
+            {timelineEntries.map((entry) => (
+              <div key={entry.id} className="relative group">
+                <div className="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-white border-2 border-blue-500" />
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold text-blue-600">{entry.timeLabel}</span>
+                    <h3 className="text-xs font-bold text-slate-900">{entry.title}</h3>
+                  </div>
+                  {getStatusBadge(entry.outcomeState)}
+                </div>
+                <div className="text-xs text-slate-600 mt-1">
+                  Expected: {entry.expectedResult} · Actual: {entry.actualResult || '—'}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: ANALYSIS SUB-VIEW */}
+      {activeTab === 'analysis' && (
+        <div className="space-y-6">
+          {/* Period Comparison & Capacity Analysis */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Period Comparison */}
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
+              <h3 className="text-xs font-black uppercase text-slate-900">
+                Period Comparison ({periodComparison?.currentPeriodLabel} vs {periodComparison?.previousPeriodLabel})
+              </h3>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between p-2 rounded bg-slate-50">
+                  <span>Completed Outcomes</span>
+                  <span className="font-bold text-emerald-700">
+                    {periodComparison?.metrics.completed.previous} → {periodComparison?.metrics.completed.current} ({periodComparison?.metrics.completed.change})
+                  </span>
+                </div>
+                <div className="flex justify-between p-2 rounded bg-slate-50">
+                  <span>Missed Outcomes</span>
+                  <span className="font-bold text-rose-700">
+                    {periodComparison?.metrics.missed.previous} → {periodComparison?.metrics.missed.current} ({periodComparison?.metrics.missed.change})
+                  </span>
+                </div>
+                <div className="flex justify-between p-2 rounded bg-slate-50">
+                  <span>Blocked Outcomes</span>
+                  <span className="font-bold text-orange-700">
+                    {periodComparison?.metrics.blocked.previous} → {periodComparison?.metrics.blocked.current} ({periodComparison?.metrics.blocked.change})
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Time & Capacity Analysis */}
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
+              <h3 className="text-xs font-black uppercase text-slate-900">Time & Capacity Analysis</h3>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between p-2 rounded bg-slate-50">
+                  <span>Configured Capacity</span>
+                  <span className="font-bold text-slate-800">{Math.round((capacityAnalysis?.availableCapacityMinutes || 480) / 60)}h</span>
+                </div>
+                <div className="flex justify-between p-2 rounded bg-slate-50">
+                  <span>Scheduled Time Blocks</span>
+                  <span className="font-bold text-blue-700">{Math.round((capacityAnalysis?.totalScheduledMinutes || 0) / 60)}h</span>
+                </div>
+                <div className="flex justify-between p-2 rounded bg-slate-50">
+                  <span>Recorded Actual Time</span>
+                  <span className="font-bold text-emerald-700">{Math.round((capacityAnalysis?.totalActualMinutes || 0) / 60)}h</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-slate-500">{capacityAnalysis?.capacityConflictNotes}</p>
+            </div>
+          </div>
+
+          {/* Workstream & Project Breakdowns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
+              <h3 className="text-xs font-black uppercase text-slate-900">Workstream Execution Breakdown</h3>
+              <div className="grid grid-cols-1 gap-2">
+                {workstreams.map((w) => (
+                  <div key={w.workstreamId} className="p-3 rounded-xl bg-slate-50 border text-xs space-y-1">
+                    <div className="flex justify-between font-bold text-slate-900">
+                      <span>{w.workstreamName}</span>
+                      <span className="text-emerald-700 font-extrabold">{w.completionRatePercent}%</span>
+                    </div>
+                    <div className="text-[10px] text-slate-500">
+                      Planned: {w.totalPlanned} · Completed: {w.completed} · Blocked: {w.blocked}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
+              <h3 className="text-xs font-black uppercase text-slate-900">Project Execution Breakdown</h3>
+              <div className="grid grid-cols-1 gap-2">
+                {projects.map((p) => (
+                  <div key={p.projectId} className="p-3 rounded-xl bg-slate-50 border text-xs space-y-1">
+                    <div className="flex justify-between font-bold text-slate-900">
+                      <span>{p.projectName}</span>
+                      <span className="text-emerald-700 font-extrabold">{p.completionRatePercent}%</span>
+                    </div>
+                    <div className="text-[10px] text-slate-500">
+                      Planned: {p.totalPlanned} · Completed: {p.completed} · Blocked: {p.blocked}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: RECOMMENDATIONS SUB-VIEW */}
+      {activeTab === 'recommendations' && (
+        <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-4">
+          <h2 className="text-sm font-black text-slate-900 uppercase tracking-wide">
+            Actionable Next Actions (Next Best Action Engine)
+          </h2>
 
           <div className="space-y-3">
             {analysis?.recommendations.map((rec) => (
-              <div
-                key={rec.id}
-                className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-blue-300 transition-colors flex items-start gap-3"
-              >
+              <div key={rec.id} className="p-4 rounded-xl bg-slate-50 border flex items-start gap-3">
                 <span className="w-6 h-6 rounded-full bg-[#3AB1EC]/15 text-[#0284c7] font-black text-xs flex items-center justify-center shrink-0">
                   {rec.actionNumber}
                 </span>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
                     <h3 className="text-xs font-bold text-slate-900">{rec.title}</h3>
                     <span className="px-1.5 py-0.5 text-[9px] font-bold rounded bg-rose-100 text-rose-800 uppercase">
                       {rec.priority}
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-600 mt-0.5">{rec.reason}</p>
+                  <p className="text-xs text-slate-600 mt-1">{rec.reason}</p>
                 </div>
               </div>
             ))}
-            {(!analysis?.recommendations || analysis.recommendations.length === 0) && (
-              <div className="text-xs text-slate-500 italic p-4 text-center">
-                Zero active blockers or unresolved items requiring advance actions.
-              </div>
-            )}
           </div>
         </div>
+      )}
 
-        {/* Factual Observations & AI Advisory */}
-        <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <h2 className="text-xs font-black text-cyan-400 uppercase tracking-wider">
-              Intelligence Core Advisory
-            </h2>
-          </div>
-
-          <div className="space-y-3 text-xs">
-            <div className="bg-slate-800/70 p-3 rounded-xl border border-slate-700/80">
-              <span className="text-[10px] font-bold uppercase text-slate-400 block mb-1">
-                Factual Telemetry Summary
-              </span>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
-                {analysis?.aiAdvisory || 'System analyzing authoritative telemetries...'}
-              </p>
+      {/* TAB 5: REPORTS (EXCEL WORKSPACE) */}
+      {activeTab === 'reports' && (
+        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+            <span className="text-xs font-black uppercase text-emerald-400">📊 In-App Spreadsheet Workspace</span>
+            <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl">
+              {spreadsheet?.sheets.map((sheet, index) => (
+                <button
+                  key={sheet.name}
+                  onClick={() => setActiveSheetIndex(index)}
+                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${
+                    activeSheetIndex === index ? 'bg-[#22C55E] text-white' : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  {sheet.name}
+                </button>
+              ))}
             </div>
-
-            {analysis?.patterns && analysis.patterns.length > 0 && (
-              <div className="space-y-2">
-                <span className="text-[10px] font-bold uppercase text-slate-400 block">
-                  Detected System Patterns
-                </span>
-                {analysis.patterns.map((pat) => (
-                  <div key={pat.id} className="bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/50 text-[11px]">
-                    <span className="font-semibold text-yellow-400 block">{pat.summary}</span>
-                    <span className="text-[10px] text-slate-400 mt-0.5 block">{pat.evidence}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Excel Workspace — In-App Spreadsheet View */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
-        {/* Spreadsheet Tab Bar */}
-        <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-black uppercase text-emerald-400">📊 Excel Workspace (In-App Preview)</span>
-            <span className="text-[10px] text-slate-400 font-mono">
-              {spreadsheet?.sheets[activeSheetIndex]?.totalRows || 0} rows
-            </span>
           </div>
 
-          {/* Sheet Selector Tabs */}
-          <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl">
-            {spreadsheet?.sheets.map((sheet, index) => (
-              <button
-                key={sheet.name}
-                onClick={() => setActiveSheetIndex(index)}
-                className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${
-                  activeSheetIndex === index
-                    ? 'bg-[#22C55E] text-white'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-700'
-                }`}
-              >
-                {sheet.name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Spreadsheet Grid View */}
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="bg-slate-100 border-b border-slate-200 font-bold text-slate-700">
-                {spreadsheet?.sheets[activeSheetIndex]?.columns.map((col) => (
-                  <th key={col.key} className="p-3 border-r border-slate-200 whitespace-nowrap">
-                    {col.header}
-                  </th>
-                ))}
-                <th className="p-3 whitespace-nowrap text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-700 font-normal">
-              {spreadsheet?.sheets[activeSheetIndex]?.rows.map((row) => (
-                <tr key={row.id} className="hover:bg-blue-50/50 transition-colors">
-                  {spreadsheet.sheets[activeSheetIndex].columns.map((col) => {
-                    const value = row[col.key];
-                    return (
-                      <td key={col.key} className="p-3 border-r border-slate-100 whitespace-nowrap max-w-xs truncate">
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="bg-slate-100 border-b font-bold text-slate-700">
+                  {spreadsheet?.sheets[activeSheetIndex]?.columns.map((col) => (
+                    <th key={col.key} className="p-3 border-r whitespace-nowrap">{col.header}</th>
+                  ))}
+                  <th className="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y text-slate-700">
+                {spreadsheet?.sheets[activeSheetIndex]?.rows.map((row) => (
+                  <tr key={row.id} className="hover:bg-blue-50/50">
+                    {spreadsheet.sheets[activeSheetIndex].columns.map((col) => (
+                      <td key={col.key} className="p-3 border-r whitespace-nowrap max-w-xs truncate">
                         {col.key === 'outcomeState' ? (
-                          getStatusBadge(value as PlanOutcomeState)
+                          getStatusBadge(row[col.key] as PlanOutcomeState)
                         ) : col.key === 'source' ? (
-                          getSourceBadge(value as ResultSource)
+                          getSourceBadge(row[col.key] as ResultSource)
                         ) : (
-                          String(value ?? '—')
+                          String(row[col.key] ?? '—')
                         )}
                       </td>
-                    );
-                  })}
-                  <td className="p-3 text-right whitespace-nowrap">
-                    <button
-                      onClick={() => {
-                        const outcome = detailedOutcomes.find((o) => o.id === row.id);
-                        if (outcome) setSelectedOutcome(outcome);
-                      }}
-                      className="px-2.5 py-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
-                    >
-                      View Details
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {(!spreadsheet?.sheets[activeSheetIndex]?.rows || spreadsheet.sheets[activeSheetIndex].rows.length === 0) && (
-                <tr>
-                  <td colSpan={10} className="p-8 text-center text-slate-400 italic">
-                    No spreadsheet records found for current filters.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                    ))}
+                    <td className="p-3 text-right whitespace-nowrap">
+                      <button
+                        onClick={() => {
+                          const outcome = detailedOutcomes.find((o) => o.id === row.id);
+                          if (outcome) setSelectedOutcome(outcome);
+                        }}
+                        className="px-2 py-1 text-[11px] font-bold text-blue-600 bg-blue-50 rounded hover:bg-blue-100"
+                      >
+                        Inspect
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Result Detail Modal */}
+      {/* Result Detail Drawer */}
       {selectedOutcome && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-5 shadow-2xl border border-slate-200">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex justify-end">
+          <div className="bg-white max-w-md w-full h-full p-6 space-y-5 shadow-2xl overflow-y-auto custom-scrollbar">
             <div className="flex items-center justify-between border-b pb-3">
               <div>
-                <span className="text-[10px] font-extrabold uppercase text-slate-400">
-                  Outcome Audit Details
-                </span>
-                <h3 className="text-base font-black text-slate-900">{selectedOutcome.title}</h3>
+                <span className="text-[10px] font-extrabold uppercase text-slate-400">Result Drawer</span>
+                <h3 className="text-sm font-black text-slate-900">{selectedOutcome.title}</h3>
               </div>
-              <button
-                onClick={() => setSelectedOutcome(null)}
-                className="text-slate-400 hover:text-slate-600 font-bold text-sm"
-              >
-                ✕
-              </button>
+              <button onClick={() => setSelectedOutcome(null)} className="text-slate-400 font-bold text-sm">✕</button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 text-xs">
+            <div className="space-y-3 text-xs">
               <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">Expected Result</span>
-                <p className="font-semibold text-slate-800 mt-1">{selectedOutcome.expectedResult || '—'}</p>
+                <span className="text-[10px] font-bold text-slate-400 uppercase block">Expected vs Actual</span>
+                <p className="mt-1"><strong>Expected:</strong> {selectedOutcome.expectedResult || '—'}</p>
+                <p className="mt-0.5"><strong>Actual:</strong> {selectedOutcome.actualResult || '—'}</p>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">Actual Result</span>
-                <p className="font-semibold text-slate-800 mt-1">{selectedOutcome.actualResult || '—'}</p>
+                <span className="text-[10px] font-bold text-slate-400 uppercase block">Status & Source</span>
+                <div className="flex items-center gap-2 mt-1">
+                  {getStatusBadge(selectedOutcome.outcomeState)}
+                  {getSourceBadge(selectedOutcome.source)}
+                </div>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">Outcome Status</span>
-                <div className="mt-1">{getStatusBadge(selectedOutcome.outcomeState)}</div>
-              </div>
-              <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">Result Source</span>
-                <div className="mt-1">{getSourceBadge(selectedOutcome.source)}</div>
-              </div>
-              <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">Related Task</span>
-                <p className="font-semibold text-slate-800 mt-1">{selectedOutcome.task?.title || '—'}</p>
-              </div>
-              <div>
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">Related Project</span>
-                <p className="font-semibold text-slate-800 mt-1">{selectedOutcome.project?.name || '—'}</p>
+                <span className="text-[10px] font-bold text-slate-400 uppercase block">Execution Details</span>
+                <p className="mt-1">Task: {selectedOutcome.task?.title || '—'}</p>
+                <p className="mt-0.5">Project: {selectedOutcome.project?.name || '—'}</p>
               </div>
             </div>
 
-            {selectedOutcome.evidenceLinks && selectedOutcome.evidenceLinks.length > 0 && (
-              <div className="border-t pt-3 space-y-2">
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">
-                  Verifiable Evidence Proof ({selectedOutcome.evidenceLinks.length})
-                </span>
-                {selectedOutcome.evidenceLinks.map((link) => (
-                  <div key={link.id} className="p-2 rounded bg-slate-50 border text-xs flex justify-between">
-                    <span>{link.evidence?.title || link.evidenceId}</span>
-                    <span className="font-semibold text-emerald-700">{link.verificationState}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="flex justify-end pt-2">
-              <button
-                onClick={() => setSelectedOutcome(null)}
-                className="px-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl"
-              >
-                Close Audit View
+            <div className="flex justify-end border-t pt-3">
+              <button onClick={() => setSelectedOutcome(null)} className="px-4 py-2 text-xs font-bold bg-slate-100 rounded-xl">
+                Close Drawer
               </button>
             </div>
           </div>
@@ -475,22 +619,18 @@ export const ResultsPage: React.FC = () => {
       {/* Export Options Modal */}
       {exportModalOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-200">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border">
             <h3 className="text-base font-black text-slate-900">Export Excel Workbook (.xlsx)</h3>
-            <p className="text-xs text-slate-600">
-              Select export period scope. The generated workbook contains Summary, Outcomes, and Actionable Recommendations sheets.
-            </p>
-
             <div className="space-y-2 text-xs font-semibold">
               {[
-                { id: 'current', label: 'Current Filtered View' },
+                { id: 'current', label: 'Current View' },
                 { id: 'day', label: 'Selected Day' },
                 { id: 'week', label: 'Selected Week' },
                 { id: 'month', label: 'Selected Month' },
                 { id: 'year', label: 'Selected Year' },
-                { id: 'full', label: 'Full Result History' },
+                { id: 'full', label: 'Full History' },
               ].map((opt) => (
-                <label key={opt.id} className="flex items-center gap-2 p-2 rounded-lg border hover:bg-slate-50 cursor-pointer">
+                <label key={opt.id} className="flex items-center gap-2 p-2 rounded border cursor-pointer hover:bg-slate-50">
                   <input
                     type="radio"
                     name="exportScope"
@@ -501,20 +641,10 @@ export const ResultsPage: React.FC = () => {
                 </label>
               ))}
             </div>
-
             <div className="flex justify-end gap-2 pt-3 border-t">
-              <button
-                onClick={() => setExportModalOpen(false)}
-                className="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleExportClick}
-                disabled={exporting}
-                className="px-4 py-2 text-xs font-bold text-white bg-[#22C55E] hover:bg-emerald-600 rounded-xl disabled:opacity-50"
-              >
-                {exporting ? 'Generating XLSX...' : 'Download File'}
+              <button onClick={() => setExportModalOpen(false)} className="px-4 py-2 text-xs font-bold text-slate-600">Cancel</button>
+              <button onClick={handleExportClick} disabled={exporting} className="px-4 py-2 text-xs font-bold text-white bg-[#22C55E] rounded-xl">
+                {exporting ? 'Generating...' : 'Download File'}
               </button>
             </div>
           </div>
