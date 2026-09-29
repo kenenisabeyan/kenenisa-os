@@ -18,7 +18,7 @@ import {
   ReviewAnalyticsDto,
   WeeklyHistorySnapshotDto,
 } from '@kenenisa-os/shared';
-import { resolveDateRange, calculatePercentage, generateDateSeries } from './analytics.utils.js';
+import { resolveDateRange, calculatePercentage, generateBoundedDateSeries } from './analytics.utils.js';
 
 export class AnalyticsService {
   /**
@@ -250,7 +250,9 @@ export class AnalyticsService {
    */
   async getExecutionTrend(userId: string, query: AnalyticsQuery): Promise<ExecutionTrendPointDto[]> {
     const range = resolveDateRange(query);
-    const dateSeries = generateDateSeries(range.fromDateStr, range.toDateStr);
+    // PE-007: bound the series to query.limit (max 365 data points by default)
+    const maxPoints = query.limit ? Math.min(query.limit, 365) : 365;
+    const dateSeries = generateBoundedDateSeries(range.fromDateStr, range.toDateStr, maxPoints);
 
     const tasks = await prisma.task.findMany({
       where: { userId },
@@ -745,7 +747,9 @@ export class AnalyticsService {
    */
   async getLearningTrend(userId: string, query: AnalyticsQuery): Promise<LearningTrendPointDto[]> {
     const range = resolveDateRange(query);
-    const dateSeries = generateDateSeries(range.fromDateStr, range.toDateStr);
+    // PE-007: bound the series to query.limit (max 365 data points by default)
+    const maxPoints = query.limit ? Math.min(query.limit, 365) : 365;
+    const dateSeries = generateBoundedDateSeries(range.fromDateStr, range.toDateStr, maxPoints);
 
     const [activities, items] = await Promise.all([
       prisma.learningActivity.findMany({
@@ -853,7 +857,9 @@ export class AnalyticsService {
    */
   async getEvidenceTrend(userId: string, query: AnalyticsQuery): Promise<EvidenceTrendPointDto[]> {
     const range = resolveDateRange(query);
-    const dateSeries = generateDateSeries(range.fromDateStr, range.toDateStr);
+    // PE-007: bound the series to query.limit (max 365 data points by default)
+    const maxPoints = query.limit ? Math.min(query.limit, 365) : 365;
+    const dateSeries = generateBoundedDateSeries(range.fromDateStr, range.toDateStr, maxPoints);
 
     const evidenceList = await prisma.evidence.findMany({
       where: {

@@ -18,7 +18,11 @@ export class HealthService {
     let dbStatus: 'connected' | 'disconnected' | 'disabled' = 'disconnected';
 
     try {
-      await prisma.$queryRaw`SELECT 1`;
+      const dbPing = prisma.$queryRaw`SELECT 1`;
+      const timeout = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('DB ping timeout')), 2000)
+      );
+      await Promise.race([dbPing, timeout]);
       dbStatus = 'connected';
     } catch {
       dbStatus = 'disconnected';

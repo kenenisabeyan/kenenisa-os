@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { analyticsQuerySchema } from '@kenenisa-os/shared';
-import { resolveDateRange, calculatePercentage, generateDateSeries } from '../domain/analytics/analytics.utils.js';
+import { resolveDateRange, calculatePercentage, generateDateSeries, generateBoundedDateSeries } from '../domain/analytics/analytics.utils.js';
 import { AnalyticsService } from '../domain/analytics/analytics.service.js';
 
 describe('Analytics & Personal Operating Intelligence Unit Suite', () => {
@@ -82,4 +82,25 @@ describe('Analytics & Personal Operating Intelligence Unit Suite', () => {
     expect(parsedPagination.limit).toBe(25);
     expect(parsedPagination.offset).toBe(25);
   });
+
+  it('PE-007: generateBoundedDateSeries caps output at maxPoints for large date ranges', () => {
+    // 400-day range should be capped at default 365 points
+    const series400 = generateBoundedDateSeries('2025-01-01', '2026-02-05');
+    expect(series400.length).toBe(365);
+    // The most recent 365 days should be returned (truncated from the start)
+    expect(series400[series400.length - 1]).toBe('2026-02-05');
+
+    // Range within limit should be returned in full
+    const series30 = generateBoundedDateSeries('2026-09-01', '2026-09-30', 365);
+    expect(series30.length).toBe(30);
+    expect(series30[0]).toBe('2026-09-01');
+    expect(series30[series30.length - 1]).toBe('2026-09-30');
+
+    // Explicit smaller maxPoints cap
+    const seriesCapped = generateBoundedDateSeries('2026-09-01', '2026-09-30', 10);
+    expect(seriesCapped.length).toBe(10);
+    expect(seriesCapped[seriesCapped.length - 1]).toBe('2026-09-30');
+  });
 });
+
+

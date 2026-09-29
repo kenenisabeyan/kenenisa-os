@@ -3,6 +3,9 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Install native build tools required by argon2 (node-gyp)
+RUN apk add --no-cache python3 make g++
+
 # Copy root workspace files
 COPY package.json package-lock.json ./
 COPY tsconfig.json ./

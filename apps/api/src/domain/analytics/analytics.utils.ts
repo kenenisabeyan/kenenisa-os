@@ -96,3 +96,23 @@ export function generateDateSeries(fromStr: string, toStr: string): string[] {
 
   return dates;
 }
+
+/**
+ * Generates a date series bounded to a maximum number of points (PE-007).
+ * When the date range would produce more points than `maxPoints`, the series
+ * is truncated to the most recent `maxPoints` days within the range.
+ * Default cap: 365 data points.
+ */
+export function generateBoundedDateSeries(
+  fromStr: string,
+  toStr: string,
+  maxPoints: number = 365
+): string[] {
+  const all = generateDateSeries(fromStr, toStr);
+  if (all.length <= maxPoints) {
+    return all;
+  }
+  // Return the most recent N data points within the range
+  return all.slice(all.length - maxPoints);
+}
+
