@@ -50,7 +50,7 @@ const app = createApp();
 describe('User Management API Test Suite (Owner / Admin Access)', () => {
   const mockOwner = {
     id: '11111111-1111-1111-1111-111111111111',
-    email: 'beyankenenisa@kenenisa.com',
+    email: 'beyankenenisa@gmail.com',
     passwordHash: 'hash',
     firstName: 'Kenenisa',
     lastName: 'Beyan',
@@ -105,7 +105,7 @@ describe('User Management API Test Suite (Owner / Admin Access)', () => {
     const body = res.body as ApiSuccessResponse<{ users: PublicUserDto[] }>;
     expect(body.success).toBe(true);
     expect(body.data.users).toHaveLength(2);
-    expect(body.data.users[0].email).toBe('beyankenenisa@kenenisa.com');
+    expect(body.data.users[0].email).toBe('beyankenenisa@gmail.com');
   });
 
   it('2. POST /api/v1/users allows Owner to provision a new user account', async () => {
@@ -138,7 +138,7 @@ describe('User Management API Test Suite (Owner / Admin Access)', () => {
       .post('/api/v1/users')
       .set('Cookie', [`auth_session=${ownerToken}`])
       .send({
-        email: 'beyankenenisa@kenenisa.com',
+        email: 'beyankenenisa@gmail.com',
         password: 'SecureUserPassword#2026!',
         firstName: 'Kenenisa',
         lastName: 'Beyan',

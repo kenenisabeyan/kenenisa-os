@@ -57,11 +57,11 @@ vi.mock('../lib/prisma.js', () => {
 const app = createApp();
 
 describe('Authentication & Session Comprehensive Test Suite', () => {
-  const testPassword = 'kenenisa@3077215';
+  const testPassword = 'kenenisa@3072215';
   let mockPasswordHash: string;
   const mockUser = {
     id: '11111111-1111-1111-1111-111111111111',
-    email: 'beyankenenisa@kenenisa.com',
+    email: 'beyankenenisa@gmail.com',
     passwordHash: '',
     firstName: 'Kenenisa',
     lastName: 'Beyan',
@@ -117,14 +117,14 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       });
 
       const res = await request(app).post('/api/v1/auth/login').send({
-        email: 'beyankenenisa@kenenisa.com',
+        email: 'beyankenenisa@gmail.com',
         password: testPassword,
       });
 
       expect(res.status).toBe(200);
       const body = res.body as ApiSuccessResponse<{ user: PublicUserDto }>;
       expect(body.success).toBe(true);
-      expect(body.data.user.email).toBe('beyankenenisa@kenenisa.com');
+      expect(body.data.user.email).toBe('beyankenenisa@gmail.com');
       expect(body.data.user.role).toBe('OWNER');
 
       // Verify passwordHash is NOT returned in response DTO
@@ -144,7 +144,7 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       mockUserRepo.findUnique.mockResolvedValue(mockUser);
 
       const res = await request(app).post('/api/v1/auth/login').send({
-        email: 'beyankenenisa@kenenisa.com',
+        email: 'beyankenenisa@gmail.com',
         password: 'IncorrectPassword123!',
       });
 
@@ -178,7 +178,7 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       });
 
       const res = await request(app).post('/api/v1/auth/login').send({
-        email: 'beyankenenisa@kenenisa.com',
+        email: 'beyankenenisa@gmail.com',
         password: testPassword,
       });
 
@@ -210,7 +210,7 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       expect(res.status).toBe(200);
       const body = res.body as ApiSuccessResponse<{ user: PublicUserDto }>;
       expect(body.success).toBe(true);
-      expect(body.data.user.email).toBe('beyankenenisa@kenenisa.com');
+      expect(body.data.user.email).toBe('beyankenenisa@gmail.com');
       expect(body.data.user.role).toBe('OWNER');
     });
 

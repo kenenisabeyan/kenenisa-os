@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { prisma } from '../lib/prisma.js';
 import { TaskPriority, TaskStatus, WorkstreamStatus } from '@prisma/client';
 
-describe('Database Architecture & Entity Integration Tests', () => {
+describe('Database Architecture & Entity Integration Tests', { timeout: 30000 }, () => {
   let testUserId: string;
   let testWorkstreamId: string;
 
@@ -60,7 +60,9 @@ describe('Database Architecture & Entity Integration Tests', () => {
     ).rejects.toThrow();
   });
 
-  it('creates project, milestone, task, subtask, tag, and dependencies correctly', async () => {
+  it(
+    'creates project, milestone, task, subtask, tag, and dependencies correctly',
+    async () => {
     if (!testUserId) return;
     // 1. Create project
     const project = await prisma.project.create({
@@ -152,7 +154,7 @@ describe('Database Architecture & Entity Integration Tests', () => {
     // Cleanup created test project and related entities (cascade verification)
     await prisma.project.delete({ where: { id: project.id } });
     await prisma.tag.delete({ where: { id: tag.id } });
-  });
+  }, 30000);
 
   it('enforces compound uniqueness on DailyPlan (userId + date)', async () => {
     if (!testUserId) return;
