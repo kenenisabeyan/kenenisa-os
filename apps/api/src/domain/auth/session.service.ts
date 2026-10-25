@@ -136,7 +136,7 @@ export async function revokeAllSessionsForUser(userId: string): Promise<number> 
       revokedAt: new Date(),
     },
   });
-  return result.count;
+  return result?.count ?? 0;
 }
 
 /**

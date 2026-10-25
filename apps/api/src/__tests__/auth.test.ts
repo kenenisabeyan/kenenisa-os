@@ -74,6 +74,8 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
     vi.clearAllMocks();
     mockPasswordHash = await hashPassword(testPassword);
     mockUser.passwordHash = mockPasswordHash;
+    const mockSessionRepo = prisma.session as unknown as MockPrismaSession;
+    mockSessionRepo.updateMany.mockResolvedValue({ count: 1 });
   });
 
   describe('Password Security & Token Hashing', () => {
