@@ -1,109 +1,240 @@
-# KENENISA OS
+<div align="center">
 
-**Personal 5th-Year Engineering & Career Operating System**
+# ⚡ KENENISA OS
+### *Autonomous Personal Engineering & Career Operating System*
 
----
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16+-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Prisma ORM](https://img.shields.io/badge/Prisma-6.19-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Vitest](https://img.shields.io/badge/Tests-109%20Passing-22C55E?style=for-the-badge&logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Argon2id](https://img.shields.io/badge/Security-Argon2id%20%2B%20HttpOnly-8B5CF6?style=for-the-badge&logo=shield&logoColor=white)](#-security--authentication)
 
-KENENISA OS is a personal, production-grade operating system built to structurally manage all dimensions of a senior engineering year and the career that follows it — including academic work, engineering projects, learning tracks, freelancing, personal branding, goal systems, productivity analytics, opportunities, and an AI Intelligence Core.
+<br/>
 
-This is not a generic task manager. It is purpose-built software designed for serious, long-term use.
+**A mission-critical, production-grade personal operating system built to orchestrate all dimensions of high-velocity engineering, academic mastery, career progression, learning graphs, and AI intelligence.**
 
----
-
-## Product Architecture & Implemented Core Modules
-
-Steps 0–13 are fully implemented as production-grade domain services, REST APIs, and workspace UI pages:
-
-1. **Authentication & Security (Step 3)**: Argon2id password hashing, SHA-256 session token hashing, HttpOnly cookies, logout & revocation.
-2. **Workstreams, Goals & Projects (Step 4)**: Strategic hierarchy model linking goals, projects, and milestones.
-3. **Tasks & Subtasks & Dependencies (Step 5)**: DAG dependency resolution, status state machines, and blocking task resolution.
-4. **Command Center & Next Best Action (Step 6)**: Deterministic scoring engine surfacing the single Next Best Action.
-5. **Daily & Weekly Planning & Capacity (Step 7)**: Available vs. planned capacity tracking, time blocks, and conflict detection.
-6. **Learning & Skill Graph (Step 8)**: Skill levels, target levels, learning items, and activity tracking logs.
-7. **Evidence & Weekly Review Engine (Step 9)**: Artifact verification linkers, weekly retrospectives, wins, lessons, and action items.
-8. **Analytics & Personal Operating Intelligence (Step 10)**: Deterministic completion rate metrics, capacity utilization, velocity, and weekly history.
-9. **Opportunities & Career Execution Engine (Step 11)**: Opportunities pipeline, skill/project/evidence/task linkers, and follow-up/deadline tracking.
-10. **Intelligence Core (Step 12)**: Context Engine, AIProvider abstraction (OpenAI + MockAIProvider fallback), prompt injection defense, and Action Confirmation protocol.
-11. **Production Hardening & System QA (Steps 13–15)**: Centralized Zod environment validation, Prisma error mapping, request tracking (`X-Request-ID`), bounded 10-second graceful process shutdown, health/readiness endpoints (`/health`, `/ready`), rate limiting, 25 tracked UX improvements, and 129/129 passing system QA tests.
-12. **Production Release Engineering (Step 16)**: Production deployment architecture, zero-downtime Prisma migration SOPs, database backup & restore SOPs, rollback readiness, release verification matrix (`REL-001`–`REL-035`), and production incident runbook.
-13. **Post-Production Monitoring & Stabilization (Step 17)**: Production health matrix (`PH-001`–`PH-030`), observability architecture, continuous stabilization SOPs, incident response protocol, and 15-step hotfix runbook.
-14. **Continuous Product Evolution (Step 18)**: Evidence-driven product evolution framework, issue/opportunity classification model, prioritization score algorithm, active product backlog matrix (`PE-001`–`PE-010`), and architectural decision records.
-15. **Strategic Product Review & Roadmap Reset (Step 19)**: Factual system domain baseline matrix (`docs/strategic-product-baseline.md`), strategic roadmap reset (`NOW`, `NEXT`, `LATER`, `DEFERRED`, `REMOVED` in `docs/strategic-roadmap.md`), and product decision records (`docs/product-decisions.md`).
+[Explore Architecture](#-system-architecture--executive-overview) • [Core Capabilities](#-core-capabilities--features) • [Quick Start](#-quick-start--installation) • [Security & Auth](#-security--authentication-architecture) • [Documentation](#-engineering-documentation)
 
 ---
 
-## Technology Stack
+</div>
 
-| Layer | Technology |
-| :--- | :--- |
-| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS |
-| **Backend** | Node.js, Express, TypeScript, Pino, Helmet, Express-Rate-Limit |
-| **Database** | PostgreSQL, Prisma ORM (v6.19.3) |
-| **Validation** | Zod (Schemas & Environment Config) |
-| **Testing** | Vitest, Supertest, Playwright E2E |
-| **Monorepo** | npm workspaces |
+<br/>
 
----
+## 🏛️ System Architecture & Executive Overview
 
-## Quick Start & Installation
+**KENENISA OS** is not a generic to-do list or lightweight hobby template. It is an **enterprise-architected, deterministic personal execution platform** tailored for senior engineers, academic researchers, and ambitious builders. 
 
-```bash
-# Clone the repository
-git clone https://github.com/kenenisabeyan/kenenisa-os.git
-cd kenenisa-os
+It synthesizes strategic planning, capacity scheduling, directed acyclic graph (DAG) task dependencies, continuous evidence tracking, career opportunities, and an AI intelligence core into a single cohesive system.
 
-# Install workspace dependencies
-npm install
-
-# Copy environment configuration template
-cp .env.example .env
-
-# Generate Prisma Client
-npm run db:generate --workspace=apps/api
-
-# Run quality verification gates
-npm run typecheck
-npm run lint
-npm test
-npm run build
+```mermaid
+graph TD
+    User([👤 Engineer / Owner]) -->|Secured HttpOnly Session| WebUI["🖥️ Modern React 19 Frontend<br/>(Vite + Tailwind CSS)"]
+    WebUI -->|RESTful APIs / X-Request-ID| APIGateway["⚙️ Express API Gateway<br/>(Rate Limiting + Zod Validation)"]
+    
+    subgraph "Core Domain Services"
+        APIGateway --> AuthSvc["🔒 Auth & Session Service<br/>(Argon2id + SHA-256)"]
+        APIGateway --> PlanSvc["📅 Planning & Capacity Engine<br/>(Daily / Weekly / Workblocks)"]
+        APIGateway --> TaskSvc["⚡ Task & DAG Dependency Engine<br/>(Topological Resolution)"]
+        APIGateway --> LearnSvc["🧠 Skill Graph & Evidence Engine<br/>(Retrospectives & Milestones)"]
+        APIGateway --> AISvc["🤖 Intelligence Core Engine<br/>(Context Injection + Safety Guard)"]
+    end
+    
+    AuthSvc & PlanSvc & TaskSvc & LearnSvc & AISvc --> PrismaORM["🔷 Prisma ORM Layer"]
+    PrismaORM --> NeonDB[("🐘 PostgreSQL Database<br/>(High-Performance Cloud DB)")]
 ```
 
 ---
 
-## Running Development Servers
+## 💎 The 7 Core Strategic Workstreams
 
+KENENISA OS organizes life, code, and career execution into 7 primary structural workstreams:
+
+| # | Workstream | Primary Scope & Focus | Priority Weight |
+| :-: | :--- | :--- | :-: |
+| 🎓 | **ASTU / Graduation** | 5th-year engineering coursework, assignments, capstones & exams | `10 / 10` |
+| 💻 | **Full-Stack Engineering** | High-concurrency web architecture, distributed systems & cloud | `9 / 10` |
+| 🤖 | **AI Engineering** | Autonomous agents, RAG pipelines, fine-tuning & ML research | `8 / 10` |
+| 🚀 | **EDOT SaaS** | Commercial software platforms, educational tools & product scaling | `7 / 10` |
+| 📊 | **Management & Leadership**| Agile frameworks, engineering management & executive roadmap execution | `6 / 10` |
+| 💼 | **Freelancing** | High-value client consulting, contracts & enterprise delivery | `5 / 10` |
+| 🌐 | **Personal Brand** | Technical writing, open-source impact & developer presence | `4 / 10` |
+
+---
+
+## ✨ Core Capabilities & Features
+
+### 1. 🎯 Next Best Action (NBA) Engine
+* **Deterministic Scoring Algorithm**: Evaluates priority weights, blocking dependencies, deadlines, and current capacity to determine the single highest-leverage task for right now.
+* **DAG Dependency Resolution**: Enforces topological ordering (`BLOCKS` / `BLOCKED_BY`) so you never attempt a task with unfulfilled prerequisites.
+
+### 2. 📅 Strategic Planning & Capacity Engine
+* **Available vs. Planned Capacity**: Compares daily 480-minute (8h) and weekly 2,400-minute (40h) work capacities with planned time blocks.
+* **Conflict & Over-Allocation Detection**: Automatic warning banners when tasks exceed available energy/time buffers.
+* **Time Blocking**: Live visual calendar blocks with state machines (`PLANNED`, `IN_PROGRESS`, `COMPLETED`, `INTERRUPTED`).
+
+### 3. 🧠 Skill Graph & Evidence Engine
+* **Skill Matrix**: Dynamic proficiency tracker (`NOVICE` &rarr; `EXPERT`) with target mastery timelines.
+* **Verified Evidence Linker**: Link GitHub PRs, live URLs, deployed prototypes, and research notes to skills and milestone completions.
+* **Weekly Retrospectives**: Structured weekly reviews capturing wins, retrospective learnings, and auto-generated action plans.
+
+### 4. 🤖 AI Intelligence Core
+* **Context Engine**: Gathers active workstreams, daily plans, upcoming deadlines, and user memory into structured LLM system prompts.
+* **Provider Abstraction**: Multi-provider support (OpenAI `gpt-4o-mini`, Anthropic, or zero-cost local `MockAIProvider`).
+* **Prompt-Injection Defense**: Sanitizes user queries and implements the **Action Confirmation Protocol** before triggering destructive actions.
+
+### 5. 📊 Real-Time Analytics & Excel Intelligence
+* **Productivity Velocity**: Completion rate tracking across workstreams, time utilization curves, and longitudinal trend lines.
+* **Spreadsheet Export**: Direct streaming export of comprehensive monthly and yearly reports in `.xlsx` binary format with auto-styled columns.
+
+---
+
+## 🔒 Security & Authentication Architecture
+
+Security in KENENISA OS is engineered to strict OWASP standards:
+
+```
+[Client Request] ──> [20 req / 15 min Rate Limiter] ──> [Zod Schema Validation]
+       │
+       ├──> Session Token ──> SHA-256 Hash Lookup in Database ──> User ID Isolation
+       │
+       └──> Password Management ──> Argon2id (Memory: 64MB, Iterations: 3)
+```
+
+- **Argon2id Password Hashing**: State-of-the-art cryptographic password protection (`$argon2id$...`).
+- **Cryptographic Session Tokens**: 256-bit random tokens transmitted via `HttpOnly`, `SameSite=Lax`, `Secure` cookies; only SHA-256 hashes stored in DB.
+- **Strict Anti-IDOR Scoping**: All database queries are explicitly partitioned by the authenticated `req.user.id`.
+- **Identity Self-Recovery**:
+  - **Forgot Password**: 6-digit numeric recovery verification code with automatic 15-minute expiration and cross-device session invalidation.
+  - **Forgot Email**: Name-based account discovery with instant 1-click clipboard copy and auto-fill sign-in.
+- **Audit Logging**: Comprehensive, sanitized security audit logs recording every `LOGIN_SUCCESS`, `LOGIN_FAILURE`, `LOGOUT`, and `PASSWORD_RESET`.
+
+---
+
+## 🚀 Quick Start & Installation
+
+### Prerequisites
+- **Node.js**: v20.x or higher
+- **npm**: v10.x or higher
+- **PostgreSQL**: Local instance or Cloud Neon DB
+
+### 1. Clone & Install
 ```bash
-# Start both frontend (http://localhost:5173) and backend (http://localhost:3000)
+git clone https://github.com/kenenisabeyan/kenenisa-os.git
+cd kenenisa-os
+
+# Install workspace dependencies across apps and shared packages
+npm install
+```
+
+### 2. Environment Configuration
+Copy the template and verify environment settings:
+```bash
+cp .env.example .env
+```
+
+Ensure your `DATABASE_URL` is configured in `apps/api/.env`:
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/kenenisa_os?schema=public"
+```
+
+### 3. Generate Database Client & Seed Owner Account
+```bash
+# Generate Prisma Client
+npm run db:generate --workspace=apps/api
+
+# Provision / Migrate Owner Account
+npm run db:create-owner --workspace=apps/api
+```
+
+### 4. Run Development Servers
+```bash
+# Starts both Backend API (http://localhost:3000) and Frontend Web (http://localhost:5173)
 npm run dev
 ```
 
 ---
 
-## Product Evolution, Strategic Baseline & Operational Documentation
+## 🔑 Default Sign-In Credentials
 
-* [`docs/strategic-product-baseline.md`](./docs/strategic-product-baseline.md) — Factual 28-Domain Implementation Baseline & System Map.
-* [`docs/strategic-roadmap.md`](./docs/strategic-roadmap.md) — Strategic Roadmap Reset (`NOW`, `NEXT`, `LATER`, `DEFERRED`, `REMOVED`).
-* [`docs/product-decisions.md`](./docs/product-decisions.md) — Factual Product Decision Records (`PDR-001`–`PDR-007`).
-* [`docs/product-evolution.md`](./docs/product-evolution.md) — Authoritative Product Evolution Framework & Principles.
-* [`docs/product-evolution-matrix.md`](./docs/product-evolution-matrix.md) — Active Product Evolution Backlog Matrix (`PE-001`–`PE-010`).
-* [`docs/decisions/0008-product-evolution-loop.md`](./docs/decisions/0008-product-evolution-loop.md) — ADR 0008: Continuous Product Evolution Loop.
-* [`docs/production-release.md`](./docs/production-release.md) — Authoritative Production Release Record & Verification Evidence.
-* [`docs/production-health-matrix.md`](./docs/production-health-matrix.md) — Step 17 Production Health Verification Matrix (`PH-001`–`PH-030`).
-* [`docs/production-monitoring.md`](./docs/production-monitoring.md) — Post-Production Observability Architecture & Telemetry.
-* [`docs/production-stabilization.md`](./docs/production-stabilization.md) — Stabilization Plan, Defect Triage & Known Issues Record.
-* [`docs/incident-response.md`](./docs/incident-response.md) — Production Incident Response Protocol & Escalation SOPs.
-* [`docs/hotfix-runbook.md`](./docs/hotfix-runbook.md) — Mandatory 15-step Production Emergency Hotfix Runbook.
-* [`docs/production-release-matrix.md`](./docs/production-release-matrix.md) — Step 16 Production Release Verification Matrix (`REL-001`–`REL-035`).
-* [`docs/deployment.md`](./docs/deployment.md) — Production deployment procedure, environment variables, & Nginx/static serving setup.
-* [`docs/rollback.md`](./docs/rollback.md) — Production rollback procedures for API, database forward-fix, web assets, and session secret rotation.
-* [`docs/production-runbook.md`](./docs/production-runbook.md) — Production incident response SOPs, health check probes (`/health`, `/ready`), & logging correlation.
-* [`docs/system-qa-matrix.md`](./docs/system-qa-matrix.md) — Step 15 System-Wide QA Matrix (`QA-001`–`QA-028`).
-* [`docs/ux-audit-matrix.md`](./docs/ux-audit-matrix.md) — Step 14 Tracked UX Audit Matrix (`UX-001`–`UX-025`).
-* [`docs/security.md`](./docs/security.md) — Argon2id, session tokens, IDOR isolation, rate limits & AI prompt-injection security.
-* [`docs/observability.md`](./docs/observability.md) — Pino logging, `X-Request-ID` tracking, health & readiness endpoints.
-* [`docs/intelligence-core.md`](./docs/intelligence-core.md) — AI reasoning layer & context engine.
-* [`docs/api/`](./docs/api/) — Complete REST API reference documentation.
+For local setup and initial access:
 
+| Field | Default Value | Notes |
+| :--- | :--- | :--- |
+| **Email** | `beyankenenisa@gmail.com` | Recoverable anytime via `/forgot-email` |
+| **Password** | `kenenisa@3072215` | Resettable anytime via `/forgot-password` |
+| **Role** | `OWNER` | Root system access & administration |
 
+> [!TIP]
+> You can also click the **"⚡ Autofill Owner Credentials"** button on the [Login Page](http://localhost:5173/login) for instant 1-click access during local development.
 
+---
 
+## 🧪 Testing & Quality Gates
+
+KENENISA OS maintains zero-compromise code health standards:
+
+```bash
+# Run strict TypeScript typecheck across all workspaces
+npm run typecheck
+
+# Run automated unit & integration test suites (109+ tests)
+npm test
+
+# Run ESLint validation
+npm run lint
+
+# Compile production bundles
+npm run build
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+kenenisa-os/
+├── apps/
+│   ├── api/                    # Express backend service
+│   │   ├── prisma/             # Schema & database seed scripts
+│   │   ├── src/
+│   │   │   ├── domain/         # Domain-Driven services (Auth, Tasks, Goals, etc.)
+│   │   │   ├── middleware/     # Rate limiter, auth guard, errorHandler
+│   │   │   ├── services/       # AI core, Audit logs, Excel reporting
+│   │   │   └── __tests__/      # 16 Vitest test suites (109 passing tests)
+│   └── web/                    # React 19 SPA frontend
+│       ├── src/
+│       │   ├── app/            # Providers, router & layout configuration
+│       │   ├── components/     # UI design system components & ProtectedRoute
+│       │   ├── features/       # Feature hooks, contexts (Auth, Planning, Tasks)
+│       │   └── pages/          # App pages (Dashboard, Login, Recovery, Kanban)
+├── packages/
+│   └── shared/                 # Shared TypeScript models, DTOs & Zod schemas
+├── docs/                       # Complete engineering specs, runbooks & ADRs
+└── docker/                     # Dockerfile & Docker Compose configurations
+```
+
+---
+
+## 📚 Engineering Documentation
+
+The repository includes comprehensive production documentation:
+
+- 📋 [**Strategic Product Baseline**](./docs/strategic-product-baseline.md) — 28-Domain Implementation Matrix & System Map.
+- 🗺️ [**Strategic Roadmap**](./docs/strategic-roadmap.md) — Execution priorities (`NOW`, `NEXT`, `LATER`).
+- 🔐 [**Security Architecture**](./docs/security.md) — Cryptographic hashing, IDOR isolation & token models.
+- 📡 [**REST API Reference**](./docs/api/README.md) — Full endpoint contracts, payloads & responses.
+- 🛠️ [**Production Runbook**](./docs/production-runbook.md) — Health check probes, incident triage & log correlation.
+- 🚀 [**Production Release Verification**](./docs/production-release.md) — Verification evidence & acceptance records.
+
+---
+
+<div align="center">
+
+**Built with pride by [Kenenisa Beyan](https://github.com/kenenisabeyan)**  
+*Crafted for high-velocity software engineering excellence.*
+
+</div>
