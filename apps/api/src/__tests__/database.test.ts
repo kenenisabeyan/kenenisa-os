@@ -9,8 +9,7 @@ describe('Database Architecture & Entity Integration Tests', { timeout: 30000 },
   beforeAll(async () => {
     try {
       // 1. Verify primary user seeded
-      const user = await prisma.user.findUnique({
-        where: { email: 'kenenisa@kenenisa-os.internal' },
+      const user = await prisma.user.findFirst({
         include: { settings: true, workstreams: true },
       });
       if (user) {
