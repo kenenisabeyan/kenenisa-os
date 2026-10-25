@@ -63,6 +63,8 @@ export function createApp(): express.Application {
     },
   });
   app.use('/api/v1/auth/login', authLimiter);
+  app.use('/api/v1/auth/forgot-password', authLimiter);
+  app.use('/api/v1/auth/reset-password', authLimiter);
 
   // Intelligence Core Rate Limiter (LLM cost & token protection)
   const intelligenceLimiter = rateLimit({

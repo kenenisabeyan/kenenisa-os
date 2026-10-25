@@ -61,6 +61,26 @@ export const changePasswordSchema = z
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
 
 /**
+ * Forgot password request schema.
+ */
+export const forgotPasswordSchema = z.object({
+  email: emailSchema,
+});
+
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+
+/**
+ * Reset password request schema.
+ */
+export const resetPasswordSchema = z.object({
+  email: emailSchema,
+  code: z.string().min(1, 'Reset code is required').trim(),
+  newPassword: passwordSchema,
+});
+
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+
+/**
  * Create user payload schema (Owner / Admin user creation).
  */
 export const createUserSchema = z.object({

@@ -1,10 +1,27 @@
+import crypto from 'crypto';
 import { prisma } from '../../lib/prisma.js';
 import { verifyPassword, hashPassword } from '../../utils/password.js';
 import { AuthenticationError } from '../../utils/errors.js';
 import { createSession, revokeSession, revokeAllSessionsForUser } from './session.service.js';
 import { toPublicUser } from './auth.utils.js';
 import { recordAuditLog } from '../../services/audit.service.js';
-import type { LoginInput, PublicUserDto, ChangePasswordInput } from '@kenenisa-os/shared';
+import type {
+  LoginInput,
+  PublicUserDto,
+  ChangePasswordInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
+} from '@kenenisa-os/shared';
+
+interface PasswordResetCode {
+  userId: string;
+  email: string;
+  code: string;
+  expiresAt: number;
+}
+
+// In-memory token store for password reset verification codes (15-minute TTL)
+const resetCodeStore = new Map<string, PasswordResetCode>();
 
 export interface LoginResult {
   rawToken: string;
@@ -147,6 +164,108 @@ export class AuthService {
       action: 'PASSWORD_CHANGE_SUCCESS',
       metadata: { ipAddress },
     });
+  }
+
+  /**
+   * Generates a 6-digit password reset verification code for a valid user.
+   */
+  public static async requestPasswordReset(
+    input: ForgotPasswordInput,
+    ipAddress?: string,
+  ): Promise<{ email: string; resetCode: string; expiresInMinutes: number }> {
+    const normalizedEmail = input.email.trim().toLowerCase();
+
+    const user = await prisma.user.findUnique({
+      where: { email: normalizedEmail },
+    });
+
+    if (!user || !user.isActive) {
+      throw new AuthenticationError('No active account found with this email address.');
+    }
+
+    // Generate cryptographically secure 6-digit numeric recovery code
+    const resetCode = crypto.randomInt(100000, 999999).toString();
+    const expiresInMinutes = 15;
+    const expiresAt = Date.now() + expiresInMinutes * 60 * 1000;
+
+    resetCodeStore.set(normalizedEmail, {
+      userId: user.id,
+      email: normalizedEmail,
+      code: resetCode,
+      expiresAt,
+    });
+
+    console.info(`🔑 [KENENISA OS Security] Password reset code for ${normalizedEmail}: ${resetCode}`);
+
+    await recordAuditLog({
+      userId: user.id,
+      entityType: 'User',
+      entityId: user.id,
+      action: 'PASSWORD_RESET_REQUESTED',
+      metadata: { ipAddress, expiresInMinutes },
+    });
+
+    return {
+      email: normalizedEmail,
+      resetCode,
+      expiresInMinutes,
+    };
+  }
+
+  /**
+   * Verifies the 6-digit reset code and sets a new password.
+   */
+  public static async resetPassword(
+    input: ResetPasswordInput,
+    ipAddress?: string,
+  ): Promise<void> {
+    const normalizedEmail = input.email.trim().toLowerCase();
+    const entry = resetCodeStore.get(normalizedEmail);
+
+    if (!entry) {
+      throw new AuthenticationError(
+        'No pending password reset request found. Please request a new code.',
+      );
+    }
+
+    if (Date.now() > entry.expiresAt) {
+      resetCodeStore.delete(normalizedEmail);
+      throw new AuthenticationError('Password reset code has expired. Please request a new code.');
+    }
+
+    if (entry.code !== input.code.trim()) {
+      await recordAuditLog({
+        userId: entry.userId,
+        entityType: 'User',
+        entityId: entry.userId,
+        action: 'PASSWORD_RESET_FAILURE',
+        metadata: { reason: 'Invalid verification code', ipAddress },
+      });
+      throw new AuthenticationError('Invalid reset verification code. Please check and try again.');
+    }
+
+    const newPasswordHash = await hashPassword(input.newPassword);
+
+    await prisma.user.update({
+      where: { id: entry.userId },
+      data: { passwordHash: newPasswordHash },
+    });
+
+    // Invalidate existing sessions across all devices for security
+    await revokeAllSessionsForUser(entry.userId);
+
+    // Consume the reset code
+    resetCodeStore.delete(normalizedEmail);
+
+    await recordAuditLog({
+      userId: entry.userId,
+      entityType: 'User',
+      entityId: entry.userId,
+      action: 'PASSWORD_RESET_SUCCESS',
+      metadata: { ipAddress },
+    });
+
+    console.info(`✅ [KENENISA OS Security] Password successfully reset for ${normalizedEmail}`);
   }
 
   /**

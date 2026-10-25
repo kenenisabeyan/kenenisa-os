@@ -140,12 +140,21 @@ export const LoginPage: React.FC = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="login-password"
-              className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
-            >
-              Password
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label
+                htmlFor="login-password"
+                className="block text-xs font-bold text-slate-700 uppercase tracking-wider"
+              >
+                Password
+              </label>
+              <Link
+                to="/forgot-password"
+                id="forgot-password-link"
+                className="text-xs font-semibold text-[#3B82F6] hover:text-blue-700 hover:underline transition-colors"
+              >
+                Forgot password?
+              </Link>
+            </div>
             <div className="relative">
               <input
                 id="login-password"

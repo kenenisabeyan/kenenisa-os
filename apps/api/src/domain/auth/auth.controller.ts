@@ -4,7 +4,7 @@ import { getUserActiveSessions, revokeSessionForUser } from './session.service.j
 import { setAuthCookie, clearAuthCookie } from '../../utils/cookies.js';
 import { sendSuccess } from '../../utils/response.js';
 import { toPublicUser } from './auth.utils.js';
-import { loginSchema, changePasswordSchema } from '@kenenisa-os/shared';
+import { loginSchema, changePasswordSchema, forgotPasswordSchema, resetPasswordSchema } from '@kenenisa-os/shared';
 import type { AuthenticatedRequest } from './auth.types.js';
 
 export class AuthController {
@@ -207,6 +207,58 @@ export class AuthController {
         statusCode: 200,
         message: 'Security audit logs retrieved successfully',
         data: { logs },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/v1/auth/forgot-password
+   */
+  public static async forgotPassword(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const validatedInput = forgotPasswordSchema.parse(req.body);
+      const ipAddress = req.ip || req.socket.remoteAddress;
+
+      const result = await AuthService.requestPasswordReset(validatedInput, ipAddress);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'Password reset code generated successfully',
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/v1/auth/reset-password
+   */
+  public static async resetPassword(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const validatedInput = resetPasswordSchema.parse(req.body);
+      const ipAddress = req.ip || req.socket.remoteAddress;
+
+      await AuthService.resetPassword(validatedInput, ipAddress);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'Password reset successfully. You can now log in.',
+        data: null,
       });
     } catch (error) {
       next(error);

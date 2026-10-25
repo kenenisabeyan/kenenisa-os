@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from '../../pages/LoginPage.js';
+import { ForgotPasswordPage } from '../../pages/ForgotPasswordPage.js';
 import { AppShellPage } from '../../pages/AppShellPage.js';
 import { ProtectedRoute } from '../../components/ProtectedRoute.js';
 import { PublicLayout } from '../../components/layout/PublicLayout.js';
@@ -21,6 +22,8 @@ export const AppRouter: React.FC = () => {
 
         {/* Authentication & Private Operating App Routes */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ForgotPasswordPage />} />
         <Route
           path="/app/*"
           element={

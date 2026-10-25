@@ -337,4 +337,85 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       expect(res.body.message).toBe('Current password is incorrect');
     });
   });
+
+  describe('POST /api/v1/auth/forgot-password & /api/v1/auth/reset-password', () => {
+    it('generates recovery reset code for valid user', async () => {
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+      mockUserRepo.findUnique.mockResolvedValue(mockUser);
+
+      const res = await request(app)
+        .post('/api/v1/auth/forgot-password')
+        .send({ email: mockUser.email });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.data.email).toBe(mockUser.email);
+      expect(res.body.data.resetCode).toBeDefined();
+      expect(typeof res.body.data.resetCode).toBe('string');
+      expect(res.body.data.resetCode).toHaveLength(6);
+    });
+
+    it('fails to generate reset code for non-existent user', async () => {
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+      mockUserRepo.findUnique.mockResolvedValue(null);
+
+      const res = await request(app)
+        .post('/api/v1/auth/forgot-password')
+        .send({ email: 'nonexistent@kenenisa.com' });
+
+      expect(res.status).toBe(401);
+      expect(res.body.success).toBe(false);
+      expect(res.body.message).toContain('No active account found');
+    });
+
+    it('successfully resets password with valid recovery code', async () => {
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+      mockUserRepo.findUnique.mockResolvedValue(mockUser);
+      mockUserRepo.update.mockResolvedValue({ ...mockUser });
+
+      // Step 1: Request code
+      const forgotRes = await request(app)
+        .post('/api/v1/auth/forgot-password')
+        .send({ email: mockUser.email });
+
+      const code = forgotRes.body.data.resetCode;
+
+      // Step 2: Reset password
+      const resetRes = await request(app)
+        .post('/api/v1/auth/reset-password')
+        .send({
+          email: mockUser.email,
+          code,
+          newPassword: 'BrandNewPassword#2026!',
+        });
+
+      expect(resetRes.status).toBe(200);
+      expect(resetRes.body.success).toBe(true);
+      expect(resetRes.body.message).toContain('Password reset successfully');
+      expect(mockUserRepo.update).toHaveBeenCalled();
+    });
+
+    it('fails to reset password with invalid code', async () => {
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+      mockUserRepo.findUnique.mockResolvedValue(mockUser);
+
+      // Request valid code
+      await request(app)
+        .post('/api/v1/auth/forgot-password')
+        .send({ email: mockUser.email });
+
+      // Attempt with wrong code
+      const resetRes = await request(app)
+        .post('/api/v1/auth/reset-password')
+        .send({
+          email: mockUser.email,
+          code: '000000',
+          newPassword: 'BrandNewPassword#2026!',
+        });
+
+      expect(resetRes.status).toBe(401);
+      expect(resetRes.body.success).toBe(false);
+      expect(resetRes.body.message).toContain('Invalid reset verification code');
+    });
+  });
 });

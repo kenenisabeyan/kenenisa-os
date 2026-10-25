@@ -1,6 +1,13 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { apiClient } from '../../lib/api-client.js';
-import type { PublicUserDto, AuthState, LoginInput, ChangePasswordInput } from '@kenenisa-os/shared';
+import type {
+  PublicUserDto,
+  AuthState,
+  LoginInput,
+  ChangePasswordInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
+} from '@kenenisa-os/shared';
 
 export interface AuthContextValue {
   user: PublicUserDto | null;
@@ -11,6 +18,10 @@ export interface AuthContextValue {
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
   changePassword: (payload: ChangePasswordInput) => Promise<void>;
+  forgotPassword: (
+    payload: ForgotPasswordInput,
+  ) => Promise<{ email: string; resetCode: string; expiresInMinutes: number }>;
+  resetPassword: (payload: ResetPasswordInput) => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -62,6 +73,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   }, []);
 
+  const forgotPassword = useCallback(
+    async (
+      payload: ForgotPasswordInput,
+    ): Promise<{ email: string; resetCode: string; expiresInMinutes: number }> => {
+      const response = await apiClient<{
+        email: string;
+        resetCode: string;
+        expiresInMinutes: number;
+      }>('/api/v1/auth/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+      return response;
+    },
+    [],
+  );
+
+  const resetPassword = useCallback(async (payload: ResetPasswordInput): Promise<void> => {
+    await apiClient('/api/v1/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }, []);
+
   const value: AuthContextValue = {
     user,
     authState,
@@ -71,6 +106,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     logout,
     checkAuth,
     changePassword,
+    forgotPassword,
+    resetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
