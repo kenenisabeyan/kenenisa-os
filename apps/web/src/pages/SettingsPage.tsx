@@ -288,7 +288,7 @@ export const SettingsPage: React.FC = () => {
           <div className="border-t border-slate-100 pt-4 space-y-3 text-xs">
             <div>
               <span className="text-slate-400 font-medium block text-[11px] uppercase tracking-wider">Primary Email</span>
-              <span className="font-semibold text-slate-800 break-all">{user?.email || 'beyankenenisa@kenenisa.com'}</span>
+              <span className="font-semibold text-slate-800 break-all">{user?.email || 'beyankenenisa@gmail.com'}</span>
             </div>
             <div>
               <span className="text-slate-400 font-medium block text-[11px] uppercase tracking-wider">Registration Policy</span>

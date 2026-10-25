@@ -58,27 +58,44 @@ const CORE_WORKSTREAMS = [
 async function main() {
   console.info('🌱 Starting KENENISA OS database seed...');
 
-  const defaultPasswordHash = await argon2.hash('kenenisa@3077215', {
+  const defaultPasswordHash = await argon2.hash('kenenisa@3072215', {
     type: argon2.argon2id,
   });
 
-  // 1. Create or upsert primary user
-  const user = await prisma.user.upsert({
+  // Check if legacy user exists to migrate data
+  const legacyUser = await prisma.user.findUnique({
     where: { email: 'beyankenenisa@kenenisa.com' },
-    update: {
-      passwordHash: defaultPasswordHash,
-      role: UserRole.OWNER,
-    },
-    create: {
-      email: 'beyankenenisa@kenenisa.com',
-      passwordHash: defaultPasswordHash,
-      firstName: 'Kenenisa',
-      lastName: 'Beyan',
-      displayName: 'Kenenisa Beyan',
-      role: UserRole.OWNER,
-      isActive: true,
-    },
   });
+
+  let user;
+  if (legacyUser) {
+    user = await prisma.user.update({
+      where: { id: legacyUser.id },
+      data: {
+        email: 'beyankenenisa@gmail.com',
+        passwordHash: defaultPasswordHash,
+        role: UserRole.OWNER,
+      },
+    });
+  } else {
+    // 1. Create or upsert primary user
+    user = await prisma.user.upsert({
+      where: { email: 'beyankenenisa@gmail.com' },
+      update: {
+        passwordHash: defaultPasswordHash,
+        role: UserRole.OWNER,
+      },
+      create: {
+        email: 'beyankenenisa@gmail.com',
+        passwordHash: defaultPasswordHash,
+        firstName: 'Kenenisa',
+        lastName: 'Beyan',
+        displayName: 'Kenenisa Beyan',
+        role: UserRole.OWNER,
+        isActive: true,
+      },
+    });
+  }
   console.info(`👤 Owner user ready: ${user.email} (${user.id})`);
 
   // 2. Create or upsert UserSettings

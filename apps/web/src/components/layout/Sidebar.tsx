@@ -140,7 +140,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
             </div>
             <div className="flex flex-col min-w-0">
               <span className="text-xs font-semibold text-slate-900 truncate">{user?.displayName || 'Kenenisa'}</span>
-              <span className="text-[10px] text-slate-500 truncate">{user?.email || 'beyankenenisa@kenenisa.com'}</span>
+              <span className="text-[10px] text-slate-500 truncate">{user?.email || 'beyankenenisa@gmail.com'}</span>
             </div>
           </div>
           <div className="flex items-center gap-1">

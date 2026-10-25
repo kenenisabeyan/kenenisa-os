@@ -138,7 +138,7 @@ export const LoginPage: React.FC = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="beyankenenisa@kenenisa.com"
+              placeholder="beyankenenisa@gmail.com"
               disabled={isSubmitting}
               className={`w-full px-4 py-3 bg-slate-50 border ${
                 fieldErrors.email ? 'border-rose-400' : 'border-slate-300'
@@ -213,12 +213,12 @@ export const LoginPage: React.FC = () => {
           <button
             type="button"
             onClick={() => {
-              setEmail('beyankenenisa@kenenisa.com');
-              setPassword('kenenisa@3077215');
+              setEmail('beyankenenisa@gmail.com');
+              setPassword('kenenisa@3072215');
             }}
             className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2"
           >
-            ⚡ Autofill Owner Credentials (beyankenenisa@kenenisa.com)
+            ⚡ Autofill Owner Credentials (beyankenenisa@gmail.com)
           </button>
         </div>
 

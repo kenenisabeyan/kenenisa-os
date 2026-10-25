@@ -13,7 +13,7 @@ export const ForgotPasswordPage: React.FC = () => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
 
   // Form states
-  const [email, setEmail] = useState(() => searchParams.get('email') || 'beyankenenisa@kenenisa.com');
+  const [email, setEmail] = useState(() => searchParams.get('email') || 'beyankenenisa@gmail.com');
   const [code, setCode] = useState('');
   const [generatedCode, setGeneratedCode] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState('');
@@ -204,7 +204,7 @@ export const ForgotPasswordPage: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="beyankenenisa@kenenisa.com"
+                placeholder="beyankenenisa@gmail.com"
                 disabled={isSubmitting}
                 className={`w-full px-4 py-3 bg-slate-50 border ${
                   fieldErrors.email ? 'border-rose-400' : 'border-slate-300'
@@ -234,10 +234,10 @@ export const ForgotPasswordPage: React.FC = () => {
             <div className="mt-4 pt-4 border-t border-slate-100">
               <button
                 type="button"
-                onClick={() => setEmail('beyankenenisa@kenenisa.com')}
+                onClick={() => setEmail('beyankenenisa@gmail.com')}
                 className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors"
               >
-                ⚡ Autofill Owner Email (beyankenenisa@kenenisa.com)
+                ⚡ Autofill Owner Email (beyankenenisa@gmail.com)
               </button>
             </div>
           </form>
