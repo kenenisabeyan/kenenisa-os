@@ -10,6 +10,7 @@ import type { ApiSuccessResponse, ApiErrorResponse, PublicUserDto } from '@kenen
 // Typed interface for Prisma mock functions
 interface MockPrismaUser {
   findUnique: ReturnType<typeof vi.fn>;
+  findMany: ReturnType<typeof vi.fn>;
   upsert: ReturnType<typeof vi.fn>;
   update: ReturnType<typeof vi.fn>;
   delete: ReturnType<typeof vi.fn>;
@@ -28,6 +29,7 @@ vi.mock('../lib/prisma.js', () => {
   const mockPrisma = {
     user: {
       findUnique: vi.fn(),
+      findMany: vi.fn(),
       upsert: vi.fn(),
       update: vi.fn(),
       delete: vi.fn(),
@@ -418,6 +420,38 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       expect(resetRes.status).toBe(401);
       expect(resetRes.body.success).toBe(false);
       expect(resetRes.body.message).toContain('Invalid reset verification code');
+    });
+  });
+
+  describe('POST /api/v1/auth/forgot-email', () => {
+    it('successfully recovers email for matching name query', async () => {
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+      mockUserRepo.findMany.mockResolvedValue([mockUser]);
+
+      const res = await request(app)
+        .post('/api/v1/auth/forgot-email')
+        .send({ name: 'Kenenisa Beyan' });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.data.accounts).toBeDefined();
+      expect(res.body.data.accounts.length).toBe(1);
+      expect(res.body.data.accounts[0].email).toBe(mockUser.email);
+      expect(res.body.data.accounts[0].maskedEmail).toBeDefined();
+      expect(res.body.data.accounts[0].role).toBe(UserRole.OWNER);
+    });
+
+    it('fails when no accounts match the provided name', async () => {
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+      mockUserRepo.findMany.mockResolvedValue([]);
+
+      const res = await request(app)
+        .post('/api/v1/auth/forgot-email')
+        .send({ name: 'Unknown Nonexistent User' });
+
+      expect(res.status).toBe(401);
+      expect(res.body.success).toBe(false);
+      expect(res.body.message).toContain('No active accounts matched');
     });
   });
 });

@@ -11,6 +11,8 @@ import type {
   ChangePasswordInput,
   ForgotPasswordInput,
   ResetPasswordInput,
+  ForgotEmailInput,
+  RecoveredAccountDto,
 } from '@kenenisa-os/shared';
 
 interface PasswordResetCode {
@@ -266,6 +268,79 @@ export class AuthService {
     });
 
     console.info(`✅ [KENENISA OS Security] Password successfully reset for ${normalizedEmail}`);
+  }
+
+  /**
+   * Helper function to mask email address, e.g. b***a@kenenisa.com
+   */
+  private static maskEmail(email: string): string {
+    const [localPart, domain] = email.split('@');
+    if (!localPart || !domain) return email;
+    if (localPart.length <= 2) {
+      return `${localPart[0]}*@${domain}`;
+    }
+    const first = localPart[0];
+    const last = localPart[localPart.length - 1];
+    const masked = '*'.repeat(Math.max(3, localPart.length - 2));
+    return `${first}${masked}${last}@${domain}`;
+  }
+
+  /**
+   * Recovers registered account email addresses matching the provided name or display name.
+   */
+  public static async recoverEmail(
+    input: ForgotEmailInput,
+    ipAddress?: string,
+  ): Promise<{ accounts: RecoveredAccountDto[] }> {
+    const searchTerms = input.name.trim().toLowerCase().split(/\s+/).filter(Boolean);
+
+    // Look for matching users
+    const users = await prisma.user.findMany({
+      where: {
+        isActive: true,
+      },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        displayName: true,
+        role: true,
+        createdAt: true,
+      },
+    });
+
+    // Match users where any search term appears in firstName, lastName, displayName, or email
+    const matched = users.filter((u) => {
+      const fullText = `${u.firstName} ${u.lastName} ${u.displayName} ${u.email}`.toLowerCase();
+      return searchTerms.some((term) => fullText.includes(term));
+    });
+
+    if (matched.length === 0) {
+      throw new AuthenticationError(
+        'No active accounts matched the provided name. Please check your spelling and try again.',
+      );
+    }
+
+    await recordAuditLog({
+      userId: matched[0].id,
+      entityType: 'User',
+      entityId: matched[0].id,
+      action: 'EMAIL_LOOKUP_REQUESTED',
+      metadata: { search: input.name, matchedCount: matched.length, ipAddress },
+    });
+
+    return {
+      accounts: matched.map((u) => ({
+        email: u.email,
+        maskedEmail: AuthService.maskEmail(u.email),
+        displayName: u.displayName,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        role: u.role,
+        createdAt: u.createdAt.toISOString(),
+      })),
+    };
   }
 
   /**

@@ -14,6 +14,9 @@ authRouter.post('/forgot-password', authRateLimiter, (req, res, next) =>
 authRouter.post('/reset-password', authRateLimiter, (req, res, next) =>
   AuthController.resetPassword(req, res, next),
 );
+authRouter.post('/forgot-email', authRateLimiter, (req, res, next) =>
+  AuthController.forgotEmail(req, res, next),
+);
 authRouter.post('/logout', (req, res, next) => AuthController.logout(req, res, next));
 authRouter.get('/me', requireAuth, (req, res, next) => AuthController.me(req, res, next));
 authRouter.post('/logout-all', requireAuth, (req, res, next) =>

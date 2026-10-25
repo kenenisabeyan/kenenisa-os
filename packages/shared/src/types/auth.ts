@@ -40,5 +40,15 @@ export interface AuthResponseData {
   user: PublicUserDto;
 }
 
+export interface RecoveredAccountDto {
+  email: string;
+  maskedEmail: string;
+  displayName: string;
+  firstName: string;
+  lastName: string;
+  role: UserRole;
+  createdAt: string;
+}
+
 export type AuthState = 'UNKNOWN' | 'AUTHENTICATED' | 'UNAUTHENTICATED';
 

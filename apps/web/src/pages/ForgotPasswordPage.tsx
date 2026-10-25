@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.js';
 import { forgotPasswordSchema, resetPasswordSchema, PASSWORD_MIN_LENGTH } from '@kenenisa-os/shared';
 import { ApiError } from '../lib/api-client.js';
@@ -7,12 +7,13 @@ import { ApiError } from '../lib/api-client.js';
 export const ForgotPasswordPage: React.FC = () => {
   const { forgotPassword, resetPassword } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   // Step state: 1 = Enter Email, 2 = Enter Code & New Password, 3 = Success
   const [step, setStep] = useState<1 | 2 | 3>(1);
 
   // Form states
-  const [email, setEmail] = useState('beyankenenisa@kenenisa.com');
+  const [email, setEmail] = useState(() => searchParams.get('email') || 'beyankenenisa@kenenisa.com');
   const [code, setCode] = useState('');
   const [generatedCode, setGeneratedCode] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState('');
@@ -184,12 +185,20 @@ export const ForgotPasswordPage: React.FC = () => {
         {step === 1 && (
           <form onSubmit={handleRequestCode} className="space-y-4" noValidate>
             <div>
-              <label
-                htmlFor="reset-email"
-                className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
-              >
-                Account Email
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label
+                  htmlFor="reset-email"
+                  className="block text-xs font-bold text-slate-700 uppercase tracking-wider"
+                >
+                  Account Email
+                </label>
+                <Link
+                  to="/forgot-email"
+                  className="text-xs font-semibold text-[#3B82F6] hover:text-blue-700 hover:underline transition-colors"
+                >
+                  Forgot your email?
+                </Link>
+              </div>
               <input
                 id="reset-email"
                 type="email"

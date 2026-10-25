@@ -61,6 +61,15 @@ export const changePasswordSchema = z
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
 
 /**
+ * Forgot email / account lookup request schema.
+ */
+export const forgotEmailSchema = z.object({
+  name: z.string().trim().min(1, 'Please enter your name or display name'),
+});
+
+export type ForgotEmailInput = z.infer<typeof forgotEmailSchema>;
+
+/**
  * Forgot password request schema.
  */
 export const forgotPasswordSchema = z.object({

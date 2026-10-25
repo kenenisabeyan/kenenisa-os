@@ -4,7 +4,13 @@ import { getUserActiveSessions, revokeSessionForUser } from './session.service.j
 import { setAuthCookie, clearAuthCookie } from '../../utils/cookies.js';
 import { sendSuccess } from '../../utils/response.js';
 import { toPublicUser } from './auth.utils.js';
-import { loginSchema, changePasswordSchema, forgotPasswordSchema, resetPasswordSchema } from '@kenenisa-os/shared';
+import {
+  loginSchema,
+  changePasswordSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+  forgotEmailSchema,
+} from '@kenenisa-os/shared';
 import type { AuthenticatedRequest } from './auth.types.js';
 
 export class AuthController {
@@ -259,6 +265,32 @@ export class AuthController {
         statusCode: 200,
         message: 'Password reset successfully. You can now log in.',
         data: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /api/v1/auth/forgot-email
+   */
+  public static async forgotEmail(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const validatedInput = forgotEmailSchema.parse(req.body);
+      const ipAddress = req.ip || req.socket.remoteAddress;
+
+      const result = await AuthService.recoverEmail(validatedInput, ipAddress);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'Matching registered accounts retrieved successfully',
+        data: result,
       });
     } catch (error) {
       next(error);

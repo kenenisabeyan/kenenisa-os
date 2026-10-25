@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Navigate, Link } from 'react-router-dom';
+import { useNavigate, Navigate, Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.js';
 import { loginSchema } from '@kenenisa-os/shared';
 import { ApiError } from '../lib/api-client.js';
@@ -7,8 +7,9 @@ import { ApiError } from '../lib/api-client.js';
 export const LoginPage: React.FC = () => {
   const { login, authState } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(() => searchParams.get('email') || '');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -117,12 +118,21 @@ export const LoginPage: React.FC = () => {
           noValidate
         >
           <div>
-            <label
-              htmlFor="login-email"
-              className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
-            >
-              Email Address
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label
+                htmlFor="login-email"
+                className="block text-xs font-bold text-slate-700 uppercase tracking-wider"
+              >
+                Email Address
+              </label>
+              <Link
+                to="/forgot-email"
+                id="forgot-email-link"
+                className="text-xs font-semibold text-[#3B82F6] hover:text-blue-700 hover:underline transition-colors"
+              >
+                Forgot email?
+              </Link>
+            </div>
             <input
               id="login-email"
               type="email"

@@ -7,6 +7,8 @@ import type {
   ChangePasswordInput,
   ForgotPasswordInput,
   ResetPasswordInput,
+  ForgotEmailInput,
+  RecoveredAccountDto,
 } from '@kenenisa-os/shared';
 
 export interface AuthContextValue {
@@ -22,6 +24,7 @@ export interface AuthContextValue {
     payload: ForgotPasswordInput,
   ) => Promise<{ email: string; resetCode: string; expiresInMinutes: number }>;
   resetPassword: (payload: ResetPasswordInput) => Promise<void>;
+  forgotEmail: (payload: ForgotEmailInput) => Promise<{ accounts: RecoveredAccountDto[] }>;
 }
 
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -97,6 +100,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   }, []);
 
+  const forgotEmail = useCallback(
+    async (payload: ForgotEmailInput): Promise<{ accounts: RecoveredAccountDto[] }> => {
+      const response = await apiClient<{ accounts: RecoveredAccountDto[] }>(
+        '/api/v1/auth/forgot-email',
+        {
+          method: 'POST',
+          body: JSON.stringify(payload),
+        },
+      );
+      return response;
+    },
+    [],
+  );
+
   const value: AuthContextValue = {
     user,
     authState,
@@ -108,6 +125,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     changePassword,
     forgotPassword,
     resetPassword,
+    forgotEmail,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
