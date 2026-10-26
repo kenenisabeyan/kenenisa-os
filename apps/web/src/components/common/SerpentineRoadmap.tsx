@@ -151,6 +151,15 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
   ];
 
   const steps = customSteps || defaultSteps;
+  const [autoTourActive, setAutoTourActive] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!autoTourActive) return;
+    const interval = setInterval(() => {
+      setActiveStepIndex((prev) => (prev === null ? 0 : (prev + 1) % steps.length));
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [autoTourActive, steps.length]);
 
   // Generate 100% smooth C2-continuous serpentine ribbon path
   const stepHeight = 440;
@@ -305,19 +314,69 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             </svg>
           </div>
 
+          {/* ── Interactive Mobile Stage Switcher & Flow Bar (Visible on Mobile) ── */}
+          <div className="md:hidden flex items-center justify-between bg-white/80 backdrop-blur-md p-2.5 rounded-2xl border border-slate-200/90 shadow-sm mb-6 relative z-20">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+              {steps.map((s, sIdx) => {
+                const isCur = activeStepIndex === sIdx;
+                return (
+                  <button
+                    key={s.number}
+                    onClick={() => {
+                      setActiveStepIndex(isCur ? null : sIdx);
+                      const el = document.getElementById(`mobile-step-card-${sIdx}`);
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                      isCur
+                        ? 'text-white shadow-md scale-105'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    }`}
+                    style={isCur ? { backgroundColor: s.themeColor, boxShadow: `0 4px 12px ${s.themeColor}55` } : {}}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${isCur ? 'bg-white animate-ping' : ''}`}
+                      style={!isCur ? { backgroundColor: s.themeColor } : {}}
+                    />
+                    {s.number}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => setAutoTourActive((v) => !v)}
+              className={`ml-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 border cursor-pointer ${
+                autoTourActive
+                  ? 'bg-purple-600 text-white border-purple-500 shadow-md shadow-purple-500/25 animate-pulse'
+                  : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+              }`}
+              title="Toggle automatic walkthrough mode"
+            >
+              <span>{autoTourActive ? '⏸ Stop' : '⚡ Auto-Flow'}</span>
+            </button>
+          </div>
+
           {/* ── Vertical Animated Energy Spine (Visible on Mobile) ── */}
-          <div className="md:hidden absolute left-[22px] top-6 bottom-6 w-1.5 rounded-full z-0 overflow-visible pointer-events-none">
+          <div className="md:hidden absolute left-[22px] top-16 bottom-6 w-2 rounded-full z-0 overflow-visible pointer-events-none">
             {/* Ambient Background Track */}
-            <div className="absolute inset-0 w-full rounded-full bg-slate-200/80" />
+            <div className="absolute inset-0 w-full rounded-full bg-slate-200/90 shadow-[0_0_8px_rgba(124,58,237,0.15)]" />
 
-            {/* Glowing Moving Gradient Spine */}
-            <div className="absolute inset-0 w-full rounded-full bg-gradient-to-b from-[#7C3AED] via-[#0284C7] via-[#2563EB] via-[#EA580C] to-[#16A34A] animate-spine-flow shadow-sm" />
+            {/* Glowing Moving Gradient Dynamic Spectrum */}
+            <div className="absolute inset-0 w-full rounded-full bg-gradient-to-b from-[#7C3AED] via-[#0284C7] via-[#2563EB] via-[#EA580C] to-[#16A34A] animate-spine-flow shadow-[0_0_12px_rgba(37,99,235,0.35)]" />
 
-            {/* Primary Flowing Laser Energy Pulse */}
-            <div className="absolute left-1/2 -translate-x-1/2 w-2 h-20 rounded-full bg-gradient-to-b from-transparent via-white to-transparent shadow-[0_0_12px_#38bdf8] animate-laser-travel" />
+            {/* Primary High-Speed Flowing Laser Pulse */}
+            <div className="absolute left-1/2 -translate-x-1/2 w-2.5 h-24 rounded-full bg-gradient-to-b from-transparent via-white to-transparent shadow-[0_0_16px_#38bdf8] animate-laser-travel" />
 
-            {/* Secondary Interleaved Flowing Laser Energy Pulse */}
-            <div className="absolute left-1/2 -translate-x-1/2 w-2 h-24 rounded-full bg-gradient-to-b from-transparent via-cyan-300 to-transparent shadow-[0_0_14px_#818cf8] animate-laser-travel-delayed" />
+            {/* Secondary Interleaved Flowing Laser Pulse */}
+            <div className="absolute left-1/2 -translate-x-1/2 w-2.5 h-28 rounded-full bg-gradient-to-b from-transparent via-cyan-300 to-transparent shadow-[0_0_18px_#818cf8] animate-laser-travel-delayed" />
+
+            {/* Micro-spark particles floating along the spine */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-1/4 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#fff] animate-particle-float-1" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 w-1.5 h-1.5 rounded-full bg-cyan-200 shadow-[0_0_6px_#38bdf8] animate-particle-float-2" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-3/4 w-1.5 h-1.5 rounded-full bg-purple-200 shadow-[0_0_6px_#a855f7] animate-particle-float-3" />
           </div>
 
           {/* Steps List */}
@@ -333,27 +392,44 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                 >
                   {/* ── MOBILE CARD LAYOUT (Renders for ALL steps on mobile) ── */}
                   <div className="md:hidden flex flex-col relative z-10 w-full space-y-4">
-                    {/* Step Icon & Badge with Radar Pulse */}
+                    {/* Step Icon & Badge with Radar Pulse & Satellite Orbit */}
                     <div className="flex items-center gap-3">
                       <div className="relative shrink-0">
-                        {/* Animated Radar Pulse Beacon */}
+                        {/* Outer Concentric Radar Pulse Beacon */}
                         <div
-                          className="absolute -inset-1.5 rounded-full animate-pulse-beacon opacity-75 pointer-events-none"
+                          className="absolute -inset-2 rounded-full animate-pulse-beacon opacity-75 pointer-events-none"
                           style={{ backgroundColor: step.themeColor }}
                         />
+                        <div
+                          className="absolute -inset-4 rounded-full animate-pulse-beacon opacity-40 pointer-events-none"
+                          style={{ backgroundColor: step.themeColor, animationDelay: '1.2s' }}
+                        />
+
+                        {/* Orbiting Satellite Electron Particle */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="animate-satellite-orbit w-full h-full flex items-center justify-center">
+                            <div
+                              className="w-2 h-2 rounded-full shadow-[0_0_8px_currentColor]"
+                              style={{ backgroundColor: step.themeColor, color: step.themeColor }}
+                            />
+                          </div>
+                        </div>
 
                         {/* Ambient Glow */}
                         <div
-                          className="absolute inset-0 rounded-full opacity-35 blur-xs pointer-events-none"
+                          className="absolute inset-0 rounded-full opacity-40 blur-xs pointer-events-none"
                           style={{ backgroundColor: step.themeColor }}
                         />
 
                         {/* Step Circle Badge */}
-                        <div
-                          className="relative w-12 h-12 rounded-full bg-white border-4 flex flex-col items-center justify-center shadow-md animate-step-breathe transition-all duration-300"
+                        <button
+                          onClick={() => setActiveStepIndex(isActive ? null : idx)}
+                          className={`relative w-12 h-12 rounded-full bg-white border-4 flex flex-col items-center justify-center shadow-md animate-step-breathe transition-all duration-300 cursor-pointer ${
+                            isActive ? 'scale-110 ring-4 ring-offset-2' : ''
+                          }`}
                           style={{
                             borderColor: step.themeColor,
-                            boxShadow: `0 4px 16px ${step.themeColor}35`,
+                            boxShadow: `0 4px 18px ${step.themeColor}40`,
                           }}
                         >
                           <span className="text-[8px] font-extrabold text-slate-400 uppercase tracking-widest">
@@ -362,46 +438,114 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                           <span className="text-sm font-black leading-none" style={{ color: step.themeColor }}>
                             {step.number}
                           </span>
-                        </div>
+                        </button>
                       </div>
 
-                      <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full shadow-2xs ${step.bgBadgeColor}`}>
-                        {step.badgeTitle}
-                      </span>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full shadow-2xs ${step.bgBadgeColor}`}>
+                          {step.badgeTitle}
+                        </span>
+                        {isActive && (
+                          <span className="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-900 text-white shadow-xs animate-pulse">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping" />
+                            Live Focus
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Step Card Container with Left-Side Animated Runner */}
-                    <div className="relative overflow-hidden bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-md space-y-4 ml-1 sm:ml-2 group hover:border-slate-300 transition-all duration-300">
-                      {/* Left-Side Glowing Animated Energy Runner Bar */}
-                      <div className="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl overflow-hidden bg-slate-100 pointer-events-none">
+                    <div
+                      id={`mobile-step-card-${idx}`}
+                      onClick={() => setActiveStepIndex(isActive ? null : idx)}
+                      className={`relative overflow-hidden bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border transition-all duration-300 space-y-4 ml-6 sm:ml-8 cursor-pointer group ${
+                        isActive
+                          ? 'border-transparent ring-2 scale-[1.01] shadow-2xl'
+                          : 'border-slate-200/90 shadow-md hover:border-slate-300'
+                      }`}
+                      style={
+                        isActive
+                          ? {
+                              boxShadow: `0 14px 34px -6px ${step.themeColor}30, 0 0 20px 2px ${step.themeColor}20`,
+                              outlineColor: step.themeColor,
+                            }
+                          : {}
+                      }
+                    >
+                      {/* Watermark Step Number in Background */}
+                      <span className="absolute -bottom-4 -right-2 text-6xl font-black text-slate-100/70 select-none pointer-events-none tracking-tighter">
+                        {step.number}
+                      </span>
+
+                      {/* Animated Circuit Connector Branch from Spine into Card */}
+                      <div
+                        className="absolute -left-6 top-7 w-6 h-[2px] pointer-events-none overflow-hidden"
+                        style={{
+                          background: `linear-gradient(90deg, ${step.themeColor} 0%, ${step.themeColor}99 100%)`,
+                        }}
+                      >
+                        <div className="absolute inset-0 w-2 h-full bg-white shadow-[0_0_8px_#fff] rounded-full animate-photon-bridge" />
+                      </div>
+
+                      {/* Left-Side Glowing Animated Energy Runner Bar (Dual-Layer Plasma Channel) */}
+                      <div className="absolute left-0 top-0 bottom-0 w-2 rounded-l-2xl overflow-hidden bg-slate-100/90 pointer-events-none">
+                        {/* Ambient Base Pulsing Glow */}
                         <div
-                          className="absolute inset-0 opacity-25"
+                          className="absolute inset-0 opacity-30 animate-neon-border-pulse"
                           style={{ backgroundColor: step.themeColor }}
                         />
+
+                        {/* Primary Laser Plasma Runner */}
                         <div
-                          className="absolute w-full h-24 rounded-full animate-beam-slide"
+                          className="absolute w-full h-28 rounded-full animate-plasma-travel"
                           style={{
-                            background: `linear-gradient(180deg, transparent 0%, ${step.themeColor} 50%, transparent 100%)`,
-                            boxShadow: `0 0 8px ${step.themeColor}`,
+                            background: `linear-gradient(180deg, transparent 0%, #ffffff 30%, ${step.themeColor} 70%, transparent 100%)`,
+                            boxShadow: `0 0 12px ${step.themeColor}, 0 0 24px ${step.themeColor}99`,
+                          }}
+                        />
+
+                        {/* Secondary Faster Plasma Runner */}
+                        <div
+                          className="absolute w-full h-20 rounded-full animate-plasma-travel-fast"
+                          style={{
+                            background: `linear-gradient(180deg, transparent 0%, #ffffff 40%, ${step.themeColor} 80%, transparent 100%)`,
+                            boxShadow: `0 0 10px ${step.themeColor}`,
                           }}
                         />
                       </div>
 
-                      {/* Left Connector Node */}
+                      {/* Left Connector Cybernetic Nodes (Top, Mid, Bottom) */}
                       <div
-                        className="absolute -left-1 top-6 w-2.5 h-2.5 rounded-full border-2 border-white shadow-xs z-10 pointer-events-none"
+                        className="absolute -left-1 top-6 w-3 h-3 rounded-full border-2 border-white shadow-md z-10 pointer-events-none animate-electric-flicker"
                         style={{
                           backgroundColor: step.themeColor,
-                          boxShadow: `0 0 6px ${step.themeColor}`,
+                          boxShadow: `0 0 10px ${step.themeColor}`,
                         }}
                       >
                         <div
-                          className="absolute inset-0 rounded-full animate-ping opacity-75"
+                          className="absolute inset-0 rounded-full animate-ping opacity-60"
                           style={{ backgroundColor: step.themeColor }}
                         />
                       </div>
 
-                      <div className="flex items-start justify-between gap-3 pl-1.5">
+                      <div
+                        className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full border border-white shadow-xs z-10 pointer-events-none animate-electric-flicker"
+                        style={{
+                          backgroundColor: step.themeColor,
+                          boxShadow: `0 0 6px ${step.themeColor}`,
+                        }}
+                      />
+
+                      <div
+                        className="absolute -left-0.5 bottom-6 w-1.5 h-1.5 rounded-full border border-white shadow-xs z-10 pointer-events-none animate-electric-flicker"
+                        style={{
+                          backgroundColor: step.themeColor,
+                          boxShadow: `0 0 6px ${step.themeColor}`,
+                        }}
+                      />
+
+                      {/* Header Content */}
+                      <div className="flex items-start justify-between gap-3 pl-2 relative z-10">
                         <div>
                           <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase leading-snug">
                             {step.title}
@@ -414,15 +558,16 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                           className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-md shrink-0 group-hover:scale-105 transition-transform duration-300"
                           style={{
                             backgroundColor: step.themeColor,
-                            boxShadow: `0 4px 12px ${step.themeColor}40`,
+                            boxShadow: `0 4px 14px ${step.themeColor}45`,
                           }}
                         >
                           {step.icon}
                         </div>
                       </div>
 
+                      {/* Gradient Divider with Shimmer Sweep */}
                       <div
-                        className="relative overflow-hidden h-1 rounded-full w-full max-w-[180px] ml-1.5"
+                        className="relative overflow-hidden h-1 rounded-full w-full max-w-[200px] ml-2"
                         style={{
                           background: `linear-gradient(90deg, ${step.themeColor} 0%, ${step.themeColor}44 70%, transparent 100%)`,
                         }}
@@ -430,20 +575,30 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                         <div className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white to-transparent animate-shimmer-sweep" />
                       </div>
 
-                      <p className="text-sm text-slate-700 leading-relaxed font-normal pl-1.5">
+                      <p className="text-sm text-slate-700 leading-relaxed font-normal pl-2 relative z-10">
                         {step.description}
                       </p>
 
-                      <div className="pt-3 border-t border-slate-100 space-y-2">
-                        <span className="text-xs font-extrabold uppercase tracking-wider text-slate-900 block">
-                          FOCUS AREAS:
-                        </span>
+                      <div className="pt-3 border-t border-slate-100 space-y-2 pl-2 relative z-10">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-extrabold uppercase tracking-wider text-slate-900 block">
+                            FOCUS AREAS:
+                          </span>
+                          <span className="text-[10px] text-slate-400 font-medium">
+                            {isActive ? '● Active View' : 'Tap to focus'}
+                          </span>
+                        </div>
                         <ul className="space-y-1.5 text-xs text-slate-800 font-medium">
                           {step.focusAreas.map((area, aIdx) => (
                             <li key={aIdx} className="flex items-center gap-2">
                               <span
-                                className="w-2 h-2 rounded-full shrink-0"
-                                style={{ backgroundColor: step.themeColor }}
+                                className={`w-2 h-2 rounded-full shrink-0 transition-transform ${
+                                  isActive ? 'scale-125' : ''
+                                }`}
+                                style={{
+                                  backgroundColor: step.themeColor,
+                                  boxShadow: isActive ? `0 0 6px ${step.themeColor}` : 'none',
+                                }}
                               />
                               <span>{area}</span>
                             </li>

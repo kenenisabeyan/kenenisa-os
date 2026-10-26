@@ -303,5 +303,134 @@ dialog {
   animation: shimmerSweep 2.4s ease-in-out infinite;
 }
 
+/* ── Advanced High-Tech Neon & Plasma Mobile Movement Keyframes ────────── */
+@keyframes plasmaTravel {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(240%);
+    opacity: 0;
+  }
+}
+
+.animate-plasma-travel {
+  animation: plasmaTravel 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-plasma-travel-fast {
+  animation: plasmaTravel 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.8s infinite;
+}
+
+@keyframes photonBridge {
+  0% {
+    left: -10%;
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  30% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  70% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    left: 110%;
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+}
+
+.animate-photon-bridge {
+  animation: photonBridge 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes neonBorderPulse {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.animate-neon-border-pulse {
+  animation: neonBorderPulse 3s ease-in-out infinite;
+}
+
+@keyframes satelliteOrbit {
+  from {
+    transform: rotate(0deg) translateX(28px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(28px) rotate(-360deg);
+  }
+}
+
+.animate-satellite-orbit {
+  animation: satelliteOrbit 5s linear infinite;
+}
+
+@keyframes particleFloatUp {
+  0% {
+    transform: translateY(15px) scale(0.6);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-30px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-particle-float-1 {
+  animation: particleFloatUp 3.6s ease-in-out infinite;
+}
+
+.animate-particle-float-2 {
+  animation: particleFloatUp 4.2s ease-in-out 1.4s infinite;
+}
+
+.animate-particle-float-3 {
+  animation: particleFloatUp 3s ease-in-out 2.1s infinite;
+}
+
+@keyframes electricFlicker {
+  0%, 100% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.7;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
+
+.animate-electric-flicker {
+  animation: electricFlicker 2s ease-in-out infinite;
+}
+
 
 
