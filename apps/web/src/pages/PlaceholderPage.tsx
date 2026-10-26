@@ -88,8 +88,8 @@ export const PlaceholderPage: React.FC = () => {
       {/* Background Radial Glow */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950 to-slate-950 pointer-events-none" />
 
-      {/* Header / Navbar */}
-      <header className="relative z-10 border-b border-slate-800/80 bg-slate-950/60 backdrop-blur-md px-6 py-4 flex items-center justify-between">
+      {/* Header / Navbar - Fixed Position */}
+      <header className="fixed top-0 inset-x-0 z-30 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-black text-slate-950 shadow-lg shadow-cyan-500/20">
             K
@@ -126,6 +126,9 @@ export const PlaceholderPage: React.FC = () => {
           </span>
         </div>
       </header>
+
+      {/* Spacer for fixed header */}
+      <div className="h-20 shrink-0" aria-hidden="true" />
 
       {/* Main Content */}
       <main className="relative z-10 flex-1 max-w-7xl mx-auto px-6 py-12 w-full space-y-12">

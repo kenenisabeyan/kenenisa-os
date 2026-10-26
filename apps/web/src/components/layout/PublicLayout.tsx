@@ -20,8 +20,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans selection:bg-[#0284C7]/20 selection:text-indigo-950">
-      {/* Public Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-2xl border-b border-cyan-100/80 h-16 sm:h-20 flex items-center px-4 sm:px-8 lg:px-16 justify-between shadow-lg shadow-cyan-500/5 transition-all duration-300">
+      {/* Public Header - Fixed Position */}
+      <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-cyan-100/80 h-16 sm:h-20 flex items-center px-4 sm:px-8 lg:px-16 justify-between shadow-lg shadow-cyan-500/5 transition-all duration-300">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group" aria-label="KENENISA OS Home">
           <img
@@ -110,15 +110,18 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         </button>
       </header>
 
+      {/* Spacer for fixed header */}
+      <div className="h-16 sm:h-20 shrink-0" aria-hidden="true" />
+
       {/* Mobile Drawer Menu & Backdrop */}
       {mobileMenuOpen && (
         <>
           <div
-            className="md:hidden fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-xs transition-opacity"
+            className="md:hidden fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
-          <div className="md:hidden fixed inset-x-0 top-16 sm:top-20 bg-white/98 backdrop-blur-xl border-b border-cyan-100 z-30 p-5 shadow-2xl space-y-4 animate-in slide-in-from-top-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="md:hidden fixed inset-x-0 top-16 sm:top-20 bg-white/98 backdrop-blur-xl border-b border-cyan-100 z-50 p-5 shadow-2xl space-y-4 animate-in slide-in-from-top-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <nav className="flex flex-col space-y-1.5">
               {navLinks.map((link) => (
                 <NavLink

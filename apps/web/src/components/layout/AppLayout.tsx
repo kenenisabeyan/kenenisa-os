@@ -32,7 +32,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex font-sans antialiased">
       {/* Desktop Sidebar */}
-      <div className="hidden lg:block shrink-0 h-screen sticky top-0 z-30">
+      <div className="hidden lg:block shrink-0 w-64 h-screen sticky top-0 z-40">
         <Sidebar />
       </div>
 
@@ -41,8 +41,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#F8FAFC]">
-        {/* Global Desktop & Mobile Top Header Bar */}
-        <header className="h-16 bg-white/90 border-b border-slate-200/90 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md shadow-2xs">
+        {/* Global Desktop & Mobile Top Header Bar - Fixed Position */}
+        <header className="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-white/95 border-b border-slate-200/90 px-4 sm:px-6 flex items-center justify-between z-30 backdrop-blur-md shadow-2xs transition-all duration-300">
           {/* Mobile Left: Menu Toggle + Brand */}
           <div className="flex items-center gap-3 lg:hidden">
             <button
@@ -114,6 +114,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             </button>
           </div>
         </header>
+
+        {/* Spacer for fixed header */}
+        <div className="h-16 shrink-0" aria-hidden="true" />
 
         {/* Dynamic Route Content */}
         <main className="flex-1 p-3.5 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto pb-[calc(5rem+env(safe-area-inset-bottom,0px))] lg:pb-8">
