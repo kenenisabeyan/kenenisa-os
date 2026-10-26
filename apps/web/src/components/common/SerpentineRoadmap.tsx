@@ -305,8 +305,20 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             </svg>
           </div>
 
-          {/* Vertical Straight Line (Visible on Mobile) */}
-          <div className="md:hidden absolute left-[23px] top-4 bottom-4 w-1 bg-gradient-to-b from-[#7C3AED] via-[#0284C7] to-[#16A34A] rounded-full z-0" />
+          {/* ── Vertical Animated Energy Spine (Visible on Mobile) ── */}
+          <div className="md:hidden absolute left-[22px] top-6 bottom-6 w-1.5 rounded-full z-0 overflow-visible pointer-events-none">
+            {/* Ambient Background Track */}
+            <div className="absolute inset-0 w-full rounded-full bg-slate-200/80" />
+
+            {/* Glowing Moving Gradient Spine */}
+            <div className="absolute inset-0 w-full rounded-full bg-gradient-to-b from-[#7C3AED] via-[#0284C7] via-[#2563EB] via-[#EA580C] to-[#16A34A] animate-spine-flow shadow-sm" />
+
+            {/* Primary Flowing Laser Energy Pulse */}
+            <div className="absolute left-1/2 -translate-x-1/2 w-2 h-20 rounded-full bg-gradient-to-b from-transparent via-white to-transparent shadow-[0_0_12px_#38bdf8] animate-laser-travel" />
+
+            {/* Secondary Interleaved Flowing Laser Energy Pulse */}
+            <div className="absolute left-1/2 -translate-x-1/2 w-2 h-24 rounded-full bg-gradient-to-b from-transparent via-cyan-300 to-transparent shadow-[0_0_14px_#818cf8] animate-laser-travel-delayed" />
+          </div>
 
           {/* Steps List */}
           <div className="space-y-12 md:space-y-24 relative z-10">
@@ -321,25 +333,75 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                 >
                   {/* ── MOBILE CARD LAYOUT (Renders for ALL steps on mobile) ── */}
                   <div className="md:hidden flex flex-col relative z-10 w-full space-y-4">
+                    {/* Step Icon & Badge with Radar Pulse */}
                     <div className="flex items-center gap-3">
-                      <div
-                        className="w-12 h-12 rounded-full bg-white border-4 flex flex-col items-center justify-center shadow-md shrink-0"
-                        style={{ borderColor: step.themeColor }}
-                      >
-                        <span className="text-[8px] font-extrabold text-slate-400 uppercase tracking-widest">
-                          STEP
-                        </span>
-                        <span className="text-sm font-black leading-none" style={{ color: step.themeColor }}>
-                          {step.number}
-                        </span>
+                      <div className="relative shrink-0">
+                        {/* Animated Radar Pulse Beacon */}
+                        <div
+                          className="absolute -inset-1.5 rounded-full animate-pulse-beacon opacity-75 pointer-events-none"
+                          style={{ backgroundColor: step.themeColor }}
+                        />
+
+                        {/* Ambient Glow */}
+                        <div
+                          className="absolute inset-0 rounded-full opacity-35 blur-xs pointer-events-none"
+                          style={{ backgroundColor: step.themeColor }}
+                        />
+
+                        {/* Step Circle Badge */}
+                        <div
+                          className="relative w-12 h-12 rounded-full bg-white border-4 flex flex-col items-center justify-center shadow-md animate-step-breathe transition-all duration-300"
+                          style={{
+                            borderColor: step.themeColor,
+                            boxShadow: `0 4px 16px ${step.themeColor}35`,
+                          }}
+                        >
+                          <span className="text-[8px] font-extrabold text-slate-400 uppercase tracking-widest">
+                            STEP
+                          </span>
+                          <span className="text-sm font-black leading-none" style={{ color: step.themeColor }}>
+                            {step.number}
+                          </span>
+                        </div>
                       </div>
-                      <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full ${step.bgBadgeColor}`}>
+
+                      <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full shadow-2xs ${step.bgBadgeColor}`}>
                         {step.badgeTitle}
                       </span>
                     </div>
 
-                    <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-md space-y-4 ml-1 sm:ml-2">
-                      <div className="flex items-start justify-between gap-3">
+                    {/* Step Card Container with Left-Side Animated Runner */}
+                    <div className="relative overflow-hidden bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-md space-y-4 ml-1 sm:ml-2 group hover:border-slate-300 transition-all duration-300">
+                      {/* Left-Side Glowing Animated Energy Runner Bar */}
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl overflow-hidden bg-slate-100 pointer-events-none">
+                        <div
+                          className="absolute inset-0 opacity-25"
+                          style={{ backgroundColor: step.themeColor }}
+                        />
+                        <div
+                          className="absolute w-full h-24 rounded-full animate-beam-slide"
+                          style={{
+                            background: `linear-gradient(180deg, transparent 0%, ${step.themeColor} 50%, transparent 100%)`,
+                            boxShadow: `0 0 8px ${step.themeColor}`,
+                          }}
+                        />
+                      </div>
+
+                      {/* Left Connector Node */}
+                      <div
+                        className="absolute -left-1 top-6 w-2.5 h-2.5 rounded-full border-2 border-white shadow-xs z-10 pointer-events-none"
+                        style={{
+                          backgroundColor: step.themeColor,
+                          boxShadow: `0 0 6px ${step.themeColor}`,
+                        }}
+                      >
+                        <div
+                          className="absolute inset-0 rounded-full animate-ping opacity-75"
+                          style={{ backgroundColor: step.themeColor }}
+                        />
+                      </div>
+
+                      <div className="flex items-start justify-between gap-3 pl-1.5">
                         <div>
                           <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase leading-snug">
                             {step.title}
@@ -349,9 +411,10 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                           </p>
                         </div>
                         <div
-                          className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-md shrink-0"
+                          className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-md shrink-0 group-hover:scale-105 transition-transform duration-300"
                           style={{
                             backgroundColor: step.themeColor,
+                            boxShadow: `0 4px 12px ${step.themeColor}40`,
                           }}
                         >
                           {step.icon}
@@ -359,13 +422,15 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                       </div>
 
                       <div
-                        className="h-1 rounded-full w-full max-w-[180px]"
+                        className="relative overflow-hidden h-1 rounded-full w-full max-w-[180px] ml-1.5"
                         style={{
                           background: `linear-gradient(90deg, ${step.themeColor} 0%, ${step.themeColor}44 70%, transparent 100%)`,
                         }}
-                      />
+                      >
+                        <div className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white to-transparent animate-shimmer-sweep" />
+                      </div>
 
-                      <p className="text-sm text-slate-700 leading-relaxed font-normal">
+                      <p className="text-sm text-slate-700 leading-relaxed font-normal pl-1.5">
                         {step.description}
                       </p>
 

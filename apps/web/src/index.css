@@ -185,5 +185,123 @@ dialog {
   animation: pulseGlow 4s ease-in-out infinite;
 }
 
+/* ── Serpentine & Mobile Timeline Left-Side Movement Animations ─────────── */
+@keyframes waterFlow {
+  from {
+    stroke-dashoffset: 40;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-water-flow {
+  animation: waterFlow 1.6s linear infinite;
+}
+
+@keyframes laserTravelDown {
+  0% {
+    top: -5%;
+    opacity: 0;
+    transform: translateY(0) scaleY(0.4);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+  88% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+  100% {
+    top: 102%;
+    opacity: 0;
+    transform: translateY(0) scaleY(0.4);
+  }
+}
+
+.animate-laser-travel {
+  animation: laserTravelDown 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-laser-travel-delayed {
+  animation: laserTravelDown 3.2s cubic-bezier(0.4, 0, 0.2, 1) 1.6s infinite;
+}
+
+@keyframes pulseBeacon {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+  60% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-beacon {
+  animation: pulseBeacon 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes beamSlide {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(220%);
+  }
+}
+
+.animate-beam-slide {
+  animation: beamSlide 2.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes stepBreathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-step-breathe {
+  animation: stepBreathe 3.2s ease-in-out infinite;
+}
+
+@keyframes spineGradientFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animate-spine-flow {
+  background-size: 100% 300%;
+  animation: spineGradientFlow 7s ease infinite;
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-shimmer-sweep {
+  animation: shimmerSweep 2.4s ease-in-out infinite;
+}
+
 
 
