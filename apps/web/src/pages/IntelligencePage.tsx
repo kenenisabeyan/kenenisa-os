@@ -181,13 +181,13 @@ export const IntelligencePage: React.FC = () => {
   };
 
   return (
-    <div id="intelligence-page" className="min-h-[calc(100vh-6rem)] md:h-[calc(100vh-6rem)] flex flex-col gap-4">
+    <div id="intelligence-page" className="min-h-[calc(100dvh-10rem)] md:h-[calc(100vh-7rem)] flex flex-col gap-3 sm:gap-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/90 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-200/90 pb-3 sm:pb-4">
         <div>
-          <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
+          <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2 sm:gap-3 flex-wrap">
             <span>KENENISA OS Intelligence Core</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-[#A855F7]/15 border border-[#A855F7]/30 text-[#7e22ce] font-extrabold">
+            <span className="text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full bg-[#A855F7]/15 border border-[#A855F7]/30 text-[#7e22ce] font-extrabold">
               ✦ AI Advisory Core
             </span>
           </h1>
@@ -196,26 +196,26 @@ export const IntelligencePage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="grid grid-cols-2 sm:flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={() => void handleOpenMemories()}
-            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition-all flex items-center gap-1.5 shadow-xs"
+            className="w-full sm:w-auto px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition-all flex items-center justify-center gap-1.5 shadow-xs"
           >
-            🧠 Operating Memory
+            🧠 Memory
           </button>
           <button
             onClick={handleNewConversation}
-            className="px-3.5 py-2 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5 active:scale-[0.99]"
+            className="w-full sm:w-auto px-3.5 py-2.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-1.5 active:scale-[0.99]"
           >
-            + New Conversation
+            + New Chat
           </button>
         </div>
       </div>
 
       {/* Main Grid: Sidebar + Chat Area */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4 min-h-[500px] md:overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4 min-h-[450px] md:overflow-hidden">
         {/* Sidebar: Conversation History */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 flex flex-col space-y-3 overflow-y-auto max-h-44 md:max-h-none shadow-xs">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-3 sm:p-4 flex flex-col space-y-2 sm:space-y-3 overflow-y-auto max-h-36 sm:max-h-44 md:max-h-none shadow-xs">
           <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider px-1">
             Conversations
           </h3>
@@ -446,14 +446,14 @@ export const IntelligencePage: React.FC = () => {
       {/* User Memory Drawer Modal */}
       {showMemoryModal && (
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar p-5 sm:p-6 space-y-4 shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <span>🧠 Personal Operating Memory</span>
               </h2>
               <button
                 onClick={() => setShowMemoryModal(false)}
-                className="text-slate-400 hover:text-slate-800 text-base font-bold"
+                className="text-slate-400 hover:text-slate-800 text-base font-bold p-1"
               >
                 ✕
               </button>
@@ -463,20 +463,20 @@ export const IntelligencePage: React.FC = () => {
               Durable user-confirmed operating preferences and rules stored for contextual assistance.
             </p>
 
-            <div className="space-y-2 max-h-60 overflow-y-auto">
+            <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
               {memories.length === 0 ? (
                 <p className="text-xs text-slate-500 italic p-2 text-center">No persistent user memories stored yet.</p>
               ) : (
                 memories.map((m) => (
                   <div key={m.id} className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex items-start justify-between gap-3 text-xs">
-                    <div>
+                    <div className="min-w-0">
                       <span className="font-bold text-[#0284c7]">{m.key}:</span>{' '}
-                      <span className="text-slate-800 font-medium">{m.value}</span>
+                      <span className="text-slate-800 font-medium break-words">{m.value}</span>
                       <div className="text-[10px] text-slate-500 mt-0.5">{m.category}</div>
                     </div>
                     <button
                       onClick={() => void handleArchiveMemory(m.id)}
-                      className="text-slate-400 hover:text-rose-600 text-xs font-semibold"
+                      className="text-slate-400 hover:text-rose-600 text-xs font-semibold py-1 px-2 shrink-0"
                       title="Archive memory"
                     >
                       Archive
@@ -489,7 +489,7 @@ export const IntelligencePage: React.FC = () => {
             <div className="flex justify-end pt-2 border-t border-slate-200">
               <button
                 onClick={() => setShowMemoryModal(false)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl border border-slate-200"
+                className="w-full sm:w-auto px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl border border-slate-200 text-center"
               >
                 Close
               </button>

@@ -157,7 +157,7 @@ export const ReviewsPage: React.FC = () => {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
                 <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-3 space-y-1">
                   <p className="text-[10px] font-bold text-[#22C55E] uppercase tracking-wider">Completed Tasks</p>
                   <p className="text-xl font-bold text-[#22C55E]">{context.completedTasks}</p>
@@ -185,7 +185,7 @@ export const ReviewsPage: React.FC = () => {
               </div>
 
               {/* Planned vs Actual Distinction Statement */}
-              <div className="text-[11px] text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 flex items-center justify-between">
+              <div className="text-[11px] text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                 <span>Core Metric Logic: <strong>Task Estimate ≠ Scheduled Time ≠ Actual Time</strong></span>
                 <span className="font-semibold text-slate-700">Factual Non-Gamified Log</span>
               </div>
@@ -210,7 +210,7 @@ export const ReviewsPage: React.FC = () => {
                   <div
                     key={rev.id}
                     onClick={() => handleSelectReview(rev)}
-                    className={`p-4 rounded-xl border transition-all cursor-pointer shadow-xs ${
+                    className={`p-4 rounded-2xl border transition-all cursor-pointer shadow-xs ${
                       activeReview?.id === rev.id
                         ? 'bg-blue-50/60 border-[#3B82F6] ring-2 ring-blue-500/20'
                         : 'bg-white border-slate-200/90 hover:border-slate-300'
@@ -244,18 +244,18 @@ export const ReviewsPage: React.FC = () => {
             {/* Right Col: Review Reflection Editor */}
             <div className="lg:col-span-2">
               {activeReview ? (
-                <form onSubmit={(e) => { void handleSaveReview(e); }} className="bg-white border border-slate-200/90 rounded-2xl p-6 space-y-5 shadow-xs">
-                  <div className="flex justify-between items-center pb-3 border-b border-slate-100">
+                <form onSubmit={(e) => { void handleSaveReview(e); }} className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6 space-y-5 shadow-xs">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
                     <div>
                       <h3 className="text-base font-bold text-slate-900 tracking-tight">Structured Human Reflection</h3>
                       <p className="text-xs text-slate-500">Created: {activeReview.createdAt.split('T')[0]}</p>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
                       <button
                         type="button"
                         onClick={() => { void handleToggleStatus(); }}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-colors ${
+                        className={`flex-1 sm:flex-none px-3.5 py-2 rounded-xl text-xs font-bold border transition-colors text-center ${
                           activeReview.status === 'COMPLETED'
                             ? 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100'
                             : 'bg-[#22C55E] text-white border-emerald-600 hover:bg-emerald-600'
@@ -265,9 +265,9 @@ export const ReviewsPage: React.FC = () => {
                       </button>
                       <button
                         type="submit"
-                        className="px-4 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+                        className="flex-1 sm:flex-none px-4 py-2 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs transition-colors text-center"
                       >
-                        Save Reflections
+                        Save
                       </button>
                     </div>
                   </div>

@@ -98,8 +98,8 @@ export const WorkstreamsPage: React.FC = () => {
       />
 
       {/* Filter Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">
-        <div className="flex items-center gap-3 flex-1 min-w-[240px]">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">
+        <div className="flex items-center gap-3 flex-1">
           <input
             type="text"
             placeholder="Search workstreams..."
@@ -109,12 +109,12 @@ export const WorkstreamsPage: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-600 font-bold">Status:</span>
+        <div className="flex items-center justify-between sm:justify-start gap-2">
+          <span className="text-xs text-slate-600 font-bold shrink-0">Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as WorkstreamStatus | '')}
-            className="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-[#6366F1]"
+            className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-[#6366F1]"
           >
             <option value="">All Statuses</option>
             <option value="ACTIVE">Active</option>
@@ -137,11 +137,11 @@ export const WorkstreamsPage: React.FC = () => {
           onAction={() => setIsCreateOpen(true)}
         />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {workstreams.map((ws) => (
             <div
               key={ws.id}
-              className="bg-white border border-slate-200/90 rounded-2xl p-5 hover:border-slate-300 transition-all duration-200 flex flex-col justify-between space-y-4 shadow-xs"
+              className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 hover:border-slate-300 transition-all duration-200 flex flex-col justify-between space-y-4 shadow-xs"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-2">
@@ -168,7 +168,7 @@ export const WorkstreamsPage: React.FC = () => {
                 {ws.status !== 'ARCHIVED' && (
                   <button
                     onClick={() => void handleArchive(ws.id, ws.name)}
-                    className="text-slate-500 hover:text-rose-600 font-bold transition-colors"
+                    className="text-slate-500 hover:text-rose-600 font-bold transition-colors py-1 px-2"
                   >
                     Archive
                   </button>
@@ -182,10 +182,10 @@ export const WorkstreamsPage: React.FC = () => {
       {/* Create Modal */}
       {isCreateOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-5">
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="text-base font-bold text-slate-900">Create Strategic Workstream</h3>
-              <button onClick={() => setIsCreateOpen(false)} className="text-slate-400 hover:text-slate-700 text-sm font-bold">
+              <button onClick={() => setIsCreateOpen(false)} className="text-slate-400 hover:text-slate-700 text-sm font-bold p-1">
                 ✕
               </button>
             </div>

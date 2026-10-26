@@ -109,22 +109,22 @@ export const ExecutivePage: React.FC = () => {
       ) : (
         <>
           {/* Executive Hero glassmorphic status card */}
-          <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 border border-blue-500/30 rounded-3xl p-6 sm:p-8 shadow-xl text-white">
+          <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 border border-blue-500/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl text-white">
             <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-              <div className="space-y-3 max-w-2xl">
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/20 text-white border border-white/30 flex items-center gap-1.5">
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
+              <div className="space-y-2.5 sm:space-y-3 max-w-2xl">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="px-2.5 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider bg-white/20 text-white border border-white/30 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
                     Strategic Operating Status
                   </span>
-                  <span className="text-xs text-blue-100 font-mono">
+                  <span className="text-[11px] sm:text-xs text-blue-100 font-mono">
                     System Time: {new Date().toLocaleDateString()}
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
                   High-Level Executive Execution Dashboard
                 </h2>
                 <p className="text-blue-100 text-xs sm:text-sm leading-relaxed">
@@ -133,8 +133,8 @@ export const ExecutivePage: React.FC = () => {
               </div>
 
               {/* Health Score Gauge Tile */}
-              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-5 shrink-0">
-                <div className="relative w-16 h-16 flex items-center justify-center">
+              <div className="flex items-center gap-3.5 sm:gap-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-3.5 sm:p-5 shrink-0 self-start lg:self-auto">
+                <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                     <path
                       className="text-blue-900/40"

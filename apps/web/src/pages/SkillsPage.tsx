@@ -223,21 +223,21 @@ export function SkillsPage() {
         {/* Right Column: Skill Detail Panel */}
         <div className="lg:col-span-2">
           {selectedSkill ? (
-            <div className="bg-white border border-slate-200/90 rounded-3xl p-6 space-y-6 shadow-xs">
-              <div className="flex justify-between items-start gap-4">
-                <div>
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-5 sm:space-y-6 shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
+                <div className="min-w-0">
                   {selectedSkill.category && (
-                    <span className="text-xs font-bold uppercase text-[#7e22ce] tracking-wider">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase text-[#7e22ce] tracking-wider">
                       {selectedSkill.category}
                     </span>
                   )}
-                  <h2 className="text-xl font-bold text-slate-900">{selectedSkill.name}</h2>
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 break-words">{selectedSkill.name}</h2>
                   {selectedSkill.description && (
                     <p className="text-xs text-slate-600 mt-1 leading-relaxed font-medium">{selectedSkill.description}</p>
                   )}
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={() => {
                       setEditSkill(selectedSkill);
@@ -247,13 +247,13 @@ export function SkillsPage() {
                       setCurrentLevel(selectedSkill.currentLevel);
                       setTargetLevel(selectedSkill.targetLevel);
                     }}
-                    className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all"
+                    className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => { void handleArchive(selectedSkill.id); }}
-                    className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold rounded-xl transition-all"
+                    className="px-3.5 py-2 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold rounded-xl transition-all"
                   >
                     Archive
                   </button>
@@ -331,8 +331,8 @@ export function SkillsPage() {
       {/* Modal: Create Skill */}
       {isCreateOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4">
-            <h2 className="text-lg font-bold text-slate-900">Add New Skill</h2>
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-4">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900">Add New Skill</h2>
 
             <form onSubmit={(e) => { void handleCreateSubmit(e); }} className="space-y-3">
               <div>
@@ -368,7 +368,7 @@ export function SkillsPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Current Level</label>
                   <select
@@ -399,17 +399,17 @@ export function SkillsPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl"
+                  className="w-full sm:w-auto px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs"
+                  className="w-full sm:w-auto px-4 py-2.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs text-center"
                 >
                   Save Skill
                 </button>
@@ -422,8 +422,8 @@ export function SkillsPage() {
       {/* Modal: Edit Skill */}
       {editSkill && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4">
-            <h2 className="text-lg font-bold text-slate-900">Edit Skill</h2>
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-4">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900">Edit Skill</h2>
 
             <form onSubmit={(e) => { void handleEditSubmit(e); }} className="space-y-3">
               <div>

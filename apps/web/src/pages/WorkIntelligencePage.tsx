@@ -115,10 +115,10 @@ export const WorkIntelligencePage: React.FC = () => {
       ) : (
         <>
           {/* Workload Concentration Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
               <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Ready Work</span>
-              <p className="text-3xl font-extrabold text-slate-900">{readyCount}</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">{readyCount}</p>
               <div className="space-y-1">
                 <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Share</span>
@@ -133,9 +133,9 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
               <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">In Progress</span>
-              <p className="text-3xl font-extrabold text-slate-900">{inProgressCount}</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">{inProgressCount}</p>
               <div className="space-y-1">
                 <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Active</span>
@@ -150,9 +150,9 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
               <span className="text-[10px] font-extrabold text-rose-600 uppercase tracking-wider">Blocked Work</span>
-              <p className="text-3xl font-extrabold text-rose-600">{blockedCount}</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-rose-600">{blockedCount}</p>
               <div className="space-y-1">
                 <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Blocked</span>
@@ -167,9 +167,9 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-sm space-y-3 relative overflow-hidden">
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
               <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider">Completed</span>
-              <p className="text-3xl font-extrabold text-emerald-600">{doneCount}</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-emerald-600">{doneCount}</p>
               <div className="space-y-1">
                 <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                   <span>Done</span>
@@ -189,7 +189,7 @@ export const WorkIntelligencePage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left 2 Cols: Bottleneck Analysis */}
             <div className="lg:col-span-2 space-y-6">
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+              <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-5">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                   <div>
                     <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
@@ -211,23 +211,23 @@ export const WorkIntelligencePage: React.FC = () => {
                     {blockedTasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-rose-50/60 border border-rose-200 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-rose-300 transition-all shadow-2xs"
+                        className="bg-rose-50/60 border border-rose-200 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 hover:border-rose-300 transition-all shadow-2xs"
                       >
-                        <div className="space-y-1.5 min-w-0">
+                        <div className="space-y-1.5 min-w-0 w-full sm:w-auto">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="px-2.5 py-0.5 rounded-lg text-[9px] font-extrabold uppercase bg-rose-100 text-rose-700 border border-rose-300">
                               BLOCKED
                             </span>
                             <Badge variant={t.priority} />
-                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider truncate">
                               {t.project?.name || 'General Project'}
                             </span>
                           </div>
-                          <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
+                          <h4 className="text-xs font-bold text-slate-900 break-words">{t.title}</h4>
                         </div>
                         <button
                           onClick={() => navigate('/app/tasks')}
-                          className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
+                          className="w-full sm:w-auto text-center px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
                         >
                           Resolve Blocker
                         </button>
@@ -237,9 +237,9 @@ export const WorkIntelligencePage: React.FC = () => {
                     {overdueTasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-amber-50/60 border border-amber-200 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-amber-300 transition-all shadow-2xs"
+                        className="bg-amber-50/60 border border-amber-200 rounded-2xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 hover:border-amber-300 transition-all shadow-2xs"
                       >
-                        <div className="space-y-1.5 min-w-0">
+                        <div className="space-y-1.5 min-w-0 w-full sm:w-auto">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="px-2.5 py-0.5 rounded-lg text-[9px] font-extrabold uppercase bg-amber-100 text-amber-800 border border-amber-300">
                               OVERDUE
@@ -249,11 +249,11 @@ export const WorkIntelligencePage: React.FC = () => {
                               Due: {new Date(t.dueDate!).toLocaleDateString()}
                             </span>
                           </div>
-                          <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
+                          <h4 className="text-xs font-bold text-slate-900 break-words">{t.title}</h4>
                         </div>
                         <button
                           onClick={() => navigate('/app/tasks')}
-                          className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
+                          className="w-full sm:w-auto text-center px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
                         >
                           Reschedule Task
                         </button>
@@ -264,7 +264,7 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
 
               {/* Dependency Chain Viewer */}
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+              <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-5">
                 <div className="border-b border-slate-100 pb-4">
                   <h3 className="text-base font-extrabold text-slate-900 tracking-tight">
                     Task Dependency Chains & Prerequisites
@@ -279,9 +279,9 @@ export const WorkIntelligencePage: React.FC = () => {
                 ) : (
                   <div className="space-y-3">
                     {taskWithBlockers.map((t) => (
-                      <div key={t.id} className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 space-y-3">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-xs text-slate-900">{t.title}</span>
+                      <div key={t.id} className="bg-slate-50 border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 space-y-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-bold text-xs text-slate-900 truncate">{t.title}</span>
                           <Badge variant={t.status} />
                         </div>
 
@@ -290,9 +290,9 @@ export const WorkIntelligencePage: React.FC = () => {
                             Prerequisite Blockers:
                           </p>
                           {t.blockingDependencies?.map((dep) => (
-                            <div key={dep.id} className="flex items-center justify-between text-xs text-slate-800 bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
-                              <span className="font-semibold truncate">{dep.blockingTask?.title || dep.blockingTaskId}</span>
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                            <div key={dep.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-800 bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+                              <span className="font-semibold break-words">{dep.blockingTask?.title || dep.blockingTaskId}</span>
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600 self-start sm:self-auto shrink-0">
                                 {dep.blockingTask?.status || 'PENDING'}
                               </span>
                             </div>
@@ -307,7 +307,7 @@ export const WorkIntelligencePage: React.FC = () => {
 
             {/* Right Col: Unscheduled Ready Work & Quick Map */}
             <div className="space-y-6">
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4">
+              <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-4">
                 <div>
                   <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Unscheduled Ready Work</h3>
                   <p className="text-xs text-slate-500">Tasks ready for execution without target schedule dates</p>
@@ -322,7 +322,7 @@ export const WorkIntelligencePage: React.FC = () => {
                     {unscheduledReadyTasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 flex items-center justify-between gap-3 hover:border-slate-300 transition-all"
+                        className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 sm:p-3.5 flex items-center justify-between gap-2 sm:gap-3 hover:border-slate-300 transition-all"
                       >
                         <div className="space-y-0.5 min-w-0">
                           <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
@@ -343,7 +343,7 @@ export const WorkIntelligencePage: React.FC = () => {
           </div>
 
           {/* Active Work Map Hierarchy */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+          <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-5">
             <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
@@ -368,41 +368,41 @@ export const WorkIntelligencePage: React.FC = () => {
                   <div key={ws.id} className="border border-slate-200/90 rounded-2xl overflow-hidden bg-slate-50/40">
                     <div
                       onClick={() => toggleExpand(ws.id)}
-                      className="p-5 bg-white border-b border-slate-200/90 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition-colors"
+                      className="p-3.5 sm:p-5 bg-white border-b border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-slate-50 transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs text-slate-400 font-bold w-4 text-center">{isExpanded ? '▼' : '▶'}</span>
+                      <div className="flex items-start sm:items-center gap-2.5 sm:gap-3">
+                        <span className="text-xs text-slate-400 font-bold w-4 text-center mt-0.5 sm:mt-0">{isExpanded ? '▼' : '▶'}</span>
                         <div>
                           <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">
                             Workstream Pillar ({ws.priorityWeight}/10 Weight)
                           </span>
-                          <h3 className="text-base font-extrabold text-slate-900 tracking-tight">{ws.name}</h3>
+                          <h3 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">{ws.name}</h3>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-4 text-xs text-slate-600 font-semibold">
+                      <div className="flex items-center gap-4 text-xs text-slate-600 font-semibold pl-6 sm:pl-0">
                         <span>Goals: <strong className="text-slate-900">{wsGoals.length}</strong></span>
                         <span>Projects: <strong className="text-slate-900">{wsProjects.length}</strong></span>
                       </div>
                     </div>
 
                     {isExpanded && (
-                      <div className="p-5 space-y-4 bg-slate-50/70">
+                      <div className="p-3.5 sm:p-5 space-y-3 sm:space-y-4 bg-slate-50/70">
                         {wsProjects.length === 0 ? (
-                          <div className="text-xs text-slate-400 italic pl-6">No projects assigned under this workstream.</div>
+                          <div className="text-xs text-slate-400 italic pl-3 sm:pl-6">No projects assigned under this workstream.</div>
                         ) : (
                           wsProjects.map((p) => {
                             const pMilestones = milestones.filter((m) => m.projectId === p.id);
                             const pTasks = tasks.filter((t) => t.projectId === p.id);
 
                             return (
-                              <div key={p.id} className="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-3 ml-6 shadow-2xs">
-                                <div className="flex items-center justify-between">
-                                  <div className="space-y-0.5">
+                              <div key={p.id} className="bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 space-y-3 ml-2 sm:ml-6 shadow-2xs">
+                                <div className="flex items-center justify-between gap-2">
+                                  <div className="space-y-0.5 min-w-0">
                                     <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
                                       Project
                                     </span>
-                                    <h4 className="text-sm font-extrabold text-slate-900">{p.name}</h4>
+                                    <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 truncate">{p.name}</h4>
                                   </div>
                                   <Badge variant={p.status} />
                                 </div>

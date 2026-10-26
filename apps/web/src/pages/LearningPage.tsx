@@ -149,14 +149,14 @@ export function LearningPage() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Learning & Capability Intelligence</h1>
-          <p className="text-sm text-slate-400">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Learning & Capability Intelligence</h1>
+          <p className="text-xs sm:text-sm text-slate-500">
             Connect structured learning activities to explicit skills and project evidence.
           </p>
         </div>
         <button
           onClick={() => setIsCreateOpen(true)}
-          className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-medium rounded-lg text-sm transition-colors shadow-sm"
+          className="w-full sm:w-auto px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-medium rounded-xl text-xs transition-colors shadow-sm text-center"
         >
           + New Learning Item
         </button>
@@ -164,26 +164,26 @@ export function LearningPage() {
 
       {/* Metrics Banner */}
       {metrics && (
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
-            <p className="text-xs font-medium text-slate-500">Learning Items</p>
-            <p className="text-2xl font-bold text-slate-900 mt-1">{metrics.totalItems}</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xs">
+            <p className="text-[10px] sm:text-xs font-medium text-slate-500">Learning Items</p>
+            <p className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{metrics.totalItems}</p>
           </div>
-          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
-            <p className="text-xs font-medium text-slate-500">In Progress</p>
-            <p className="text-2xl font-bold text-sky-600 mt-1">{metrics.inProgressItems}</p>
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xs">
+            <p className="text-[10px] sm:text-xs font-medium text-slate-500">In Progress</p>
+            <p className="text-xl sm:text-2xl font-bold text-sky-600 mt-1">{metrics.inProgressItems}</p>
           </div>
-          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
-            <p className="text-xs font-medium text-slate-500">Completed</p>
-            <p className="text-2xl font-bold text-emerald-600 mt-1">{metrics.completedItems}</p>
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xs">
+            <p className="text-[10px] sm:text-xs font-medium text-slate-500">Completed</p>
+            <p className="text-xl sm:text-2xl font-bold text-emerald-600 mt-1">{metrics.completedItems}</p>
           </div>
-          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-xs">
-            <p className="text-xs font-medium text-slate-500">Logged Time</p>
-            <p className="text-2xl font-bold text-amber-600 mt-1">{Math.round(metrics.totalLoggedMinutes / 60)}h</p>
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xs">
+            <p className="text-[10px] sm:text-xs font-medium text-slate-500">Logged Time</p>
+            <p className="text-xl sm:text-2xl font-bold text-amber-600 mt-1">{Math.round(metrics.totalLoggedMinutes / 60)}h</p>
           </div>
-          <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 col-span-2 md:col-span-1 shadow-xs">
-            <p className="text-xs font-medium text-slate-500">Active Skills</p>
-            <p className="text-2xl font-bold text-purple-600 mt-1">{metrics.activeSkillsCount}</p>
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xs col-span-2 sm:col-span-1">
+            <p className="text-[10px] sm:text-xs font-medium text-slate-500">Active Skills</p>
+            <p className="text-xl sm:text-2xl font-bold text-purple-600 mt-1">{metrics.activeSkillsCount}</p>
           </div>
         </div>
       )}
@@ -198,7 +198,7 @@ export function LearningPage() {
           className="w-full sm:w-64 bg-slate-50 border border-slate-200 text-slate-800 text-xs font-medium rounded-xl px-3.5 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
         />
 
-        <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -219,12 +219,12 @@ export function LearningPage() {
             <option value="">All Types</option>
             <option value="COURSE">Course</option>
             <option value="BOOK">Book</option>
-          <option value="TUTORIAL">Tutorial</option>
-          <option value="DOCUMENTATION">Documentation</option>
-          <option value="LECTURE">Lecture</option>
-          <option value="PROJECT">Project</option>
-          <option value="PRACTICE">Practice</option>
-        </select>
+            <option value="TUTORIAL">Tutorial</option>
+            <option value="DOCUMENTATION">Documentation</option>
+            <option value="LECTURE">Lecture</option>
+            <option value="PROJECT">Project</option>
+            <option value="PRACTICE">Practice</option>
+          </select>
         </div>
       </div>
 
@@ -375,8 +375,8 @@ export function LearningPage() {
       {/* Modal: Create Learning Item */}
       {isCreateOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-xl p-6 max-w-lg w-full space-y-4 shadow-lg">
-            <h2 className="text-lg font-bold text-slate-900">Add Learning Item</h2>
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scrollbar space-y-4 shadow-2xl">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900">Add Learning Item</h2>
             <form onSubmit={(e) => { void handleCreateSubmit(e); }} className="space-y-3">
               <div>
                 <label className="block text-xs font-medium text-slate-700 mb-1">Title</label>
@@ -386,7 +386,7 @@ export function LearningPage() {
                   value={createTitle}
                   onChange={(e) => setCreateTitle(e.target.value)}
                   placeholder="e.g. Distributed Systems & Consensus Protocols"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
@@ -395,7 +395,7 @@ export function LearningPage() {
                 <select
                   value={createType}
                   onChange={(e) => setCreateType(e.target.value as LearningItemType)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 >
                   <option value="COURSE">Course</option>
                   <option value="BOOK">Book</option>
@@ -414,11 +414,11 @@ export function LearningPage() {
                   value={createDescription}
                   onChange={(e) => setCreateDescription(e.target.value)}
                   rows={2}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-slate-700 mb-1">Source / Provider</label>
                   <input
@@ -426,7 +426,7 @@ export function LearningPage() {
                     value={createSource}
                     onChange={(e) => setCreateSource(e.target.value)}
                     placeholder="e.g. MIT OCW"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
                 <div>
@@ -435,7 +435,7 @@ export function LearningPage() {
                     type="number"
                     value={createEstMinutes}
                     onChange={(e) => setCreateEstMinutes(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
                 <div>
@@ -444,22 +444,22 @@ export function LearningPage() {
                     type="date"
                     value={createTargetDate}
                     onChange={(e) => setCreateTargetDate(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg"
+                  className="w-full sm:w-auto px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-xl text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-xs"
+                  className="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-xl shadow-xs text-center"
                 >
                   Save Item
                 </button>

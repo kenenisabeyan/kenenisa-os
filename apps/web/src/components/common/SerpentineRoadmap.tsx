@@ -306,7 +306,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
           </div>
 
           {/* Vertical Straight Line (Visible on Mobile) */}
-          <div className="md:hidden absolute left-6 top-0 bottom-0 w-2 bg-gradient-to-b from-[#7C3AED] via-[#0284C7] to-[#16A34A] rounded-full z-0" />
+          <div className="md:hidden absolute left-[23px] top-4 bottom-4 w-1 bg-gradient-to-b from-[#7C3AED] via-[#0284C7] to-[#16A34A] rounded-full z-0" />
 
           {/* Steps List */}
           <div className="space-y-12 md:space-y-24 relative z-10">
@@ -320,7 +320,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                   className="relative flex flex-col md:flex-row items-start md:items-center min-h-0 md:min-h-[380px]"
                 >
                   {/* ── MOBILE CARD LAYOUT (Renders for ALL steps on mobile) ── */}
-                  <div className="md:hidden flex flex-col pl-7 relative z-10 w-full space-y-4">
+                  <div className="md:hidden flex flex-col relative z-10 w-full space-y-4">
                     <div className="flex items-center gap-3">
                       <div
                         className="w-12 h-12 rounded-full bg-white border-4 flex flex-col items-center justify-center shadow-md shrink-0"
@@ -338,7 +338,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                       </span>
                     </div>
 
-                    <div className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-slate-200/90 shadow-md space-y-4">
+                    <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-md space-y-4 ml-1 sm:ml-2">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase leading-snug">
