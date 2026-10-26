@@ -21,19 +21,19 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans selection:bg-[#0284C7]/20 selection:text-indigo-950">
       {/* Public Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-2xl border-b border-cyan-100/80 h-20 flex items-center px-6 sm:px-12 lg:px-16 justify-between shadow-lg shadow-cyan-500/5 transition-all duration-300">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-2xl border-b border-cyan-100/80 h-16 sm:h-20 flex items-center px-4 sm:px-8 lg:px-16 justify-between shadow-lg shadow-cyan-500/5 transition-all duration-300">
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-3 group" aria-label="KENENISA OS Home">
+        <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group" aria-label="KENENISA OS Home">
           <img
             src="/logo-icon.jpg"
             alt="KENENISA OS Logo"
-            className="w-11 h-11 rounded-2xl object-cover shadow-xl shadow-cyan-500/25 group-hover:scale-105 group-hover:rotate-2 transition-all duration-300 ring-2 ring-cyan-400/40"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl object-cover shadow-xl shadow-cyan-500/25 group-hover:scale-105 group-hover:rotate-2 transition-all duration-300 ring-2 ring-cyan-400/40"
           />
           <div className="flex flex-col">
-            <span className="font-black text-base tracking-tight text-indigo-950 group-hover:text-cyan-600 transition-colors leading-tight">
+            <span className="font-black text-sm sm:text-base tracking-tight text-indigo-950 group-hover:text-cyan-600 transition-colors leading-tight">
               KENENISA OS
             </span>
-            <span className="text-[10px] text-cyan-600 font-extrabold tracking-widest uppercase flex items-center gap-1">
+            <span className="text-[9px] sm:text-[10px] text-cyan-600 font-extrabold tracking-widest uppercase flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
               Engineering OS
             </span>
@@ -97,10 +97,10 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2.5 rounded-2xl text-slate-600 hover:bg-slate-100 transition-colors"
+          className="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors border border-slate-200"
           aria-label="Toggle Navigation Menu"
         >
-          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileMenuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -110,43 +110,64 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         </button>
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu & Backdrop */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-20 bg-white border-b border-cyan-100 z-30 p-5 shadow-xl space-y-4 animate-in slide-in-from-top-2">
-          <nav className="flex flex-col space-y-1.5">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                end={link.path === '/'}
-                onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) =>
-                  `px-5 py-3 rounded-2xl text-sm font-extrabold transition-all ${
-                    isActive ? 'bg-cyan-50 text-[#0284C7] border border-cyan-200' : 'text-slate-700 hover:bg-slate-50'
-                  }`
-                }
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
-          <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
-            <Link
-              to="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs transition-colors"
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-3 rounded-2xl bg-gradient-to-r from-[#0284C7] to-[#2563EB] text-white font-extrabold text-xs shadow-md transition-colors"
-            >
-              Get Started
-            </Link>
+        <>
+          <div
+            className="md:hidden fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-xs transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="md:hidden fixed inset-x-0 top-16 sm:top-20 bg-white/98 backdrop-blur-xl border-b border-cyan-100 z-30 p-5 shadow-2xl space-y-4 animate-in slide-in-from-top-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <nav className="flex flex-col space-y-1.5">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  end={link.path === '/'}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-5 py-3 rounded-2xl text-sm font-extrabold transition-all ${
+                      isActive ? 'bg-cyan-50 text-[#0284C7] border border-cyan-200' : 'text-slate-700 hover:bg-slate-50'
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+            </nav>
+            <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
+              {user ? (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    navigate('/app/dashboard');
+                  }}
+                  className="w-full text-center py-3 rounded-2xl bg-gradient-to-r from-[#0284C7] to-[#2563EB] text-white font-extrabold text-sm shadow-md transition-colors"
+                >
+                  Open Operating System →
+                </button>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center py-3 rounded-2xl bg-gradient-to-r from-[#0284C7] to-[#2563EB] text-white font-extrabold text-xs shadow-md transition-colors"
+                  >
+                    Get Started →
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* Main Public Page Content */}

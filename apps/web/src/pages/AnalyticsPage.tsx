@@ -220,7 +220,7 @@ export const AnalyticsPage: React.FC = () => {
       {!loading && !error && overview && (
         <>
           {/* Top KPI Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-1.5 shadow-sm relative overflow-hidden">
               <span className="text-[10px] uppercase font-extrabold text-blue-600 tracking-wider">Tasks Completed</span>
               <div className="text-2xl font-extrabold text-slate-900">
@@ -281,7 +281,7 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           {/* Tab Navigation */}
-          <div className="flex items-center gap-2 border-b border-slate-200/80 pb-3">
+          <div className="flex items-center gap-2 border-b border-slate-200/80 pb-3 overflow-x-auto custom-scrollbar flex-nowrap">
             {[
               { id: 'overview' as const, label: 'Overview & Trends' },
               { id: 'projects' as const, label: 'Projects & Goals' },
@@ -293,7 +293,7 @@ export const AnalyticsPage: React.FC = () => {
                 key={tab.id}
                 id={`tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap shrink-0 transition-all ${
                   activeTab === tab.id
                     ? 'bg-slate-950 text-white shadow-md border border-slate-800'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'

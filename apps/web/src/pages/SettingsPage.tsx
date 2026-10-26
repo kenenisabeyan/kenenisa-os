@@ -475,16 +475,16 @@ export const SettingsPage: React.FC = () => {
             sessionsList.map((sess) => (
               <div
                 key={sess.id}
-                className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50 text-xs"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50 text-xs"
               >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 shadow-sm">
+                <div className="flex items-start sm:items-center gap-3">
+                  <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 shadow-sm shrink-0">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <span className="font-bold text-slate-900">{sess.userAgent || 'Web Client'}</span>
                       {sess.isCurrent && (
                         <span className="px-2 py-0.5 rounded text-[9px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase">
@@ -492,7 +492,7 @@ export const SettingsPage: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <div className="text-[11px] text-slate-500 mt-0.5 flex items-center gap-3">
+                    <div className="text-[11px] text-slate-500 mt-0.5 flex flex-wrap items-center gap-2 sm:gap-3">
                       <span>IP: {sess.ipAddress || '127.0.0.1'}</span>
                       <span>&bull;</span>
                       <span>Last active: {new Date(sess.lastUsedAt).toLocaleString()}</span>
@@ -503,7 +503,7 @@ export const SettingsPage: React.FC = () => {
                 {!sess.isCurrent && (
                   <button
                     onClick={() => void handleRevokeSession(sess.id)}
-                    className="py-1.5 px-3 bg-slate-200/70 hover:bg-rose-100 text-slate-600 hover:text-rose-700 font-semibold rounded-lg text-xs transition-colors border border-slate-200"
+                    className="self-end sm:self-auto py-1.5 px-3 bg-slate-200/70 hover:bg-rose-100 text-slate-600 hover:text-rose-700 font-semibold rounded-lg text-xs transition-colors border border-slate-200"
                   >
                     Revoke Access
                   </button>
@@ -521,7 +521,7 @@ export const SettingsPage: React.FC = () => {
           <p className="text-xs text-slate-500">Real-time log of security events and authentication history for your account.</p>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] tracking-wider font-bold">

@@ -147,9 +147,9 @@ export const ResultsPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6 font-sans text-slate-800">
+    <div className="space-y-6 font-sans text-slate-800">
       {/* Workspace Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/90 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/90 pb-5">
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/10 text-emerald-700 border border-emerald-500/30 uppercase tracking-wide">
@@ -169,7 +169,7 @@ export const ResultsPage: React.FC = () => {
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={() => setExportModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-[#22C55E] hover:bg-emerald-600 rounded-xl shadow-sm transition-colors"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold text-white bg-[#22C55E] hover:bg-emerald-600 rounded-xl shadow-sm transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -180,13 +180,13 @@ export const ResultsPage: React.FC = () => {
       </div>
 
       {/* Sub-Navigation Tabs */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-1">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-2">
+        <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar flex-nowrap w-full sm:w-auto pb-1">
           {(['overview', 'timeline', 'analysis', 'recommendations', 'reports'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 text-xs font-extrabold capitalize transition-all border-b-2 -mb-[5px] ${
+              className={`px-3 sm:px-4 py-2 text-xs font-extrabold capitalize whitespace-nowrap transition-all border-b-2 -mb-[9px] ${
                 activeTab === tab
                   ? 'border-[#3AB1EC] text-[#0284c7]'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
@@ -198,12 +198,12 @@ export const ResultsPage: React.FC = () => {
         </div>
 
         {/* Period Horizon Selector */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+        <div className="flex items-center gap-1 overflow-x-auto custom-scrollbar flex-nowrap w-full sm:w-auto p-1 bg-slate-100 rounded-xl">
           {(['today', 'week', 'month', 'year', 'custom'] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1 text-xs font-bold rounded-lg capitalize transition-all ${
+              className={`px-2.5 sm:px-3 py-1 text-xs font-bold rounded-lg capitalize whitespace-nowrap transition-all ${
                 period === p
                   ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
                   : 'text-slate-600 hover:text-slate-900'
@@ -216,21 +216,21 @@ export const ResultsPage: React.FC = () => {
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200/90 shadow-sm">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-sm">
+        <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2 w-full sm:w-auto">
           <input
             type="text"
             placeholder="Search activities..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && loadWorkspaceData()}
-            className="px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 w-52"
+            className="w-full sm:w-52 px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400"
           />
 
           <select
             value={horizonFilter}
             onChange={(e) => setHorizonFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700"
+            className="w-full sm:w-auto px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700"
           >
             <option value="">All Horizons</option>
             <option value="YEARLY">Yearly</option>
@@ -242,7 +242,7 @@ export const ResultsPage: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700"
+            className="w-full sm:w-auto px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700"
           >
             <option value="">All Statuses</option>
             <option value="COMPLETED">🟢 Completed</option>
@@ -256,11 +256,11 @@ export const ResultsPage: React.FC = () => {
           </select>
         </div>
 
-        {loading && <span className="w-4 h-4 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin shrink-0" />}
+        {loading && <span className="w-4 h-4 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin shrink-0 self-center" />}
       </div>
 
       {/* Overview Stat Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
         <div className="bg-white p-3 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col">
           <span className="text-[10px] font-bold uppercase text-slate-500">Planned</span>
           <span className="text-xl font-black text-slate-900 mt-1">{analysis?.overview.totalPlanned || 0}</span>
@@ -515,14 +515,14 @@ export const ResultsPage: React.FC = () => {
       {/* TAB 5: REPORTS (EXCEL WORKSPACE) */}
       {activeTab === 'reports' && (
         <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-4 sm:px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
             <span className="text-xs font-black uppercase text-emerald-400">📊 In-App Spreadsheet Workspace</span>
-            <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl">
+            <div className="flex items-center gap-1 overflow-x-auto custom-scrollbar flex-nowrap bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
               {spreadsheet?.sheets.map((sheet, index) => (
                 <button
                   key={sheet.name}
                   onClick={() => setActiveSheetIndex(index)}
-                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-colors ${
+                  className={`px-3 py-1 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
                     activeSheetIndex === index ? 'bg-[#22C55E] text-white' : 'text-slate-300 hover:text-white'
                   }`}
                 >

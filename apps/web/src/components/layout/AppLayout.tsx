@@ -116,12 +116,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </header>
 
         {/* Dynamic Route Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto pb-20 lg:pb-8">
+        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto pb-[calc(5rem+env(safe-area-inset-bottom,0px))] lg:pb-8">
           <ErrorBoundary>{children}</ErrorBoundary>
         </main>
 
         {/* Mobile Bottom Bar */}
-        <MobileBottomBar />
+        <MobileBottomBar onOpenMenu={() => setMobileOpen(true)} />
 
         {/* Global Modals */}
         <QuickActionModal isOpen={quickActionOpen} onClose={() => setQuickActionOpen(false)} />

@@ -183,7 +183,7 @@ export const DashboardPage: React.FC = () => {
 
       {/* Hero: Next Best Action / Deterministic Recommendation */}
       <div
-        className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-blue-500/30"
+        className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl border border-blue-500/30"
         id="next-best-action-card"
       >
         {/* Background Decorative Accent Mesh & Glows */}
@@ -197,13 +197,13 @@ export const DashboardPage: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500" />
               </span>
-              <span className="text-xs font-black uppercase tracking-widest text-cyan-400">
+              <span className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-cyan-400">
                 WHAT SHOULD I DO NEXT? &bull; DETERMINISTIC RECOMMENDATION
               </span>
             </div>
 
             {nextBestAction && (
-              <div className="flex items-center gap-2.5 bg-slate-800/80 backdrop-blur px-4 py-1.5 rounded-full border border-cyan-500/30 shadow-md">
+              <div className="flex items-center gap-2.5 bg-slate-800/80 backdrop-blur px-3.5 py-1.5 rounded-full border border-cyan-500/30 shadow-md self-start sm:self-auto">
                 <span className="text-xs text-slate-300 font-medium">Execution Priority Index</span>
                 <span className="text-base font-black text-cyan-400" id="nba-score">
                   {nextBestAction.score}/100
@@ -214,15 +214,15 @@ export const DashboardPage: React.FC = () => {
 
           {nextBestAction && nextBestAction.recommendedTask ? (
             <div>
-              <div className="flex flex-wrap items-center gap-2.5 mb-3">
-                <span className={`px-3 py-1 rounded-lg text-xs font-black uppercase border ${priorityBadgeStyle(nextBestAction.recommendedTask.priority)}`}>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-3">
+                <span className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-black uppercase border ${priorityBadgeStyle(nextBestAction.recommendedTask.priority)}`}>
                   {nextBestAction.recommendedTask.priority} Priority
                 </span>
-                <span className="px-3 py-1 rounded-lg text-xs font-extrabold uppercase bg-slate-800 text-slate-300 border border-slate-700">
+                <span className="px-2.5 sm:px-3 py-1 rounded-lg text-xs font-extrabold uppercase bg-slate-800 text-slate-300 border border-slate-700">
                   Status: {nextBestAction.recommendedTask.status}
                 </span>
                 {nextBestAction.recommendedTask.project && (
-                  <span className="text-xs text-cyan-300 bg-cyan-950/60 px-3 py-1 rounded-lg border border-cyan-800/60 font-semibold flex items-center gap-1.5">
+                  <span className="text-xs text-cyan-300 bg-cyan-950/60 px-2.5 sm:px-3 py-1 rounded-lg border border-cyan-800/60 font-semibold flex items-center gap-1.5">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                     </svg>
@@ -231,25 +231,25 @@ export const DashboardPage: React.FC = () => {
                 )}
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight leading-tight" id="nba-task-title">
+              <h2 className="text-xl sm:text-3xl font-black text-white mb-3 tracking-tight leading-tight" id="nba-task-title">
                 {nextBestAction.recommendedTask.title}
               </h2>
 
               {nextBestAction.recommendedTask.description && (
-                <p className="text-slate-300 text-sm mb-6 max-w-3xl leading-relaxed">
+                <p className="text-slate-300 text-xs sm:text-sm mb-6 max-w-3xl leading-relaxed">
                   {nextBestAction.recommendedTask.description}
                 </p>
               )}
 
               {/* Algorithm Scoring Breakdown Grid */}
-              <div className="bg-slate-800/60 backdrop-blur border border-slate-700/80 rounded-2xl p-4 mb-6">
+              <div className="bg-slate-800/60 backdrop-blur border border-slate-700/80 rounded-2xl p-3.5 sm:p-4 mb-6">
                 <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
                   <svg className="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
                   Algorithm Scoring Criteria
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3">
                   {nextBestAction.reasons.map((r, idx) => (
                     <div key={idx} className="bg-slate-900/80 rounded-xl p-3 border border-slate-700/60 flex flex-col justify-between">
                       <div className="flex items-center justify-between text-xs mb-1">
@@ -263,13 +263,13 @@ export const DashboardPage: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                 {nextBestAction.recommendedTask.status === 'READY' && (
                   <button
                     id="nba-start-btn"
                     onClick={() => { void handleStartTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-sm shadow-lg shadow-cyan-500/25 transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-sm shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -283,7 +283,7 @@ export const DashboardPage: React.FC = () => {
                     id="nba-complete-btn"
                     onClick={() => { void handleCompleteTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -296,7 +296,7 @@ export const DashboardPage: React.FC = () => {
                   id="nba-block-btn"
                   onClick={() => { void handleBlockTask(nextBestAction.recommendedTask!.id); }}
                   disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-800 text-xs font-bold transition-all disabled:opacity-50"
+                  className="w-full sm:w-auto px-4 py-3 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-800 text-xs font-bold transition-all disabled:opacity-50 text-center"
                 >
                   Flag Blocked
                 </button>

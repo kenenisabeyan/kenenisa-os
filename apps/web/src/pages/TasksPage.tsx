@@ -438,24 +438,24 @@ export const TasksPage: React.FC = () => {
               )}
 
               {/* Card Actions Footer */}
-              <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-xs">
+              <div className="pt-2.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setActiveParentTask(task)}
-                    className="text-cyan-400 hover:text-cyan-300 text-[11px] font-semibold flex items-center gap-1"
+                    className="text-blue-600 hover:text-blue-700 text-[11px] font-semibold flex items-center gap-1"
                   >
                     + Add Subtask
                   </button>
-                  <span className="text-slate-700">•</span>
+                  <span className="text-slate-300">•</span>
                   <button
                     onClick={() => setActiveDepTask(task)}
-                    className="text-rose-400 hover:text-rose-300 text-[11px] font-semibold flex items-center gap-1"
+                    className="text-rose-600 hover:text-rose-700 text-[11px] font-semibold flex items-center gap-1"
                   >
                     + Add Blocker
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-1.5">
                   {task.status !== 'DONE' && task.status !== 'IN_PROGRESS' && (
                     <button
                       onClick={() => void handleStart(task.id)}
@@ -504,8 +504,8 @@ export const TasksPage: React.FC = () => {
 
       {/* Create Task Modal */}
       {isCreateOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-5">
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="text-base font-bold text-slate-900">Create Executable Task</h3>
               <button

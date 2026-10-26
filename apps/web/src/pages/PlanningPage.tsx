@@ -249,7 +249,7 @@ export const PlanningPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto px-4 py-6 text-slate-100 font-sans" id="multi-horizon-planning">
+    <div className="space-y-6 text-slate-100 font-sans" id="multi-horizon-planning">
       <PageHeader
         title="Multi-Horizon Planning & Automatic Outcome Tracking"
         description="Plan, schedule, execute, and objectively track outcomes across Year, Month, Week, and Day horizons."
@@ -257,13 +257,13 @@ export const PlanningPage: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={handleGenerateFactualSummary}
-            className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition"
+            className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-medium transition"
           >
             📊 Generate Factual Summary
           </button>
           <button
             onClick={() => setIsOutcomeModalOpen(true)}
-            className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition"
+            className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-medium transition"
           >
             + Add Planned Outcome
           </button>
@@ -271,46 +271,46 @@ export const PlanningPage: React.FC = () => {
       </PageHeader>
 
       {/* Horizon Tab Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-900/80 p-2 rounded-xl border border-slate-800 backdrop-blur-md">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/80 p-2 rounded-xl border border-slate-800 backdrop-blur-md">
+        <div className="flex items-center space-x-1.5 sm:space-x-2 overflow-x-auto custom-scrollbar flex-nowrap w-full sm:w-auto pb-1 sm:pb-0">
           {(['year', 'month', 'week', 'day'] as const).map((h) => (
             <button
               key={h}
               onClick={() => setHorizon(h)}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold capitalize transition ${
+              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold capitalize whitespace-nowrap transition ${
                 horizon === h
                   ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
               }`}
             >
-              {h === 'year' && '🗓️ Yearly Horizon'}
-              {h === 'month' && '📅 Monthly Horizon'}
-              {h === 'week' && '📆 Weekly Horizon'}
-              {h === 'day' && '⏱️ Daily Horizon'}
+              {h === 'year' && '🗓️ Yearly'}
+              {h === 'month' && '📅 Monthly'}
+              {h === 'week' && '📆 Weekly'}
+              {h === 'day' && '⏱️ Daily'}
             </button>
           ))}
         </div>
 
         {/* Date Selector */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1.5 sm:space-x-2 overflow-x-auto custom-scrollbar flex-nowrap w-full sm:w-auto">
           <button
             onClick={() => shiftDays(-1)}
-            className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold whitespace-nowrap"
           >
-            ‹ Prev Day
+            ‹ Prev
           </button>
-          <span className="text-sm font-mono bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-cyan-400">
+          <span className="text-xs sm:text-sm font-mono bg-slate-950 px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-800 text-cyan-400 whitespace-nowrap">
             {selectedDate}
           </span>
           <button
             onClick={() => shiftDays(1)}
-            className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold whitespace-nowrap"
           >
-            Next Day ›
+            Next ›
           </button>
           <button
             onClick={resetToToday}
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 whitespace-nowrap"
           >
             Today
           </button>
