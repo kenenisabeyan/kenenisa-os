@@ -45,12 +45,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#F8FAFC]">
         {/* Global Desktop & Mobile Top Header Bar - Fixed Position */}
-        <header className="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-white/95 border-b border-slate-200/90 px-4 sm:px-6 flex items-center justify-between z-30 backdrop-blur-md shadow-2xs transition-all duration-300">
+        <header className="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-white/90 border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between z-30 backdrop-blur-md shadow-xs transition-all duration-300">
           {/* Mobile Left: Menu Toggle + Brand */}
           <div className="flex items-center gap-3 lg:hidden">
             <button
               onClick={() => setMobileOpen(true)}
-              className="p-1.5 rounded-xl bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200"
+              className="p-2 rounded-xl bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 border border-slate-200/90 transition-all cursor-pointer"
               aria-label="Open navigation menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,32 +71,37 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <div className="hidden lg:flex items-center flex-1 max-w-md">
             <button
               onClick={() => setSearchOpen(true)}
-              className="w-full bg-slate-100/90 hover:bg-slate-200/70 border border-slate-200/90 rounded-2xl px-3.5 py-2 flex items-center justify-between text-xs text-slate-500 transition-all group shadow-2xs"
+              className="w-full bg-slate-100/80 hover:bg-white hover:border-blue-300/80 border border-slate-200/80 rounded-2xl px-3.5 py-2 flex items-center justify-between text-xs text-slate-500 transition-all group shadow-2xs hover:shadow-xs cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <svg className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <span className="font-semibold text-slate-500">Search tasks, projects, plans, evidence...</span>
+                <span className="font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">Search tasks, projects, plans, evidence...</span>
               </div>
-              <kbd className="px-2 py-0.5 bg-white border border-slate-200 rounded font-mono text-[10px] text-slate-500 shadow-2xs">
-                Ctrl + K
-              </kbd>
+              <div className="flex items-center gap-1">
+                <kbd className="px-2 py-0.5 bg-white group-hover:bg-blue-50 border border-slate-200 group-hover:border-blue-200 rounded-md font-mono text-[10px] font-bold text-slate-500 group-hover:text-blue-700 shadow-2xs transition-colors">
+                  Ctrl + K
+                </kbd>
+              </div>
             </button>
           </div>
 
           {/* Right Header Actions */}
           <div className="flex items-center gap-3 ml-auto">
             {/* System Status Pill */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-700">
-              <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50/80 border border-emerald-200/60 text-[11px] font-bold text-emerald-800 shadow-2xs">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
               <span>System Operational</span>
             </div>
 
             {/* Mobile Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900"
+              className="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 transition-all cursor-pointer"
               title="Global Search"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +113,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <button
               id="global-quick-action-btn"
               onClick={() => setQuickActionOpen(true)}
-              className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-extrabold text-xs shadow-md shadow-blue-500/20 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 text-white font-black text-xs shadow-md shadow-blue-500/25 flex items-center gap-1.5 transition-all cursor-pointer"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />

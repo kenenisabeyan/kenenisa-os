@@ -131,51 +131,89 @@ export const DashboardPage: React.FC = () => {
       />
 
       {/* 7 Core Operating Questions Front-Door Overview */}
-      <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-3" id="front-door-questions-panel">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
-            <h2 className="text-xs font-black uppercase tracking-wider text-slate-800">
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4" id="front-door-questions-panel">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
+            <h2 className="text-xs font-black uppercase tracking-widest text-slate-900">
               COMMAND CENTER &bull; OPERATING CONTEXT ANSWERS
             </h2>
           </div>
-          <span className="text-[10px] text-slate-400 font-mono font-bold">REAL-TIME DOMAIN INTELLIGENCE</span>
+          <span className="text-[10px] text-slate-400 font-mono font-bold tracking-wider">REAL-TIME DOMAIN INTELLIGENCE</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {/* Question 1: WHERE AM I? */}
-          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
-            <div className="text-[10px] font-black uppercase text-blue-600 tracking-wider">WHERE AM I?</div>
-            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">Strategic Context</div>
-            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
-              {summary.activeWorkstreams} Workstreams &bull; {summary.activeGoals} Goals
+          <div className="group relative bg-gradient-to-br from-blue-50/50 via-white to-white rounded-2xl p-4 border border-blue-100 hover:border-blue-300 transition-all hover:shadow-sm">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-black uppercase text-blue-600 tracking-wider flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 4v1m0 10v1m-7-6h1m10 0h1m-2.93-4.07l-.71.71m-7.07 7.07l-.71.71m0-8.49l.71.71m7.07 7.07l.71.71" />
+                </svg>
+                WHERE AM I?
+              </span>
+              <span className="w-2 h-2 rounded-full bg-blue-500/80 group-hover:scale-125 transition-transform" />
+            </div>
+            <div className="text-sm font-black text-slate-900 truncate">Strategic Context</div>
+            <div className="text-xs text-slate-500 font-medium mt-1 flex items-center gap-1.5">
+              <span className="font-bold text-slate-800">{summary.activeWorkstreams}</span> Workstreams &bull; <span className="font-bold text-slate-800">{summary.activeGoals}</span> Goals
             </div>
           </div>
 
           {/* Question 2: WHAT MATTERS NOW? */}
-          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
-            <div className="text-[10px] font-black uppercase text-indigo-600 tracking-wider">WHAT MATTERS NOW?</div>
-            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">Target Outcomes</div>
-            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
-              {summary.activeProjects} Active Projects &bull; {summary.readyTasks} Ready Tasks
+          <div className="group relative bg-gradient-to-br from-indigo-50/50 via-white to-white rounded-2xl p-4 border border-indigo-100 hover:border-indigo-300 transition-all hover:shadow-sm">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-black uppercase text-indigo-600 tracking-wider flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                WHAT MATTERS NOW?
+              </span>
+              <span className="w-2 h-2 rounded-full bg-indigo-500/80 group-hover:scale-125 transition-transform" />
+            </div>
+            <div className="text-sm font-black text-slate-900 truncate">Target Outcomes</div>
+            <div className="text-xs text-slate-500 font-medium mt-1 flex items-center gap-1.5">
+              <span className="font-bold text-slate-800">{summary.activeProjects}</span> Active Projects &bull; <span className="font-bold text-slate-800">{summary.readyTasks}</span> Ready Tasks
             </div>
           </div>
 
           {/* Question 3: WHAT IS HAPPENING? */}
-          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
-            <div className="text-[10px] font-black uppercase text-cyan-600 tracking-wider">WHAT IS HAPPENING?</div>
-            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">Execution Focus</div>
-            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
-              {today.inProgress.length} Active Focus &bull; {today.dueToday.length} Scheduled
+          <div className="group relative bg-gradient-to-br from-cyan-50/50 via-white to-white rounded-2xl p-4 border border-cyan-100 hover:border-cyan-300 transition-all hover:shadow-sm">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-black uppercase text-cyan-600 tracking-wider flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                WHAT IS HAPPENING?
+              </span>
+              <span className="w-2 h-2 rounded-full bg-cyan-500/80 group-hover:scale-125 transition-transform" />
+            </div>
+            <div className="text-sm font-black text-slate-900 truncate">Execution Focus</div>
+            <div className="text-xs text-slate-500 font-medium mt-1 flex items-center gap-1.5">
+              <span className="font-bold text-slate-800">{today.inProgress.length}</span> Active Focus &bull; <span className="font-bold text-slate-800">{today.dueToday.length}</span> Scheduled
             </div>
           </div>
 
           {/* Question 4: WHAT NEEDS ATTENTION? */}
-          <div className="bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
-            <div className="text-[10px] font-black uppercase text-rose-600 tracking-wider">WHAT NEEDS ATTENTION?</div>
-            <div className="text-xs font-extrabold text-slate-900 mt-1 truncate">System Constraints</div>
-            <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
-              {summary.blockedTasks > 0 ? `${summary.blockedTasks} Blocked` : 'No Blockers'} &bull; {summary.overdueTasks > 0 ? `${summary.overdueTasks} Overdue` : 'On Schedule'}
+          <div className="group relative bg-gradient-to-br from-rose-50/50 via-white to-white rounded-2xl p-4 border border-rose-100 hover:border-rose-300 transition-all hover:shadow-sm">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-black uppercase text-rose-600 tracking-wider flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                WHAT NEEDS ATTENTION?
+              </span>
+              <span className={`w-2 h-2 rounded-full ${summary.blockedTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+            </div>
+            <div className="text-sm font-black text-slate-900 truncate">System Constraints</div>
+            <div className="text-xs text-slate-500 font-medium mt-1 flex items-center gap-1.5">
+              <span className={`font-bold ${summary.blockedTasks > 0 ? 'text-rose-600' : 'text-slate-800'}`}>
+                {summary.blockedTasks > 0 ? `${summary.blockedTasks} Blocked` : 'No Blockers'}
+              </span>
+              &bull;
+              <span className={`font-bold ${summary.overdueTasks > 0 ? 'text-amber-600' : 'text-slate-800'}`}>
+                {summary.overdueTasks > 0 ? `${summary.overdueTasks} Overdue` : 'On Schedule'}
+              </span>
             </div>
           </div>
         </div>
@@ -319,86 +357,94 @@ export const DashboardPage: React.FC = () => {
       {/* Summary Metrics Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3.5" id="summary-metrics">
         {/* Workstreams */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-blue-300 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-200 group relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-80" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Workstreams</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Workstreams</span>
             <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
           </div>
-          <div className="text-2xl font-black text-slate-900 mt-2">{summary.activeWorkstreams}</div>
+          <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeWorkstreams}</div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Core</div>
         </div>
 
         {/* Goals */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-indigo-300 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-300 transition-all duration-200 group relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-80" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Goals</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Goals</span>
             <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
           </div>
-          <div className="text-2xl font-black text-slate-900 mt-2">{summary.activeGoals}</div>
+          <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeGoals}</div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">In Progress</div>
         </div>
 
         {/* Projects */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-cyan-300 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-cyan-300 transition-all duration-200 group relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-teal-500 opacity-80" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Projects</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Projects</span>
             <span className="w-2 h-2 rounded-full bg-cyan-500 group-hover:scale-125 transition-transform" />
           </div>
-          <div className="text-2xl font-black text-slate-900 mt-2">{summary.activeProjects}</div>
+          <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeProjects}</div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Build</div>
         </div>
 
         {/* Ready Tasks */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-sky-300 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-sky-300 transition-all duration-200 group relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-500 to-blue-500 opacity-80" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Ready</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Ready</span>
             <span className="w-2 h-2 rounded-full bg-sky-500 group-hover:scale-125 transition-transform" />
           </div>
-          <div className="text-2xl font-black text-sky-600 mt-2">{summary.readyTasks}</div>
+          <div className="text-2xl font-black text-sky-600 mt-2 tracking-tight">{summary.readyTasks}</div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">Candidate Queue</div>
         </div>
 
         {/* In Progress */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-blue-400 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-blue-400 transition-all duration-200 group relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-80" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">In Progress</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">In Progress</span>
             <span className="w-2 h-2 rounded-full bg-blue-600 group-hover:scale-125 transition-transform" />
           </div>
-          <div className="text-2xl font-black text-blue-600 mt-2">{summary.inProgressTasks}</div>
+          <div className="text-2xl font-black text-blue-600 mt-2 tracking-tight">{summary.inProgressTasks}</div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Focus</div>
         </div>
 
         {/* Blocked */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-rose-300 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-rose-300 transition-all duration-200 group relative overflow-hidden">
+          <div className={`absolute top-0 left-0 right-0 h-1 ${summary.blockedTasks > 0 ? 'bg-rose-500' : 'bg-slate-300'} opacity-80`} />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Blocked</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Blocked</span>
             <span className={`w-2 h-2 rounded-full ${summary.blockedTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
           </div>
-          <div className={`text-2xl font-black mt-2 ${summary.blockedTasks > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
+          <div className={`text-2xl font-black mt-2 tracking-tight ${summary.blockedTasks > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
             {summary.blockedTasks}
           </div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">Needs Action</div>
         </div>
 
         {/* Overdue */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-amber-300 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-amber-300 transition-all duration-200 group relative overflow-hidden">
+          <div className={`absolute top-0 left-0 right-0 h-1 ${summary.overdueTasks > 0 ? 'bg-amber-500' : 'bg-slate-300'} opacity-80`} />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Overdue</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Overdue</span>
             <span className={`w-2 h-2 rounded-full ${summary.overdueTasks > 0 ? 'bg-amber-500 animate-pulse' : 'bg-slate-300'}`} />
           </div>
-          <div className={`text-2xl font-black mt-2 ${summary.overdueTasks > 0 ? 'text-amber-600' : 'text-slate-400'}`}>
+          <div className={`text-2xl font-black mt-2 tracking-tight ${summary.overdueTasks > 0 ? 'text-amber-600' : 'text-slate-400'}`}>
             {summary.overdueTasks}
           </div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">Past Target</div>
         </div>
 
         {/* 7d Completed */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs hover:border-emerald-300 transition-all group">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-emerald-300 transition-all duration-200 group relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-80" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">7d Done</span>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">7d Done</span>
             <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
           </div>
-          <div className="text-2xl font-black text-emerald-600 mt-2">{summary.completedTasksRecent}</div>
+          <div className="text-2xl font-black text-emerald-600 mt-2 tracking-tight">{summary.completedTasksRecent}</div>
           <div className="text-[10px] text-slate-500 font-semibold mt-1">Verified Impact</div>
         </div>
       </div>
