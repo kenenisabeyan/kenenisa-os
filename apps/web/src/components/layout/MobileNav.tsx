@@ -8,6 +8,17 @@ interface MobileNavProps {
 }
 
 export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
@@ -20,8 +31,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
       />
 
       {/* Drawer Content */}
-      <div className="relative flex-1 max-w-xs w-full bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
-        <div className="absolute top-3 right-3 z-20">
+      <div className="relative flex-1 max-w-xs w-72 bg-white h-[100dvh] shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
+        <div className="absolute top-3.5 right-3.5 z-20">
           <button
             onClick={onClose}
             className="p-1.5 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900 border border-slate-200"

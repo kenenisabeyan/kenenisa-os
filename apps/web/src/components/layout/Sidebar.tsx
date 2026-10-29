@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
   return (
     <aside
       aria-label="Main Navigation"
-      className="w-64 bg-white border-r border-slate-200/90 flex flex-col h-full select-none shadow-sm"
+      className="w-full lg:w-64 bg-white border-r border-slate-200/90 flex flex-col h-full select-none shadow-sm"
     >
       {/* Brand Header */}
       <div className="h-16 px-5 border-b border-slate-200/90 flex items-center justify-between shrink-0 bg-white">

@@ -31,10 +31,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex font-sans antialiased">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block shrink-0 w-64 h-screen sticky top-0 z-40">
+      {/* Fixed Desktop Sidebar */}
+      <div className="hidden lg:block fixed top-0 left-0 bottom-0 w-64 z-40 bg-white">
         <Sidebar />
       </div>
+
+      {/* Spacer to prevent main layout from sliding under the fixed sidebar */}
+      <div className="hidden lg:block w-64 shrink-0" aria-hidden="true" />
 
       {/* Mobile Nav Drawer */}
       <MobileNav isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
