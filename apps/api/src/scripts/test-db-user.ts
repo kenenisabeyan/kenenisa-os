@@ -10,26 +10,17 @@ import { prisma } from '../lib/prisma.js';
 import { verifyPassword } from '../utils/password.js';
 
 async function main() {
-  console.log('DATABASE_URL:', process.env.DATABASE_URL ? process.env.DATABASE_URL.replace(/:[^:@]+@/, ':****@') : 'UNDEFINED');
-  const count = await prisma.user.count();
-  console.log('Total users:', count);
   const users = await prisma.user.findMany();
   for (const u of users) {
-    console.log('User found:', {
-      id: u.id,
-      email: u.email,
-      role: u.role,
-      isActive: u.isActive,
-    });
-    console.log("Matches 'kenenisa@077215':", await verifyPassword(u.passwordHash, 'kenenisa@077215'));
-    console.log("Matches 'kenenisa@3072215':", await verifyPassword(u.passwordHash, 'kenenisa@3072215'));
+    console.log('--- USER ---');
+    console.log('ID:', u.id);
+    console.log('Email:', u.email);
+    console.log('Role:', u.role);
+    console.log('isActive:', u.isActive);
+    console.log('Password hash:', u.passwordHash);
   }
 }
 
 main()
-  .catch((e) => {
-    console.error('Script error:', e);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());
