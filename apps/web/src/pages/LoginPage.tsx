@@ -214,7 +214,7 @@ export const LoginPage: React.FC = () => {
             type="button"
             onClick={() => {
               setEmail('beyankenenisa@gmail.com');
-              setPassword('kenenisa@077215');
+              setPassword('kenenisa@3077215');
             }}
             className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2"
           >
