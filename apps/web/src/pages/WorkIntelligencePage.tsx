@@ -39,7 +39,7 @@ export const WorkIntelligencePage: React.FC = () => {
         fetchGoals({ pageSize: 50 }),
         fetchProjects({ pageSize: 50 }),
         fetchMilestones(),
-        fetchTasks({ pageSize: 150 }),
+        fetchTasks({ pageSize: 100 }),
       ]);
 
       setWorkstreams(wsData);

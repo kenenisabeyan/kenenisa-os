@@ -23,6 +23,7 @@ router.get('/evidence', controller.getEvidence);
 router.get('/evidence/trend', controller.getEvidenceTrend);
 router.get('/reviews', controller.getReviews);
 router.get('/weekly-history', controller.getWeeklyHistory);
+router.get('/opportunities', controller.getOpportunities);
 
 export default router;
 export { router as analyticsRouter };
