@@ -221,60 +221,84 @@ export const AnalyticsPage: React.FC = () => {
         <>
           {/* Top KPI Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-1.5 shadow-sm relative overflow-hidden">
-              <span className="text-[10px] uppercase font-extrabold text-blue-600 tracking-wider">Tasks Completed</span>
-              <div className="text-2xl font-extrabold text-slate-900">
+            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-black text-blue-600 tracking-widest">Tasks Done</span>
+                <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 {overview.execution.completedTasks}
                 <span className="text-xs text-slate-400 font-normal ml-1">/ {overview.execution.totalTasks}</span>
               </div>
-              <div className="text-[11px] text-blue-600 font-semibold">
+              <div className="text-[11px] text-blue-600 font-bold">
                 {overview.execution.completionRate !== null ? `${overview.execution.completionRate}% completion` : 'N/A'}
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-1.5 shadow-sm relative overflow-hidden">
-              <span className="text-[10px] uppercase font-extrabold text-emerald-600 tracking-wider">Planned Capacity</span>
-              <div className="text-2xl font-extrabold text-slate-900">
+            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-black text-emerald-600 tracking-widest">Capacity</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 {Math.round(overview.planning.plannedMinutes / 60)}h
                 <span className="text-xs text-slate-400 font-normal ml-1">
                   / {Math.round((capacity?.totalAvailableMinutes || 0) / 60)}h
                 </span>
               </div>
-              <div className="text-[11px] text-emerald-600 font-semibold">
+              <div className="text-[11px] text-emerald-600 font-bold">
                 {capacity?.utilizationPercentage !== null ? `${capacity?.utilizationPercentage}% utilized` : 'N/A'}
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-1.5 shadow-sm relative overflow-hidden">
-              <span className="text-[10px] uppercase font-extrabold text-purple-600 tracking-wider">Learning Logged</span>
-              <div className="text-2xl font-extrabold text-slate-900">
+            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-indigo-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-black text-purple-600 tracking-widest">Learning</span>
+                <span className="w-2 h-2 rounded-full bg-purple-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 {Math.round(overview.learning.learningMinutes / 60)}h
               </div>
-              <div className="text-[11px] text-purple-600 font-semibold">
+              <div className="text-[11px] text-purple-600 font-bold">
                 {overview.learning.learningActivityDays} active days
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-1.5 shadow-sm relative overflow-hidden">
-              <span className="text-[10px] uppercase font-extrabold text-amber-600 tracking-wider">Evidence Vault</span>
-              <div className="text-2xl font-extrabold text-slate-900">{overview.evidence.evidenceCreated}</div>
-              <div className="text-[11px] text-amber-600 font-semibold">
+            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-black text-amber-600 tracking-widest">Evidence</span>
+                <span className="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.evidence.evidenceCreated}</div>
+              <div className="text-[11px] text-amber-600 font-bold">
                 {overview.evidence.evidenceVerified} verified
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-1.5 shadow-sm relative overflow-hidden">
-              <span className="text-[10px] uppercase font-extrabold text-indigo-600 tracking-wider">Active Projects</span>
-              <div className="text-2xl font-extrabold text-slate-900">{overview.projects.activeProjects}</div>
-              <div className="text-[11px] text-slate-500 font-semibold">
+            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-blue-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-black text-indigo-600 tracking-widest">Projects</span>
+                <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.projects.activeProjects}</div>
+              <div className="text-[11px] text-slate-500 font-bold">
                 {overview.projects.completedProjects} completed
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-1.5 shadow-sm relative overflow-hidden">
-              <span className="text-[10px] uppercase font-extrabold text-rose-600 tracking-wider">Overdue Tasks</span>
-              <div className="text-2xl font-extrabold text-rose-600">{overview.execution.overdueTasks}</div>
-              <div className="text-[11px] text-amber-600 font-semibold">
+            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
+              <div className={`absolute top-0 left-0 right-0 h-1 ${overview.execution.overdueTasks > 0 ? 'bg-rose-500' : 'bg-slate-300'}`} />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-black text-rose-600 tracking-widest">Overdue</span>
+                <span className={`w-2 h-2 rounded-full ${overview.execution.overdueTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-rose-600 tracking-tight">{overview.execution.overdueTasks}</div>
+              <div className="text-[11px] text-amber-600 font-bold">
                 {blocked?.currentlyBlocked || 0} blocked
               </div>
             </div>

@@ -263,26 +263,27 @@ export const ExecutivePage: React.FC = () => {
 
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
               {[
-                { label: 'Workstreams', count: workstreams.length, color: 'from-slate-600 to-slate-800', textColor: 'text-slate-900' },
-                { label: 'Goals', count: goals.length, color: 'from-blue-500 to-blue-600', textColor: 'text-blue-600' },
-                { label: 'Projects', count: projects.length, color: 'from-indigo-500 to-indigo-600', textColor: 'text-indigo-600' },
-                { label: 'Ready Tasks', count: readyTasks.length, color: 'from-amber-500 to-amber-600', textColor: 'text-amber-600' },
-                { label: 'Tasks Done', count: completedTasks.length, color: 'from-emerald-500 to-emerald-600', textColor: 'text-emerald-600' },
-                { label: 'Evidence Vault', count: evidence.length, color: 'from-cyan-500 to-cyan-600', textColor: 'text-cyan-600' },
-                { label: 'Reviews', count: reviews.length, color: 'from-purple-500 to-purple-600', textColor: 'text-purple-600' },
+                { label: 'Workstreams', count: workstreams.length, color: 'from-slate-600 to-slate-800', textColor: 'text-slate-900', bg: 'bg-slate-50' },
+                { label: 'Goals', count: goals.length, color: 'from-blue-500 to-blue-600', textColor: 'text-blue-600', bg: 'bg-blue-50/50' },
+                { label: 'Projects', count: projects.length, color: 'from-indigo-500 to-indigo-600', textColor: 'text-indigo-600', bg: 'bg-indigo-50/50' },
+                { label: 'Ready Tasks', count: readyTasks.length, color: 'from-amber-500 to-amber-600', textColor: 'text-amber-600', bg: 'bg-amber-50/50' },
+                { label: 'Tasks Done', count: completedTasks.length, color: 'from-emerald-500 to-emerald-600', textColor: 'text-emerald-600', bg: 'bg-emerald-50/50' },
+                { label: 'Evidence Vault', count: evidence.length, color: 'from-cyan-500 to-cyan-600', textColor: 'text-cyan-600', bg: 'bg-cyan-50/50' },
+                { label: 'Reviews', count: reviews.length, color: 'from-purple-500 to-purple-600', textColor: 'text-purple-600', bg: 'bg-purple-50/50' },
               ].map((step, idx) => (
                 <div
                   key={step.label}
-                  className="relative bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 text-center hover:border-slate-300 transition-all flex flex-col justify-between shadow-2xs"
+                  className={`relative ${step.bg} border border-slate-200/90 rounded-2xl p-4 text-center hover:border-blue-300 hover:shadow-xs transition-all duration-150 flex flex-col justify-between shadow-2xs group`}
                 >
-                  <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                    Step 0{idx + 1}
+                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    <span>Node 0{idx + 1}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
                   </div>
-                  <div className="my-2">
-                    <p className={`text-2xl font-extrabold ${step.textColor}`}>{step.count}</p>
-                    <p className="text-xs font-bold text-slate-700 mt-0.5">{step.label}</p>
+                  <div className="my-2.5">
+                    <p className={`text-2xl sm:text-3xl font-black ${step.textColor} tracking-tight`}>{step.count}</p>
+                    <p className="text-xs font-bold text-slate-800 mt-0.5 truncate">{step.label}</p>
                   </div>
-                  <div className={`w-full h-1.5 bg-gradient-to-r ${step.color} rounded-full`} />
+                  <div className={`w-full h-1.5 bg-gradient-to-r ${step.color} rounded-full shadow-2xs`} />
                 </div>
               ))}
             </div>

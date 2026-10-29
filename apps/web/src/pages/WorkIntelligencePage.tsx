@@ -115,14 +115,18 @@ export const WorkIntelligencePage: React.FC = () => {
       ) : (
         <>
           {/* Workload Concentration Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
-            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
-              <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Ready Work</span>
-              <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">{readyCount}</p>
-              <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
-                  <span>Share</span>
-                  <span>{Math.round((readyCount / totalTasks) * 100)}%</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 space-y-2.5 sm:space-y-3 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Ready Work</span>
+                <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <p className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{readyCount}</p>
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-[11px] text-slate-500 font-semibold">
+                  <span>Share of Total</span>
+                  <span className="font-black text-slate-900">{Math.round((readyCount / totalTasks) * 100)}%</span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div
@@ -133,13 +137,17 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
-              <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">In Progress</span>
-              <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">{inProgressCount}</p>
-              <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
-                  <span>Active</span>
-                  <span>{Math.round((inProgressCount / totalTasks) * 100)}%</span>
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 space-y-2.5 sm:space-y-3 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">In Progress</span>
+                <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <p className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{inProgressCount}</p>
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-[11px] text-slate-500 font-semibold">
+                  <span>Active Execution</span>
+                  <span className="font-black text-slate-900">{Math.round((inProgressCount / totalTasks) * 100)}%</span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div
@@ -150,13 +158,21 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
-              <span className="text-[10px] font-extrabold text-rose-600 uppercase tracking-wider">Blocked Work</span>
-              <p className="text-2xl sm:text-3xl font-extrabold text-rose-600">{blockedCount}</p>
-              <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
-                  <span>Blocked</span>
-                  <span>{Math.round((blockedCount / totalTasks) * 100)}%</span>
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 space-y-2.5 sm:space-y-3 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-rose-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Blocked Work</span>
+                <span className={`w-2 h-2 rounded-full ${blockedCount > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+              </div>
+              <p className={`text-2xl sm:text-3xl font-black tracking-tight ${blockedCount > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
+                {blockedCount}
+              </p>
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-[11px] text-slate-500 font-semibold">
+                  <span>Blocked Ratio</span>
+                  <span className={`font-black ${blockedCount > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
+                    {Math.round((blockedCount / totalTasks) * 100)}%
+                  </span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div
@@ -167,13 +183,17 @@ export const WorkIntelligencePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-sm space-y-2 sm:space-y-3 relative overflow-hidden">
-              <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider">Completed</span>
-              <p className="text-2xl sm:text-3xl font-extrabold text-emerald-600">{doneCount}</p>
-              <div className="space-y-1">
-                <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
-                  <span>Done</span>
-                  <span>{Math.round((doneCount / totalTasks) * 100)}%</span>
+            <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 space-y-2.5 sm:space-y-3 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Completed</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <p className="text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight">{doneCount}</p>
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-[11px] text-slate-500 font-semibold">
+                  <span>Completion Rate</span>
+                  <span className="font-black text-slate-900">{Math.round((doneCount / totalTasks) * 100)}%</span>
                 </div>
                 <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
                   <div

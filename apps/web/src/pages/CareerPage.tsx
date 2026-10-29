@@ -134,87 +134,97 @@ export const CareerPage: React.FC = () => {
       ) : (
         <>
           {/* Opportunity Pipeline Flow */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-                Career Opportunity Lifecycle Pipeline
-              </h2>
-              <span className="text-xs text-slate-500 font-medium">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
+                <h2 className="text-xs font-black uppercase tracking-widest text-slate-900">
+                  CAREER OPPORTUNITY LIFECYCLE PIPELINE
+                </h2>
+              </div>
+              <span className="text-[11px] font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
                 {analytics?.totalOpportunities || opportunities.length} Total Tracked
               </span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center">
-              {statusPipeline.map((step) => (
-                <div key={step.label} className={`border border-slate-200/90 rounded-xl p-3 space-y-1 ${step.color}`}>
-                  <p className="text-[10px] font-bold uppercase tracking-wider">{step.label}</p>
-                  <p className="text-2xl font-bold">{step.count}</p>
+              {statusPipeline.map((step, idx) => (
+                <div key={step.label} className={`border border-slate-200/90 rounded-2xl p-3.5 space-y-1.5 ${step.color} shadow-2xs hover:shadow-xs transition-all`}>
+                  <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-widest text-slate-400">
+                    <span>Stage 0{idx + 1}</span>
+                  </div>
+                  <p className="text-2xl font-black tracking-tight">{step.count}</p>
+                  <p className="text-[10px] font-extrabold uppercase tracking-wider">{step.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Skill → Project → Evidence → Opportunity Relationship Mapper */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-                <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-                  Skill → Project → Evidence → Opportunity Mapping
+                <h2 className="text-xs font-black uppercase tracking-widest text-slate-900">
+                  SKILL &rarr; PROJECT &rarr; EVIDENCE &rarr; OPPORTUNITY MAPPING
                 </h2>
-                <p className="text-xs text-slate-500">
-                  Factual alignment between verified capabilities and target career roles
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Factual alignment between verified engineering capabilities and target career roles
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2">
-                <span className="text-[10px] font-bold text-[#6366F1] uppercase tracking-wider">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-3.5 text-xs">
+              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
+                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
                   1. Verified Skills ({skills.length})
                 </span>
                 <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
                   {skills.slice(0, 5).map((s) => (
-                    <div key={s.id} className="bg-white p-2 rounded-lg border border-slate-200 font-semibold text-slate-800 flex justify-between">
-                      <span>{s.name}</span>
-                      <span className="text-[10px] text-[#6366F1]">{s.category}</span>
+                    <div key={s.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 flex justify-between items-center shadow-2xs">
+                      <span className="truncate">{s.name}</span>
+                      <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">{s.category}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2">
-                <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
+              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                   2. Active Projects ({projects.length})
                 </span>
                 <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
                   {projects.slice(0, 5).map((p) => (
-                    <div key={p.id} className="bg-white p-2 rounded-lg border border-slate-200 font-semibold text-slate-800 truncate">
+                    <div key={p.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
                       {p.name}
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2">
-                <span className="text-[10px] font-bold text-[#3AB1EC] uppercase tracking-wider">
+              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
+                <span className="text-[10px] font-black text-cyan-600 uppercase tracking-widest flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                   3. Verified Evidence ({evidence.length})
                 </span>
                 <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
                   {evidence.slice(0, 5).map((e) => (
-                    <div key={e.id} className="bg-white p-2 rounded-lg border border-slate-200 font-semibold text-slate-800 truncate">
+                    <div key={e.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
                       {e.title}
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2">
-                <span className="text-[10px] font-bold text-[#A855F7] uppercase tracking-wider">
+              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
+                <span className="text-[10px] font-black text-purple-600 uppercase tracking-widest flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
                   4. Opportunities ({opportunities.length})
                 </span>
                 <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
                   {opportunities.slice(0, 5).map((o) => (
-                    <div key={o.id} className="bg-white p-2 rounded-lg border border-slate-200 font-semibold text-slate-800 truncate">
+                    <div key={o.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
                       {o.title} {o.organizationName ? `@ ${o.organizationName}` : ''}
                     </div>
                   ))}
@@ -328,22 +338,42 @@ export const CareerPage: React.FC = () => {
                   {/* AI Career Advisor Request */}
                   <div className="pt-4 border-t border-slate-100 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-[#7e22ce] uppercase tracking-wider">
+                      <span className="text-[10px] font-black text-purple-700 uppercase tracking-widest flex items-center gap-1.5">
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
+                        </span>
                         AI Advisory Insight
                       </span>
                       <button
                         onClick={() => void handleRequestAiAdvice(selectedOpp)}
                         disabled={aiLoading}
-                        className="px-3 py-1 bg-purple-50 hover:bg-purple-100 text-[#7e22ce] border border-purple-200 font-bold text-xs rounded-lg transition-colors"
+                        className="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs rounded-xl shadow-xs transition-all active:scale-95 disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
                       >
-                        {aiLoading ? 'Analyzing...' : 'Analyze Relevance'}
+                        {aiLoading ? (
+                          <>
+                            <svg className="w-3.5 h-3.5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                            </svg>
+                            <span>Analyzing...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>✨ Analyze Relevance</span>
+                          </>
+                        )}
                       </button>
                     </div>
 
                     {aiAnalysis && (
-                      <div className="bg-purple-50/50 border border-purple-200 rounded-xl p-3 text-xs text-slate-800 leading-relaxed font-normal">
-                        <span className="font-bold text-[#7e22ce] block mb-1">[AI Advisory Analysis]</span>
-                        {aiAnalysis}
+                      <div className="bg-gradient-to-br from-purple-50/80 via-white to-indigo-50/40 border border-purple-200/80 rounded-2xl p-4 text-xs text-slate-800 leading-relaxed shadow-2xs space-y-1.5">
+                        <div className="flex items-center gap-1.5 text-[#7e22ce] font-black text-[11px] uppercase tracking-wider">
+                          <span>✨ AI Strategic Alignment Analysis</span>
+                        </div>
+                        <div className="text-slate-700 whitespace-pre-line font-medium leading-relaxed">
+                          {aiAnalysis}
+                        </div>
                       </div>
                     )}
                   </div>
