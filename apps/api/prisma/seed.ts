@@ -58,7 +58,7 @@ const CORE_WORKSTREAMS = [
 async function main() {
   console.info('🌱 Starting KENENISA OS database seed...');
 
-  const defaultPasswordHash = await argon2.hash('kenenisa@3072215', {
+  const defaultPasswordHash = await argon2.hash('kenenisa@077215', {
     type: argon2.argon2id,
   });
 

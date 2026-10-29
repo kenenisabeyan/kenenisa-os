@@ -57,7 +57,7 @@ vi.mock('../lib/prisma.js', () => {
 const app = createApp();
 
 describe('Authentication & Session Comprehensive Test Suite', () => {
-  const testPassword = 'kenenisa@3072215';
+  const testPassword = 'kenenisa@077215';
   let mockPasswordHash: string;
   const mockUser = {
     id: '11111111-1111-1111-1111-111111111111',

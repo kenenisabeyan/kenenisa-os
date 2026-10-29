@@ -165,7 +165,7 @@ For local setup and initial access:
 | Field | Default Value | Notes |
 | :--- | :--- | :--- |
 | **Email** | `beyankenenisa@gmail.com` | Recoverable anytime via `/forgot-email` |
-| **Password** | `kenenisa@3072215` | Resettable anytime via `/forgot-password` |
+| **Password** | `kenenisa@077215` | Resettable anytime via `/forgot-password` |
 | **Role** | `OWNER` | Root system access & administration |
 
 > [!TIP]
