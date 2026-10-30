@@ -560,15 +560,15 @@ export const AboutPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 relative z-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 relative z-10">
           <Link
             to="/login"
-            className="relative group/btn w-full sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/60 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg sm:shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/60 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            <span className="relative w-full sm:w-auto px-10 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black text-lg tracking-wide flex items-center justify-center gap-3 overflow-hidden">
+            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
               <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
               <span>Get Started Free</span>
-              <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-blue-600 group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold">
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-blue-600 group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
                 →
               </span>
             </span>
@@ -576,12 +576,12 @@ export const AboutPage: React.FC = () => {
 
           <Link
             to="/login"
-            className="relative group/btn w-full sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-blue-300 via-indigo-400 to-sky-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-blue-300 via-indigo-400 to-sky-300 shadow-md sm:shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            <span className="relative w-full sm:w-auto px-10 py-4 rounded-full bg-white/95 backdrop-blur-xl text-indigo-950 group-hover/btn:text-blue-700 font-black text-lg tracking-wide flex items-center justify-center gap-3 transition-colors overflow-hidden">
+            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-indigo-950 group-hover/btn:text-blue-700 font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors overflow-hidden whitespace-nowrap">
               <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent pointer-events-none" />
               <span>Sign In</span>
-              <span className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center group-hover/btn:bg-blue-600 group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-base">
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center group-hover/btn:bg-blue-600 group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
                 🔑
               </span>
             </span>
