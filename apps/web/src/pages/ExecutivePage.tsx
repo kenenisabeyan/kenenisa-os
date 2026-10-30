@@ -85,16 +85,16 @@ export const ExecutivePage: React.FC = () => {
         description="High-level strategic alignment across academic, engineering, product, career, and personal domain trajectories."
         breadcrumbs={[{ label: 'Command Center' }, { label: 'Executive Overview' }]}
         actions={
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => navigate('/app/dashboard')}
-              className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-200 font-semibold text-xs shadow-sm transition-all"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-200 font-semibold text-[11px] sm:text-xs shadow-sm transition-all"
             >
               Command Center
             </button>
             <button
               onClick={() => navigate('/app/planning')}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-blue-500/20 transition-all flex items-center gap-1.5"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-[11px] sm:text-xs shadow-lg shadow-blue-500/20 transition-all flex items-center gap-1.5"
             >
               <span>⚡ Strategic Planning</span>
             </button>

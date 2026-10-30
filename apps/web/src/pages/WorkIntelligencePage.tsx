@@ -91,16 +91,16 @@ export const WorkIntelligencePage: React.FC = () => {
         description="Comprehensive visibility into operating structure, task dependencies, workload concentration, and bottleneck constraints."
         breadcrumbs={[{ label: 'Command Center' }, { label: 'Work Intelligence' }]}
         actions={
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => navigate('/app/tasks')}
-              className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 font-semibold text-xs transition-colors shadow-sm"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 font-semibold text-[11px] sm:text-xs transition-colors shadow-sm"
             >
               Task Engine
             </button>
             <button
               onClick={() => navigate('/app/executive')}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-[11px] sm:text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5"
             >
               <span>Executive Overview</span>
             </button>

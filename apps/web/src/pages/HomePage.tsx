@@ -564,7 +564,7 @@ export const HomePage: React.FC = () => {
           </div>
           <button
             onClick={() => navigate('/login')}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-black text-sm shadow-xl shadow-cyan-500/25 hover:scale-105 hover:shadow-cyan-500/40 transition-all duration-300 shrink-0 group"
+            className="w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-black text-xs sm:text-sm shadow-lg sm:shadow-xl shadow-cyan-500/25 hover:scale-105 hover:shadow-cyan-500/40 transition-all duration-300 shrink-0 group whitespace-nowrap"
           >
             <span>Launch Command Center</span>
             <span className="group-hover:translate-x-1 transition-transform">→</span>

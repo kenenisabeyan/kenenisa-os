@@ -110,16 +110,16 @@ export const CareerPage: React.FC = () => {
         description="Connect your verified skills, projects, and concrete evidence to target career opportunities."
         breadcrumbs={[{ label: 'Grow' }, { label: 'Career Hub' }]}
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={() => navigate('/app/opportunities')}
-              className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors"
+              className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-[11px] sm:text-xs transition-colors"
             >
               Opportunity Pipeline
             </button>
             <button
               onClick={() => navigate('/app/evidence')}
-              className="px-4 py-2 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold text-xs shadow-xs transition-colors"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold text-[11px] sm:text-xs shadow-xs transition-colors"
             >
               Evidence Vault
             </button>

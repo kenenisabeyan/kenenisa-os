@@ -307,7 +307,7 @@ export const DashboardPage: React.FC = () => {
                     id="nba-start-btn"
                     onClick={() => { void handleStartTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-sm shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
+                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-xs sm:text-sm shadow-md sm:shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -321,7 +321,7 @@ export const DashboardPage: React.FC = () => {
                     id="nba-complete-btn"
                     onClick={() => { void handleCompleteTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
+                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-extrabold text-xs sm:text-sm shadow-md sm:shadow-lg shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -334,7 +334,7 @@ export const DashboardPage: React.FC = () => {
                   id="nba-block-btn"
                   onClick={() => { void handleBlockTask(nextBestAction.recommendedTask!.id); }}
                   disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="w-full sm:w-auto px-4 py-3 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-800 text-xs font-bold transition-all disabled:opacity-50 text-center"
+                  className="w-full sm:w-auto px-3.5 py-2 sm:px-4 sm:py-3 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-800 text-xs font-bold transition-all disabled:opacity-50 text-center"
                 >
                   Flag Blocked
                 </button>

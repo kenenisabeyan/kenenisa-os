@@ -228,7 +228,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-cyan-50/90 border border-cyan-200/90 text-[#0284C7] text-xs font-extrabold uppercase tracking-widest shadow-xs shrink-0">
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-cyan-50/90 border border-cyan-200/90 text-[#0284C7] text-[10px] sm:text-xs font-extrabold uppercase tracking-widest shadow-xs shrink-0">
             <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7] animate-pulse" />
             <span>{badgeText}</span>
             <span className="text-cyan-500">⚡</span>

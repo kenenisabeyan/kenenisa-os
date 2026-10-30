@@ -195,7 +195,7 @@ export const LoginPage: React.FC = () => {
             type="submit"
             id="login-submit-btn"
             disabled={isSubmitting}
-            className="w-full mt-2 py-3.5 px-4 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold rounded-xl text-sm shadow-md shadow-blue-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.99]"
+            className="w-full mt-2 py-2.5 sm:py-3.5 px-4 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md shadow-blue-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer"
           >
             {isSubmitting ? (
               <>
@@ -216,7 +216,7 @@ export const LoginPage: React.FC = () => {
               setEmail('beyankenenisa@gmail.com');
               setPassword('kenenisa@3077215');
             }}
-            className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2"
+            className="w-full py-2 sm:py-2.5 px-3 sm:px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-[11px] sm:text-xs transition-colors flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer"
           >
             ⚡ Autofill Owner Credentials (beyankenenisa@gmail.com)
           </button>
