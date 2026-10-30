@@ -88,7 +88,7 @@ export const ExecutivePage: React.FC = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => navigate('/app/dashboard')}
-              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-200 font-semibold text-[11px] sm:text-xs shadow-sm transition-all"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-[11px] sm:text-xs shadow-xs transition-all cursor-pointer"
             >
               Command Center
             </button>
@@ -335,7 +335,7 @@ export const ExecutivePage: React.FC = () => {
                         </div>
                         <button
                           onClick={() => navigate('/app/tasks')}
-                          className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
+                          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs cursor-pointer"
                         >
                           Execute Task
                         </button>
@@ -421,52 +421,52 @@ export const ExecutivePage: React.FC = () => {
               </div>
 
               {/* Navigation Action Matrix */}
-              <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4 text-white">
-                <h3 className="text-base font-extrabold text-white tracking-tight">Strategic Portals</h3>
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs space-y-4">
+                <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Strategic Portals</h3>
 
                 <div className="space-y-2.5">
                   <button
                     onClick={() => navigate('/app/work-intelligence')}
-                    className="w-full p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left text-xs font-bold text-slate-200 flex items-center justify-between transition-all group"
+                    className="w-full p-3.5 rounded-2xl bg-slate-50/80 hover:bg-blue-50/60 border border-slate-200/90 hover:border-blue-300 text-left text-xs font-bold text-slate-800 flex items-center justify-between transition-all group cursor-pointer"
                   >
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-blue-400 group-hover:scale-125 transition-transform" />
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
                       Work Intelligence Map
                     </span>
-                    <span className="text-slate-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all">→</span>
+                    <span className="text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all">→</span>
                   </button>
 
                   <button
                     onClick={() => navigate('/app/reviews')}
-                    className="w-full p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-purple-500/50 text-left text-xs font-bold text-slate-200 flex items-center justify-between transition-all group"
+                    className="w-full p-3.5 rounded-2xl bg-slate-50/80 hover:bg-purple-50/60 border border-slate-200/90 hover:border-purple-300 text-left text-xs font-bold text-slate-800 flex items-center justify-between transition-all group cursor-pointer"
                   >
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-125 transition-transform" />
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-purple-500 group-hover:scale-125 transition-transform" />
                       Weekly Review Loop
                     </span>
-                    <span className="text-slate-400 group-hover:text-purple-400 group-hover:translate-x-1 transition-all">→</span>
+                    <span className="text-slate-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all">→</span>
                   </button>
 
                   <button
                     onClick={() => navigate('/app/career')}
-                    className="w-full p-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 text-left text-xs font-bold text-slate-200 flex items-center justify-between transition-all group"
+                    className="w-full p-3.5 rounded-2xl bg-slate-50/80 hover:bg-emerald-50/60 border border-slate-200/90 hover:border-emerald-300 text-left text-xs font-bold text-slate-800 flex items-center justify-between transition-all group cursor-pointer"
                   >
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform" />
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
                       Career & Opportunity Hub
                     </span>
-                    <span className="text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">→</span>
+                    <span className="text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all">→</span>
                   </button>
 
                   <button
                     onClick={() => navigate('/app/intelligence')}
-                    className="w-full p-3.5 rounded-2xl bg-gradient-to-r from-purple-900/50 to-indigo-900/50 hover:from-purple-800/60 hover:to-indigo-800/60 border border-purple-500/40 text-left text-xs font-bold text-purple-200 flex items-center justify-between transition-all group shadow-lg shadow-purple-900/30"
+                    className="w-full p-3.5 rounded-2xl bg-gradient-to-r from-purple-50 via-indigo-50/50 to-blue-50 hover:from-purple-100 hover:to-indigo-100 border border-purple-200 text-left text-xs font-bold text-purple-900 flex items-center justify-between transition-all group shadow-2xs cursor-pointer"
                   >
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-purple-300 animate-ping" />
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-purple-600 animate-pulse" />
                       AI Advisory Mentor
                     </span>
-                    <span className="text-purple-300 group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="text-purple-600 group-hover:translate-x-1 transition-transform">→</span>
                   </button>
                 </div>
               </div>

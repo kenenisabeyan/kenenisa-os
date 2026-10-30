@@ -94,7 +94,7 @@ export const WorkIntelligencePage: React.FC = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => navigate('/app/tasks')}
-              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 font-semibold text-[11px] sm:text-xs transition-colors shadow-sm"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-[11px] sm:text-xs shadow-xs transition-colors cursor-pointer"
             >
               Task Engine
             </button>

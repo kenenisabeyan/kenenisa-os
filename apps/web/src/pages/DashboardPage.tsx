@@ -241,9 +241,9 @@ export const DashboardPage: React.FC = () => {
             </div>
 
             {nextBestAction && (
-              <div className="flex items-center gap-2.5 bg-slate-800/80 backdrop-blur px-3.5 py-1.5 rounded-full border border-cyan-500/30 shadow-md self-start sm:self-auto">
-                <span className="text-xs text-slate-300 font-medium">Execution Priority Index</span>
-                <span className="text-base font-black text-cyan-400" id="nba-score">
+              <div className="flex items-center gap-2.5 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-xs self-start sm:self-auto">
+                <span className="text-xs text-white/80 font-medium">Execution Priority Index</span>
+                <span className="text-base font-black text-cyan-200" id="nba-score">
                   {nextBestAction.score}/100
                 </span>
               </div>
@@ -256,11 +256,11 @@ export const DashboardPage: React.FC = () => {
                 <span className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-black uppercase border ${priorityBadgeStyle(nextBestAction.recommendedTask.priority)}`}>
                   {nextBestAction.recommendedTask.priority} Priority
                 </span>
-                <span className="px-2.5 sm:px-3 py-1 rounded-lg text-xs font-extrabold uppercase bg-slate-800 text-slate-300 border border-slate-700">
+                <span className="px-2.5 sm:px-3 py-1 rounded-lg text-xs font-extrabold uppercase bg-white/15 text-white border border-white/20">
                   Status: {nextBestAction.recommendedTask.status}
                 </span>
                 {nextBestAction.recommendedTask.project && (
-                  <span className="text-xs text-cyan-300 bg-cyan-950/60 px-2.5 sm:px-3 py-1 rounded-lg border border-cyan-800/60 font-semibold flex items-center gap-1.5">
+                  <span className="text-xs text-cyan-100 bg-cyan-400/20 px-2.5 sm:px-3 py-1 rounded-lg border border-cyan-300/30 font-semibold flex items-center gap-1.5">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                     </svg>
@@ -274,27 +274,27 @@ export const DashboardPage: React.FC = () => {
               </h2>
 
               {nextBestAction.recommendedTask.description && (
-                <p className="text-slate-300 text-xs sm:text-sm mb-6 max-w-3xl leading-relaxed">
+                <p className="text-white/90 text-xs sm:text-sm mb-6 max-w-3xl leading-relaxed">
                   {nextBestAction.recommendedTask.description}
                 </p>
               )}
 
               {/* Algorithm Scoring Breakdown Grid */}
-              <div className="bg-slate-800/60 backdrop-blur border border-slate-700/80 rounded-2xl p-3.5 sm:p-4 mb-6">
-                <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-3.5 sm:p-4 mb-6">
+                <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-white/80 mb-3 flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
                   Algorithm Scoring Criteria
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3">
                   {nextBestAction.reasons.map((r, idx) => (
-                    <div key={idx} className="bg-slate-900/80 rounded-xl p-3 border border-slate-700/60 flex flex-col justify-between">
+                    <div key={idx} className="bg-white/15 rounded-xl p-3 border border-white/15 backdrop-blur-xs flex flex-col justify-between">
                       <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="text-slate-300 font-bold">{r.category}</span>
-                        <span className="text-cyan-400 font-black">+{r.points}</span>
+                        <span className="text-white font-bold">{r.category}</span>
+                        <span className="text-cyan-200 font-black">+{r.points}</span>
                       </div>
-                      <p className="text-[11px] text-slate-400 leading-snug line-clamp-2">{r.description}</p>
+                      <p className="text-[11px] text-white/80 leading-snug line-clamp-2">{r.description}</p>
                     </div>
                   ))}
                 </div>
@@ -307,7 +307,7 @@ export const DashboardPage: React.FC = () => {
                     id="nba-start-btn"
                     onClick={() => { void handleStartTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-xs sm:text-sm shadow-md sm:shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
+                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-white hover:bg-slate-100 text-blue-700 font-extrabold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -321,7 +321,7 @@ export const DashboardPage: React.FC = () => {
                     id="nba-complete-btn"
                     onClick={() => { void handleCompleteTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-extrabold text-xs sm:text-sm shadow-md sm:shadow-lg shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50"
+                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -334,7 +334,7 @@ export const DashboardPage: React.FC = () => {
                   id="nba-block-btn"
                   onClick={() => { void handleBlockTask(nextBestAction.recommendedTask!.id); }}
                   disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="w-full sm:w-auto px-3.5 py-2 sm:px-4 sm:py-3 rounded-xl bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-800 text-xs font-bold transition-all disabled:opacity-50 text-center"
+                  className="w-full sm:w-auto px-3.5 py-2 sm:px-4 sm:py-3 rounded-xl bg-white/15 hover:bg-rose-500/30 text-white border border-white/20 hover:border-rose-300/40 text-xs font-bold transition-all disabled:opacity-50 text-center cursor-pointer backdrop-blur-md"
                 >
                   Flag Blocked
                 </button>

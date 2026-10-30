@@ -317,9 +317,9 @@ export const AnalyticsPage: React.FC = () => {
                 key={tab.id}
                 id={`tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap shrink-0 transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap shrink-0 transition-all cursor-pointer ${
                   activeTab === tab.id
-                    ? 'bg-slate-950 text-white shadow-md border border-slate-800'
+                    ? 'bg-blue-600 text-white shadow-xs font-bold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >

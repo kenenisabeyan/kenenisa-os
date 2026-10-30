@@ -446,8 +446,8 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                           {step.badgeTitle}
                         </span>
                         {isActive && (
-                          <span className="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-900 text-white shadow-xs animate-pulse">
-                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping" />
+                          <span className="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-ping" />
                             Live Focus
                           </span>
                         )}

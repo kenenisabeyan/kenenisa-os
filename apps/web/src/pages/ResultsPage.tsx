@@ -351,14 +351,14 @@ export const ResultsPage: React.FC = () => {
           </div>
 
           {/* AI Advisory Panel */}
-          <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-sm space-y-4">
-            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <h2 className="text-xs font-black text-cyan-400 uppercase tracking-wider">
+          <div className="bg-gradient-to-br from-indigo-50/80 via-white to-blue-50/60 rounded-2xl border border-indigo-200/90 p-5 shadow-xs space-y-4">
+            <div className="flex items-center gap-2 border-b border-indigo-100 pb-3">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+              <h2 className="text-xs font-black text-blue-700 uppercase tracking-wider">
                 Intelligence Core Advisory
               </h2>
             </div>
-            <p className="text-slate-300 text-xs leading-relaxed">
+            <p className="text-slate-700 text-xs leading-relaxed font-medium">
               {analysis?.aiAdvisory || 'System evaluating outcome telemetries...'}
             </p>
           </div>
@@ -515,15 +515,15 @@ export const ResultsPage: React.FC = () => {
       {/* TAB 5: REPORTS (EXCEL WORKSPACE) */}
       {activeTab === 'reports' && (
         <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-4 sm:px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
-            <span className="text-xs font-black uppercase text-emerald-400">📊 In-App Spreadsheet Workspace</span>
-            <div className="flex items-center gap-1 overflow-x-auto custom-scrollbar flex-nowrap bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-4 sm:px-5 py-3 bg-slate-50/90 text-slate-900 border-b border-slate-200">
+            <span className="text-xs font-black uppercase text-emerald-700">📊 In-App Spreadsheet Workspace</span>
+            <div className="flex items-center gap-1 overflow-x-auto custom-scrollbar flex-nowrap bg-slate-200/80 p-1 rounded-xl w-full sm:w-auto">
               {spreadsheet?.sheets.map((sheet, index) => (
                 <button
                   key={sheet.name}
                   onClick={() => setActiveSheetIndex(index)}
                   className={`px-3 py-1 text-xs font-bold rounded-lg whitespace-nowrap transition-colors ${
-                    activeSheetIndex === index ? 'bg-[#22C55E] text-white' : 'text-slate-300 hover:text-white'
+                    activeSheetIndex === index ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   {sheet.name}

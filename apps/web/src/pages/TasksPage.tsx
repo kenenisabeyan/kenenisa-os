@@ -399,15 +399,15 @@ export const TasksPage: React.FC = () => {
                     {task.blockingDependencies.map((dep) => (
                       <div
                         key={dep.id}
-                        className="bg-rose-900/40 border border-rose-800/50 px-2 py-0.5 rounded text-[11px] flex items-center gap-1.5 text-rose-200"
+                        className="bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-lg text-[11px] flex items-center gap-1.5 text-rose-700"
                       >
                         <span>{dep.blockingTask?.title}</span>
-                        <span className="text-[9px] uppercase font-bold px-1 rounded bg-slate-950">
+                        <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200">
                           {dep.blockingTask?.status}
                         </span>
                         <button
                           onClick={() => void handleRemoveDependency(task.id, dep.id)}
-                          className="text-rose-400 hover:text-white font-bold ml-1"
+                          className="text-rose-500 hover:text-rose-700 font-bold ml-1 cursor-pointer"
                         >
                           ×
                         </button>
@@ -419,18 +419,18 @@ export const TasksPage: React.FC = () => {
 
               {/* Subtasks list if any */}
               {task.subtasks && task.subtasks.length > 0 && (
-                <div className="bg-slate-950/50 border border-slate-800/60 rounded-lg p-2.5 space-y-1 text-xs">
-                  <div className="font-semibold text-[11px] text-slate-400 uppercase tracking-wider">
+                <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-2.5 space-y-1 text-xs">
+                  <div className="font-bold text-[11px] text-slate-500 uppercase tracking-wider">
                     Subtasks ({task.subtasks.filter((s) => s.status === 'DONE').length}/
                     {task.subtasks.length})
                   </div>
-                  <div className="space-y-1 pl-2 border-l-2 border-slate-800">
+                  <div className="space-y-1 pl-2 border-l-2 border-slate-200">
                     {task.subtasks.map((st) => (
-                      <div key={st.id} className="flex items-center justify-between text-slate-300">
-                        <span className={st.status === 'DONE' ? 'line-through text-slate-500' : ''}>
+                      <div key={st.id} className="flex items-center justify-between text-slate-700">
+                        <span className={st.status === 'DONE' ? 'line-through text-slate-400' : ''}>
                           {st.title}
                         </span>
-                        <span className="text-[10px] text-slate-500">{st.estimateMinutes}m</span>
+                        <span className="text-[10px] text-slate-400 font-mono">{st.estimateMinutes}m</span>
                       </div>
                     ))}
                   </div>
@@ -442,14 +442,14 @@ export const TasksPage: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setActiveParentTask(task)}
-                    className="text-blue-600 hover:text-blue-700 text-[11px] font-semibold flex items-center gap-1"
+                    className="text-blue-600 hover:text-blue-700 text-[11px] font-semibold flex items-center gap-1 cursor-pointer"
                   >
                     + Add Subtask
                   </button>
                   <span className="text-slate-300">•</span>
                   <button
                     onClick={() => setActiveDepTask(task)}
-                    className="text-rose-600 hover:text-rose-700 text-[11px] font-semibold flex items-center gap-1"
+                    className="text-rose-600 hover:text-rose-700 text-[11px] font-semibold flex items-center gap-1 cursor-pointer"
                   >
                     + Add Blocker
                   </button>
@@ -459,7 +459,7 @@ export const TasksPage: React.FC = () => {
                   {task.status !== 'DONE' && task.status !== 'IN_PROGRESS' && (
                     <button
                       onClick={() => void handleStart(task.id)}
-                      className="px-2.5 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 font-semibold text-[11px] border border-cyan-500/30"
+                      className="px-2.5 py-1 rounded-lg bg-cyan-50 hover:bg-cyan-100 text-cyan-700 font-bold text-[11px] border border-cyan-200 transition-colors cursor-pointer"
                     >
                       Start
                     </button>
@@ -467,7 +467,7 @@ export const TasksPage: React.FC = () => {
                   {task.status === 'IN_PROGRESS' && (
                     <button
                       onClick={() => void handleBlock(task.id)}
-                      className="px-2.5 py-1 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 font-semibold text-[11px] border border-rose-500/30"
+                      className="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-[11px] border border-rose-200 transition-colors cursor-pointer"
                     >
                       Block
                     </button>
@@ -475,14 +475,14 @@ export const TasksPage: React.FC = () => {
                   {task.status !== 'DONE' ? (
                     <button
                       onClick={() => void handleComplete(task.id)}
-                      className="px-2.5 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 font-semibold text-[11px] border border-emerald-500/30"
+                      className="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-[11px] border border-emerald-200 transition-colors cursor-pointer"
                     >
                       Complete
                     </button>
                   ) : (
                     <button
                       onClick={() => void handleReopen(task.id)}
-                      className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[11px]"
+                      className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] border border-slate-200 transition-colors cursor-pointer"
                     >
                       Reopen
                     </button>
