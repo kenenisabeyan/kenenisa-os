@@ -36,9 +36,19 @@ export const CareerPage: React.FC = () => {
   // Active Opportunity detail view
   const [selectedOpp, setSelectedOpp] = useState<OpportunityDto | null>(null);
 
+  // Filters
+  const [searchQuery, setSearchQuery] = useState('');
+  const [stageFilter, setStageFilter] = useState('');
+
   // AI Career Advisor state
   const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
+
+  const handleCopyAiPitch = () => {
+    if (!aiAnalysis) return;
+    navigator.clipboard.writeText(aiAnalysis);
+    showToast('AI Qualification Pitch copied to clipboard!', 'success');
+  };
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -241,54 +251,126 @@ export const CareerPage: React.FC = () => {
             {/* Left 2 Cols: Active Opportunities List */}
             <div className="lg:col-span-2 space-y-4">
               <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-900 tracking-tight">
-                    Active Target Roles & Opportunities
-                  </h3>
-                  <button
-                    onClick={() => navigate('/app/opportunities')}
-                    className="text-xs font-semibold text-[#3B82F6] hover:underline"
-                  >
-                    Manage Pipeline →
-                  </button>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 tracking-tight">
+                      Active Target Roles & Opportunities
+                    </h3>
+                    <p className="text-xs text-slate-500">Pipeline alignment for technical positions</p>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <input
+                      type="text"
+                      placeholder="Search roles / companies..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium w-40 sm:w-48"
+                    />
+
+                    <select
+                      value={stageFilter}
+                      onChange={(e) => setStageFilter(e.target.value)}
+                      className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-800 font-semibold focus:outline-none"
+                    >
+                      <option value="">All Stages</option>
+                      <option value="DISCOVERED">Discovered</option>
+                      <option value="EVALUATING">Evaluating</option>
+                      <option value="PREPARING">Preparing</option>
+                      <option value="APPLIED">Applied</option>
+                      <option value="INTERVIEW">Interview</option>
+                      <option value="OFFERED">Offered</option>
+                    </select>
+
+                    <button
+                      onClick={() => navigate('/app/opportunities')}
+                      className="text-xs font-bold text-blue-600 hover:underline shrink-0"
+                    >
+                      Pipeline →
+                    </button>
+                  </div>
                 </div>
 
-                {opportunities.length === 0 ? (
-                  <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200/80">
-                    No career opportunities tracked yet. Add your first opportunity target.
+                {opportunities.filter((o) => {
+                  const matchQuery = !searchQuery.trim() ||
+                    o.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    (o.organizationName || '').toLowerCase().includes(searchQuery.toLowerCase());
+                  const matchStage = !stageFilter || o.status === stageFilter;
+                  return matchQuery && matchStage;
+                }).length === 0 ? (
+                  <div className="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-slate-200/80">
+                    No career opportunities match the filter criteria.
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {opportunities.map((opp) => (
-                      <div
-                        key={opp.id}
-                        onClick={() => setSelectedOpp(opp)}
-                        className={`p-4 rounded-xl border transition-all cursor-pointer shadow-xs ${
-                          selectedOpp?.id === opp.id
-                            ? 'bg-blue-50/60 border-[#3B82F6] ring-2 ring-blue-500/20'
-                            : 'bg-white border-slate-200/90 hover:border-slate-300'
-                        }`}
-                      >
-                        <div className="flex justify-between items-start gap-3">
-                          <div className="space-y-0.5">
-                            <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider">
-                              {opp.organizationName || 'Target Organization'}
-                            </span>
-                            <h4 className="text-sm font-bold text-slate-900 tracking-tight">{opp.title}</h4>
+                    {opportunities
+                      .filter((o) => {
+                        const matchQuery = !searchQuery.trim() ||
+                          o.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          (o.organizationName || '').toLowerCase().includes(searchQuery.toLowerCase());
+                        const matchStage = !stageFilter || o.status === stageFilter;
+                        return matchQuery && matchStage;
+                      })
+                      .map((opp) => (
+                        <div
+                          key={opp.id}
+                          onClick={() => setSelectedOpp(opp)}
+                          className={`p-4 rounded-2xl border transition-all cursor-pointer shadow-xs ${
+                            selectedOpp?.id === opp.id
+                              ? 'bg-blue-50/60 border-[#3B82F6] ring-2 ring-blue-500/20'
+                              : 'bg-white border-slate-200/90 hover:border-slate-300'
+                          }`}
+                        >
+                          <div className="flex justify-between items-start gap-3">
+                            <div className="space-y-0.5 min-w-0">
+                              <span className="text-[10px] font-bold text-[#3B82F6] uppercase tracking-wider block truncate">
+                                {opp.organizationName || 'Target Organization'}
+                              </span>
+                              <h4 className="text-sm font-bold text-slate-900 tracking-tight truncate">{opp.title}</h4>
+                            </div>
+                            <div className="flex items-center gap-2 shrink-0">
+                              {opp.estimatedValue && (
+                                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                  {opp.currency || '$'}{opp.estimatedValue.toLocaleString()}
+                                </span>
+                              )}
+                              <Badge variant={opp.status} />
+                            </div>
                           </div>
-                          <Badge variant={opp.status} />
-                        </div>
 
-                        {opp.location && (
-                          <p className="text-xs text-slate-500 mt-1">📍 Location: {opp.location}</p>
-                        )}
+                          {opp.location && (
+                            <p className="text-xs text-slate-500 mt-1">📍 Location: {opp.location}</p>
+                          )}
 
-                        <div className="pt-3 border-t border-slate-100 mt-3 flex items-center justify-between text-[11px] text-slate-500 font-medium">
-                          <span>Priority: <strong className="text-slate-800">{opp.priority}</strong></span>
-                          <span>Source: <strong className="text-slate-800">{opp.source}</strong></span>
+                          <div className="pt-3 border-t border-slate-100 mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-slate-500 font-medium">
+                            <span>Priority: <strong className="text-slate-800">{opp.priority}</strong> • Source: <strong className="text-slate-800">{opp.source}</strong></span>
+
+                            {/* 1-Click Quick Stage Transitions on Card */}
+                            <div className="flex items-center gap-1.5 self-end sm:self-auto shrink-0">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  void handleStatusTransition(opp.id, 'apply');
+                                }}
+                                className="px-2 py-0.5 text-[10px] font-bold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg transition-colors cursor-pointer"
+                                title="Mark Applied"
+                              >
+                                + Apply
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  void handleStatusTransition(opp.id, 'interview');
+                                }}
+                                className="px-2 py-0.5 text-[10px] font-bold bg-purple-50 hover:bg-purple-100 text-[#7e22ce] border border-purple-200 rounded-lg transition-colors cursor-pointer"
+                                title="Mark Interview"
+                              >
+                                + Interview
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 )}
               </div>
@@ -310,7 +392,7 @@ export const CareerPage: React.FC = () => {
 
                   <div className="space-y-2 text-xs text-slate-700">
                     {selectedOpp.estimatedValue && (
-                      <p><strong>Estimated Value:</strong> {selectedOpp.currency} {selectedOpp.estimatedValue}</p>
+                      <p><strong>Estimated Value:</strong> {selectedOpp.currency} {selectedOpp.estimatedValue.toLocaleString()}</p>
                     )}
                     {selectedOpp.sourceUrl && (
                       <p>
@@ -326,13 +408,13 @@ export const CareerPage: React.FC = () => {
                   <div className="pt-3 border-t border-slate-100 flex flex-wrap gap-2">
                     <button
                       onClick={() => void handleStatusTransition(selectedOpp.id, 'apply')}
-                      className="px-3 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+                      className="px-3 py-1.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
                     >
                       Mark Applied
                     </button>
                     <button
                       onClick={() => void handleStatusTransition(selectedOpp.id, 'interview')}
-                      className="px-3 py-1.5 bg-[#A855F7] hover:bg-purple-600 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+                      className="px-3 py-1.5 bg-[#A855F7] hover:bg-purple-600 text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
                     >
                       Mark Interview
                     </button>
@@ -370,9 +452,17 @@ export const CareerPage: React.FC = () => {
                     </div>
 
                     {aiAnalysis && (
-                      <div className="bg-gradient-to-br from-purple-50/80 via-white to-indigo-50/40 border border-purple-200/80 rounded-2xl p-4 text-xs text-slate-800 leading-relaxed shadow-2xs space-y-1.5">
-                        <div className="flex items-center gap-1.5 text-[#7e22ce] font-black text-[11px] uppercase tracking-wider">
-                          <span>✨ AI Strategic Alignment Analysis</span>
+                      <div className="bg-gradient-to-br from-purple-50/80 via-white to-indigo-50/40 border border-purple-200/80 rounded-2xl p-4 text-xs text-slate-800 leading-relaxed shadow-2xs space-y-2">
+                        <div className="flex items-center justify-between border-b border-purple-100 pb-2">
+                          <span className="text-[#7e22ce] font-black text-[11px] uppercase tracking-wider">
+                            ✨ AI Strategic Alignment Pitch
+                          </span>
+                          <button
+                            onClick={handleCopyAiPitch}
+                            className="px-2.5 py-1 text-[10px] font-bold bg-white hover:bg-purple-100 text-[#7e22ce] border border-purple-200 rounded-lg shadow-2xs transition-colors cursor-pointer"
+                          >
+                            📋 Copy Pitch
+                          </button>
                         </div>
                         <div className="text-slate-700 whitespace-pre-line font-medium leading-relaxed">
                           {aiAnalysis}

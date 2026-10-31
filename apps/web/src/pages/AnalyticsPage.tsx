@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import type {
   AnalyticsPeriod,
   AnalyticsOverviewDto,
@@ -136,6 +136,43 @@ export const AnalyticsPage: React.FC = () => {
     };
   }, [period, customFrom, customTo]);
 
+  const handleExportMarkdownSummary = () => {
+    if (!overview) return;
+    const periodLabel = period === 'custom' ? `Custom (${customFrom || 'Start'} to ${customTo || 'End'})` : period.toUpperCase();
+    const md = `# Kenenisa OS — Executive Operational Briefing
+**Period**: ${periodLabel}
+**Exported**: ${new Date().toLocaleString()}
+
+## 1. Execution & Tasks
+- **Completed Tasks**: ${overview.execution.completedTasks} / ${overview.execution.totalTasks} (${overview.execution.completionRate ?? 0}%)
+- **Overdue Tasks**: ${overview.execution.overdueTasks}
+- **Currently Blocked**: ${blocked?.currentlyBlocked || 0}
+
+## 2. Planning Capacity
+- **Scheduled Focus Time**: ${Math.round(overview.planning.plannedMinutes / 60)} hours
+- **Total Available Capacity**: ${Math.round((capacity?.totalAvailableMinutes || 0) / 60)} hours
+- **Utilization**: ${capacity?.utilizationPercentage ?? 0}%
+
+## 3. Learning & Capabilities
+- **Learning Hours Logged**: ${Math.round(overview.learning.learningMinutes / 60)} hours
+- **Active Learning Days**: ${overview.learning.learningActivityDays} days
+- **Top Active Skills**: ${skills.slice(0, 3).map((s) => s.name).join(', ') || 'N/A'}
+
+## 4. Observable Evidence
+- **Artifacts Captured**: ${overview.evidence.evidenceCreated}
+- **Verified Outputs**: ${overview.evidence.evidenceVerified}
+
+## 5. Projects & Workstreams
+- **Active Projects**: ${overview.projects.activeProjects} (${overview.projects.completedProjects} completed)
+- **Active Workstreams**: ${workstreams.length}
+
+---
+*Factual non-gamified record generated deterministically by Kenenisa OS*`;
+
+    navigator.clipboard.writeText(md);
+    showToast('Executive Markdown briefing copied to clipboard!', 'success');
+  };
+
   return (
     <div id="analytics-page" className="space-y-6">
       {/* Header */}
@@ -152,33 +189,43 @@ export const AnalyticsPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Period Selector Controls */}
-        <div className="flex flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-2xl border border-slate-200/90 shadow-sm">
-          {(['day', 'week', 'month', 'quarter'] as AnalyticsPeriod[]).map((p) => (
+        {/* Controls: Export Briefing + Period Selector */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={handleExportMarkdownSummary}
+            className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200/90 transition-all shadow-2xs flex items-center gap-1.5 cursor-pointer"
+            title="Copy structured Markdown briefing to clipboard"
+          >
+            📋 Export Briefing
+          </button>
+
+          <div className="flex flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-2xl border border-slate-200/90 shadow-sm">
+            {(['day', 'week', 'month', 'quarter'] as AnalyticsPeriod[]).map((p) => (
+              <button
+                key={p}
+                id={`period-btn-${p}`}
+                onClick={() => setPeriod(p)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer ${
+                  period === p
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                }`}
+              >
+                {p}
+              </button>
+            ))}
             <button
-              key={p}
-              id={`period-btn-${p}`}
-              onClick={() => setPeriod(p)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
-                period === p
+              id="period-btn-custom"
+              onClick={() => setPeriod('custom')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer ${
+                period === 'custom'
                   ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
-              {p}
+              Custom
             </button>
-          ))}
-          <button
-            id="period-btn-custom"
-            onClick={() => setPeriod('custom')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
-              period === 'custom'
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            Custom
-          </button>
+          </div>
         </div>
       </div>
 
@@ -333,6 +380,65 @@ export const AnalyticsPage: React.FC = () => {
           {/* TAB 1: OVERVIEW & TRENDS */}
           {activeTab === 'overview' && (
             <div className="space-y-6">
+              {/* Deterministic Performance & Focus Index Card */}
+              <div className="bg-gradient-to-r from-blue-50/70 via-indigo-50/40 to-white border border-blue-200/90 rounded-2xl p-5 space-y-4 shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-100 pb-3">
+                  <div>
+                    <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                      <span>⚡ Deterministic Productivity & Focus Index</span>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
+                        Objective Metrics
+                      </span>
+                    </h3>
+                    <p className="text-xs text-slate-500">Non-gamified operational velocity and capacity discipline</p>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-indigo-700 bg-white px-3 py-1 rounded-xl border border-blue-200">
+                    Period: {period.toUpperCase()}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                  <div className="p-3 bg-white rounded-xl border border-blue-100 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Execution Efficiency</span>
+                    <span className="text-lg font-black text-blue-600 font-mono">
+                      {overview.execution.completionRate !== null ? `${overview.execution.completionRate}%` : 'N/A'}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block">Done / Total Ratio</span>
+                  </div>
+
+                  <div className="p-3 bg-white rounded-xl border border-blue-100 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Capacity Discipline</span>
+                    <span className="text-lg font-black text-emerald-600 font-mono">
+                      {capacity?.utilizationPercentage !== null ? `${capacity?.utilizationPercentage}%` : 'N/A'}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block">Planned vs Available</span>
+                  </div>
+
+                  <div className="p-3 bg-white rounded-xl border border-blue-100 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Daily Output Velocity</span>
+                    <span className="text-lg font-black text-purple-600 font-mono">
+                      {executionTrend.length > 0
+                        ? (
+                            overview.execution.completedTasks /
+                            Math.max(1, executionTrend.filter((t) => t.completedTasks > 0).length)
+                          ).toFixed(1)
+                        : '0.0'}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block">Tasks / Active Day</span>
+                  </div>
+
+                  <div className="p-3 bg-white rounded-xl border border-blue-100 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Output Verification</span>
+                    <span className="text-lg font-black text-amber-600 font-mono">
+                      {overview.evidence.evidenceCreated > 0
+                        ? `${Math.round((overview.evidence.evidenceVerified / overview.evidence.evidenceCreated) * 100)}%`
+                        : '100%'}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block">Verified Artifacts</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Task Completion Trend Bar */}
               <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-4 shadow-xs">
                 <div className="flex items-center justify-between">

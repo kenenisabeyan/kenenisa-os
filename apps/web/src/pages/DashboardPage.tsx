@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { fetchDashboard } from '../features/dashboard/api.js';
-import { startTask, completeTask, blockTask, createTask } from '../features/tasks/api.js';
+import { startTask, completeTask, blockTask, createTask, reopenTask } from '../features/tasks/api.js';
 import { DashboardDto, TaskDto, WorkstreamDto, WorkstreamStatus, TaskPriority } from '@kenenisa-os/shared';
 import { createWorkstream, updateWorkstream } from '../features/workstreams/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
@@ -13,6 +13,7 @@ export const DashboardPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [selectedWorkstreamId, setSelectedWorkstreamId] = useState<string>('ALL');
 
   // Task Category / Workstream Modals
   const [isCreateCategoryOpen, setIsCreateCategoryOpen] = useState(false);
@@ -211,6 +212,64 @@ export const DashboardPage: React.FC = () => {
     }
   };
 
+  const handleReopenTask = async (taskId: string) => {
+    try {
+      setActionLoading(taskId);
+      await reopenTask(taskId);
+      showToast('Task reopened to ready queue', 'info');
+      await loadDashboard();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to reopen task', 'error');
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleExportStandup = () => {
+    if (!data) return;
+    const todayDate = new Date().toLocaleDateString(undefined, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const todayTasks = [...data.today.inProgress, ...data.today.dueToday];
+    const lines = [
+      `# 🚀 KENENISA OS Daily Standup Briefing`,
+      `**Date**: ${todayDate}`,
+      '',
+      `## 🎯 Next Best Action`,
+      data.nextBestAction?.recommendedTask
+        ? `- **${data.nextBestAction.recommendedTask.title}** (Priority: ${data.nextBestAction.recommendedTask.priority}, Score: ${data.nextBestAction.score}/100)`
+        : '- Queue cleared or no pending tasks.',
+      '',
+      `## ⚡ Today's Execution Focus (${todayTasks.length} tasks)`,
+      ...(todayTasks.length > 0
+        ? todayTasks.map(
+            (t) => `- [${t.status === 'DONE' ? 'x' : ' '}] **${t.title}** [${t.priority}] (${t.status})`
+          )
+        : ['- No active tasks scheduled for today.']),
+      '',
+      `## 🧱 Blocked Items (${data.blockedTasks.length} tasks)`,
+      ...(data.blockedTasks.length > 0
+        ? data.blockedTasks.map((t) => `- ⚠️ **${t.title}** [${t.priority}]`)
+        : ['- No blocked tasks. System running smoothly!']),
+      '',
+      `## ⏳ Overdue Tasks (${data.overdueTasks.length} tasks)`,
+      ...(data.overdueTasks.length > 0
+        ? data.overdueTasks.map((t) => `- ⚠️ **${t.title}** (Due: ${t.dueDate ? t.dueDate.split('T')[0] : 'N/A'})`)
+        : ['- None.']),
+      '',
+      `## 📁 Active Projects (${data.activeProjects.length} projects)`,
+      ...data.activeProjects.map((p) => `- **${p.name}** [${p.priority}] (${p.workstream?.name || 'General'})`),
+      '',
+      `---`,
+      `*Generated from KENENISA OS Command Center*`,
+    ];
+    navigator.clipboard.writeText(lines.join('\n'));
+    showToast('Daily Standup briefing copied to clipboard!', 'success');
+  };
+
   if (loading && !data) {
     return (
       <div className="space-y-6" id="dashboard-loading">
@@ -253,22 +312,33 @@ export const DashboardPage: React.FC = () => {
         description="Deterministic execution recommendations and personal operating status."
         breadcrumbs={[{ label: 'Command Center' }, { label: 'Today' }]}
         actions={
-          <button
-            id="refresh-dashboard-btn"
-            onClick={() => { void loadDashboard(); }}
-            disabled={loading}
-            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-xs font-bold text-slate-700 flex items-center gap-2 transition-all shadow-sm active:scale-95 disabled:opacity-50"
-          >
-            <svg
-              className={`w-4 h-4 text-cyan-600 ${loading ? 'animate-spin' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div className="flex items-center gap-2">
+            <button
+              id="export-standup-btn"
+              onClick={handleExportStandup}
+              className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+              title="Copy Daily Standup briefing to clipboard as Markdown"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            <span>Refresh System</span>
-          </button>
+              <span>📋</span>
+              <span className="hidden sm:inline">Standup Briefing</span>
+            </button>
+            <button
+              id="refresh-dashboard-btn"
+              onClick={() => { void loadDashboard(); }}
+              disabled={loading}
+              className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-xs font-bold text-slate-700 flex items-center gap-2 transition-all shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
+            >
+              <svg
+                className={`w-4 h-4 text-cyan-600 ${loading ? 'animate-spin' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>Refresh System</span>
+            </button>
+          </div>
         }
       />
 
@@ -597,68 +667,169 @@ export const DashboardPage: React.FC = () => {
         <div className="lg:col-span-2 space-y-8">
           {/* Today's Focus */}
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="today-focus-section">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
               <div>
                 <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">Today&apos;s Execution Focus</h3>
                 <p className="text-slate-500 text-xs mt-0.5 font-medium">Tasks scheduled for today or active right now</p>
               </div>
-              <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-extrabold border border-blue-200/80">
-                {today.dueToday.length + today.inProgress.length} items
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-extrabold border border-blue-200/80">
+                  {today.dueToday.length + today.inProgress.length} items
+                </span>
+              </div>
             </div>
 
-            {today.dueToday.length === 0 && today.inProgress.length === 0 ? (
-              <div className="text-center py-8 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-medium">
-                No tasks scheduled for today or currently in progress.
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {[...today.inProgress, ...today.dueToday].map((task) => (
-                  <div
-                    key={task.id}
-                    className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-blue-200 hover:bg-blue-50/20 transition-all shadow-xs"
+            {/* Task Category Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-0.5 no-scrollbar border-b border-slate-100">
+              <button
+                type="button"
+                onClick={() => setSelectedWorkstreamId('ALL')}
+                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                  selectedWorkstreamId === 'ALL'
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                }`}
+              >
+                All Categories ({today.inProgress.length + today.dueToday.length})
+              </button>
+              {workstreams.map((ws) => {
+                const count = [...today.inProgress, ...today.dueToday].filter((t) => {
+                  const proj = activeProjects.find((p) => p.id === t.projectId);
+                  return proj?.workstreamId === ws.id;
+                }).length;
+                return (
+                  <button
+                    key={ws.id}
+                    type="button"
+                    onClick={() => setSelectedWorkstreamId(ws.id)}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                      selectedWorkstreamId === ws.id
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                    }`}
                   >
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase border ${priorityBadgeStyle(task.priority)}`}>
-                          {task.priority}
-                        </span>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200/80 text-slate-700 border border-slate-300 uppercase">
-                          {task.status}
-                        </span>
-                        {task.project && (
-                          <span className="text-[11px] text-slate-600 truncate font-semibold flex items-center gap-1">
-                            &bull; {task.project.name}
-                          </span>
-                        )}
-                      </div>
-                      <h4 className="text-sm font-bold text-slate-900 truncate">{task.title}</h4>
-                    </div>
+                    <span>{ws.name}</span>
+                    <span
+                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                        selectedWorkstreamId === ws.id ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+              <button
+                type="button"
+                onClick={handleOpenCreateCategory}
+                className="px-2.5 py-1 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-all whitespace-nowrap cursor-pointer"
+                title="Add new task category"
+              >
+                + New Category
+              </button>
+            </div>
 
-                    <div className="flex items-center gap-2 shrink-0">
-                      {task.status === 'READY' && (
-                        <button
-                          onClick={() => { void handleStartTask(task.id); }}
-                          disabled={actionLoading === task.id}
-                          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-all shadow-sm active:scale-95 disabled:opacity-50"
-                        >
-                          Start
-                        </button>
-                      )}
-                      {task.status === 'IN_PROGRESS' && (
-                        <button
-                          onClick={() => { void handleCompleteTask(task.id); }}
-                          disabled={actionLoading === task.id}
-                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition-all shadow-sm active:scale-95 disabled:opacity-50"
-                        >
-                          Complete
-                        </button>
-                      )}
-                    </div>
+            {(() => {
+              const allTodayTasks = [...today.inProgress, ...today.dueToday];
+              const filteredTasks = allTodayTasks.filter((task) => {
+                if (selectedWorkstreamId === 'ALL') return true;
+                const proj = activeProjects.find((p) => p.id === task.projectId);
+                return proj?.workstreamId === selectedWorkstreamId;
+              });
+
+              if (filteredTasks.length === 0) {
+                return (
+                  <div className="text-center py-8 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-medium space-y-2">
+                    <p>No tasks scheduled for today in this category.</p>
+                    {selectedWorkstreamId !== 'ALL' && (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedWorkstreamId('ALL')}
+                        className="text-xs text-blue-600 font-bold hover:underline"
+                      >
+                        Reset category filter
+                      </button>
+                    )}
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              }
+
+              return (
+                <div className="space-y-3">
+                  {filteredTasks.map((task) => {
+                    const ws = activeProjects.find((p) => p.id === task.projectId)?.workstream;
+                    return (
+                      <div
+                        key={task.id}
+                        className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-blue-200 hover:bg-blue-50/20 transition-all shadow-xs"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase border ${priorityBadgeStyle(task.priority)}`}>
+                              {task.priority}
+                            </span>
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200/80 text-slate-700 border border-slate-300 uppercase">
+                              {task.status}
+                            </span>
+                            {task.project && (
+                              <span className="text-[11px] text-slate-600 truncate font-semibold flex items-center gap-1">
+                                &bull; {task.project.name}
+                              </span>
+                            )}
+                            {ws && (
+                              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                                🗂️ {ws.name}
+                              </span>
+                            )}
+                          </div>
+                          <h4 className="text-sm font-bold text-slate-900 truncate">{task.title}</h4>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 shrink-0 flex-wrap sm:flex-nowrap">
+                          {task.status !== 'IN_PROGRESS' && task.status !== 'DONE' && (
+                            <button
+                              onClick={() => { void handleStartTask(task.id); }}
+                              disabled={actionLoading === task.id}
+                              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-all shadow-xs active:scale-95 disabled:opacity-50 cursor-pointer"
+                            >
+                              ▶ Start
+                            </button>
+                          )}
+                          {task.status !== 'DONE' && (
+                            <button
+                              onClick={() => { void handleCompleteTask(task.id); }}
+                              disabled={actionLoading === task.id}
+                              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition-all shadow-xs active:scale-95 disabled:opacity-50 cursor-pointer"
+                            >
+                              ✓ Done
+                            </button>
+                          )}
+                          {task.status !== 'BLOCKED' && task.status !== 'DONE' && (
+                            <button
+                              onClick={() => { void handleBlockTask(task.id); }}
+                              disabled={actionLoading === task.id}
+                              className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold rounded-xl text-xs transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                              title="Flag Blocked"
+                            >
+                              ⛔ Block
+                            </button>
+                          )}
+                          {task.status === 'DONE' && (
+                            <button
+                              onClick={() => { void handleReopenTask(task.id); }}
+                              disabled={actionLoading === task.id}
+                              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                            >
+                              ↻ Reopen
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
           </div>
 
           {/* Blocked Tasks Alert Section */}
@@ -926,29 +1097,53 @@ export const DashboardPage: React.FC = () => {
 
           {/* Active Projects */}
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="active-projects-section">
-            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Active Projects</h3>
-            <div className="space-y-3">
-              {activeProjects.map((proj) => (
-                <div key={proj.id} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 hover:border-blue-200 transition-all">
-                  <div className="flex items-center justify-between mb-1">
-                    <h4 className="text-xs font-extrabold text-slate-900 truncate">{proj.name}</h4>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-black border ${priorityBadgeStyle(proj.priority)}`}>
-                      {proj.priority}
-                    </span>
-                  </div>
-                  {proj.workstream && (
-                    <div className="text-[11px] text-slate-500 font-medium mt-0.5">
-                      {proj.workstream.name}
-                    </div>
-                  )}
-                  <div className="flex items-center gap-3 text-xs text-slate-500 font-medium mt-2">
-                    <span>{proj._count?.tasks || 0} Tasks</span>
-                    <span>&bull;</span>
-                    <span>{proj._count?.milestones || 0} Milestones</span>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Active Projects</h3>
+              {selectedWorkstreamId !== 'ALL' && (
+                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+                  Filtered by Category
+                </span>
+              )}
             </div>
+            {(() => {
+              const filteredProjects = activeProjects.filter((proj) => {
+                if (selectedWorkstreamId === 'ALL') return true;
+                return proj.workstreamId === selectedWorkstreamId;
+              });
+
+              if (filteredProjects.length === 0) {
+                return (
+                  <div className="text-center py-6 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-medium">
+                    No active projects in this category.
+                  </div>
+                );
+              }
+
+              return (
+                <div className="space-y-3">
+                  {filteredProjects.map((proj) => (
+                    <div key={proj.id} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 hover:border-blue-200 transition-all">
+                      <div className="flex items-center justify-between mb-1">
+                        <h4 className="text-xs font-extrabold text-slate-900 truncate">{proj.name}</h4>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-black border ${priorityBadgeStyle(proj.priority)}`}>
+                          {proj.priority}
+                        </span>
+                      </div>
+                      {proj.workstream && (
+                        <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+                          {proj.workstream.name}
+                        </div>
+                      )}
+                      <div className="flex items-center gap-3 text-xs text-slate-500 font-medium mt-2">
+                        <span>{proj._count?.tasks || 0} Tasks</span>
+                        <span>&bull;</span>
+                        <span>{proj._count?.milestones || 0} Milestones</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
 
           {/* Recent Operating Audit Activity */}

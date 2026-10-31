@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchWorkstreams } from '../features/workstreams/api.js';
 import { fetchGoals } from '../features/goals/api.js';

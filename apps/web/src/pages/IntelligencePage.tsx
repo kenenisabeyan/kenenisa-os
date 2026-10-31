@@ -88,6 +88,25 @@ export const IntelligencePage: React.FC = () => {
     setContextSummary(null);
   };
 
+  const handleCopyText = (text: string) => {
+    navigator.clipboard.writeText(text);
+    showToast('Copied to clipboard!', 'info');
+  };
+
+  const handleExportChat = () => {
+    if (messages.length === 0) {
+      showToast('No messages to export', 'info');
+      return;
+    }
+    const lines = [
+      `# KENENISA OS Intelligence Briefing - ${new Date().toLocaleDateString()}`,
+      '',
+      ...messages.map((m) => `### ${m.role === 'USER' ? '👤 User' : '✦ AI Advisory'}\n\n${m.content}\n`),
+    ];
+    navigator.clipboard.writeText(lines.join('\n'));
+    showToast('Conversation briefing copied as Markdown!', 'success');
+  };
+
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputText.trim() || loading) return;
@@ -206,16 +225,25 @@ export const IntelligencePage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:flex items-center gap-2 w-full sm:w-auto">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+          {messages.length > 0 && (
+            <button
+              onClick={handleExportChat}
+              className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition-all flex items-center justify-center gap-1.5 shadow-xs"
+              title="Copy entire conversation to clipboard as Markdown"
+            >
+              📋 Export Chat
+            </button>
+          )}
           <button
             onClick={() => void handleOpenMemories()}
-            className="w-full sm:w-auto px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition-all flex items-center justify-center gap-1.5 shadow-xs"
+            className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition-all flex items-center justify-center gap-1.5 shadow-xs"
           >
             🧠 Memory
           </button>
           <button
             onClick={handleNewConversation}
-            className="w-full sm:w-auto px-3.5 py-2.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-1.5 active:scale-[0.99]"
+            className="px-3.5 py-2.5 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-1.5 active:scale-[0.99]"
           >
             + New Chat
           </button>
@@ -338,13 +366,23 @@ export const IntelligencePage: React.FC = () => {
                         : 'bg-white border border-slate-200/90 text-slate-900 rounded-bl-none border-l-4 border-l-[#A855F7]'
                     }`}
                   >
-                    <div className="font-extrabold text-[10px] uppercase tracking-wider opacity-80 flex items-center gap-1.5">
+                    <div className="font-extrabold text-[10px] uppercase tracking-wider opacity-80 flex items-center justify-between gap-1.5">
                       {m.role === 'USER' ? (
                         <span>You</span>
                       ) : (
-                        <span className="text-[#7e22ce] flex items-center gap-1">
-                          <span>✦</span> AI ADVISORY
-                        </span>
+                        <>
+                          <span className="text-[#7e22ce] flex items-center gap-1">
+                            <span>✦</span> AI ADVISORY
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleCopyText(m.content)}
+                            className="text-slate-400 hover:text-slate-700 px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-1 hover:bg-slate-100 transition-colors"
+                            title="Copy response"
+                          >
+                            📋 Copy
+                          </button>
+                        </>
                       )}
                     </div>
                     <p className="whitespace-pre-wrap">{m.content}</p>
@@ -427,6 +465,46 @@ export const IntelligencePage: React.FC = () => {
               ⚠️ {error}
             </div>
           )}
+
+          {/* Quick Prompt Chips */}
+          <div className="px-3 py-2 bg-slate-50 border-t border-slate-200/90 flex items-center gap-1.5 overflow-x-auto text-[11px] no-scrollbar">
+            <span className="text-slate-400 font-extrabold shrink-0 text-[10px] uppercase tracking-wider">Quick:</span>
+            <button
+              type="button"
+              onClick={() => setInputText('What is my Next Best Action right now?')}
+              className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200/90 rounded-lg text-slate-700 font-semibold whitespace-nowrap transition-colors shadow-xs"
+            >
+              🎯 Next Best Action
+            </button>
+            <button
+              type="button"
+              onClick={() => setInputText('Audit my current capacity and workload balance')}
+              className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200/90 rounded-lg text-slate-700 font-semibold whitespace-nowrap transition-colors shadow-xs"
+            >
+              ⚡ Workload Capacity
+            </button>
+            <button
+              type="button"
+              onClick={() => setInputText('Which tasks are blocked and how can I resolve them?')}
+              className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200/90 rounded-lg text-slate-700 font-semibold whitespace-nowrap transition-colors shadow-xs"
+            >
+              🧱 Unblock Tasks
+            </button>
+            <button
+              type="button"
+              onClick={() => setInputText('Summarize my milestone progress and remaining deliverables')}
+              className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200/90 rounded-lg text-slate-700 font-semibold whitespace-nowrap transition-colors shadow-xs"
+            >
+              🚀 Milestone Progress
+            </button>
+            <button
+              type="button"
+              onClick={() => setInputText('Recommend a strategic pitch for my highest value career opportunity')}
+              className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200/90 rounded-lg text-slate-700 font-semibold whitespace-nowrap transition-colors shadow-xs"
+            >
+              💼 Opportunity Pitch
+            </button>
+          </div>
 
           {/* Input Form */}
           <form onSubmit={(e) => { void handleSendMessage(e); }} className="p-3 bg-white border-t border-slate-200 flex gap-2">
