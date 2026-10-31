@@ -63,6 +63,14 @@ export const SettingsPage: React.FC = () => {
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [userListError, setUserListError] = useState<string | null>(null);
 
+  // Edit User Modal state
+  const [editingUser, setEditingUser] = useState<PublicUserDto | null>(null);
+  const [editFirstName, setEditFirstName] = useState('');
+  const [editLastName, setEditLastName] = useState('');
+  const [editDisplayName, setEditDisplayName] = useState('');
+  const [editRole, setEditRole] = useState<'USER' | 'ADMIN' | 'OWNER'>('USER');
+  const [isUpdatingUser, setIsUpdatingUser] = useState(false);
+
   // Create User Modal state
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [newFirstName, setNewFirstName] = useState('');
@@ -343,6 +351,39 @@ export const SettingsPage: React.FC = () => {
       } else {
         showToast('Failed to update user status', 'error');
       }
+    }
+  };
+
+  const handleOpenEditUser = (usr: PublicUserDto) => {
+    setEditingUser(usr);
+    setEditFirstName(usr.firstName);
+    setEditLastName(usr.lastName);
+    setEditDisplayName(usr.displayName);
+    setEditRole(usr.role);
+  };
+
+  const handleUpdateUserSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingUser) return;
+    setIsUpdatingUser(true);
+    try {
+      await apiClient<{ user: PublicUserDto }>(`/api/v1/users/${editingUser.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          firstName: editFirstName.trim(),
+          lastName: editLastName.trim(),
+          displayName: editDisplayName.trim(),
+          role: editRole,
+        }),
+      });
+      showToast(`User ${editDisplayName} updated successfully`, 'success');
+      setEditingUser(null);
+      void fetchUsers();
+      void fetchAuditLogs();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update user', 'error');
+    } finally {
+      setIsUpdatingUser(false);
     }
   };
 
@@ -969,6 +1010,12 @@ export const SettingsPage: React.FC = () => {
                         {usr.id !== user?.id && (
                           <div className="flex items-center justify-end gap-2">
                             <button
+                              onClick={() => handleOpenEditUser(usr)}
+                              className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 transition-colors cursor-pointer"
+                            >
+                              Edit
+                            </button>
+                            <button
                               onClick={() => void handleToggleUserStatus(usr)}
                               className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
                             >
@@ -1125,6 +1172,123 @@ export const SettingsPage: React.FC = () => {
                     </>
                   ) : (
                     <span>Create User</span>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit User Modal */}
+      {editingUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md bg-white border border-slate-200/80 rounded-2xl shadow-2xl p-6 text-slate-900">
+            <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">
+                  {editingUser.firstName[0]}
+                  {editingUser.lastName[0]}
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-base">Edit User Account</h3>
+                  <p className="text-xs text-slate-500">{editingUser.email}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setEditingUser(null)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleUpdateUserSubmit(e)} className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editFirstName}
+                    onChange={(e) => setEditFirstName(e.target.value)}
+                    required
+                    disabled={isUpdatingUser}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editLastName}
+                    onChange={(e) => setEditLastName(e.target.value)}
+                    required
+                    disabled={isUpdatingUser}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Display Name
+                </label>
+                <input
+                  type="text"
+                  value={editDisplayName}
+                  onChange={(e) => setEditDisplayName(e.target.value)}
+                  required
+                  disabled={isUpdatingUser}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  System Role
+                </label>
+                <select
+                  value={editRole}
+                  onChange={(e) => setEditRole(e.target.value as 'USER' | 'ADMIN' | 'OWNER')}
+                  disabled={isUpdatingUser || editingUser.id === user?.id}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="USER">USER (Standard Access)</option>
+                  <option value="ADMIN">ADMIN (Administrative Access)</option>
+                  <option value="OWNER">OWNER (Full System Privilege)</option>
+                </select>
+                {editingUser.id === user?.id && (
+                  <p className="text-[11px] text-amber-600 mt-1">You cannot modify your own role.</p>
+                )}
+              </div>
+
+              <div className="pt-3 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingUser(null)}
+                  disabled={isUpdatingUser}
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdatingUser}
+                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-2"
+                >
+                  {isUpdatingUser ? (
+                    <>
+                      <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span>Saving Changes...</span>
+                    </>
+                  ) : (
+                    <span>Save Changes</span>
                   )}
                 </button>
               </div>
