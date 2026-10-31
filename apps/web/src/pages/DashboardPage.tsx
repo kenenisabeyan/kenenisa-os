@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { fetchDashboard } from '../features/dashboard/api.js';
-import { startTask, completeTask, blockTask } from '../features/tasks/api.js';
-import { DashboardDto, TaskDto, WorkstreamDto, WorkstreamStatus } from '@kenenisa-os/shared';
+import { startTask, completeTask, blockTask, createTask } from '../features/tasks/api.js';
+import { DashboardDto, TaskDto, WorkstreamDto, WorkstreamStatus, TaskPriority } from '@kenenisa-os/shared';
 import { createWorkstream, updateWorkstream } from '../features/workstreams/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
@@ -27,6 +27,77 @@ export const DashboardPage: React.FC = () => {
   const [editCategoryPriority, setEditCategoryPriority] = useState<number>(5);
   const [editCategoryStatus, setEditCategoryStatus] = useState<WorkstreamStatus>('ACTIVE');
   const [isUpdatingCategory, setIsUpdatingCategory] = useState(false);
+
+  // Notion-Style Scratchpad & Quick Capture State
+  const [scratchpadText, setScratchpadText] = useState<string>(() => {
+    return localStorage.getItem('kenenisa_os_scratchpad') || '';
+  });
+  const [scratchpadSaved, setScratchpadSaved] = useState(false);
+
+  const handleScratchpadChange = (val: string) => {
+    setScratchpadText(val);
+    localStorage.setItem('kenenisa_os_scratchpad', val);
+    setScratchpadSaved(true);
+    setTimeout(() => setScratchpadSaved(false), 2000);
+  };
+
+  const handleApplyTemplate = (prefix: string) => {
+    const updated = scratchpadText ? `${scratchpadText}\n\n${prefix} ` : `${prefix} `;
+    handleScratchpadChange(updated);
+  };
+
+  // Convert Scratchpad to Official Executable Task
+  const [isConvertToTaskOpen, setIsConvertToTaskOpen] = useState(false);
+  const [convertTitle, setConvertTitle] = useState('');
+  const [convertProjectId, setConvertProjectId] = useState('');
+  const [convertDescription, setConvertDescription] = useState('');
+  const [convertPriority, setConvertPriority] = useState<TaskPriority>('P2');
+  const [convertEstimateMinutes, setConvertEstimateMinutes] = useState('45');
+  const [isConverting, setIsConverting] = useState(false);
+
+  const handleOpenConvertToTask = () => {
+    if (!scratchpadText.trim()) {
+      showToast('Scratchpad is empty! Type a thought or note first.', 'warning');
+      return;
+    }
+    const lines = scratchpadText.trim().split('\n');
+    const firstLine = lines[0].replace(/^[-*•\[\s\]💡🐛📚⚡]+/, '').trim() || 'New Quick Task';
+    const remaining = lines.slice(1).join('\n').trim();
+
+    setConvertTitle(firstLine);
+    setConvertDescription(remaining || scratchpadText.trim());
+    if (data?.activeProjects && data.activeProjects.length > 0) {
+      setConvertProjectId(data.activeProjects[0].id);
+    }
+    setConvertPriority('P2');
+    setConvertEstimateMinutes('45');
+    setIsConvertToTaskOpen(true);
+  };
+
+  const handleConvertToTaskSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!convertTitle.trim() || !convertProjectId) {
+      showToast('Please enter a task title and choose a project', 'error');
+      return;
+    }
+    setIsConverting(true);
+    try {
+      await createTask({
+        title: convertTitle.trim(),
+        projectId: convertProjectId,
+        description: convertDescription.trim() || undefined,
+        priority: convertPriority,
+        estimateMinutes: parseInt(convertEstimateMinutes, 10) || 0,
+      });
+      showToast(`Task "${convertTitle.trim()}" created from scratchpad!`, 'success');
+      setIsConvertToTaskOpen(false);
+      await loadDashboard();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to create task from scratchpad', 'error');
+    } finally {
+      setIsConverting(false);
+    }
+  };
 
   const handleOpenCreateCategory = () => {
     setNewCategoryName('');
@@ -701,8 +772,105 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column (1 col wide): Workstreams, Active Projects & Audit Activity */}
+        {/* Right Column (1 col wide): Quick Capture, Workstreams, Active Projects & Audit Activity */}
         <div className="space-y-8">
+          {/* Notion-Style Quick Capture Scratchpad & Idea Vault */}
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="scratchpad-section">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-600 font-black text-sm shadow-2xs">
+                  ⚡
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Quick Capture & Scratchpad</h3>
+                  <p className="text-slate-500 text-[11px] font-medium">Auto-saving idea vault with 1-click task conversion</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5">
+                {scratchpadSaved && (
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-pulse">
+                    Saved
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Quick Template Chips */}
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('⚡ Task:')}
+                className="px-2.5 py-1 bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 transition-colors cursor-pointer"
+              >
+                + ⚡ Task
+              </button>
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('💡 Idea:')}
+                className="px-2.5 py-1 bg-slate-50 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-200 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 transition-colors cursor-pointer"
+              >
+                + 💡 Idea
+              </button>
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('🐛 Bug:')}
+                className="px-2.5 py-1 bg-slate-50 hover:bg-rose-50 hover:text-rose-700 hover:border-rose-200 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 transition-colors cursor-pointer"
+              >
+                + 🐛 Bug
+              </button>
+              <button
+                type="button"
+                onClick={() => handleApplyTemplate('📚 Study:')}
+                className="px-2.5 py-1 bg-slate-50 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-200 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 transition-colors cursor-pointer"
+              >
+                + 📚 Study
+              </button>
+            </div>
+
+            {/* Scratchpad Textarea */}
+            <div className="relative">
+              <textarea
+                rows={4}
+                value={scratchpadText}
+                onChange={(e) => handleScratchpadChange(e.target.value)}
+                placeholder="Capture fleeting thoughts, ideas, bugs, or study topics. Auto-saved locally..."
+                className="w-full bg-slate-50/80 border border-slate-200 rounded-2xl p-3.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 font-mono leading-relaxed transition-all resize-y"
+              />
+            </div>
+
+            {/* Scratchpad Footer */}
+            <div className="flex items-center justify-between pt-1 text-[11px] text-slate-500">
+              <span className="font-mono text-[10px]">
+                {scratchpadText.trim() ? scratchpadText.trim().split(/\s+/).length : 0} words &bull; {scratchpadText.length} chars
+              </span>
+
+              <div className="flex items-center gap-2">
+                {scratchpadText.trim() && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (confirm('Clear scratchpad content?')) {
+                        handleScratchpadChange('');
+                      }
+                    }}
+                    className="text-slate-400 hover:text-rose-600 text-[10px] font-semibold cursor-pointer"
+                  >
+                    Clear
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={handleOpenConvertToTask}
+                  disabled={!scratchpadText.trim()}
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>⚡ Convert to Task</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Workstreams & Task Categories Overview */}
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="workstreams-overview-section">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
@@ -884,6 +1052,121 @@ export const DashboardPage: React.FC = () => {
                   className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
                 >
                   {isSubmittingCategory ? 'Creating...' : 'Create Category'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Convert Scratchpad to Task Modal */}
+      {isConvertToTaskOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md bg-white border border-slate-200/90 rounded-3xl shadow-2xl p-6 text-slate-900 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h3 className="font-bold text-slate-900 text-base">Convert Note to Task</h3>
+                <p className="text-xs text-slate-500">Turn your scratchpad note into an executable task</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsConvertToTaskOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleConvertToTaskSubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Task Title *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={convertTitle}
+                  onChange={(e) => setConvertTitle(e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Assign to Project *
+                </label>
+                <select
+                  required
+                  value={convertProjectId}
+                  onChange={(e) => setConvertProjectId(e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                >
+                  <option value="">Select a project...</option>
+                  {data?.activeProjects.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name} {p.workstream ? `(${p.workstream.name})` : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Description / Context
+                </label>
+                <textarea
+                  rows={3}
+                  value={convertDescription}
+                  onChange={(e) => setConvertDescription(e.target.value)}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Priority
+                  </label>
+                  <select
+                    value={convertPriority}
+                    onChange={(e) => setConvertPriority(e.target.value as TaskPriority)}
+                    className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="P0">P0 - Critical</option>
+                    <option value="P1">P1 - High</option>
+                    <option value="P2">P2 - Medium</option>
+                    <option value="P3">P3 - Low</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Est. Minutes
+                  </label>
+                  <input
+                    type="number"
+                    value={convertEstimateMinutes}
+                    onChange={(e) => setConvertEstimateMinutes(e.target.value)}
+                    className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-3 flex justify-end gap-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsConvertToTaskOpen(false)}
+                  disabled={isConverting}
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isConverting}
+                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+                >
+                  {isConverting ? 'Creating Task...' : 'Create Executable Task'}
                 </button>
               </div>
             </form>
