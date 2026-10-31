@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { GoalDto, GoalStatus, TaskPriority, WorkstreamDto } from '@kenenisa-os/shared';
 import { fetchGoals, createGoal, updateGoal, completeGoal, reopenGoal } from '../features/goals/api.js';
 import { fetchWorkstreams } from '../features/workstreams/api.js';
@@ -7,12 +7,64 @@ import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 
+const GOAL_BOARD_COLUMNS: {
+  status: GoalStatus;
+  label: string;
+  dotColor: string;
+  bgBadge: string;
+  textBadge: string;
+  borderBadge: string;
+}[] = [
+  {
+    status: 'PLANNED',
+    label: 'Planned',
+    dotColor: 'bg-sky-500',
+    bgBadge: 'bg-sky-50',
+    textBadge: 'text-sky-700',
+    borderBadge: 'border-sky-200',
+  },
+  {
+    status: 'IN_PROGRESS',
+    label: 'In Progress',
+    dotColor: 'bg-blue-600',
+    bgBadge: 'bg-blue-50',
+    textBadge: 'text-blue-700',
+    borderBadge: 'border-blue-200',
+  },
+  {
+    status: 'ACHIEVED',
+    label: 'Achieved',
+    dotColor: 'bg-emerald-600',
+    bgBadge: 'bg-emerald-50',
+    textBadge: 'text-emerald-700',
+    borderBadge: 'border-emerald-200',
+  },
+  {
+    status: 'CANCELLED',
+    label: 'Cancelled / Paused',
+    dotColor: 'bg-slate-400',
+    bgBadge: 'bg-slate-100',
+    textBadge: 'text-slate-600',
+    borderBadge: 'border-slate-200',
+  },
+];
+
 export const GoalsPage: React.FC = () => {
   const { showToast } = useToast();
   const [goals, setGoals] = useState<GoalDto[]>([]);
   const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // View Mode: Grid Gallery vs Notion Roadmap Board
+  const [viewMode, setViewMode] = useState<'grid' | 'board'>(() => {
+    return (localStorage.getItem('kenenisa_goals_view_mode') as 'grid' | 'board') || 'grid';
+  });
+
+  const handleSetViewMode = (mode: 'grid' | 'board') => {
+    setViewMode(mode);
+    localStorage.setItem('kenenisa_goals_view_mode', mode);
+  };
 
   // Filters
   const [search, setSearch] = useState('');
@@ -27,7 +79,9 @@ export const GoalsPage: React.FC = () => {
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<TaskPriority>('P1');
   const [targetDate, setTargetDate] = useState('');
+  const [createInitialStatus, setCreateInitialStatus] = useState<GoalStatus>('PLANNED');
   const [submitting, setSubmitting] = useState(false);
+
   // Edit Goal State
   const [editingGoal, setEditingGoal] = useState<GoalDto | null>(null);
   const [editGoalTitle, setEditGoalTitle] = useState('');
@@ -115,7 +169,7 @@ export const GoalsPage: React.FC = () => {
 
     setSubmitting(true);
     try {
-      await createGoal({
+      const created = await createGoal({
         title: title.trim(),
         workstreamId,
         description: description.trim() || undefined,
@@ -123,11 +177,16 @@ export const GoalsPage: React.FC = () => {
         targetDate: targetDate ? new Date(targetDate).toISOString() : undefined,
       });
 
+      if (createInitialStatus && createInitialStatus !== 'PLANNED' && created?.id) {
+        await updateGoal(created.id, { status: createInitialStatus });
+      }
+
       setIsCreateOpen(false);
       setTitle('');
       setDescription('');
       setTargetDate('');
-      showToast('Strategic goal created', 'success');
+      setCreateInitialStatus('PLANNED');
+      showToast('Strategic goal created successfully', 'success');
       await loadGoals();
     } catch (err: unknown) {
       showToast(err instanceof Error ? err.message : 'Failed to create goal', 'error');
@@ -140,10 +199,10 @@ export const GoalsPage: React.FC = () => {
     try {
       if (goal.status === 'ACHIEVED') {
         await reopenGoal(goal.id);
-        showToast('Goal reopened', 'info');
+        showToast('Goal reopened to In Progress', 'info');
       } else {
         await completeGoal(goal.id);
-        showToast('Goal marked as achieved!', 'success');
+        showToast('Goal achieved! Great accomplishment.', 'success');
       }
       await loadGoals();
     } catch (err: unknown) {
@@ -151,43 +210,120 @@ export const GoalsPage: React.FC = () => {
     }
   };
 
+  const handleQuickStatusChange = async (goalId: string, newStatus: GoalStatus) => {
+    try {
+      await updateGoal(goalId, { status: newStatus });
+      showToast(`Goal moved to ${newStatus.replace('_', ' ')}`, 'success');
+      await loadGoals();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to move goal', 'error');
+    }
+  };
+
+  // Group goals by status for Roadmap Board
+  const goalsByStatus = useMemo(() => {
+    const map: Record<GoalStatus, GoalDto[]> = {
+      PLANNED: [],
+      IN_PROGRESS: [],
+      ACHIEVED: [],
+      CANCELLED: [],
+    };
+    goals.forEach((g) => {
+      if (map[g.status]) {
+        map[g.status].push(g);
+      } else {
+        map.PLANNED.push(g);
+      }
+    });
+    return map;
+  }, [goals]);
+
+  const openCreateForStatus = (st: GoalStatus) => {
+    setCreateInitialStatus(st);
+    setIsCreateOpen(true);
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
         title="Strategic Goals"
-        description="Meaningful high-level outcomes to accomplish across workstreams."
+        description="High-level milestones and career goals grouped by strategic categories and timelines."
         breadcrumbs={[{ label: 'Build' }, { label: 'Goals' }]}
         actions={
-          <button
-            id="create-goal-btn"
-            onClick={() => setIsCreateOpen(true)}
-            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs transition-colors flex items-center justify-center gap-2"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            New Goal
-          </button>
+          <div className="flex items-center gap-2.5">
+            {/* View Switcher: Grid vs Roadmap Board */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-2xs">
+              <button
+                type="button"
+                onClick={() => handleSetViewMode('grid')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  viewMode === 'grid'
+                    ? 'bg-white text-blue-700 shadow-2xs border border-blue-200/80 font-black'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
+                }`}
+                title="Switch to Grid Gallery"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                <span>Grid Gallery</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSetViewMode('board')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  viewMode === 'board'
+                    ? 'bg-white text-blue-700 shadow-2xs border border-blue-200/80 font-black'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
+                }`}
+                title="Switch to Notion-Style Roadmap Board"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                </svg>
+                <span>Roadmap Board</span>
+              </button>
+            </div>
+
+            <button
+              id="create-goal-btn"
+              onClick={() => {
+                setCreateInitialStatus('PLANNED');
+                setIsCreateOpen(true);
+              }}
+              className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              <span>New Goal</span>
+            </button>
+          </div>
         }
       />
 
       {/* Filter Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">
-        <input
-          type="text"
-          placeholder="Search goals..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-64 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-medium"
-        />
+        <div className="relative flex-1 sm:max-w-xs">
+          <input
+            type="text"
+            placeholder="Search goals..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 font-medium"
+          />
+          <svg className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
 
         <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2">
           <select
             value={workstreamIdFilter}
             onChange={(e) => setWorkstreamIdFilter(e.target.value)}
-            className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+            className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
           >
-            <option value="">All Workstreams</option>
+            <option value="">All Categories / Workstreams</option>
             {workstreams.map((w) => (
               <option key={w.id} value={w.id}>
                 {w.name}
@@ -198,7 +334,7 @@ export const GoalsPage: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as GoalStatus | '')}
-            className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+            className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
           >
             <option value="">All Statuses</option>
             <option value="PLANNED">Planned</option>
@@ -210,7 +346,7 @@ export const GoalsPage: React.FC = () => {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value as TaskPriority | '')}
-            className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+            className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
           >
             <option value="">All Priorities</option>
             <option value="P0">P0 - Critical</option>
@@ -218,6 +354,20 @@ export const GoalsPage: React.FC = () => {
             <option value="P2">P2 - Medium</option>
             <option value="P3">P3 - Low</option>
           </select>
+
+          {(search || workstreamIdFilter || statusFilter || priorityFilter) && (
+            <button
+              onClick={() => {
+                setSearch('');
+                setWorkstreamIdFilter('');
+                setStatusFilter('');
+                setPriorityFilter('');
+              }}
+              className="text-xs font-bold text-slate-500 hover:text-slate-800 px-2 py-1 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              Reset
+            </button>
+          )}
         </div>
       </div>
 
@@ -231,20 +381,175 @@ export const GoalsPage: React.FC = () => {
           title="No goals found"
           description="Create your first strategic goal to define major targets."
           actionLabel="Create Goal"
-          onAction={() => setIsCreateOpen(true)}
+          onAction={() => {
+            setCreateInitialStatus('PLANNED');
+            setIsCreateOpen(true);
+          }}
         />
+      ) : viewMode === 'board' ? (
+        /* ══════════════════════════════════════════════════════════════════════════
+           NOTION-STYLE GOAL ROADMAP BOARD VIEW
+           ══════════════════════════════════════════════════════════════════════════ */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start overflow-x-auto pb-6">
+          {GOAL_BOARD_COLUMNS.map((col) => {
+            const colGoals = goalsByStatus[col.status] || [];
+            const totalLinkedProjects = colGoals.reduce((sum, g) => sum + (g._count?.projects || 0), 0);
+
+            return (
+              <div
+                key={col.status}
+                className="bg-slate-50/70 border border-slate-200/90 rounded-2xl flex flex-col max-h-[82vh] shadow-2xs"
+              >
+                {/* Column Header */}
+                <div className="p-3.5 border-b border-slate-200/80 bg-white/80 rounded-t-2xl flex items-center justify-between sticky top-0 z-10 backdrop-blur-xs">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className={`w-2.5 h-2.5 rounded-full ${col.dotColor} shrink-0`} />
+                    <h3 className="font-extrabold text-xs text-slate-900 tracking-tight truncate">
+                      {col.label}
+                    </h3>
+                    <span className="px-1.5 py-0.5 rounded-md text-[10px] font-black bg-slate-100 text-slate-600 border border-slate-200/80 shrink-0">
+                      {colGoals.length}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => openCreateForStatus(col.status)}
+                    className="p-1 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
+                    title={`Add goal to ${col.label}`}
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div className="px-3.5 py-1.5 bg-slate-100/60 border-b border-slate-200/60 flex items-center justify-between text-[10px] text-slate-500 font-semibold">
+                  <span>{colGoals.length} target(s)</span>
+                  <span>{totalLinkedProjects} linked projects</span>
+                </div>
+
+                {/* Column Cards */}
+                <div className="p-2.5 space-y-3 overflow-y-auto custom-scrollbar flex-1">
+                  {colGoals.length === 0 ? (
+                    <div className="py-8 text-center border border-dashed border-slate-200 rounded-xl p-3">
+                      <p className="text-[11px] text-slate-400 font-medium">No goals in {col.label.toLowerCase()}</p>
+                      <button
+                        type="button"
+                        onClick={() => openCreateForStatus(col.status)}
+                        className="mt-2 text-[11px] font-bold text-blue-600 hover:text-blue-700 cursor-pointer"
+                      >
+                        + Add Goal
+                      </button>
+                    </div>
+                  ) : (
+                    colGoals.map((g) => (
+                      <div
+                        key={g.id}
+                        className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all space-y-3 group"
+                      >
+                        <div className="flex items-start justify-between gap-1.5">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 truncate max-w-[140px]">
+                              {g.workstream?.name || 'Category'}
+                            </span>
+                            <Badge variant={g.priority} />
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => handleOpenEditGoal(g)}
+                            className="p-1 rounded text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                            title="Edit goal"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                          </button>
+                        </div>
+
+                        <div>
+                          <h4 className="text-xs font-bold text-slate-900 leading-snug">{g.title}</h4>
+                          {g.description && (
+                            <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mt-1">
+                              {g.description}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between text-[10px] text-slate-500 font-medium pt-2 border-t border-slate-100">
+                          <div className="flex items-center gap-2">
+                            <span><strong className="text-slate-800">{g._count?.projects || 0}</strong> projects linked</span>
+                          </div>
+                          {g.targetDate && (
+                            <span className="font-mono text-[10px] text-slate-500">
+                              🎯 {g.targetDate.split('T')[0]}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Quick Status Mover */}
+                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-1 text-[10px]">
+                          <div className="flex items-center gap-1">
+                            {g.status !== 'IN_PROGRESS' && (
+                              <button
+                                type="button"
+                                onClick={() => void handleQuickStatusChange(g.id, 'IN_PROGRESS')}
+                                className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold transition-colors cursor-pointer"
+                              >
+                                In Progress
+                              </button>
+                            )}
+                            {g.status !== 'ACHIEVED' ? (
+                              <button
+                                type="button"
+                                onClick={() => void handleToggleComplete(g)}
+                                className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold transition-colors cursor-pointer"
+                              >
+                                ✓ Achieve
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => void handleToggleComplete(g)}
+                                className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold transition-colors cursor-pointer"
+                              >
+                                Reopen
+                              </button>
+                            )}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => handleOpenEditGoal(g)}
+                            className="text-blue-600 hover:text-blue-800 font-bold cursor-pointer"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       ) : (
+        /* ══════════════════════════════════════════════════════════════════════════
+           GRID GALLERY VIEW
+           ══════════════════════════════════════════════════════════════════════════ */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {goals.map((g) => (
             <div
               key={g.id}
-              className="bg-white border border-slate-200/90 rounded-xl p-5 hover:border-slate-300 transition-all duration-150 flex flex-col justify-between space-y-4 shadow-xs"
+              className="bg-white border border-slate-200/90 rounded-2xl p-5 hover:border-blue-200 hover:shadow-md transition-all duration-150 flex flex-col justify-between space-y-4 shadow-xs"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">
-                      {g.workstream?.name || 'Workstream'}
+                      {g.workstream?.name || 'Category'}
                     </span>
                     <h2 className="text-sm font-semibold text-slate-900 tracking-tight">{g.title}</h2>
                   </div>
@@ -279,7 +584,7 @@ export const GoalsPage: React.FC = () => {
                     className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                       g.status === 'ACHIEVED'
                         ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
-                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200'
+                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold'
                     }`}
                   >
                     {g.status === 'ACHIEVED' ? 'Reopen Goal' : 'Mark Achieved'}
@@ -294,22 +599,29 @@ export const GoalsPage: React.FC = () => {
       {/* Create Modal */}
       {isCreateOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-xl p-6 max-w-md w-full shadow-lg space-y-5">
-            <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-slate-900">Create Strategic Goal</h3>
-              <button onClick={() => setIsCreateOpen(false)} className="text-slate-400 hover:text-slate-600 text-sm">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">Create Strategic Goal</h3>
+                {createInitialStatus && (
+                  <p className="text-[11px] text-slate-500">
+                    Status: <strong className="text-blue-600">{createInitialStatus}</strong>
+                  </p>
+                )}
+              </div>
+              <button onClick={() => setIsCreateOpen(false)} className="text-slate-400 hover:text-slate-600 text-sm cursor-pointer">
                 ✕
               </button>
             </div>
 
             <form onSubmit={(e) => void handleCreate(e)} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">Workstream *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Workstream / Category *</label>
                 <select
                   required
                   value={workstreamId}
                   onChange={(e) => setWorkstreamId(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                 >
                   {workstreams.map((w) => (
                     <option key={w.id} value={w.id}>
@@ -320,35 +632,35 @@ export const GoalsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">Goal Title *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Goal Title *</label>
                 <input
                   type="text"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Master Monorepo Architecture"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 font-semibold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">Description</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
                 <textarea
                   rows={3}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="High-level description of success criteria..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">Priority</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Priority</label>
                   <select
                     value={priority}
                     onChange={(e) => setPriority(e.target.value as TaskPriority)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                   >
                     <option value="P0">P0 - Critical</option>
                     <option value="P1">P1 - High</option>
@@ -358,28 +670,28 @@ export const GoalsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">Target Date</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Target Date</label>
                   <input
                     type="date"
                     value={targetDate}
                     onChange={(e) => setTargetDate(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-2">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setIsCreateOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-medium text-slate-700 transition-colors"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white shadow-xs disabled:opacity-50 transition-colors"
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow-xs cursor-pointer"
                 >
                   {submitting ? 'Creating...' : 'Create Goal'}
                 </button>
@@ -391,16 +703,14 @@ export const GoalsPage: React.FC = () => {
 
       {/* Edit Goal Modal */}
       {editingGoal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div>
-                <h3 className="text-base font-bold text-slate-900">Edit Strategic Goal</h3>
-                <p className="text-xs text-slate-500">Update goal target, focus area, or priority</p>
-              </div>
+              <h3 className="text-base font-bold text-slate-900">Edit Strategic Goal</h3>
               <button
+                type="button"
                 onClick={() => setEditingGoal(null)}
-                className="text-slate-400 hover:text-slate-700 text-sm font-bold p-1 cursor-pointer"
+                className="text-slate-400 hover:text-slate-600 text-sm cursor-pointer"
               >
                 ✕
               </button>
@@ -408,25 +718,12 @@ export const GoalsPage: React.FC = () => {
 
             <form onSubmit={(e) => void handleUpdateGoalSubmit(e)} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Goal Title *</label>
-                <input
-                  type="text"
-                  required
-                  value={editGoalTitle}
-                  onChange={(e) => setEditGoalTitle(e.target.value)}
-                  disabled={isUpdatingGoal}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Category / Workstream *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Workstream / Category *</label>
                 <select
                   required
                   value={editGoalWorkstreamId}
                   onChange={(e) => setEditGoalWorkstreamId(e.target.value)}
-                  disabled={isUpdatingGoal}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                 >
                   {workstreams.map((w) => (
                     <option key={w.id} value={w.id}>
@@ -437,24 +734,33 @@ export const GoalsPage: React.FC = () => {
               </div>
 
               <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Goal Title *</label>
+                <input
+                  type="text"
+                  required
+                  value={editGoalTitle}
+                  onChange={(e) => setEditGoalTitle(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
                 <textarea
                   rows={3}
                   value={editGoalDescription}
                   onChange={(e) => setEditGoalDescription(e.target.value)}
-                  disabled={isUpdatingGoal}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Priority</label>
                   <select
                     value={editGoalPriority}
                     onChange={(e) => setEditGoalPriority(e.target.value as TaskPriority)}
-                    disabled={isUpdatingGoal}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                   >
                     <option value="P0">P0 - Critical</option>
                     <option value="P1">P1 - High</option>
@@ -468,26 +774,24 @@ export const GoalsPage: React.FC = () => {
                   <select
                     value={editGoalStatus}
                     onChange={(e) => setEditGoalStatus(e.target.value as GoalStatus)}
-                    disabled={isUpdatingGoal}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                   >
-                    <option value="PLANNED">PLANNED</option>
-                    <option value="IN_PROGRESS">IN_PROGRESS</option>
-                    <option value="ACHIEVED">ACHIEVED</option>
-                    <option value="CANCELLED">CANCELLED</option>
+                    <option value="PLANNED">Planned</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="ACHIEVED">Achieved</option>
+                    <option value="CANCELLED">Cancelled</option>
                   </select>
                 </div>
+              </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Target Date</label>
-                  <input
-                    type="date"
-                    value={editGoalTargetDate}
-                    onChange={(e) => setEditGoalTargetDate(e.target.value)}
-                    disabled={isUpdatingGoal}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500"
-                  />
-                </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Target Date</label>
+                <input
+                  type="date"
+                  value={editGoalTargetDate}
+                  onChange={(e) => setEditGoalTargetDate(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
+                />
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
@@ -502,9 +806,9 @@ export const GoalsPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isUpdatingGoal}
-                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow-xs cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow-xs cursor-pointer"
                 >
-                  {isUpdatingGoal ? 'Saving Changes...' : 'Save Changes'}
+                  {isUpdatingGoal ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
             </form>
