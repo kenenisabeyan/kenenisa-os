@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   fetchWeeklyReviews,
   fetchWeeklyReviewContext,
@@ -11,6 +11,21 @@ import type { WeeklyReviewDto, WeeklyReviewContextDto } from '@kenenisa-os/share
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
+
+interface RetroChecklistItem {
+  id: string;
+  label: string;
+  description: string;
+}
+
+const RETRO_CHECKLIST: RetroChecklistItem[] = [
+  { id: 'inbox', label: 'Clear Inboxes & Scratchpads', description: 'Process transient ideas, quick captures, and backlog items.' },
+  { id: 'time', label: 'Reconcile Schedule vs Actual Time', description: 'Compare scheduled focus time-blocks against actual output minutes.' },
+  { id: 'deliverables', label: 'Catalog Shipped Deliverables', description: 'Attach tangible evidence (commits, pull requests, deployments, docs).' },
+  { id: 'milestones', label: 'Check Strategic Milestones', description: 'Audit status of active projects, roadmap checkpoints, and goals.' },
+  { id: 'blockers', label: 'Analyze Constraints & Blockers', description: 'Document root causes of friction and unplanned capacity drains.' },
+  { id: 'focus', label: 'Commit to 3 Big Rocks for Next Week', description: 'Define P0/P1 target outcomes and allocate calendar capacity.' },
+];
 
 export const ReviewsPage: React.FC = () => {
   const { showToast } = useToast();
@@ -27,6 +42,62 @@ export const ReviewsPage: React.FC = () => {
   const [nextFocus, setNextFocus] = useState('');
   const [notes, setNotes] = useState('');
   const [decision, setDecision] = useState<'CONTINUE' | 'ADJUST' | 'DEFER' | 'STOP' | 'INVESTIGATE'>('CONTINUE');
+
+  // Interactive Checklist state per review
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (activeReview) {
+      const stored = localStorage.getItem(`kenenisa_review_checklist_${activeReview.id}`);
+      if (stored) {
+        try {
+          setCheckedItems(JSON.parse(stored));
+        } catch {
+          setCheckedItems([]);
+        }
+      } else {
+        setCheckedItems([]);
+      }
+    }
+  }, [activeReview]);
+
+  const toggleChecklistItem = (id: string) => {
+    if (!activeReview) return;
+    const next = checkedItems.includes(id)
+      ? checkedItems.filter((item) => item !== id)
+      : [...checkedItems, id];
+    setCheckedItems(next);
+    localStorage.setItem(`kenenisa_review_checklist_${activeReview.id}`, JSON.stringify(next));
+  };
+
+  const checklistProgress = useMemo(() => {
+    const total = RETRO_CHECKLIST.length;
+    const completed = checkedItems.length;
+    const percent = Math.round((completed / total) * 100);
+    return { completed, total, percent };
+  }, [checkedItems]);
+
+  const handleApplyTemplate = (type: 'sprint' | 'okr' | 'deepwork') => {
+    if (type === 'sprint') {
+      setWins('• Completed core multi-view board architecture\n• All 161 automated test suites passing with 0 errors\n• Polished responsive layout across mobile and desktop');
+      setChallenges('• TypeScript strict type unions required precise type discrimination\n• Edge case handling for multi-day date conversions');
+      setLessons('• Notion-style 1-click status transitions drastically increase execution velocity\n• LocalStorage persistence prevents accidental context loss');
+      setNextFocus('• Finalize public showcase & portfolio evidence linking\n• Connect real-time analytics to strategic workstreams');
+      showToast('Applied "Engineering Sprint Retro" template', 'info');
+    } else if (type === 'okr') {
+      setWins('• Key Milestone 2 reached on time\n• High customer / user alignment demonstrated\n• Deliverables verified with observable evidence');
+      setChallenges('• Dependent on external API approval workflow\n• Capacity reallocation required mid-week');
+      setLessons('• Prioritize high-leverage P0/P1 tasks during morning focus blocks');
+      setNextFocus('• Commit 80% capacity to main strategic objectives\n• Close remaining milestone checkpoints');
+      showToast('Applied "Goal & OKR Calibration" template', 'info');
+    } else {
+      setWins('• Maintained 4+ hours daily deep work focus blocks\n• Reduced task interruption frequency\n• Consistent daily scratchpad tracking');
+      setChallenges('• Context switching during midday notifications\n• Afternoon fatigue when tackling complex architectural refactoring');
+      setLessons('• Reserve mornings (09:00 - 13:00) exclusively for high-cognitive tasks');
+      setNextFocus('• Protect daily calendar time-blocks with strict boundary enforcement');
+      showToast('Applied "Deep Work & Focus Audit" template', 'info');
+    }
+  };
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -278,6 +349,65 @@ export const ReviewsPage: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Interactive Retrospective Checklist */}
+                  <div className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                          📋 Weekly Retrospective Checklist
+                        </span>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                          checklistProgress.percent === 100
+                            ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                            : 'bg-blue-50 text-blue-700 border border-blue-200'
+                        }`}>
+                          {checklistProgress.completed} / {checklistProgress.total} ({checklistProgress.percent}%)
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-slate-500 font-medium">Autosaved</span>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                      <div
+                        className={`h-full transition-all duration-300 ${
+                          checklistProgress.percent === 100 ? 'bg-emerald-500' : 'bg-blue-600'
+                        }`}
+                        style={{ width: `${checklistProgress.percent}%` }}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                      {RETRO_CHECKLIST.map((item) => {
+                        const isDone = checkedItems.includes(item.id);
+                        return (
+                          <div
+                            key={item.id}
+                            onClick={() => toggleChecklistItem(item.id)}
+                            className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-start gap-2.5 select-none ${
+                              isDone
+                                ? 'bg-emerald-50/50 border-emerald-200 text-slate-700'
+                                : 'bg-white border-slate-200/80 text-slate-800 hover:border-slate-300'
+                            }`}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isDone}
+                              onChange={() => {}}
+                              className="mt-0.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer pointer-events-none"
+                            />
+                            <div className="min-w-0">
+                              <p className={`text-xs font-bold leading-tight ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>
+                                {item.label}
+                              </p>
+                              <p className="text-[10px] text-slate-500 mt-0.5 line-clamp-1">{item.description}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {/* Decision Option */}
                   <div className="space-y-1.5">
                     <label className="block text-xs font-bold text-slate-700">Strategic Review Decision</label>
@@ -287,9 +417,9 @@ export const ReviewsPage: React.FC = () => {
                           key={d}
                           type="button"
                           onClick={() => setDecision(d)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                             decision === d
-                              ? 'bg-[#3B82F6] text-white border-blue-600 font-bold'
+                              ? 'bg-[#3B82F6] text-white border-blue-600 font-bold shadow-2xs'
                               : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                           }`}
                         >
@@ -297,6 +427,32 @@ export const ReviewsPage: React.FC = () => {
                         </button>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Quick Retro Templates */}
+                  <div className="flex items-center gap-2 flex-wrap pt-1">
+                    <span className="text-xs font-bold text-slate-500">Quick Templates:</span>
+                    <button
+                      type="button"
+                      onClick={() => handleApplyTemplate('sprint')}
+                      className="px-2.5 py-1 text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg transition-colors cursor-pointer"
+                    >
+                      ⚡ Engineering Retro
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleApplyTemplate('okr')}
+                      className="px-2.5 py-1 text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
+                    >
+                      🎯 OKR Calibration
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleApplyTemplate('deepwork')}
+                      className="px-2.5 py-1 text-xs font-bold bg-purple-50 hover:bg-purple-100 text-[#7e22ce] border border-purple-200 rounded-lg transition-colors cursor-pointer"
+                    >
+                      🧠 Deep Work Audit
+                    </button>
                   </div>
 
                   {/* Reflection Form Fields */}

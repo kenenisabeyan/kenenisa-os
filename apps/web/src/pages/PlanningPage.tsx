@@ -32,6 +32,16 @@ export const PlanningPage: React.FC = () => {
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
   });
 
+  const [dailyScheduleView, setDailyScheduleView] = useState<'grid' | 'list'>(() => {
+    return (localStorage.getItem('kenenisa_planning_view') as 'grid' | 'list') || 'grid';
+  });
+
+  // Daily Focus & Notes Scratchpad
+  const [dailyNotes, setDailyNotes] = useState<string>(() => {
+    return localStorage.getItem(`kenenisa_daily_notes_${selectedDate}`) || '';
+  });
+  const [dailyNotesSaved, setDailyNotesSaved] = useState<boolean>(true);
+
   const [overviewData, setOverviewData] = useState<MultiHorizonOverviewDto | null>(null);
   const [dailyData, setDailyData] = useState<DailyPlanningResponseDto | null>(null);
   const [weeklyData, setWeeklyData] = useState<WeeklyPlanningResponseDto | null>(null);
@@ -108,6 +118,57 @@ export const PlanningPage: React.FC = () => {
     setSelectedDate(
       `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`,
     );
+  };
+
+  // Sync Daily Notes on date shift
+  useEffect(() => {
+    setDailyNotes(localStorage.getItem(`kenenisa_daily_notes_${selectedDate}`) || '');
+    setDailyNotesSaved(true);
+  }, [selectedDate]);
+
+  const handleNotesChange = (text: string) => {
+    setDailyNotes(text);
+    setDailyNotesSaved(false);
+    localStorage.setItem(`kenenisa_daily_notes_${selectedDate}`, text);
+    setTimeout(() => setDailyNotesSaved(true), 400);
+  };
+
+  const handleApplyNoteTemplate = (snippet: string) => {
+    const updated = dailyNotes ? `${dailyNotes}\n${snippet}` : snippet;
+    handleNotesChange(updated);
+    showToast('Template added to daily scratchpad', 'info');
+  };
+
+  // Quick 1-Click Outcome State Transition
+  const handleQuickOutcomeState = async (outcomeId: string, newState: PlanOutcomeState) => {
+    try {
+      await confirmOutcome(outcomeId, newState);
+      showToast(`Outcome marked as ${newState.replace('_', ' ')}`, 'success');
+      await loadAllData();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update outcome', 'error');
+    }
+  };
+
+  // Quick Schedule Task into Time Block
+  const handleQuickScheduleTask = (task: { id: string; title: string; estimateMinutes?: number | null }) => {
+    setEditingBlock(null);
+    setBlockTitle(`Focus: ${task.title}`);
+    setBlockTaskId(task.id);
+    const now = new Date();
+    const curHour = now.getHours();
+    const startStr = `${String(curHour).padStart(2, '0')}:00`;
+    const endStr = `${String(Math.min(23, curHour + 1)).padStart(2, '0')}:00`;
+    setBlockStartTime(startStr);
+    setBlockEndTime(endStr);
+    setBlockNotes(`Dedicated focus on ready task: ${task.title} (~${task.estimateMinutes || 60}m)`);
+    setIsTimeBlockModalOpen(true);
+  };
+
+  // Switch Schedule View Mode
+  const handleSetDailyScheduleView = (mode: 'grid' | 'list') => {
+    setDailyScheduleView(mode);
+    localStorage.setItem('kenenisa_planning_view', mode);
   };
 
   // Generate Daily Factual Summary
@@ -379,7 +440,12 @@ export const PlanningPage: React.FC = () => {
 
               {/* Yearly Outcomes Table */}
               <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs space-y-4">
-                <h4 className="text-base font-extrabold text-slate-900 tracking-tight">Yearly Planned Outcomes</h4>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <h4 className="text-base font-extrabold text-slate-900 tracking-tight">Yearly Planned Outcomes</h4>
+                  <span className="text-xs font-semibold text-slate-500">
+                    {outcomes.filter((o) => o.horizon === 'YEARLY').length} Outcomes
+                  </span>
+                </div>
                 <div className="space-y-3">
                   {outcomes.filter((o) => o.horizon === 'YEARLY').length === 0 ? (
                     <div className="text-xs text-slate-400 italic p-6 text-center border border-dashed border-slate-200 rounded-2xl">
@@ -389,21 +455,58 @@ export const PlanningPage: React.FC = () => {
                     outcomes
                       .filter((o) => o.horizon === 'YEARLY')
                       .map((o) => (
-                        <div key={o.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors shadow-2xs">
-                          <div>
-                            <div className="flex items-center gap-3 flex-wrap">
+                        <div key={o.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors shadow-2xs">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2.5 flex-wrap">
                               <span className="font-bold text-slate-900 text-sm">{o.title}</span>
                               {getOutcomeBadge(o.outcomeState)}
                             </div>
-                            {o.expectedResult && <p className="text-xs text-slate-500 mt-1">Expected: {o.expectedResult}</p>}
-                            {o.actualResult && <p className="text-xs text-emerald-700 font-semibold mt-0.5">Actual: {o.actualResult}</p>}
+                            {o.expectedResult && <p className="text-xs text-slate-500">Expected: {o.expectedResult}</p>}
+                            {o.actualResult && <p className="text-xs text-emerald-700 font-semibold">Actual: {o.actualResult}</p>}
                           </div>
-                          <button
-                            onClick={() => setConfirmingOutcome(o)}
-                            className="px-3 py-1.5 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200/90 shadow-2xs self-start sm:self-auto cursor-pointer"
-                          >
-                            Update Result
-                          </button>
+                          
+                          <div className="flex items-center gap-1.5 flex-wrap shrink-0">
+                            {/* 1-Click Quick Outcome Status Buttons */}
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'COMPLETED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'COMPLETED'
+                                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-2xs'
+                                  : 'bg-white hover:bg-emerald-50 text-emerald-700 border-emerald-200'
+                              }`}
+                              title="Mark Completed"
+                            >
+                              ✓ Done
+                            </button>
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'PARTIALLY_COMPLETED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'PARTIALLY_COMPLETED'
+                                  ? 'bg-amber-600 text-white border-amber-600 shadow-2xs'
+                                  : 'bg-white hover:bg-amber-50 text-amber-700 border-amber-200'
+                              }`}
+                              title="Mark Partially Completed"
+                            >
+                              ~ Partial
+                            </button>
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'MISSED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'MISSED'
+                                  ? 'bg-rose-600 text-white border-rose-600 shadow-2xs'
+                                  : 'bg-white hover:bg-rose-50 text-rose-700 border-rose-200'
+                              }`}
+                              title="Mark Missed"
+                            >
+                              ✕ Missed
+                            </button>
+                            <button
+                              onClick={() => setConfirmingOutcome(o)}
+                              className="px-2.5 py-1 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-lg border border-slate-200 shadow-2xs cursor-pointer ml-1"
+                            >
+                              Details...
+                            </button>
+                          </div>
                         </div>
                       ))
                   )}
@@ -425,7 +528,12 @@ export const PlanningPage: React.FC = () => {
               </div>
 
               <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs space-y-4">
-                <h4 className="text-base font-extrabold text-slate-900 tracking-tight">Monthly Outcomes</h4>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <h4 className="text-base font-extrabold text-slate-900 tracking-tight">Monthly Outcomes</h4>
+                  <span className="text-xs font-semibold text-slate-500">
+                    {outcomes.filter((o) => o.horizon === 'MONTHLY').length} Outcomes
+                  </span>
+                </div>
                 <div className="space-y-3">
                   {outcomes.filter((o) => o.horizon === 'MONTHLY').length === 0 ? (
                     <div className="text-xs text-slate-400 italic p-6 text-center border border-dashed border-slate-200 rounded-2xl">
@@ -435,21 +543,57 @@ export const PlanningPage: React.FC = () => {
                     outcomes
                       .filter((o) => o.horizon === 'MONTHLY')
                       .map((o) => (
-                        <div key={o.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors shadow-2xs">
-                          <div>
-                            <div className="flex items-center gap-3 flex-wrap">
+                        <div key={o.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors shadow-2xs">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2.5 flex-wrap">
                               <span className="font-bold text-slate-900 text-sm">{o.title}</span>
                               {getOutcomeBadge(o.outcomeState)}
                             </div>
-                            {o.expectedResult && <p className="text-xs text-slate-500 mt-1">Expected: {o.expectedResult}</p>}
-                            {o.actualResult && <p className="text-xs text-emerald-700 font-semibold mt-0.5">Actual: {o.actualResult}</p>}
+                            {o.expectedResult && <p className="text-xs text-slate-500">Expected: {o.expectedResult}</p>}
+                            {o.actualResult && <p className="text-xs text-emerald-700 font-semibold">Actual: {o.actualResult}</p>}
                           </div>
-                          <button
-                            onClick={() => setConfirmingOutcome(o)}
-                            className="px-3 py-1.5 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200/90 shadow-2xs self-start sm:self-auto cursor-pointer"
-                          >
-                            Update Result
-                          </button>
+                          
+                          <div className="flex items-center gap-1.5 flex-wrap shrink-0">
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'COMPLETED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'COMPLETED'
+                                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-2xs'
+                                  : 'bg-white hover:bg-emerald-50 text-emerald-700 border-emerald-200'
+                              }`}
+                              title="Mark Completed"
+                            >
+                              ✓ Done
+                            </button>
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'PARTIALLY_COMPLETED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'PARTIALLY_COMPLETED'
+                                  ? 'bg-amber-600 text-white border-amber-600 shadow-2xs'
+                                  : 'bg-white hover:bg-amber-50 text-amber-700 border-amber-200'
+                              }`}
+                              title="Mark Partially Completed"
+                            >
+                              ~ Partial
+                            </button>
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'MISSED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'MISSED'
+                                  ? 'bg-rose-600 text-white border-rose-600 shadow-2xs'
+                                  : 'bg-white hover:bg-rose-50 text-rose-700 border-rose-200'
+                              }`}
+                              title="Mark Missed"
+                            >
+                              ✕ Missed
+                            </button>
+                            <button
+                              onClick={() => setConfirmingOutcome(o)}
+                              className="px-2.5 py-1 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-lg border border-slate-200 shadow-2xs cursor-pointer ml-1"
+                            >
+                              Details...
+                            </button>
+                          </div>
                         </div>
                       ))
                   )}
@@ -479,7 +623,12 @@ export const PlanningPage: React.FC = () => {
               </div>
 
               <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs space-y-4">
-                <h4 className="text-base font-extrabold text-slate-900 tracking-tight">Weekly Outcomes</h4>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <h4 className="text-base font-extrabold text-slate-900 tracking-tight">Weekly Outcomes</h4>
+                  <span className="text-xs font-semibold text-slate-500">
+                    {outcomes.filter((o) => o.horizon === 'WEEKLY').length} Outcomes
+                  </span>
+                </div>
                 <div className="space-y-3">
                   {outcomes.filter((o) => o.horizon === 'WEEKLY').length === 0 ? (
                     <div className="text-xs text-slate-400 italic p-6 text-center border border-dashed border-slate-200 rounded-2xl">
@@ -489,19 +638,57 @@ export const PlanningPage: React.FC = () => {
                     outcomes
                       .filter((o) => o.horizon === 'WEEKLY')
                       .map((o) => (
-                        <div key={o.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors shadow-2xs">
-                          <div>
-                            <div className="flex items-center gap-3 flex-wrap">
+                        <div key={o.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors shadow-2xs">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2.5 flex-wrap">
                               <span className="font-bold text-slate-900 text-sm">{o.title}</span>
                               {getOutcomeBadge(o.outcomeState)}
                             </div>
+                            {o.expectedResult && <p className="text-xs text-slate-500">Expected: {o.expectedResult}</p>}
+                            {o.actualResult && <p className="text-xs text-emerald-700 font-semibold">Actual: {o.actualResult}</p>}
                           </div>
-                          <button
-                            onClick={() => setConfirmingOutcome(o)}
-                            className="px-3 py-1.5 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200/90 shadow-2xs self-start sm:self-auto cursor-pointer"
-                          >
-                            Update Result
-                          </button>
+                          
+                          <div className="flex items-center gap-1.5 flex-wrap shrink-0">
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'COMPLETED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'COMPLETED'
+                                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-2xs'
+                                  : 'bg-white hover:bg-emerald-50 text-emerald-700 border-emerald-200'
+                              }`}
+                              title="Mark Completed"
+                            >
+                              ✓ Done
+                            </button>
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'PARTIALLY_COMPLETED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'PARTIALLY_COMPLETED'
+                                  ? 'bg-amber-600 text-white border-amber-600 shadow-2xs'
+                                  : 'bg-white hover:bg-amber-50 text-amber-700 border-amber-200'
+                              }`}
+                              title="Mark Partially Completed"
+                            >
+                              ~ Partial
+                            </button>
+                            <button
+                              onClick={() => void handleQuickOutcomeState(o.id, 'MISSED')}
+                              className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer ${
+                                o.outcomeState === 'MISSED'
+                                  ? 'bg-rose-600 text-white border-rose-600 shadow-2xs'
+                                  : 'bg-white hover:bg-rose-50 text-rose-700 border-rose-200'
+                              }`}
+                              title="Mark Missed"
+                            >
+                              ✕ Missed
+                            </button>
+                            <button
+                              onClick={() => setConfirmingOutcome(o)}
+                              className="px-2.5 py-1 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-lg border border-slate-200 shadow-2xs cursor-pointer ml-1"
+                            >
+                              Details...
+                            </button>
+                          </div>
                         </div>
                       ))
                   )}
@@ -539,91 +726,278 @@ export const PlanningPage: React.FC = () => {
 
               {/* Schedule Timeline & Time Blocks */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs lg:col-span-2 space-y-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-100">
+                <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs lg:col-span-2 space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
                     <div>
                       <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Daily Time Block Execution Schedule</h3>
                       <p className="text-xs text-slate-500">Structured time management for maximum focus</p>
                     </div>
-                    <button
-                      onClick={() => {
-                        setEditingBlock(null);
-                        setBlockTitle('');
-                        setBlockTaskId('');
-                        setBlockStartTime('09:00');
-                        setBlockEndTime('10:00');
-                        setIsTimeBlockModalOpen(true);
-                      }}
-                      className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer self-start sm:self-auto"
-                    >
-                      + Add Time Block
-                    </button>
+
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {/* View Switcher: Visual Time-Grid vs List View */}
+                      <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+                        <button
+                          onClick={() => handleSetDailyScheduleView('grid')}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            dailyScheduleView === 'grid'
+                              ? 'bg-white text-blue-700 shadow-2xs'
+                              : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          ⏱️ Visual Grid
+                        </button>
+                        <button
+                          onClick={() => handleSetDailyScheduleView('list')}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            dailyScheduleView === 'list'
+                              ? 'bg-white text-blue-700 shadow-2xs'
+                              : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          📋 List View
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => {
+                          setEditingBlock(null);
+                          setBlockTitle('');
+                          setBlockTaskId('');
+                          setBlockStartTime('09:00');
+                          setBlockEndTime('10:00');
+                          setIsTimeBlockModalOpen(true);
+                        }}
+                        className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+                      >
+                        + Add Block
+                      </button>
+                    </div>
                   </div>
 
-                  <div className="space-y-3">
-                    {dailyData?.timeBlocks.length === 0 ? (
-                      <div className="text-xs text-slate-400 italic p-6 text-center border border-dashed border-slate-200 rounded-2xl">
-                        No time blocks scheduled for this date.
-                      </div>
-                    ) : (
-                      dailyData?.timeBlocks.map((tb) => (
-                        <div key={tb.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors shadow-2xs">
-                          <div>
-                            <div className="flex items-center space-x-3 flex-wrap gap-y-1">
-                              <span className="font-mono text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100">
-                                {new Date(tb.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -{' '}
-                                {new Date(tb.endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                              </span>
-                              <span className="font-bold text-slate-900 text-sm">{tb.title}</span>
-                              <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold border border-slate-200">{tb.status}</span>
+                  {/* VISUAL TIME-GRID VIEW */}
+                  {dailyScheduleView === 'grid' && (
+                    <div className="space-y-2 border border-slate-200 rounded-2xl p-3 bg-slate-50/50">
+                      {['07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'].map((hr) => {
+                        const hrNum = parseInt(hr, 10);
+                        const matchedBlocks = (dailyData?.timeBlocks || []).filter((tb) => {
+                          const tbStart = new Date(tb.startAt).getHours();
+                          return tbStart === hrNum;
+                        });
+
+                        return (
+                          <div
+                            key={hr}
+                            className="flex items-start gap-3 py-2 px-3 rounded-xl hover:bg-white transition-all border border-transparent hover:border-slate-200/80 group"
+                          >
+                            <span className="font-mono text-xs font-bold text-slate-500 w-14 shrink-0 pt-1">
+                              {hr}:00
+                            </span>
+
+                            <div className="flex-1 min-w-0">
+                              {matchedBlocks.length > 0 ? (
+                                <div className="space-y-2">
+                                  {matchedBlocks.map((tb) => (
+                                    <div
+                                      key={tb.id}
+                                      className="p-3 bg-blue-50/80 border border-blue-200/90 rounded-xl flex items-center justify-between gap-3 shadow-2xs"
+                                    >
+                                      <div className="min-w-0">
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                          <span className="font-bold text-slate-900 text-xs truncate">{tb.title}</span>
+                                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold">
+                                            {new Date(tb.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(tb.endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                          </span>
+                                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white text-slate-700 font-bold border border-slate-200">
+                                            {tb.status}
+                                          </span>
+                                        </div>
+                                        {tb.notes && <p className="text-[11px] text-slate-600 mt-1 truncate">{tb.notes}</p>}
+                                      </div>
+
+                                      <div className="flex items-center gap-1.5 shrink-0">
+                                        <button
+                                          onClick={() => {
+                                            setEditingBlock(tb);
+                                            setBlockTitle(tb.title);
+                                            setBlockTaskId(tb.taskId || '');
+                                            setBlockNotes(tb.notes || '');
+                                            setIsTimeBlockModalOpen(true);
+                                          }}
+                                          className="px-2 py-1 text-[11px] bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-lg border border-slate-200 cursor-pointer"
+                                        >
+                                          Edit
+                                        </button>
+                                        <button
+                                          onClick={() => handleDeleteTimeBlock(tb.id)}
+                                          className="px-2 py-1 text-[11px] bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold rounded-lg border border-rose-200 cursor-pointer"
+                                        >
+                                          ✕
+                                        </button>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : (
+                                <button
+                                  onClick={() => {
+                                    setEditingBlock(null);
+                                    setBlockTitle('');
+                                    setBlockTaskId('');
+                                    setBlockStartTime(`${hr}:00`);
+                                    const nextHr = String(Math.min(23, hrNum + 1)).padStart(2, '0');
+                                    setBlockEndTime(`${nextHr}:00`);
+                                    setBlockNotes('');
+                                    setIsTimeBlockModalOpen(true);
+                                  }}
+                                  className="w-full text-left py-1 px-3 text-xs text-slate-400 group-hover:text-blue-600 group-hover:bg-blue-50/50 rounded-lg border border-dashed border-slate-200 group-hover:border-blue-300 transition-all font-medium cursor-pointer"
+                                >
+                                  + Schedule focus block at {hr}:00
+                                </button>
+                              )}
                             </div>
-                            {tb.notes && <p className="text-xs text-slate-500 mt-1">{tb.notes}</p>}
                           </div>
-                          <div className="flex items-center space-x-2 self-end sm:self-auto">
-                            <button
-                              onClick={() => {
-                                setEditingBlock(tb);
-                                setBlockTitle(tb.title);
-                                setBlockTaskId(tb.taskId || '');
-                                setBlockNotes(tb.notes || '');
-                                setIsTimeBlockModalOpen(true);
-                              }}
-                              className="px-3 py-1.5 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200/90 shadow-2xs cursor-pointer"
-                            >
-                              Edit
-                            </button>
-                            <button
-                              onClick={() => handleDeleteTimeBlock(tb.id)}
-                              className="px-3 py-1.5 text-xs bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold rounded-xl border border-rose-200 shadow-2xs cursor-pointer"
-                            >
-                              Delete
-                            </button>
-                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* LIST VIEW */}
+                  {dailyScheduleView === 'list' && (
+                    <div className="space-y-3">
+                      {dailyData?.timeBlocks.length === 0 ? (
+                        <div className="text-xs text-slate-400 italic p-6 text-center border border-dashed border-slate-200 rounded-2xl">
+                          No time blocks scheduled for this date.
                         </div>
-                      ))
-                    )}
-                  </div>
+                      ) : (
+                        dailyData?.timeBlocks.map((tb) => (
+                          <div key={tb.id} className="p-4 bg-slate-50/80 hover:bg-blue-50/20 rounded-2xl border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors shadow-2xs">
+                            <div>
+                              <div className="flex items-center space-x-3 flex-wrap gap-y-1">
+                                <span className="font-mono text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100">
+                                  {new Date(tb.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -{' '}
+                                  {new Date(tb.endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                                <span className="font-bold text-slate-900 text-sm">{tb.title}</span>
+                                <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold border border-slate-200">{tb.status}</span>
+                              </div>
+                              {tb.notes && <p className="text-xs text-slate-500 mt-1">{tb.notes}</p>}
+                            </div>
+                            <div className="flex items-center space-x-2 self-end sm:self-auto">
+                              <button
+                                onClick={() => {
+                                  setEditingBlock(tb);
+                                  setBlockTitle(tb.title);
+                                  setBlockTaskId(tb.taskId || '');
+                                  setBlockNotes(tb.notes || '');
+                                  setIsTimeBlockModalOpen(true);
+                                }}
+                                className="px-3 py-1.5 text-xs bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl border border-slate-200/90 shadow-2xs cursor-pointer"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteTimeBlock(tb.id)}
+                                className="px-3 py-1.5 text-xs bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold rounded-xl border border-rose-200 shadow-2xs cursor-pointer"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  )}
                 </div>
 
-                {/* Unscheduled / Ready Tasks */}
-                <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs space-y-4">
-                  <div className="pb-2 border-b border-slate-100">
-                    <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Ready Tasks Available</h3>
-                    <p className="text-xs text-slate-500">Backlog items ready for scheduling</p>
-                  </div>
-                  <div className="space-y-3">
-                    {dailyData?.unscheduledReadyTasks.length === 0 ? (
-                      <div className="text-xs text-slate-400 italic p-6 text-center border border-dashed border-slate-200 rounded-2xl">
-                        No unscheduled ready tasks.
+                {/* Right Side: Ready Tasks & Scratchpad */}
+                <div className="space-y-6">
+                  {/* Notion-Style Daily Focus & Notes Scratchpad */}
+                  <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-3">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                      <div>
+                        <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-900">
+                          📝 Daily Focus Scratchpad
+                        </h4>
+                        <span className="text-[11px] text-slate-500">Persistent notes for {selectedDate}</span>
                       </div>
-                    ) : (
-                      dailyData?.unscheduledReadyTasks.slice(0, 6).map((t) => (
-                        <div key={t.id} className="p-3.5 bg-slate-50/80 hover:bg-slate-100/80 rounded-2xl border border-slate-200/90 transition-colors shadow-2xs">
-                          <span className="text-xs font-bold text-slate-900 block truncate">{t.title}</span>
-                          <span className="text-[10px] font-mono font-bold text-indigo-600 mt-1 inline-block">P{t.priority} • {t.estimateMinutes} min</span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        dailyNotesSaved ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
+                      }`}>
+                        {dailyNotesSaved ? '✓ Saved' : 'Saving...'}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5">
+                      <button
+                        onClick={() => handleApplyNoteTemplate('🎯 Top Priority: ')}
+                        className="px-2 py-0.5 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md transition-colors cursor-pointer"
+                      >
+                        + 🎯 Top Priority
+                      </button>
+                      <button
+                        onClick={() => handleApplyNoteTemplate('🧱 Constraints: ')}
+                        className="px-2 py-0.5 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md transition-colors cursor-pointer"
+                      >
+                        + 🧱 Constraints
+                      </button>
+                      <button
+                        onClick={() => handleApplyNoteTemplate('💡 Reflection: ')}
+                        className="px-2 py-0.5 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md transition-colors cursor-pointer"
+                      >
+                        + 💡 Reflection
+                      </button>
+                    </div>
+
+                    <textarea
+                      rows={5}
+                      value={dailyNotes}
+                      onChange={(e) => handleNotesChange(e.target.value)}
+                      placeholder="Write daily intent, focus areas, constraints, or quick thoughts here (autosaves live)..."
+                      className="w-full bg-slate-50/80 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 font-medium resize-none"
+                    />
+
+                    <div className="flex justify-between items-center text-[10px] text-slate-500">
+                      <span>{dailyNotes.trim() ? dailyNotes.trim().split(/\s+/).length : 0} words • {dailyNotes.length} chars</span>
+                      {dailyNotes && (
+                        <button
+                          onClick={() => handleNotesChange('')}
+                          className="text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
+                        >
+                          Clear
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Unscheduled / Ready Tasks */}
+                  <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4">
+                    <div className="pb-2 border-b border-slate-100">
+                      <h3 className="text-sm font-extrabold text-slate-900 tracking-tight">Ready Tasks Available</h3>
+                      <p className="text-xs text-slate-500">1-click schedule into daily calendar</p>
+                    </div>
+                    <div className="space-y-2.5">
+                      {dailyData?.unscheduledReadyTasks.length === 0 ? (
+                        <div className="text-xs text-slate-400 italic p-6 text-center border border-dashed border-slate-200 rounded-2xl">
+                          No unscheduled ready tasks.
                         </div>
-                      ))
-                    )}
+                      ) : (
+                        dailyData?.unscheduledReadyTasks.slice(0, 6).map((t) => (
+                          <div key={t.id} className="p-3 bg-slate-50/80 hover:bg-slate-100/80 rounded-2xl border border-slate-200/90 transition-colors shadow-2xs flex items-center justify-between gap-2">
+                            <div className="min-w-0">
+                              <span className="text-xs font-bold text-slate-900 block truncate">{t.title}</span>
+                              <span className="text-[10px] font-mono font-bold text-indigo-600 mt-0.5 inline-block">P{t.priority} • {t.estimateMinutes} min</span>
+                            </div>
+                            <button
+                              onClick={() => handleQuickScheduleTask(t)}
+                              className="px-2.5 py-1 text-[11px] font-bold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg transition-colors cursor-pointer shrink-0"
+                              title="Schedule focus block for this task"
+                            >
+                              + Block
+                            </button>
+                          </div>
+                        ))
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
