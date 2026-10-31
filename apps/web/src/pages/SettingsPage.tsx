@@ -141,6 +141,7 @@ export const SettingsPage: React.FC = () => {
         newPassword,
       });
       setPasswordSuccess('Your password has been changed successfully!');
+      showToast('Your password has been changed successfully!', 'success');
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
@@ -148,8 +149,10 @@ export const SettingsPage: React.FC = () => {
     } catch (err) {
       if (err instanceof ApiError) {
         setPasswordError(err.message);
+        showToast(err.message, 'error');
       } else {
         setPasswordError('Failed to change password. Please check your credentials and try again.');
+        showToast('Failed to change password', 'error');
       }
     } finally {
       setIsSubmittingPassword(false);
@@ -180,6 +183,7 @@ export const SettingsPage: React.FC = () => {
     for (const sess of otherSessions) {
       await apiClient(`/api/v1/auth/sessions/${sess.id}`, { method: 'DELETE' }).catch(() => {});
     }
+    showToast('All other device sessions revoked', 'info');
     void fetchSessions();
     void fetchAuditLogs();
   };
@@ -216,6 +220,7 @@ export const SettingsPage: React.FC = () => {
         body: JSON.stringify(validation.data),
       });
 
+      showToast('User account provisioned successfully', 'success');
       setIsCreateModalOpen(false);
       setNewFirstName('');
       setNewLastName('');
@@ -227,8 +232,10 @@ export const SettingsPage: React.FC = () => {
     } catch (err) {
       if (err instanceof ApiError) {
         setCreateModalError(err.message);
+        showToast(err.message, 'error');
       } else {
         setCreateModalError('Failed to provision new user account.');
+        showToast('Failed to provision new user account', 'error');
       }
     } finally {
       setIsCreatingUser(false);

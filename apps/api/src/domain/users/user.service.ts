@@ -77,7 +77,7 @@ export class UserService {
           weeklyWorkCapacityMinutes: 2400,
           defaultTaskPriority: TaskPriority.P2,
           defaultProjectView: 'board',
-          theme: 'dark',
+          theme: 'light',
         },
       });
 

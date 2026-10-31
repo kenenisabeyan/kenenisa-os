@@ -24,11 +24,11 @@ describe('Database Architecture & Entity Integration Tests', { timeout: 30000 },
     } catch {
       // Database is offline or unseeded in unit test env
     }
-  });
+  }, 30000);
 
   afterAll(async () => {
     await prisma.$disconnect();
-  });
+  }, 30000);
 
   it('enforces email uniqueness on User model', async () => {
     if (!testUserId) return;
