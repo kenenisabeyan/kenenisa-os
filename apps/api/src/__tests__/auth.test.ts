@@ -45,7 +45,10 @@ vi.mock('../lib/prisma.js', () => {
       create: vi.fn(),
     },
     userSettings: {
+      findUnique: vi.fn(),
+      create: vi.fn(),
       upsert: vi.fn(),
+      update: vi.fn(),
     },
     $transaction: vi.fn((cb: (tx: unknown) => unknown) => cb(mockPrisma)),
     $disconnect: vi.fn(),
@@ -452,6 +455,113 @@ describe('Authentication & Session Comprehensive Test Suite', () => {
       expect(res.status).toBe(401);
       expect(res.body.success).toBe(false);
       expect(res.body.message).toContain('No active accounts matched');
+    });
+  });
+
+  describe('GET & PATCH /api/v1/auth/settings & /profile', () => {
+    const mockSettings = {
+      id: 'settings-1',
+      userId: mockUser.id,
+      timezone: 'Africa/Addis_Ababa',
+      weekStartsOn: 1,
+      dailyWorkCapacityMinutes: 480,
+      weeklyWorkCapacityMinutes: 2400,
+      defaultTaskPriority: 'P2',
+      defaultProjectView: 'board',
+      theme: 'light',
+      createdAt: new Date('2026-09-15T00:00:00Z'),
+      updatedAt: new Date('2026-09-15T00:00:00Z'),
+    };
+
+    it('GET /api/v1/auth/settings returns current user settings', async () => {
+      const { rawToken, tokenHash } = generateSessionToken();
+      const mockSessionRepo = prisma.session as unknown as MockPrismaSession;
+      mockSessionRepo.findUnique.mockResolvedValue({
+        id: 'session-1',
+        userId: mockUser.id,
+        tokenHash,
+        expiresAt: new Date(Date.now() + 86400000),
+        lastUsedAt: new Date(),
+        revokedAt: null,
+        user: mockUser,
+      });
+
+      const mockSettingsRepo = prisma.userSettings as unknown as { findUnique: ReturnType<typeof vi.fn> };
+      mockSettingsRepo.findUnique.mockResolvedValue(mockSettings);
+
+      const res = await request(app)
+        .get('/api/v1/auth/settings')
+        .set('Cookie', [`auth_session=${rawToken}`]);
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.data.settings.dailyWorkCapacityMinutes).toBe(480);
+      expect(res.body.data.settings.timezone).toBe('Africa/Addis_Ababa');
+    });
+
+    it('PATCH /api/v1/auth/settings updates user capacity and preferences', async () => {
+      const { rawToken, tokenHash } = generateSessionToken();
+      const mockSessionRepo = prisma.session as unknown as MockPrismaSession;
+      mockSessionRepo.findUnique.mockResolvedValue({
+        id: 'session-1',
+        userId: mockUser.id,
+        tokenHash,
+        expiresAt: new Date(Date.now() + 86400000),
+        lastUsedAt: new Date(),
+        revokedAt: null,
+        user: mockUser,
+      });
+
+      const mockSettingsRepo = prisma.userSettings as unknown as { upsert: ReturnType<typeof vi.fn> };
+      mockSettingsRepo.upsert.mockResolvedValue({
+        ...mockSettings,
+        dailyWorkCapacityMinutes: 600,
+        weeklyWorkCapacityMinutes: 3000,
+      });
+
+      const res = await request(app)
+        .patch('/api/v1/auth/settings')
+        .set('Cookie', [`auth_session=${rawToken}`])
+        .send({
+          dailyWorkCapacityMinutes: 600,
+          weeklyWorkCapacityMinutes: 3000,
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.data.settings.dailyWorkCapacityMinutes).toBe(600);
+    });
+
+    it('PATCH /api/v1/auth/profile updates user display name and name', async () => {
+      const { rawToken, tokenHash } = generateSessionToken();
+      const mockSessionRepo = prisma.session as unknown as MockPrismaSession;
+      mockSessionRepo.findUnique.mockResolvedValue({
+        id: 'session-1',
+        userId: mockUser.id,
+        tokenHash,
+        expiresAt: new Date(Date.now() + 86400000),
+        lastUsedAt: new Date(),
+        revokedAt: null,
+        user: mockUser,
+      });
+
+      const mockUserRepo = prisma.user as unknown as MockPrismaUser;
+      mockUserRepo.findUnique.mockResolvedValue(mockUser);
+      mockUserRepo.update.mockResolvedValue({
+        ...mockUser,
+        displayName: 'Kenenisa Beyan (Lead)',
+      });
+
+      const res = await request(app)
+        .patch('/api/v1/auth/profile')
+        .set('Cookie', [`auth_session=${rawToken}`])
+        .send({
+          displayName: 'Kenenisa Beyan (Lead)',
+        });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.data.user.displayName).toBe('Kenenisa Beyan (Lead)');
     });
   });
 });

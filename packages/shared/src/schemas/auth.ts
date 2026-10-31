@@ -116,4 +116,30 @@ export const updateUserSchema = z.object({
 
 export type UpdateUserInput = z.infer<typeof updateUserSchema>;
 
+/**
+ * Self profile update schema.
+ */
+export const updateProfileSchema = z.object({
+  firstName: z.string().trim().min(1, 'First name is required').optional(),
+  lastName: z.string().trim().min(1, 'Last name is required').optional(),
+  displayName: z.string().trim().min(1, 'Display name cannot be empty').optional(),
+});
+
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
+
+/**
+ * User Settings update schema.
+ */
+export const updateUserSettingsSchema = z.object({
+  timezone: z.string().min(1, 'Timezone is required').optional(),
+  weekStartsOn: z.number().int().min(0).max(6).optional(),
+  dailyWorkCapacityMinutes: z.number().int().min(30).max(1440).optional(),
+  weeklyWorkCapacityMinutes: z.number().int().min(60).max(10080).optional(),
+  defaultTaskPriority: z.enum(['P0', 'P1', 'P2', 'P3']).optional(),
+  defaultProjectView: z.enum(['board', 'list']).optional(),
+  theme: z.enum(['light', 'dark', 'system']).optional(),
+});
+
+export type UpdateUserSettingsInput = z.infer<typeof updateUserSettingsSchema>;
+
 

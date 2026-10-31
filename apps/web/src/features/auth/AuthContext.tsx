@@ -9,6 +9,7 @@ import type {
   ResetPasswordInput,
   ForgotEmailInput,
   RecoveredAccountDto,
+  UpdateProfileInput,
 } from '@kenenisa-os/shared';
 
 export interface AuthContextValue {
@@ -19,6 +20,7 @@ export interface AuthContextValue {
   login: (credentials: LoginInput) => Promise<PublicUserDto>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  updateProfile: (payload: UpdateProfileInput) => Promise<PublicUserDto>;
   changePassword: (payload: ChangePasswordInput) => Promise<void>;
   forgotPassword: (
     payload: ForgotPasswordInput,
@@ -68,6 +70,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setAuthState('UNAUTHENTICATED');
     }
   }, []);
+
+  const updateProfile = useCallback(
+    async (payload: UpdateProfileInput): Promise<PublicUserDto> => {
+      const data = await apiClient<{ user: PublicUserDto }>('/api/v1/auth/profile', {
+        method: 'PATCH',
+        body: JSON.stringify(payload),
+      });
+      setUser(data.user);
+      return data.user;
+    },
+    [],
+  );
 
   const changePassword = useCallback(async (payload: ChangePasswordInput): Promise<void> => {
     await apiClient('/api/v1/auth/change-password', {
@@ -122,6 +136,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     login,
     logout,
     checkAuth,
+    updateProfile,
     changePassword,
     forgotPassword,
     resetPassword,

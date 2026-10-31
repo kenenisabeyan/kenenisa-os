@@ -34,5 +34,14 @@ authRouter.delete('/sessions/:sessionId', requireAuth, (req, res, next) =>
 authRouter.get('/audit-logs', requireAuth, (req, res, next) =>
   AuthController.getAuditLogs(req, res, next),
 );
+authRouter.get('/settings', requireAuth, (req, res, next) =>
+  AuthController.getSettings(req, res, next),
+);
+authRouter.patch('/settings', requireAuth, (req, res, next) =>
+  AuthController.updateSettings(req, res, next),
+);
+authRouter.patch('/profile', requireAuth, (req, res, next) =>
+  AuthController.updateProfile(req, res, next),
+);
 
 

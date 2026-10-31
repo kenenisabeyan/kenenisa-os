@@ -10,6 +10,8 @@ import {
   forgotPasswordSchema,
   resetPasswordSchema,
   forgotEmailSchema,
+  updateProfileSchema,
+  updateUserSettingsSchema,
 } from '@kenenisa-os/shared';
 import type { AuthenticatedRequest } from './auth.types.js';
 
@@ -291,6 +293,82 @@ export class AuthController {
         statusCode: 200,
         message: 'Matching registered accounts retrieved successfully',
         data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * GET /api/v1/auth/settings
+   */
+  public static async getSettings(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const settings = await AuthService.getUserSettings(authReq.user.id);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'User settings retrieved successfully',
+        data: { settings },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * PATCH /api/v1/auth/settings
+   */
+  public static async updateSettings(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const validatedInput = updateUserSettingsSchema.parse(req.body);
+      const settings = await AuthService.updateUserSettings(authReq.user.id, validatedInput);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'User settings updated successfully',
+        data: { settings },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * PATCH /api/v1/auth/profile
+   */
+  public static async updateProfile(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const validatedInput = updateProfileSchema.parse(req.body);
+      const ipAddress = req.ip || req.socket.remoteAddress;
+
+      const user = await AuthService.updateProfile(authReq.user.id, validatedInput, ipAddress);
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: 'User profile updated successfully',
+        data: { user },
       });
     } catch (error) {
       next(error);

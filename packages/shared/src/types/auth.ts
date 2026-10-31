@@ -52,3 +52,17 @@ export interface RecoveredAccountDto {
 
 export type AuthState = 'UNKNOWN' | 'AUTHENTICATED' | 'UNAUTHENTICATED';
 
+export interface UserSettingsDto {
+  id: string;
+  userId: string;
+  timezone: string;
+  weekStartsOn: number;
+  dailyWorkCapacityMinutes: number;
+  weeklyWorkCapacityMinutes: number;
+  defaultTaskPriority: 'P0' | 'P1' | 'P2' | 'P3';
+  defaultProjectView: string;
+  theme: string;
+  createdAt: string;
+  updatedAt: string;
+}
+

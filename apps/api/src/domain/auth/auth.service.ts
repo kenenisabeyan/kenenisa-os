@@ -13,6 +13,9 @@ import type {
   ResetPasswordInput,
   ForgotEmailInput,
   RecoveredAccountDto,
+  UserSettingsDto,
+  UpdateUserSettingsInput,
+  UpdateProfileInput,
 } from '@kenenisa-os/shared';
 
 interface PasswordResetCode {
@@ -374,6 +377,132 @@ export class AuthService {
       metadata: log.metadata as Record<string, unknown> | null,
       createdAt: log.createdAt.toISOString(),
     }));
+  }
+
+  /**
+   * Retrieves user preferences & capacity configuration.
+   */
+  public static async getUserSettings(userId: string): Promise<UserSettingsDto> {
+    let settings = await prisma.userSettings.findUnique({
+      where: { userId },
+    });
+
+    if (!settings) {
+      settings = await prisma.userSettings.create({
+        data: {
+          userId,
+          timezone: 'Africa/Addis_Ababa',
+          weekStartsOn: 1,
+          dailyWorkCapacityMinutes: 480,
+          weeklyWorkCapacityMinutes: 2400,
+          defaultTaskPriority: 'P2',
+          defaultProjectView: 'board',
+          theme: 'light',
+        },
+      });
+    }
+
+    return {
+      id: settings.id,
+      userId: settings.userId,
+      timezone: settings.timezone,
+      weekStartsOn: settings.weekStartsOn,
+      dailyWorkCapacityMinutes: settings.dailyWorkCapacityMinutes,
+      weeklyWorkCapacityMinutes: settings.weeklyWorkCapacityMinutes,
+      defaultTaskPriority: settings.defaultTaskPriority,
+      defaultProjectView: settings.defaultProjectView,
+      theme: settings.theme,
+      createdAt: settings.createdAt.toISOString(),
+      updatedAt: settings.updatedAt.toISOString(),
+    };
+  }
+
+  /**
+   * Updates user preferences & capacity configuration.
+   */
+  public static async updateUserSettings(
+    userId: string,
+    input: UpdateUserSettingsInput,
+  ): Promise<UserSettingsDto> {
+    const settings = await prisma.userSettings.upsert({
+      where: { userId },
+      create: {
+        userId,
+        timezone: input.timezone || 'Africa/Addis_Ababa',
+        weekStartsOn: input.weekStartsOn ?? 1,
+        dailyWorkCapacityMinutes: input.dailyWorkCapacityMinutes ?? 480,
+        weeklyWorkCapacityMinutes: input.weeklyWorkCapacityMinutes ?? 2400,
+        defaultTaskPriority: input.defaultTaskPriority || 'P2',
+        defaultProjectView: input.defaultProjectView || 'board',
+        theme: input.theme || 'light',
+      },
+      update: {
+        ...(input.timezone !== undefined && { timezone: input.timezone }),
+        ...(input.weekStartsOn !== undefined && { weekStartsOn: input.weekStartsOn }),
+        ...(input.dailyWorkCapacityMinutes !== undefined && {
+          dailyWorkCapacityMinutes: input.dailyWorkCapacityMinutes,
+        }),
+        ...(input.weeklyWorkCapacityMinutes !== undefined && {
+          weeklyWorkCapacityMinutes: input.weeklyWorkCapacityMinutes,
+        }),
+        ...(input.defaultTaskPriority !== undefined && {
+          defaultTaskPriority: input.defaultTaskPriority,
+        }),
+        ...(input.defaultProjectView !== undefined && {
+          defaultProjectView: input.defaultProjectView,
+        }),
+        ...(input.theme !== undefined && { theme: input.theme }),
+      },
+    });
+
+    return {
+      id: settings.id,
+      userId: settings.userId,
+      timezone: settings.timezone,
+      weekStartsOn: settings.weekStartsOn,
+      dailyWorkCapacityMinutes: settings.dailyWorkCapacityMinutes,
+      weeklyWorkCapacityMinutes: settings.weeklyWorkCapacityMinutes,
+      defaultTaskPriority: settings.defaultTaskPriority,
+      defaultProjectView: settings.defaultProjectView,
+      theme: settings.theme,
+      createdAt: settings.createdAt.toISOString(),
+      updatedAt: settings.updatedAt.toISOString(),
+    };
+  }
+
+  /**
+   * Updates self user profile (first name, last name, display name).
+   */
+  public static async updateProfile(
+    userId: string,
+    input: UpdateProfileInput,
+    ipAddress?: string,
+  ): Promise<PublicUserDto> {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new AuthenticationError('User account not found');
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        ...(input.firstName && { firstName: input.firstName.trim() }),
+        ...(input.lastName && { lastName: input.lastName.trim() }),
+        ...(input.displayName && { displayName: input.displayName.trim() }),
+      },
+    });
+
+    await recordAuditLog({
+      userId,
+      entityType: 'User',
+      entityId: userId,
+      action: 'PROFILE_UPDATED',
+      metadata: { changes: input, ipAddress },
+    });
+
+    return toPublicUser(updatedUser);
   }
 }
 
