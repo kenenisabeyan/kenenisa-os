@@ -109,6 +109,22 @@ enum ResultSource {
   UNKNOWN
 }
 
+enum AcademicStatus {
+  ENROLLED
+  IN_PROGRESS
+  COMPLETED
+  AUDITING
+  DROPPED
+}
+
+enum UnderstandingLevel {
+  BEGINNER
+  DEVELOPING
+  PROFICIENT
+  ADVANCED
+  EXPERT
+}
+
 // ── Models ───────────────────────────────────────────────────────────────────
 
 model User {
@@ -150,6 +166,8 @@ model User {
   conversations Conversation[]
   conversationMessages ConversationMessage[]
   userMemories UserMemory[]
+  academicSemesters AcademicSemester[]
+  academicCourses AcademicCourse[]
 }
 
 model UserSettings {
@@ -247,6 +265,7 @@ model Project {
   monthPlans       MonthPlan[]
   weeklyPlans      WeeklyPlan[]
   planOutcomes     PlanOutcome[]
+  academicCourses  AcademicCourse[]
 
   @@unique([userId, slug])
   @@index([workstreamId, status])
@@ -1112,6 +1131,57 @@ model ResultExportLog {
 
   @@index([userId, createdAt])
 }
+
+model AcademicSemester {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  academicYear String   @default("2026/2027")
+  semester     String   @default("First Semester")
+  level        String   @default("Fifth Year")
+  startDate    DateTime?
+  endDate      DateTime?
+  status       String   @default("ACTIVE")
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  courses AcademicCourse[]
+
+  @@unique([userId, academicYear, semester])
+  @@index([userId, status])
+}
+
+model AcademicCourse {
+  id                     String              @id @default(uuid())
+  userId                 String
+  user                   User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  semesterId             String
+  semester               AcademicSemester    @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  code                   String?
+  title                  String
+  creditHours            Int?
+  instructor             String?
+  assessmentDates        Json?
+  assignments            Json?
+  testsAndExams          Json?
+  studyTopics            Json?
+  learningResources      Json?
+  currentUnderstanding   UnderstandingLevel  @default(DEVELOPING)
+  academicStatus         AcademicStatus      @default(ENROLLED)
+  notes                  String?
+  completionRequirements String?
+  projectId              String?
+  project                Project?            @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+
+  @@unique([semesterId, title])
+  @@index([userId, academicStatus])
+  @@index([semesterId])
+  @@index([projectId])
+}
+
 
 
 

@@ -1823,6 +1823,174 @@ export interface CapacityTimeAnalysisDto {
   capacityConflictNotes?: string;
 }
 
+// ── Academic Semester & Course Types ──────────────────────────────────────────
+
+export type AcademicStatus = 'ENROLLED' | 'IN_PROGRESS' | 'COMPLETED' | 'AUDITING' | 'DROPPED';
+export type UnderstandingLevel = 'BEGINNER' | 'DEVELOPING' | 'PROFICIENT' | 'ADVANCED' | 'EXPERT';
+
+export interface AssessmentDateItem {
+  id?: string;
+  title: string;
+  date: string;
+  weightPercent?: number;
+}
+
+export interface AssignmentItem {
+  id?: string;
+  title: string;
+  dueDate?: string;
+  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'SUBMITTED' | 'GRADED';
+  notes?: string;
+}
+
+export interface TestOrExamItem {
+  id?: string;
+  title: string;
+  date?: string;
+  syllabus?: string;
+  weightPercent?: number;
+}
+
+export interface StudyTopicItem {
+  id?: string;
+  topic: string;
+  completed: boolean;
+  notes?: string;
+}
+
+export interface LearningResourceItem {
+  id?: string;
+  title: string;
+  url?: string;
+  type?: 'BOOK' | 'DOCUMENT' | 'SLIDE' | 'VIDEO' | 'CODE' | 'OTHER';
+}
+
+export interface AcademicCourseDto {
+  id: string;
+  userId: string;
+  semesterId: string;
+  code: string | null;
+  title: string;
+  creditHours: number | null;
+  instructor: string | null;
+  assessmentDates: AssessmentDateItem[] | null;
+  assignments: AssignmentItem[] | null;
+  testsAndExams: TestOrExamItem[] | null;
+  studyTopics: StudyTopicItem[] | null;
+  learningResources: LearningResourceItem[] | null;
+  currentUnderstanding: UnderstandingLevel;
+  academicStatus: AcademicStatus;
+  notes: string | null;
+  completionRequirements: string | null;
+  projectId: string | null;
+  project?: {
+    id: string;
+    name: string;
+    slug: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AcademicSemesterDto {
+  id: string;
+  userId: string;
+  academicYear: string;
+  semester: string;
+  level: string;
+  startDate: string | null;
+  endDate: string | null;
+  status: string;
+  notes: string | null;
+  courses: AcademicCourseDto[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GraduationOverviewDto {
+  university: string;
+  academicYear: string;
+  level: string;
+  currentSemester: string;
+  graduationTargetDate: string | null; // null if not configured
+  overallAcademicStatus: string;
+  activeProjects: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    status: ProjectStatus;
+    totalMilestones: number;
+    completedMilestones: number;
+    progressPercent: number;
+  }>;
+  upcomingMilestones: Array<{
+    id: string;
+    projectId: string;
+    projectName: string;
+    name: string;
+    targetDate: string | null;
+    status: MilestoneStatus;
+  }>;
+  overdueObligations: Array<{
+    id: string;
+    title: string;
+    source: 'COURSE' | 'TASK' | 'PROJECT';
+    dueDate: string | null;
+  }>;
+  availableCapacityMinutes: number;
+  weeklyCompletionStats: {
+    completedTasks: number;
+    plannedTasks: number;
+    completionRate: number;
+  };
+  progressBreakdown: {
+    academicRequirements: {
+      completed: number;
+      total: number;
+      percent: number;
+      basis: string;
+    };
+    individualProject: {
+      completedMilestones: number;
+      totalMilestones: number;
+      percent: number;
+      basis: string;
+    };
+    groupProject: {
+      completedMilestones: number;
+      totalMilestones: number;
+      percent: number;
+      basis: string;
+    };
+    finalDocumentation: {
+      completed: number;
+      total: number;
+      percent: number;
+      basis: string;
+    };
+    defensePreparation: {
+      completed: number;
+      total: number;
+      percent: number;
+      basis: string;
+    };
+  };
+  criticalAttention: {
+    overdueTasks: Array<{ id: string; title: string; dueDate: string | null; priority: TaskPriority }>;
+    tasksDueSoon: Array<{ id: string; title: string; dueDate: string | null; priority: TaskPriority }>;
+    blockedTasks: Array<{ id: string; title: string; priority: TaskPriority; blockedBy?: string }>;
+    delayedMilestones: Array<{ id: string; name: string; projectName: string; targetDate: string | null }>;
+  };
+  todayExecution: {
+    scheduledTasks: Array<{ id: string; title: string; priority: TaskPriority; status: TaskStatus; estimateMinutes: number }>;
+    currentInProgressTask?: { id: string; title: string; priority: TaskPriority; estimateMinutes: number } | null;
+    availableCapacityMinutes: number;
+    nextBestAction?: { id: string; title: string; score: number; priority: TaskPriority } | null;
+    completedWorkCount: number;
+    remainingWorkCount: number;
+  };
+}
+
 
 
 
