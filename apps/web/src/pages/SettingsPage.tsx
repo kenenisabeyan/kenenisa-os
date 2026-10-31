@@ -3,8 +3,10 @@ import { useAuth } from '../features/auth/useAuth.js';
 import { changePasswordSchema, createUserSchema } from '@kenenisa-os/shared';
 import type { PublicUserDto, CreateUserInput, AuthSessionDto, AuditLogDto } from '@kenenisa-os/shared';
 import { apiClient, ApiError } from '../lib/api-client.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const SettingsPage: React.FC = () => {
+  const { showToast } = useToast();
   const { user, changePassword } = useAuth();
 
   // Password Change state
@@ -157,11 +159,14 @@ export const SettingsPage: React.FC = () => {
   const handleRevokeSession = async (sessionId: string) => {
     try {
       await apiClient(`/api/v1/auth/sessions/${sessionId}`, { method: 'DELETE' });
+      showToast('Device session revoked', 'info');
       void fetchSessions();
       void fetchAuditLogs();
     } catch (err) {
       if (err instanceof ApiError) {
-        alert(err.message);
+        showToast(err.message, 'error');
+      } else {
+        showToast('Failed to revoke session', 'error');
       }
     }
   };
@@ -236,11 +241,14 @@ export const SettingsPage: React.FC = () => {
         method: 'PATCH',
         body: JSON.stringify({ isActive: !targetUser.isActive }),
       });
+      showToast(`User ${targetUser.displayName} ${!targetUser.isActive ? 'activated' : 'deactivated'}`, 'info');
       void fetchUsers();
       void fetchAuditLogs();
     } catch (err) {
       if (err instanceof ApiError) {
-        alert(err.message);
+        showToast(err.message, 'error');
+      } else {
+        showToast('Failed to update user status', 'error');
       }
     }
   };
@@ -251,11 +259,14 @@ export const SettingsPage: React.FC = () => {
     }
     try {
       await apiClient(`/api/v1/users/${targetUser.id}`, { method: 'DELETE' });
+      showToast(`User ${targetUser.displayName} deleted`, 'info');
       void fetchUsers();
       void fetchAuditLogs();
     } catch (err) {
       if (err instanceof ApiError) {
-        alert(err.message);
+        showToast(err.message, 'error');
+      } else {
+        showToast('Failed to delete user', 'error');
       }
     }
   };

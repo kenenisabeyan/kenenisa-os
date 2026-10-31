@@ -172,7 +172,7 @@ export const ExecutivePage: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                <h2 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
                   <span>Strategic Workstream Domains</span>
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-200">
                     {workstreams.length} Active

@@ -22,8 +22,10 @@ import {
   fetchProjectBreakdown,
   fetchCapacityAnalysis,
 } from '../features/results/api.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const ResultsPage: React.FC = () => {
+  const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState<'overview' | 'timeline' | 'analysis' | 'recommendations' | 'reports'>('overview');
 
   const [period, setPeriod] = useState<'today' | 'week' | 'month' | 'year' | 'custom'>('week');
@@ -90,6 +92,7 @@ export const ResultsPage: React.FC = () => {
       setCapacityAnalysis(capacityRes);
     } catch (err) {
       console.error('Failed to load results workspace data:', err);
+      showToast('Failed to load results workspace data', 'error');
     } finally {
       setLoading(false);
     }
@@ -104,9 +107,11 @@ export const ResultsPage: React.FC = () => {
       if (searchQuery) queryParams.search = searchQuery;
 
       await downloadXlsxReport(queryParams);
+      showToast('Excel report downloaded successfully', 'success');
       setExportModalOpen(false);
     } catch (err) {
       console.error('Failed to download XLSX report:', err);
+      showToast('Failed to download XLSX report', 'error');
     } finally {
       setExporting(false);
     }

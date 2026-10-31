@@ -10,8 +10,10 @@ import {
 import type { WeeklyReviewDto, WeeklyReviewContextDto } from '@kenenisa-os/shared';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const ReviewsPage: React.FC = () => {
+  const { showToast } = useToast();
   const [reviews, setReviews] = useState<WeeklyReviewDto[]>([]);
   const [activeReview, setActiveReview] = useState<WeeklyReviewDto | null>(null);
   const [context, setContext] = useState<WeeklyReviewContextDto | null>(null);
@@ -71,9 +73,10 @@ export const ReviewsPage: React.FC = () => {
       setLessons('');
       setNextFocus('');
       setNotes('');
+      showToast('Weekly review initiated', 'success');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create review');
+      showToast(err instanceof Error ? err.message : 'Failed to create review', 'error');
     }
   };
 
@@ -98,9 +101,10 @@ export const ReviewsPage: React.FC = () => {
         notes: notes.trim() || null,
       });
       setActiveReview(updated);
+      showToast('Review saved successfully', 'success');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to save review');
+      showToast(err instanceof Error ? err.message : 'Failed to save review', 'error');
     }
   };
 
@@ -110,13 +114,15 @@ export const ReviewsPage: React.FC = () => {
       let updated: WeeklyReviewDto;
       if (activeReview.status === 'DRAFT') {
         updated = await completeWeeklyReview(activeReview.id);
+        showToast('Weekly review marked as complete', 'success');
       } else {
         updated = await reopenWeeklyReview(activeReview.id);
+        showToast('Weekly review reopened as draft', 'info');
       }
       setActiveReview(updated);
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to update review status');
+      showToast(err instanceof Error ? err.message : 'Failed to update review status', 'error');
     }
   };
 

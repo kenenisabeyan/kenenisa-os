@@ -12,9 +12,11 @@ import {
   fetchOpportunityAnalytics,
   createOpportunity,
 } from '../features/opportunities/api.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const OpportunitiesPage: React.FC = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [opportunities, setOpportunities] = useState<OpportunityDto[]>([]);
   const [analytics, setAnalytics] = useState<OpportunityAnalyticsDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -77,6 +79,7 @@ export const OpportunitiesPage: React.FC = () => {
     if (!formInput.title.trim()) return;
     try {
       const created = await createOpportunity(formInput);
+      showToast('Opportunity created successfully', 'success');
       setShowModal(false);
       setFormInput({
         title: '',
@@ -100,6 +103,7 @@ export const OpportunitiesPage: React.FC = () => {
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to create opportunity';
       setError(msg);
+      showToast(msg, 'error');
     }
   };
 

@@ -14,8 +14,10 @@ import {
   fetchUserMemories,
   archiveUserMemory,
 } from '../features/intelligence/api.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const IntelligencePage: React.FC = () => {
+  const { showToast } = useToast();
   const [conversations, setConversations] = useState<ConversationDto[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<ConversationMessageDto[]>([]);
@@ -134,13 +136,16 @@ export const IntelligencePage: React.FC = () => {
       const res = await confirmActionProposal(activeProposal.id, confirm);
       if (res.success) {
         setActionSuccessMessage(`Action confirmed & persisted successfully!`);
+        showToast('Action confirmed & executed successfully', 'success');
       } else {
         setActionSuccessMessage('Action proposal cancelled.');
+        showToast('Action proposal cancelled', 'info');
       }
       setActiveProposal(null);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Action execution failed';
       setError(msg);
+      showToast(msg, 'error');
     } finally {
       setExecutingAction(false);
     }
@@ -152,10 +157,12 @@ export const IntelligencePage: React.FC = () => {
       if (activeConversationId === id) {
         handleNewConversation();
       }
+      showToast('Conversation deleted', 'info');
       await loadConversationsList();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to delete conversation';
       setError(msg);
+      showToast(msg, 'error');
     }
   };
 
@@ -167,16 +174,19 @@ export const IntelligencePage: React.FC = () => {
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to load user memories';
       setError(msg);
+      showToast(msg, 'error');
     }
   };
 
   const handleArchiveMemory = async (id: string) => {
     try {
       await archiveUserMemory(id);
+      showToast('Memory archived', 'info');
       const list = await fetchUserMemories();
       setMemories(list);
     } catch (err: unknown) {
       console.warn('Failed to archive memory:', err);
+      showToast('Failed to archive memory', 'error');
     }
   };
 

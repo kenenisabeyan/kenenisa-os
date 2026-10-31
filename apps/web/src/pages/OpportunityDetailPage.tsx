@@ -14,10 +14,12 @@ import {
   unlinkOpportunityTask,
   createOpportunityActivity,
 } from '../features/opportunities/api.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const OpportunityDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [opportunity, setOpportunity] = useState<OpportunityDetailDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -54,10 +56,12 @@ export const OpportunityDetailPage: React.FC = () => {
     if (!id) return;
     try {
       await transitionOpportunityStatus(id, action);
+      showToast(`Status updated to ${action}`, 'success');
       await loadOpportunity();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Status transition failed';
       setError(msg);
+      showToast(msg, 'error');
     }
   };
 
@@ -74,12 +78,14 @@ export const OpportunityDetailPage: React.FC = () => {
       } else if (activeLinkType === 'task') {
         await linkOpportunityTask(id, linkInputId.trim());
       }
+      showToast(`Linked ${activeLinkType} successfully`, 'success');
       setActiveLinkType(null);
       setLinkInputId('');
       await loadOpportunity();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to link item';
       setError(msg);
+      showToast(msg, 'error');
     }
   };
 
@@ -90,10 +96,12 @@ export const OpportunityDetailPage: React.FC = () => {
       if (type === 'project') await unlinkOpportunityProject(id, targetId);
       if (type === 'evidence') await unlinkOpportunityEvidence(id, targetId);
       if (type === 'task') await unlinkOpportunityTask(id, targetId);
+      showToast(`Unlinked ${type}`, 'info');
       await loadOpportunity();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to unlink item';
       setError(msg);
+      showToast(msg, 'error');
     }
   };
 
@@ -105,12 +113,14 @@ export const OpportunityDetailPage: React.FC = () => {
         title: actTitle.trim(),
         description: actDesc.trim() || null,
       });
+      showToast('Activity logged successfully', 'success');
       setActTitle('');
       setActDesc('');
       await loadOpportunity();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to log activity';
       setError(msg);
+      showToast(msg, 'error');
     }
   };
 
@@ -132,7 +142,7 @@ export const OpportunityDetailPage: React.FC = () => {
         >
           ← Back to Opportunities
         </button>
-        <div className="bg-red-950/40 border border-red-800/50 p-4 rounded-xl text-red-300 text-sm">
+        <div className="bg-rose-50 border border-rose-200 p-4 rounded-2xl text-rose-700 text-sm font-semibold">
           {error || 'Opportunity not found.'}
         </div>
       </div>

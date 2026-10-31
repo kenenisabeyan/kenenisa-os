@@ -17,8 +17,10 @@ import type {
   SkillDto,
   LearningItemType,
 } from '@kenenisa-os/shared';
+import { useToast } from '../components/ui/Toast.js';
 
 export function LearningPage() {
+  const { showToast } = useToast();
   const [items, setItems] = useState<LearningItemDto[]>([]);
   const [metrics, setMetrics] = useState<LearningMetricsDto | null>(null);
   const [skills, setSkills] = useState<SkillDto[]>([]);
@@ -95,9 +97,10 @@ export function LearningPage() {
       setCreateDescription('');
       setCreateSource('');
       setCreateUrl('');
+      showToast('Learning item created successfully', 'success');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create learning item');
+      showToast(err instanceof Error ? err.message : 'Failed to create learning item', 'error');
     }
   };
 
@@ -109,11 +112,12 @@ export function LearningPage() {
         minutes: Number(activityMinutes),
         notes: activityNotes.trim() || undefined,
       });
+      showToast(`Recorded ${activityMinutes} mins of learning`, 'success');
       setActiveActivityItem(null);
       setActivityNotes('');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to record activity');
+      showToast(err instanceof Error ? err.message : 'Failed to record activity', 'error');
     }
   };
 
@@ -124,11 +128,12 @@ export function LearningPage() {
       await linkLearningSkill(activeSkillLinkItem.id, {
         skillId: selectedSkillId,
       });
+      showToast('Skill linked to learning item', 'success');
       setActiveSkillLinkItem(null);
       setSelectedSkillId('');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to link skill');
+      showToast(err instanceof Error ? err.message : 'Failed to link skill', 'error');
     }
   };
 
@@ -138,9 +143,10 @@ export function LearningPage() {
       if (action === 'pause') await pauseLearningItem(item.id);
       if (action === 'complete') await completeLearningItem(item.id);
       if (action === 'reopen') await reopenLearningItem(item.id);
+      showToast(`Learning item status updated to ${action}`, 'info');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : `Failed to ${action} item`);
+      showToast(err instanceof Error ? err.message : `Failed to ${action} item`, 'error');
     }
   };
 

@@ -19,9 +19,11 @@ import type {
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const CareerPage: React.FC = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [opportunities, setOpportunities] = useState<OpportunityDto[]>([]);
   const [analytics, setAnalytics] = useState<OpportunityAnalyticsDto | null>(null);
@@ -73,9 +75,10 @@ export const CareerPage: React.FC = () => {
   const handleStatusTransition = async (oppId: string, action: string) => {
     try {
       await transitionOpportunityStatus(oppId, action);
+      showToast(`Opportunity updated to ${action.toLowerCase()}`, 'success');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to update status');
+      showToast(err instanceof Error ? err.message : 'Failed to update status', 'error');
     }
   };
 

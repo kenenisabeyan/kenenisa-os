@@ -5,8 +5,10 @@ import { fetchWorkstreams } from '../features/workstreams/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const GoalsPage: React.FC = () => {
+  const { showToast } = useToast();
   const [goals, setGoals] = useState<GoalDto[]>([]);
   const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
   const [loading, setLoading] = useState(true);
@@ -83,9 +85,10 @@ export const GoalsPage: React.FC = () => {
       setTitle('');
       setDescription('');
       setTargetDate('');
+      showToast('Strategic goal created', 'success');
       await loadGoals();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create goal');
+      showToast(err instanceof Error ? err.message : 'Failed to create goal', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -95,12 +98,14 @@ export const GoalsPage: React.FC = () => {
     try {
       if (goal.status === 'ACHIEVED') {
         await reopenGoal(goal.id);
+        showToast('Goal reopened', 'info');
       } else {
         await completeGoal(goal.id);
+        showToast('Goal marked as achieved!', 'success');
       }
       await loadGoals();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to update goal status');
+      showToast(err instanceof Error ? err.message : 'Failed to update goal status', 'error');
     }
   };
 

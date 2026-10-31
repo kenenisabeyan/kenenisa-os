@@ -8,8 +8,10 @@ import {
   reorderMilestones,
 } from '../features/milestones/api.js';
 import { fetchProjects } from '../features/projects/api.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const MilestonesPage: React.FC = () => {
+  const { showToast } = useToast();
   const [milestones, setMilestones] = useState<MilestoneDto[]>([]);
   const [projects, setProjects] = useState<ProjectDto[]>([]);
   const [loading, setLoading] = useState(true);
@@ -81,9 +83,10 @@ export const MilestonesPage: React.FC = () => {
       setName('');
       setDescription('');
       setTargetDate('');
+      showToast('Milestone created', 'success');
       await loadMilestones();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create milestone');
+      showToast(err instanceof Error ? err.message : 'Failed to create milestone', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -93,12 +96,14 @@ export const MilestonesPage: React.FC = () => {
     try {
       if (m.status === 'REACHED') {
         await reopenMilestone(m.id);
+        showToast('Milestone reopened', 'info');
       } else {
         await completeMilestone(m.id);
+        showToast('Milestone completed!', 'success');
       }
       await loadMilestones();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to update milestone status');
+      showToast(err instanceof Error ? err.message : 'Failed to update milestone status', 'error');
     }
   };
 

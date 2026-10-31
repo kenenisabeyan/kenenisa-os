@@ -11,8 +11,10 @@ import {
 } from '../features/evidence/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const EvidencePage: React.FC = () => {
+  const { showToast } = useToast();
   const [items, setItems] = useState<EvidenceDto[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,9 +80,10 @@ export const EvidencePage: React.FC = () => {
       setUrl('');
       setExternalReference('');
       setActiveItem(created);
+      showToast('Evidence record created', 'success');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create evidence record');
+      showToast(err instanceof Error ? err.message : 'Failed to create evidence record', 'error');
     }
   };
 
@@ -88,12 +91,13 @@ export const EvidencePage: React.FC = () => {
     if (!confirm('Are you sure you want to delete this evidence item?')) return;
     try {
       await deleteEvidence(id);
+      showToast('Evidence item deleted', 'info');
       if (activeItem?.id === id) {
         setActiveItem(null);
       }
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to delete evidence item');
+      showToast(err instanceof Error ? err.message : 'Failed to delete evidence item', 'error');
     }
   };
 
@@ -110,9 +114,10 @@ export const EvidencePage: React.FC = () => {
 
       setActiveItem(updated);
       setEntityIdInput('');
+      showToast('Relationship linked successfully', 'success');
       void loadData();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to link relationship');
+      showToast(err instanceof Error ? err.message : 'Failed to link relationship', 'error');
     }
   };
 

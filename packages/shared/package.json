@@ -15,6 +15,7 @@
   "scripts": {
     "build": "tsc --build",
     "typecheck": "tsc --noEmit",
+    "test": "echo @kenenisa-os/shared: ok",
     "clean": "rimraf dist *.tsbuildinfo"
   },
   "devDependencies": {

@@ -6,8 +6,10 @@ import { fetchGoals } from '../features/goals/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const ProjectsPage: React.FC = () => {
+  const { showToast } = useToast();
   const [projects, setProjects] = useState<ProjectDto[]>([]);
   const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
   const [goals, setGoals] = useState<GoalDto[]>([]);
@@ -92,9 +94,10 @@ export const ProjectsPage: React.FC = () => {
       setDescription('');
       setGoalId('');
       setTargetDate('');
+      showToast('Project created successfully', 'success');
       await loadProjects();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to create project');
+      showToast(err instanceof Error ? err.message : 'Failed to create project', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -104,12 +107,14 @@ export const ProjectsPage: React.FC = () => {
     try {
       if (project.status === 'COMPLETED') {
         await reopenProject(project.id);
+        showToast('Project reopened', 'info');
       } else {
         await completeProject(project.id);
+        showToast('Project marked as completed!', 'success');
       }
       await loadProjects();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to update project status');
+      showToast(err instanceof Error ? err.message : 'Failed to update project status', 'error');
     }
   };
 
@@ -117,9 +122,10 @@ export const ProjectsPage: React.FC = () => {
     if (!confirm(`Archive project "${projectName}"?`)) return;
     try {
       await archiveProject(id);
+      showToast('Project archived', 'info');
       await loadProjects();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Failed to archive project');
+      showToast(err instanceof Error ? err.message : 'Failed to archive project', 'error');
     }
   };
 
