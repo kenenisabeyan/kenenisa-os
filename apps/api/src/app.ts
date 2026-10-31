@@ -39,7 +39,8 @@ export function createApp(): express.Application {
   // Global API Rate Limiter
   const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: config.RATE_LIMIT_MAX || 100,
+    max: config.NODE_ENV === 'production' ? (config.RATE_LIMIT_MAX || 100) : 50000,
+    skip: (req) => req.path.endsWith('/health'),
     standardHeaders: true,
     legacyHeaders: false,
     message: {

@@ -3,6 +3,7 @@ import { MilestoneDto, ProjectDto } from '@kenenisa-os/shared';
 import {
   fetchMilestones,
   createMilestone,
+  updateMilestone,
   completeMilestone,
   reopenMilestone,
   reorderMilestones,
@@ -28,6 +29,45 @@ export const MilestonesPage: React.FC = () => {
   const [description, setDescription] = useState('');
   const [targetDate, setTargetDate] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  // Edit Milestone State
+  const [editingMilestone, setEditingMilestone] = useState<MilestoneDto | null>(null);
+  const [editMilestoneName, setEditMilestoneName] = useState('');
+  const [editMilestoneProjectId, setEditMilestoneProjectId] = useState('');
+  const [editMilestoneDescription, setEditMilestoneDescription] = useState('');
+  const [editMilestoneTargetDate, setEditMilestoneTargetDate] = useState('');
+  const [editMilestoneStatus, setEditMilestoneStatus] = useState<MilestoneDto['status']>('UPCOMING');
+  const [isUpdatingMilestone, setIsUpdatingMilestone] = useState(false);
+
+  const handleOpenEditMilestone = (m: MilestoneDto) => {
+    setEditingMilestone(m);
+    setEditMilestoneName(m.name);
+    setEditMilestoneProjectId(m.projectId);
+    setEditMilestoneDescription(m.description || '');
+    setEditMilestoneTargetDate(m.targetDate ? m.targetDate.split('T')[0] : '');
+    setEditMilestoneStatus(m.status);
+  };
+
+  const handleUpdateMilestoneSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingMilestone || !editMilestoneName.trim()) return;
+    setIsUpdatingMilestone(true);
+    try {
+      await updateMilestone(editingMilestone.id, {
+        name: editMilestoneName.trim(),
+        projectId: editMilestoneProjectId,
+        description: editMilestoneDescription.trim() || undefined,
+        targetDate: editMilestoneTargetDate ? new Date(editMilestoneTargetDate).toISOString() : undefined,
+        status: editMilestoneStatus,
+      });
+      showToast(`Milestone "${editMilestoneName.trim()}" updated successfully`, 'success');
+      setEditingMilestone(null);
+      await loadMilestones();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update milestone', 'error');
+    } finally {
+      setIsUpdatingMilestone(false);
+    }
+  };
 
   const loadProjects = useCallback(async () => {
     try {
@@ -281,16 +321,27 @@ export const MilestonesPage: React.FC = () => {
                   </span>
                 </div>
 
-                <button
-                  onClick={() => void handleToggleComplete(m)}
-                  className={`w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-semibold text-center transition-all ${
-                    m.status === 'REACHED'
-                      ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
-                      : 'bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200'
-                  }`}
-                >
-                  {m.status === 'REACHED' ? 'Reopen' : 'Reach Milestone'}
-                </button>
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <button
+                    onClick={() => handleOpenEditMilestone(m)}
+                    className="text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1.5 rounded-xl transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    onClick={() => void handleToggleComplete(m)}
+                    className={`w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-semibold text-center transition-all cursor-pointer ${
+                      m.status === 'REACHED'
+                        ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                        : 'bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200'
+                    }`}
+                  >
+                    {m.status === 'REACHED' ? 'Reopen' : 'Reach Milestone'}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -383,6 +434,114 @@ export const MilestonesPage: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {submitting ? 'Creating...' : 'Create Milestone'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Milestone Modal */}
+      {editingMilestone && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">Edit Project Milestone</h3>
+                <p className="text-xs text-slate-500">Update checkpoint target, project, or description</p>
+              </div>
+              <button
+                onClick={() => setEditingMilestone(null)}
+                className="text-slate-400 hover:text-slate-600 text-sm p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleUpdateMilestoneSubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Milestone Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={editMilestoneName}
+                  onChange={(e) => setEditMilestoneName(e.target.value)}
+                  disabled={isUpdatingMilestone}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-purple-500 font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Project *</label>
+                <select
+                  required
+                  value={editMilestoneProjectId}
+                  onChange={(e) => setEditMilestoneProjectId(e.target.value)}
+                  disabled={isUpdatingMilestone}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-purple-500 font-semibold"
+                >
+                  {projects.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
+                <textarea
+                  rows={3}
+                  value={editMilestoneDescription}
+                  onChange={(e) => setEditMilestoneDescription(e.target.value)}
+                  disabled={isUpdatingMilestone}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-purple-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <select
+                    value={editMilestoneStatus}
+                    onChange={(e) => setEditMilestoneStatus(e.target.value as MilestoneDto['status'])}
+                    disabled={isUpdatingMilestone}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-purple-500"
+                  >
+                    <option value="UPCOMING">UPCOMING</option>
+                    <option value="DELAYED">DELAYED</option>
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="REACHED">REACHED</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Target Date</label>
+                  <input
+                    type="date"
+                    value={editMilestoneTargetDate}
+                    onChange={(e) => setEditMilestoneTargetDate(e.target.value)}
+                    disabled={isUpdatingMilestone}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingMilestone(null)}
+                  disabled={isUpdatingMilestone}
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-medium text-slate-700 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdatingMilestone}
+                  className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-xs font-semibold text-white shadow-xs cursor-pointer"
+                >
+                  {isUpdatingMilestone ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
             </form>

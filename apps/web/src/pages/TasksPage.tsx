@@ -3,6 +3,7 @@ import { TaskDto, TaskStatus, TaskPriority, ProjectDto, MilestoneDto } from '@ke
 import {
   fetchTasks,
   createTask,
+  updateTask,
   startTask,
   blockTask,
   completeTask,
@@ -51,6 +52,92 @@ export const TasksPage: React.FC = () => {
   // Dependency Modal
   const [activeDepTask, setActiveDepTask] = useState<TaskDto | null>(null);
   const [blockingTaskId, setBlockingTaskId] = useState('');
+
+  // Edit Task State
+  const [editingTask, setEditingTask] = useState<TaskDto | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editProjectId, setEditProjectId] = useState('');
+  const [editMilestoneId, setEditMilestoneId] = useState('');
+  const [editDescription, setEditDescription] = useState('');
+  const [editPriority, setEditPriority] = useState<TaskPriority>('P2');
+  const [editEstimateMinutes, setEditEstimateMinutes] = useState('60');
+  const [editActualMinutes, setEditActualMinutes] = useState('0');
+  const [editDueDate, setEditDueDate] = useState('');
+  const [editStatus, setEditStatus] = useState<TaskStatus>('BACKLOG');
+  const [isUpdatingTask, setIsUpdatingTask] = useState(false);
+
+  // Log Time State
+  const [loggingTimeTask, setLoggingTimeTask] = useState<TaskDto | null>(null);
+  const [logTimeMinutes, setLogTimeMinutes] = useState('30');
+  const [isLoggingTime, setIsLoggingTime] = useState(false);
+
+  const handleOpenEditTask = (task: TaskDto) => {
+    setEditingTask(task);
+    setEditTitle(task.title);
+    setEditProjectId(task.projectId);
+    setEditMilestoneId(task.milestoneId || '');
+    setEditDescription(task.description || '');
+    setEditPriority(task.priority);
+    setEditEstimateMinutes(String(task.estimateMinutes || 0));
+    setEditActualMinutes(String(task.actualMinutes || 0));
+    setEditDueDate(task.dueDate ? task.dueDate.split('T')[0] : '');
+    setEditStatus(task.status);
+  };
+
+  const handleUpdateTaskSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingTask || !editTitle.trim()) return;
+    setIsUpdatingTask(true);
+    try {
+      await updateTask(editingTask.id, {
+        title: editTitle.trim(),
+        projectId: editProjectId || undefined,
+        milestoneId: editMilestoneId ? editMilestoneId : null,
+        description: editDescription.trim() || null,
+        priority: editPriority,
+        estimateMinutes: parseInt(editEstimateMinutes, 10) || 0,
+        actualMinutes: parseInt(editActualMinutes, 10) || 0,
+        dueDate: editDueDate ? new Date(editDueDate).toISOString() : null,
+        status: editStatus,
+      });
+      showToast(`Task "${editTitle.trim()}" updated successfully`, 'success');
+      setEditingTask(null);
+      await loadTasks();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update task', 'error');
+    } finally {
+      setIsUpdatingTask(false);
+    }
+  };
+
+  const handleOpenLogTime = (task: TaskDto) => {
+    setLoggingTimeTask(task);
+    setLogTimeMinutes('30');
+  };
+
+  const handleLogTimeSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loggingTimeTask) return;
+    const addMinutes = parseInt(logTimeMinutes, 10) || 0;
+    if (addMinutes <= 0) {
+      showToast('Please enter a positive duration in minutes', 'error');
+      return;
+    }
+    setIsLoggingTime(true);
+    try {
+      const updatedActual = (loggingTimeTask.actualMinutes || 0) + addMinutes;
+      await updateTask(loggingTimeTask.id, {
+        actualMinutes: updatedActual,
+      });
+      showToast(`Logged +${addMinutes}m on "${loggingTimeTask.title}" (Total: ${updatedActual}m)`, 'success');
+      setLoggingTimeTask(null);
+      await loadTasks();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to log time', 'error');
+    } finally {
+      setIsLoggingTime(false);
+    }
+  };
 
   const loadDependencies = useCallback(async () => {
     try {
@@ -453,6 +540,28 @@ export const TasksPage: React.FC = () => {
                   >
                     + Add Blocker
                   </button>
+                  <span className="text-slate-300">•</span>
+                  <button
+                    onClick={() => handleOpenLogTime(task)}
+                    className="text-emerald-700 hover:text-emerald-900 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-lg text-[11px] font-bold flex items-center gap-1 cursor-pointer transition-colors"
+                    title="Log execution minutes"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Log Time</span>
+                  </button>
+                  <span className="text-slate-300">•</span>
+                  <button
+                    onClick={() => handleOpenEditTask(task)}
+                    className="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2 py-0.5 rounded-lg text-[11px] font-bold flex items-center gap-1 cursor-pointer transition-colors"
+                    title="Edit task"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    <span>Edit</span>
+                  </button>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-1.5">
@@ -744,6 +853,254 @@ export const TasksPage: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-xs font-bold text-white shadow-xs"
                 >
                   Add Blocker
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Task Modal */}
+      {editingTask && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">Edit Task Details</h3>
+                <p className="text-xs text-slate-500">Refine task scope, timing, or category</p>
+              </div>
+              <button
+                onClick={() => setEditingTask(null)}
+                className="text-slate-400 hover:text-slate-700 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleUpdateTaskSubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Task Title *</label>
+                <input
+                  type="text"
+                  required
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  disabled={isUpdatingTask}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#6366F1] font-semibold"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Project *</label>
+                  <select
+                    value={editProjectId}
+                    onChange={(e) => setEditProjectId(e.target.value)}
+                    disabled={isUpdatingTask}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#6366F1]"
+                  >
+                    {projects.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} {p.workstream ? `(${p.workstream.name})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Milestone</label>
+                  <select
+                    value={editMilestoneId}
+                    onChange={(e) => setEditMilestoneId(e.target.value)}
+                    disabled={isUpdatingTask}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#6366F1]"
+                  >
+                    <option value="">No Milestone</option>
+                    {milestones
+                      .filter((m) => m.projectId === editProjectId)
+                      .map((m) => (
+                        <option key={m.id} value={m.id}>
+                          {m.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
+                <textarea
+                  rows={3}
+                  value={editDescription}
+                  onChange={(e) => setEditDescription(e.target.value)}
+                  disabled={isUpdatingTask}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#6366F1]"
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Priority</label>
+                  <select
+                    value={editPriority}
+                    onChange={(e) => setEditPriority(e.target.value as TaskPriority)}
+                    disabled={isUpdatingTask}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-[#6366F1]"
+                  >
+                    <option value="P0">P0 - Critical</option>
+                    <option value="P1">P1 - High</option>
+                    <option value="P2">P2 - Medium</option>
+                    <option value="P3">P3 - Low</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <select
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value as TaskStatus)}
+                    disabled={isUpdatingTask}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-[#6366F1]"
+                  >
+                    <option value="BACKLOG">BACKLOG</option>
+                    <option value="READY">READY</option>
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="BLOCKED">BLOCKED</option>
+                    <option value="DONE">DONE</option>
+                    <option value="CANCELLED">CANCELLED</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Due Date</label>
+                  <input
+                    type="date"
+                    value={editDueDate}
+                    onChange={(e) => setEditDueDate(e.target.value)}
+                    disabled={isUpdatingTask}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#6366F1]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Estimate (Minutes)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={editEstimateMinutes}
+                    onChange={(e) => setEditEstimateMinutes(e.target.value)}
+                    disabled={isUpdatingTask}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-[#6366F1]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Actual (Minutes)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={editActualMinutes}
+                    onChange={(e) => setEditActualMinutes(e.target.value)}
+                    disabled={isUpdatingTask}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-[#6366F1]"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingTask(null)}
+                  disabled={isUpdatingTask}
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdatingTask}
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow-xs cursor-pointer"
+                >
+                  {isUpdatingTask ? 'Saving Changes...' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Log Time Modal */}
+      {loggingTimeTask && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-sm w-full shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">Log Execution Time</h3>
+                <p className="text-xs text-slate-500 truncate max-w-[220px]">{loggingTimeTask.title}</p>
+              </div>
+              <button
+                onClick={() => setLoggingTimeTask(null)}
+                className="text-slate-400 hover:text-slate-700 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleLogTimeSubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Time Spent (Minutes) *</label>
+                <input
+                  type="number"
+                  min="5"
+                  step="5"
+                  required
+                  value={logTimeMinutes}
+                  onChange={(e) => setLogTimeMinutes(e.target.value)}
+                  disabled={isLoggingTime}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-500"
+                />
+                <div className="flex gap-2 mt-2">
+                  {[15, 30, 45, 60, 90].map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setLogTimeMinutes(String(m))}
+                      className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-700 rounded-lg"
+                    >
+                      +{m}m
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-xs text-emerald-800 space-y-1">
+                <div className="flex justify-between">
+                  <span>Current Actual:</span>
+                  <strong>{loggingTimeTask.actualMinutes || 0}m</strong>
+                </div>
+                <div className="flex justify-between font-bold text-emerald-900">
+                  <span>New Total:</span>
+                  <strong>{(loggingTimeTask.actualMinutes || 0) + (parseInt(logTimeMinutes, 10) || 0)}m</strong>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setLoggingTimeTask(null)}
+                  disabled={isLoggingTime}
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isLoggingTime}
+                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-xs font-bold text-white shadow-xs cursor-pointer"
+                >
+                  {isLoggingTime ? 'Logging...' : 'Confirm Log Time'}
                 </button>
               </div>
             </form>

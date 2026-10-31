@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ProjectDto, ProjectStatus, TaskPriority, WorkstreamDto, GoalDto } from '@kenenisa-os/shared';
-import { fetchProjects, createProject, completeProject, reopenProject, archiveProject } from '../features/projects/api.js';
+import { fetchProjects, createProject, updateProject, completeProject, reopenProject, archiveProject } from '../features/projects/api.js';
 import { fetchWorkstreams } from '../features/workstreams/api.js';
 import { fetchGoals } from '../features/goals/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
@@ -31,6 +31,51 @@ export const ProjectsPage: React.FC = () => {
   const [priority, setPriority] = useState<TaskPriority>('P2');
   const [targetDate, setTargetDate] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  // Edit Project State
+  const [editingProject, setEditingProject] = useState<ProjectDto | null>(null);
+  const [editProjectName, setEditProjectName] = useState('');
+  const [editProjectWorkstreamId, setEditProjectWorkstreamId] = useState('');
+  const [editProjectGoalId, setEditProjectGoalId] = useState('');
+  const [editProjectDescription, setEditProjectDescription] = useState('');
+  const [editProjectPriority, setEditProjectPriority] = useState<TaskPriority>('P2');
+  const [editProjectTargetDate, setEditProjectTargetDate] = useState('');
+  const [editProjectStatus, setEditProjectStatus] = useState<ProjectStatus>('PLANNED');
+  const [isUpdatingProject, setIsUpdatingProject] = useState(false);
+
+  const handleOpenEditProject = (p: ProjectDto) => {
+    setEditingProject(p);
+    setEditProjectName(p.name);
+    setEditProjectWorkstreamId(p.workstreamId);
+    setEditProjectGoalId(p.goalId || '');
+    setEditProjectDescription(p.description || '');
+    setEditProjectPriority(p.priority);
+    setEditProjectTargetDate(p.targetDate ? p.targetDate.split('T')[0] : '');
+    setEditProjectStatus(p.status);
+  };
+
+  const handleUpdateProjectSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingProject || !editProjectName.trim()) return;
+    setIsUpdatingProject(true);
+    try {
+      await updateProject(editingProject.id, {
+        name: editProjectName.trim(),
+        workstreamId: editProjectWorkstreamId,
+        goalId: editProjectGoalId ? editProjectGoalId : null,
+        description: editProjectDescription.trim() || null,
+        priority: editProjectPriority,
+        targetDate: editProjectTargetDate ? new Date(editProjectTargetDate).toISOString() : null,
+        status: editProjectStatus,
+      });
+      showToast(`Project "${editProjectName.trim()}" updated successfully`, 'success');
+      setEditingProject(null);
+      await loadProjects();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update project', 'error');
+    } finally {
+      setIsUpdatingProject(false);
+    }
+  };
 
   const loadDependencies = useCallback(async () => {
     try {
@@ -253,8 +298,17 @@ export const ProjectsPage: React.FC = () => {
 
                 <div className="flex items-center gap-2">
                   <button
+                    onClick={() => handleOpenEditProject(p)}
+                    className="text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    <span>Edit</span>
+                  </button>
+                  <button
                     onClick={() => void handleToggleComplete(p)}
-                    className="text-blue-600 hover:text-blue-800 font-medium"
+                    className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
                   >
                     {p.status === 'COMPLETED' ? 'Reopen' : 'Complete'}
                   </button>
@@ -380,6 +434,150 @@ export const ProjectsPage: React.FC = () => {
                   className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {submitting ? 'Creating...' : 'Create Project'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Project Modal */}
+      {editingProject && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">Edit Project Initiative</h3>
+                <p className="text-xs text-slate-500">Update project category, goal alignment, or scope</p>
+              </div>
+              <button
+                onClick={() => setEditingProject(null)}
+                className="text-slate-400 hover:text-slate-700 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleUpdateProjectSubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Project Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={editProjectName}
+                  onChange={(e) => setEditProjectName(e.target.value)}
+                  disabled={isUpdatingProject}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Category / Workstream *</label>
+                  <select
+                    required
+                    value={editProjectWorkstreamId}
+                    onChange={(e) => setEditProjectWorkstreamId(e.target.value)}
+                    disabled={isUpdatingProject}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold"
+                  >
+                    {workstreams.map((w) => (
+                      <option key={w.id} value={w.id}>
+                        {w.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Aligned Goal (Optional)</label>
+                  <select
+                    value={editProjectGoalId}
+                    onChange={(e) => setEditProjectGoalId(e.target.value)}
+                    disabled={isUpdatingProject}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500"
+                  >
+                    <option value="">No Goal</option>
+                    {goals.map((g) => (
+                      <option key={g.id} value={g.id}>
+                        {g.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
+                <textarea
+                  rows={3}
+                  value={editProjectDescription}
+                  onChange={(e) => setEditProjectDescription(e.target.value)}
+                  disabled={isUpdatingProject}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Priority</label>
+                  <select
+                    value={editProjectPriority}
+                    onChange={(e) => setEditProjectPriority(e.target.value as TaskPriority)}
+                    disabled={isUpdatingProject}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-500"
+                  >
+                    <option value="P0">P0 - Critical</option>
+                    <option value="P1">P1 - High</option>
+                    <option value="P2">P2 - Medium</option>
+                    <option value="P3">P3 - Low</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <select
+                    value={editProjectStatus}
+                    onChange={(e) => setEditProjectStatus(e.target.value as ProjectStatus)}
+                    disabled={isUpdatingProject}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-500"
+                  >
+                    <option value="PLANNED">PLANNED</option>
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="COMPLETED">COMPLETED</option>
+                    <option value="PAUSED">PAUSED</option>
+                    <option value="CANCELLED">CANCELLED</option>
+                    <option value="ARCHIVED">ARCHIVED</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Target Date</label>
+                  <input
+                    type="date"
+                    value={editProjectTargetDate}
+                    onChange={(e) => setEditProjectTargetDate(e.target.value)}
+                    disabled={isUpdatingProject}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingProject(null)}
+                  disabled={isUpdatingProject}
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdatingProject}
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow-xs cursor-pointer"
+                >
+                  {isUpdatingProject ? 'Saving Changes...' : 'Save Changes'}
                 </button>
               </div>
             </form>

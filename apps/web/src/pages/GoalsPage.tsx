@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GoalDto, GoalStatus, TaskPriority, WorkstreamDto } from '@kenenisa-os/shared';
-import { fetchGoals, createGoal, completeGoal, reopenGoal } from '../features/goals/api.js';
+import { fetchGoals, createGoal, updateGoal, completeGoal, reopenGoal } from '../features/goals/api.js';
 import { fetchWorkstreams } from '../features/workstreams/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { Badge } from '../components/ui/Badge.js';
@@ -28,6 +28,48 @@ export const GoalsPage: React.FC = () => {
   const [priority, setPriority] = useState<TaskPriority>('P1');
   const [targetDate, setTargetDate] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  // Edit Goal State
+  const [editingGoal, setEditingGoal] = useState<GoalDto | null>(null);
+  const [editGoalTitle, setEditGoalTitle] = useState('');
+  const [editGoalWorkstreamId, setEditGoalWorkstreamId] = useState('');
+  const [editGoalDescription, setEditGoalDescription] = useState('');
+  const [editGoalPriority, setEditGoalPriority] = useState<TaskPriority>('P1');
+  const [editGoalTargetDate, setEditGoalTargetDate] = useState('');
+  const [editGoalStatus, setEditGoalStatus] = useState<GoalStatus>('PLANNED');
+  const [isUpdatingGoal, setIsUpdatingGoal] = useState(false);
+
+  const handleOpenEditGoal = (g: GoalDto) => {
+    setEditingGoal(g);
+    setEditGoalTitle(g.title);
+    setEditGoalWorkstreamId(g.workstreamId);
+    setEditGoalDescription(g.description || '');
+    setEditGoalPriority(g.priority);
+    setEditGoalTargetDate(g.targetDate ? g.targetDate.split('T')[0] : '');
+    setEditGoalStatus(g.status);
+  };
+
+  const handleUpdateGoalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingGoal || !editGoalTitle.trim()) return;
+    setIsUpdatingGoal(true);
+    try {
+      await updateGoal(editingGoal.id, {
+        title: editGoalTitle.trim(),
+        workstreamId: editGoalWorkstreamId,
+        description: editGoalDescription.trim() || null,
+        priority: editGoalPriority,
+        targetDate: editGoalTargetDate ? new Date(editGoalTargetDate).toISOString() : null,
+        status: editGoalStatus,
+      });
+      showToast(`Goal "${editGoalTitle.trim()}" updated successfully`, 'success');
+      setEditingGoal(null);
+      await loadGoals();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update goal', 'error');
+    } finally {
+      setIsUpdatingGoal(false);
+    }
+  };
 
   const loadWorkstreams = useCallback(async () => {
     try {
@@ -222,16 +264,27 @@ export const GoalsPage: React.FC = () => {
                   Projects: <strong className="text-slate-800">{g._count?.projects || 0}</strong>
                 </span>
 
-                <button
-                  onClick={() => void handleToggleComplete(g)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                    g.status === 'ACHIEVED'
-                      ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
-                      : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200'
-                  }`}
-                >
-                  {g.status === 'ACHIEVED' ? 'Reopen Goal' : 'Mark Achieved'}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => handleOpenEditGoal(g)}
+                    className="text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    onClick={() => void handleToggleComplete(g)}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      g.status === 'ACHIEVED'
+                        ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
+                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200'
+                    }`}
+                  >
+                    {g.status === 'ACHIEVED' ? 'Reopen Goal' : 'Mark Achieved'}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -329,6 +382,129 @@ export const GoalsPage: React.FC = () => {
                   className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {submitting ? 'Creating...' : 'Create Goal'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Goal Modal */}
+      {editingGoal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">Edit Strategic Goal</h3>
+                <p className="text-xs text-slate-500">Update goal target, focus area, or priority</p>
+              </div>
+              <button
+                onClick={() => setEditingGoal(null)}
+                className="text-slate-400 hover:text-slate-700 text-sm font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleUpdateGoalSubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Goal Title *</label>
+                <input
+                  type="text"
+                  required
+                  value={editGoalTitle}
+                  onChange={(e) => setEditGoalTitle(e.target.value)}
+                  disabled={isUpdatingGoal}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Category / Workstream *</label>
+                <select
+                  required
+                  value={editGoalWorkstreamId}
+                  onChange={(e) => setEditGoalWorkstreamId(e.target.value)}
+                  disabled={isUpdatingGoal}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold"
+                >
+                  {workstreams.map((w) => (
+                    <option key={w.id} value={w.id}>
+                      {w.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
+                <textarea
+                  rows={3}
+                  value={editGoalDescription}
+                  onChange={(e) => setEditGoalDescription(e.target.value)}
+                  disabled={isUpdatingGoal}
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Priority</label>
+                  <select
+                    value={editGoalPriority}
+                    onChange={(e) => setEditGoalPriority(e.target.value as TaskPriority)}
+                    disabled={isUpdatingGoal}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-500"
+                  >
+                    <option value="P0">P0 - Critical</option>
+                    <option value="P1">P1 - High</option>
+                    <option value="P2">P2 - Medium</option>
+                    <option value="P3">P3 - Low</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                  <select
+                    value={editGoalStatus}
+                    onChange={(e) => setEditGoalStatus(e.target.value as GoalStatus)}
+                    disabled={isUpdatingGoal}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-500"
+                  >
+                    <option value="PLANNED">PLANNED</option>
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="ACHIEVED">ACHIEVED</option>
+                    <option value="CANCELLED">CANCELLED</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Target Date</label>
+                  <input
+                    type="date"
+                    value={editGoalTargetDate}
+                    onChange={(e) => setEditGoalTargetDate(e.target.value)}
+                    disabled={isUpdatingGoal}
+                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-900 focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingGoal(null)}
+                  disabled={isUpdatingGoal}
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdatingGoal}
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white shadow-xs cursor-pointer"
+                >
+                  {isUpdatingGoal ? 'Saving Changes...' : 'Save Changes'}
                 </button>
               </div>
             </form>
