@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchWorkstreams } from '../features/workstreams/api.js';
 import { fetchGoals } from '../features/goals/api.js';
 import { fetchProjects } from '../features/projects/api.js';
 import { fetchMilestones } from '../features/milestones/api.js';
-import { fetchTasks } from '../features/tasks/api.js';
+import { fetchTasks, startTask, reopenTask, completeTask, updateTask } from '../features/tasks/api.js';
+import { sendChatMessage } from '../features/intelligence/api.js';
 import type {
   WorkstreamDto,
   GoalDto,
@@ -15,9 +16,11 @@ import type {
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const WorkIntelligencePage: React.FC = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
   const [goals, setGoals] = useState<GoalDto[]>([]);
@@ -27,8 +30,13 @@ export const WorkIntelligencePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Hierarchy expand state
+  // Hierarchy expand state & search
   const [expandedWs, setExpandedWs] = useState<Record<string, boolean>>({});
+  const [hierarchySearch, setHierarchySearch] = useState<string>('');
+
+  // AI Triage state
+  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState<boolean>(false);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -67,6 +75,85 @@ export const WorkIntelligencePage: React.FC = () => {
 
   const toggleExpand = (id: string) => {
     setExpandedWs((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const handleExpandAll = () => {
+    const allExpanded: Record<string, boolean> = {};
+    workstreams.forEach((w) => { allExpanded[w.id] = true; });
+    setExpandedWs(allExpanded);
+  };
+
+  const handleCollapseAll = () => {
+    const allCollapsed: Record<string, boolean> = {};
+    workstreams.forEach((w) => { allCollapsed[w.id] = false; });
+    setExpandedWs(allCollapsed);
+  };
+
+  // 1-Click Bottleneck Resolvers
+  const handleQuickUnblock = async (taskId: string, title: string) => {
+    try {
+      await reopenTask(taskId);
+      showToast(`Task "${title}" unblocked and moved to READY`, 'success');
+      void loadData();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to unblock task', 'error');
+    }
+  };
+
+  const handleQuickReschedule = async (taskId: string, title: string) => {
+    try {
+      const todayStr = new Date().toISOString().split('T')[0];
+      await updateTask(taskId, { dueDate: todayStr });
+      showToast(`Task "${title}" rescheduled for today`, 'success');
+      void loadData();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to reschedule task', 'error');
+    }
+  };
+
+  const handleQuickStart = async (taskId: string, title: string) => {
+    try {
+      await startTask(taskId);
+      showToast(`Task "${title}" started (IN_PROGRESS)`, 'success');
+      void loadData();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to start task', 'error');
+    }
+  };
+
+  const handleQuickComplete = async (taskId: string, title: string) => {
+    try {
+      await completeTask(taskId);
+      showToast(`Task "${title}" marked as COMPLETED`, 'success');
+      void loadData();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to complete task', 'error');
+    }
+  };
+
+  // AI-Powered Bottleneck Triage
+  const handleAiTriage = async () => {
+    setAiLoading(true);
+    setAiAnalysis(null);
+    try {
+      const blockedTitles = blockedTasks.map((t) => `- "${t.title}" (Priority: ${t.priority})`).join('\n');
+      const overdueTitles = overdueTasks.map((t) => `- "${t.title}" (Due: ${t.dueDate})`).join('\n');
+      const prompt = `Perform an executive triage on my current engineering bottlenecks:
+Blocked Tasks (${blockedTasks.length}):
+${blockedTitles || 'None'}
+
+Overdue Tasks (${overdueTasks.length}):
+${overdueTitles || 'None'}
+
+Recommend specific, high-leverage steps to unblock progress, sequence dependencies, and protect delivery milestones.`;
+      const res = await sendChatMessage({ message: prompt });
+      setAiAnalysis(res.message.content);
+      showToast('AI Bottleneck Triage generated', 'info');
+    } catch (err: unknown) {
+      setAiAnalysis(err instanceof Error ? err.message : 'Failed to generate AI triage');
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   // Bottlenecks computation
@@ -210,7 +297,7 @@ export const WorkIntelligencePage: React.FC = () => {
             {/* Left 2 Cols: Bottleneck Analysis */}
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-5">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
                   <div>
                     <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                       <span>Active Execution Bottlenecks</span>
@@ -220,7 +307,42 @@ export const WorkIntelligencePage: React.FC = () => {
                     </h2>
                     <p className="text-xs text-slate-500">System detected tasks holding up progress or past due date</p>
                   </div>
+
+                  <button
+                    onClick={() => void handleAiTriage()}
+                    disabled={aiLoading}
+                    className="px-3.5 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold transition-all shadow-2xs flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
+                  >
+                    {aiLoading ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                        <span>Analyzing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>✨ AI Triage Advisor</span>
+                      </>
+                    )}
+                  </button>
                 </div>
+
+                {/* AI Advice Output Banner */}
+                {aiAnalysis && (
+                  <div className="bg-gradient-to-br from-indigo-50/70 via-white to-blue-50/40 border border-indigo-200 rounded-2xl p-4 space-y-2 relative shadow-2xs">
+                    <button
+                      onClick={() => setAiAnalysis(null)}
+                      className="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-xs font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                    <span className="text-[10px] font-black uppercase text-indigo-700 tracking-wider">
+                      🤖 AI Executive Triage Recommendation
+                    </span>
+                    <p className="text-xs text-slate-700 whitespace-pre-wrap leading-relaxed font-medium">
+                      {aiAnalysis}
+                    </p>
+                  </div>
+                )}
 
                 {blockedTasks.length === 0 && overdueTasks.length === 0 ? (
                   <div className="p-8 text-center text-xs text-slate-500 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
@@ -245,12 +367,21 @@ export const WorkIntelligencePage: React.FC = () => {
                           </div>
                           <h4 className="text-xs font-bold text-slate-900 break-words">{t.title}</h4>
                         </div>
-                        <button
-                          onClick={() => navigate('/app/tasks')}
-                          className="w-full sm:w-auto text-center px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
-                        >
-                          Resolve Blocker
-                        </button>
+                        <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                          <button
+                            onClick={() => void handleQuickUnblock(t.id, t.title)}
+                            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-colors shadow-2xs cursor-pointer"
+                            title="Unblock task and move to READY"
+                          >
+                            ⚡ Unblock
+                          </button>
+                          <button
+                            onClick={() => navigate('/app/tasks')}
+                            className="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold rounded-xl transition-colors shadow-2xs cursor-pointer"
+                          >
+                            Inspect
+                          </button>
+                        </div>
                       </div>
                     ))}
 
@@ -271,12 +402,22 @@ export const WorkIntelligencePage: React.FC = () => {
                           </div>
                           <h4 className="text-xs font-bold text-slate-900 break-words">{t.title}</h4>
                         </div>
-                        <button
-                          onClick={() => navigate('/app/tasks')}
-                          className="w-full sm:w-auto text-center px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-xs"
-                        >
-                          Reschedule Task
-                        </button>
+                        <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                          <button
+                            onClick={() => void handleQuickReschedule(t.id, t.title)}
+                            className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition-colors shadow-2xs cursor-pointer"
+                            title="Reschedule dueDate to today"
+                          >
+                            ⏱️ Today
+                          </button>
+                          <button
+                            onClick={() => void handleQuickComplete(t.id, t.title)}
+                            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-colors shadow-2xs cursor-pointer"
+                            title="Mark completed"
+                          >
+                            ✓ Done
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -342,18 +483,34 @@ export const WorkIntelligencePage: React.FC = () => {
                     {unscheduledReadyTasks.map((t) => (
                       <div
                         key={t.id}
-                        className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 sm:p-3.5 flex items-center justify-between gap-2 sm:gap-3 hover:border-slate-300 transition-all"
+                        className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 hover:border-slate-300 transition-all shadow-2xs"
                       >
                         <div className="space-y-0.5 min-w-0">
                           <h4 className="text-xs font-bold text-slate-900 truncate">{t.title}</h4>
                           <span className="text-[10px] font-mono text-slate-500">{t.estimateMinutes} min est</span>
                         </div>
-                        <button
-                          onClick={() => navigate('/app/planning')}
-                          className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold rounded-xl shrink-0 transition-colors shadow-xs"
-                        >
-                          Plan
-                        </button>
+                        <div className="flex items-center gap-1.5 self-end sm:self-auto shrink-0">
+                          <button
+                            onClick={() => void handleQuickStart(t.id, t.title)}
+                            className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
+                            title="Start Task"
+                          >
+                            ▶ Start
+                          </button>
+                          <button
+                            onClick={() => void handleQuickComplete(t.id, t.title)}
+                            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
+                            title="Mark Done"
+                          >
+                            ✓
+                          </button>
+                          <button
+                            onClick={() => navigate('/app/planning')}
+                            className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
+                          >
+                            Plan
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -364,7 +521,7 @@ export const WorkIntelligencePage: React.FC = () => {
 
           {/* Active Work Map Hierarchy */}
           <div className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm space-y-5">
-            <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                   <span>Active Work Hierarchy Map</span>
@@ -376,70 +533,106 @@ export const WorkIntelligencePage: React.FC = () => {
                   Full relational tree breakdown: Workstream → Goal → Project → Milestone → Tasks
                 </p>
               </div>
+
+              {/* Hierarchy Search & Expand Controls */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <input
+                  type="text"
+                  placeholder="Filter hierarchy..."
+                  value={hierarchySearch}
+                  onChange={(e) => setHierarchySearch(e.target.value)}
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium w-40 sm:w-48"
+                />
+                <button
+                  onClick={handleExpandAll}
+                  className="px-2.5 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+                >
+                  Expand All
+                </button>
+                <button
+                  onClick={handleCollapseAll}
+                  className="px-2.5 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+                >
+                  Collapse All
+                </button>
+              </div>
             </div>
 
             <div className="space-y-4">
-              {workstreams.map((ws) => {
-                const wsGoals = goals.filter((g) => g.workstreamId === ws.id);
-                const wsProjects = projects.filter((p) => p.workstreamId === ws.id);
-                const isExpanded = expandedWs[ws.id] ?? true;
+              {workstreams
+                .filter((ws) => {
+                  if (!hierarchySearch.trim()) return true;
+                  const query = hierarchySearch.toLowerCase();
+                  const matchWs = ws.name.toLowerCase().includes(query);
+                  const matchProjects = projects.some(
+                    (p) => p.workstreamId === ws.id && p.name.toLowerCase().includes(query),
+                  );
+                  const matchGoals = goals.some(
+                    (g) => g.workstreamId === ws.id && g.title.toLowerCase().includes(query),
+                  );
+                  return matchWs || matchProjects || matchGoals;
+                })
+                .map((ws) => {
+                  const wsGoals = goals.filter((g) => g.workstreamId === ws.id);
+                  const wsProjects = projects.filter((p) => p.workstreamId === ws.id);
+                  const isExpanded = expandedWs[ws.id] ?? true;
 
-                return (
-                  <div key={ws.id} className="border border-slate-200/90 rounded-2xl overflow-hidden bg-slate-50/40">
-                    <div
-                      onClick={() => toggleExpand(ws.id)}
-                      className="p-3.5 sm:p-5 bg-white border-b border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-slate-50 transition-colors"
-                    >
-                      <div className="flex items-start sm:items-center gap-2.5 sm:gap-3">
-                        <span className="text-xs text-slate-400 font-bold w-4 text-center mt-0.5 sm:mt-0">{isExpanded ? '▼' : '▶'}</span>
-                        <div>
-                          <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">
-                            Workstream Pillar ({ws.priorityWeight}/10 Weight)
-                          </span>
-                          <h3 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">{ws.name}</h3>
+                  return (
+                    <div key={ws.id} className="border border-slate-200/90 rounded-2xl overflow-hidden bg-slate-50/40">
+                      <div
+                        onClick={() => toggleExpand(ws.id)}
+                        className="p-3.5 sm:p-5 bg-white border-b border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-slate-50 transition-colors"
+                      >
+                        <div className="flex items-start sm:items-center gap-2.5 sm:gap-3">
+                          <span className="text-xs text-slate-400 font-bold w-4 text-center mt-0.5 sm:mt-0">{isExpanded ? '▼' : '▶'}</span>
+                          <div>
+                            <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">
+                              Workstream Pillar ({ws.priorityWeight}/10 Weight)
+                            </span>
+                            <h3 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">{ws.name}</h3>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-4 text-xs text-slate-600 font-semibold pl-6 sm:pl-0">
+                          <span>Goals: <strong className="text-slate-900">{wsGoals.length}</strong></span>
+                          <span>Projects: <strong className="text-slate-900">{wsProjects.length}</strong></span>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-4 text-xs text-slate-600 font-semibold pl-6 sm:pl-0">
-                        <span>Goals: <strong className="text-slate-900">{wsGoals.length}</strong></span>
-                        <span>Projects: <strong className="text-slate-900">{wsProjects.length}</strong></span>
-                      </div>
-                    </div>
+                      {isExpanded && (
+                        <div className="p-3.5 sm:p-5 space-y-3 sm:space-y-4 bg-slate-50/70">
+                          {wsProjects.length === 0 ? (
+                            <div className="text-xs text-slate-400 italic pl-3 sm:pl-6">No projects assigned under this workstream.</div>
+                          ) : (
+                            wsProjects.map((p) => {
+                              const pMilestones = milestones.filter((m) => m.projectId === p.id);
+                              const pTasks = tasks.filter((t) => t.projectId === p.id);
 
-                    {isExpanded && (
-                      <div className="p-3.5 sm:p-5 space-y-3 sm:space-y-4 bg-slate-50/70">
-                        {wsProjects.length === 0 ? (
-                          <div className="text-xs text-slate-400 italic pl-3 sm:pl-6">No projects assigned under this workstream.</div>
-                        ) : (
-                          wsProjects.map((p) => {
-                            const pMilestones = milestones.filter((m) => m.projectId === p.id);
-                            const pTasks = tasks.filter((t) => t.projectId === p.id);
-
-                            return (
-                              <div key={p.id} className="bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 space-y-3 ml-2 sm:ml-6 shadow-2xs">
-                                <div className="flex items-center justify-between gap-2">
-                                  <div className="space-y-0.5 min-w-0">
-                                    <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
-                                      Project
-                                    </span>
-                                    <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 truncate">{p.name}</h4>
+                              return (
+                                <div key={p.id} className="bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 space-y-3 ml-2 sm:ml-6 shadow-2xs">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <div className="space-y-0.5 min-w-0">
+                                      <span className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
+                                        Project
+                                      </span>
+                                      <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 truncate">{p.name}</h4>
+                                    </div>
+                                    <Badge variant={p.status} />
                                   </div>
-                                  <Badge variant={p.status} />
-                                </div>
 
-                                <div className="flex flex-wrap gap-4 pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
-                                  <span>Milestones: <strong className="text-slate-900">{pMilestones.length}</strong></span>
-                                  <span>Tasks: <strong className="text-slate-900">{pTasks.length}</strong></span>
+                                  <div className="flex flex-wrap gap-4 pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
+                                    <span>Milestones: <strong className="text-slate-900">{pMilestones.length}</strong></span>
+                                    <span>Tasks: <strong className="text-slate-900">{pTasks.length}</strong></span>
+                                  </div>
                                 </div>
-                              </div>
-                            );
-                          })
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                              );
+                            })
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </>

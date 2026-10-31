@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import type {
   AnalyticsPeriod,
   AnalyticsOverviewDto,
@@ -32,8 +32,10 @@ import {
   fetchEvidenceAnalytics,
   fetchWeeklyHistory,
 } from '../features/analytics/api.js';
+import { useToast } from '../components/ui/Toast.js';
 
 export const AnalyticsPage: React.FC = () => {
+  const { showToast } = useToast();
   const [period, setPeriod] = useState<AnalyticsPeriod>('month');
   const [customFrom, setCustomFrom] = useState<string>('');
   const [customTo, setCustomTo] = useState<string>('');
