@@ -8,9 +8,11 @@ async function main() {
     console.log('Database tables count:', tables.length);
     console.log('Tables:', tables.map((t) => t.table_name).join(', '));
 
-    const migrations: Array<{ migration_name: string; finished_at: string }> = await prisma.$queryRawUnsafe(
-      `SELECT migration_name, finished_at FROM _prisma_migrations ORDER BY started_at;`
-    ).catch(() => []);
+    const migrations = await (
+      prisma.$queryRawUnsafe(
+        `SELECT migration_name, finished_at FROM _prisma_migrations ORDER BY started_at;`
+      ) as Promise<Array<{ migration_name: string; finished_at: string }>>
+    ).catch(() => [] as Array<{ migration_name: string; finished_at: string }>);
     console.log('Migrations count:', migrations.length);
     console.log('Migrations:', migrations);
   } catch (err) {

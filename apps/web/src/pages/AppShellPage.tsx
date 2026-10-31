@@ -18,6 +18,8 @@ import { OpportunitiesPage } from './OpportunitiesPage.js';
 import { OpportunityDetailPage } from './OpportunityDetailPage.js';
 import { IntelligencePage } from './IntelligencePage.js';
 import { ExecutivePage } from './ExecutivePage.js';
+import { GraduationPage } from './GraduationPage.js';
+import { AcademicsPage } from './AcademicsPage.js';
 import { WorkIntelligencePage } from './WorkIntelligencePage.js';
 import { CareerPage } from './CareerPage.js';
 import { SettingsPage } from './SettingsPage.js';
@@ -28,6 +30,8 @@ export const AppShellPage: React.FC = () => {
     <AppLayout>
       <Routes>
         <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="graduation" element={<GraduationPage />} />
+        <Route path="academics" element={<AcademicsPage />} />
         <Route path="executive" element={<ExecutivePage />} />
         <Route path="work-intelligence" element={<WorkIntelligencePage />} />
         <Route path="intelligence" element={<IntelligencePage />} />

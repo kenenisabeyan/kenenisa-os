@@ -16,6 +16,8 @@ import opportunityRouter from '../../domain/opportunities/opportunity.routes.js'
 import intelligenceRouter from '../../domain/intelligence/intelligence.routes.js';
 import resultsRouter from '../../domain/results/results.routes.js';
 import { userRouter } from '../../domain/users/user.routes.js';
+import { graduationRouter } from '../../domain/graduation/graduation.routes.js';
+import { academicRouter } from '../../domain/academics/academic.routes.js';
 
 export const v1Router = Router();
 
@@ -37,6 +39,8 @@ v1Router.use('/reviews', reviewRouter);
 v1Router.use('/analytics', analyticsRouter);
 v1Router.use('/opportunities', opportunityRouter);
 v1Router.use('/intelligence', intelligenceRouter);
+v1Router.use('/graduation', graduationRouter);
+v1Router.use('/academics', academicRouter);
 
 
 

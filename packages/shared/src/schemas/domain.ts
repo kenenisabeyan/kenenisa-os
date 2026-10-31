@@ -900,6 +900,100 @@ export const exportQuerySchema = z.object({
   search: z.string().trim().optional(),
 });
 
+// ── Academic Semester & Course Schemas ────────────────────────────────────────
+
+export const academicStatusSchema = z.enum([
+  'ENROLLED',
+  'IN_PROGRESS',
+  'COMPLETED',
+  'AUDITING',
+  'DROPPED',
+]);
+
+export const understandingLevelSchema = z.enum([
+  'BEGINNER',
+  'DEVELOPING',
+  'PROFICIENT',
+  'ADVANCED',
+  'EXPERT',
+]);
+
+export const assessmentDateItemSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().trim().min(1, 'Assessment title required'),
+  date: z.string(),
+  weightPercent: z.number().min(0).max(100).optional(),
+});
+
+export const assignmentItemSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().trim().min(1, 'Assignment title required'),
+  dueDate: z.string().optional(),
+  status: z.enum(['NOT_STARTED', 'IN_PROGRESS', 'SUBMITTED', 'GRADED']).default('NOT_STARTED'),
+  notes: z.string().optional(),
+});
+
+export const testOrExamItemSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().trim().min(1, 'Test title required'),
+  date: z.string().optional(),
+  syllabus: z.string().optional(),
+  weightPercent: z.number().min(0).max(100).optional(),
+});
+
+export const studyTopicItemSchema = z.object({
+  id: z.string().optional(),
+  topic: z.string().trim().min(1, 'Topic required'),
+  completed: z.boolean().default(false),
+  notes: z.string().optional(),
+});
+
+export const learningResourceItemSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().trim().min(1, 'Resource title required'),
+  url: z.string().optional().or(z.literal('')),
+  type: z.enum(['BOOK', 'DOCUMENT', 'SLIDE', 'VIDEO', 'CODE', 'OTHER']).default('DOCUMENT'),
+});
+
+export const createAcademicSemesterSchema = z.object({
+  academicYear: z.string().trim().default('2026/2027'),
+  semester: z.string().trim().default('First Semester'),
+  level: z.string().trim().default('Fifth Year'),
+  startDate: z.string().datetime().optional().nullable(),
+  endDate: z.string().datetime().optional().nullable(),
+  status: z.string().trim().default('ACTIVE'),
+  notes: z.string().trim().optional().nullable(),
+});
+
+export const updateAcademicSemesterSchema = createAcademicSemesterSchema.partial();
+
+export const createAcademicCourseSchema = z.object({
+  semesterId: z.string().uuid('Invalid semester ID'),
+  code: z.string().trim().max(30).optional().nullable(),
+  title: z.string().trim().min(1, 'Course title required').max(200),
+  creditHours: z.number().int().min(1).max(30).optional().nullable(),
+  instructor: z.string().trim().max(100).optional().nullable(),
+  assessmentDates: z.array(assessmentDateItemSchema).optional().nullable(),
+  assignments: z.array(assignmentItemSchema).optional().nullable(),
+  testsAndExams: z.array(testOrExamItemSchema).optional().nullable(),
+  studyTopics: z.array(studyTopicItemSchema).optional().nullable(),
+  learningResources: z.array(learningResourceItemSchema).optional().nullable(),
+  currentUnderstanding: understandingLevelSchema.default('DEVELOPING'),
+  academicStatus: academicStatusSchema.default('ENROLLED'),
+  notes: z.string().trim().max(2000).optional().nullable(),
+  completionRequirements: z.string().trim().max(2000).optional().nullable(),
+  projectId: z.string().uuid().optional().nullable(),
+});
+
+export const updateAcademicCourseSchema = createAcademicCourseSchema.partial().omit({ semesterId: true }).extend({
+  semesterId: z.string().uuid().optional(),
+});
+
+export type CreateAcademicCourseInput = z.infer<typeof createAcademicCourseSchema>;
+export type UpdateAcademicCourseInput = z.infer<typeof updateAcademicCourseSchema>;
+
+
+
 
 
 

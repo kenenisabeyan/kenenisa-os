@@ -63,3 +63,4 @@ ALTER TABLE "AcademicSemester" ADD CONSTRAINT "AcademicSemester_userId_fkey" FOR
 ALTER TABLE "AcademicCourse" ADD CONSTRAINT "AcademicCourse_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "AcademicCourse" ADD CONSTRAINT "AcademicCourse_semesterId_fkey" FOREIGN KEY ("semesterId") REFERENCES "AcademicSemester"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "AcademicCourse" ADD CONSTRAINT "AcademicCourse_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
