@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { fetchDashboard } from '../features/dashboard/api.js';
 import { startTask, completeTask, blockTask } from '../features/tasks/api.js';
-import { DashboardDto, TaskDto } from '@kenenisa-os/shared';
+import { DashboardDto, TaskDto, WorkstreamDto, WorkstreamStatus } from '@kenenisa-os/shared';
+import { createWorkstream, updateWorkstream } from '../features/workstreams/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
@@ -12,6 +13,76 @@ export const DashboardPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+
+  // Task Category / Workstream Modals
+  const [isCreateCategoryOpen, setIsCreateCategoryOpen] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCategoryDesc, setNewCategoryDesc] = useState('');
+  const [newCategoryPriority, setNewCategoryPriority] = useState<number>(5);
+  const [isSubmittingCategory, setIsSubmittingCategory] = useState(false);
+
+  const [editingCategory, setEditingCategory] = useState<WorkstreamDto | null>(null);
+  const [editCategoryName, setEditCategoryName] = useState('');
+  const [editCategoryDesc, setEditCategoryDesc] = useState('');
+  const [editCategoryPriority, setEditCategoryPriority] = useState<number>(5);
+  const [editCategoryStatus, setEditCategoryStatus] = useState<WorkstreamStatus>('ACTIVE');
+  const [isUpdatingCategory, setIsUpdatingCategory] = useState(false);
+
+  const handleOpenCreateCategory = () => {
+    setNewCategoryName('');
+    setNewCategoryDesc('');
+    setNewCategoryPriority(5);
+    setIsCreateCategoryOpen(true);
+  };
+
+  const handleCreateCategorySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCategoryName.trim()) return;
+    setIsSubmittingCategory(true);
+    try {
+      await createWorkstream({
+        name: newCategoryName.trim(),
+        description: newCategoryDesc.trim() || undefined,
+        priorityWeight: Number(newCategoryPriority) || 5,
+      });
+      showToast(`Category "${newCategoryName.trim()}" created successfully`, 'success');
+      setIsCreateCategoryOpen(false);
+      await loadDashboard();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to create category', 'error');
+    } finally {
+      setIsSubmittingCategory(false);
+    }
+  };
+
+  const handleOpenEditCategory = (ws: WorkstreamDto) => {
+    setEditingCategory(ws);
+    setEditCategoryName(ws.name);
+    setEditCategoryDesc(ws.description || '');
+    setEditCategoryPriority(ws.priorityWeight);
+    setEditCategoryStatus(ws.status);
+  };
+
+  const handleUpdateCategorySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingCategory || !editCategoryName.trim()) return;
+    setIsUpdatingCategory(true);
+    try {
+      await updateWorkstream(editingCategory.id, {
+        name: editCategoryName.trim(),
+        description: editCategoryDesc.trim() || null,
+        priorityWeight: Number(editCategoryPriority) || 5,
+        status: editCategoryStatus,
+      });
+      showToast(`Category updated to "${editCategoryName.trim()}" successfully`, 'success');
+      setEditingCategory(null);
+      await loadDashboard();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update category', 'error');
+    } finally {
+      setIsUpdatingCategory(false);
+    }
+  };
 
   const loadDashboard = useCallback(async () => {
     try {
@@ -632,22 +703,53 @@ export const DashboardPage: React.FC = () => {
 
         {/* Right Column (1 col wide): Workstreams, Active Projects & Audit Activity */}
         <div className="space-y-8">
-          {/* Workstreams Overview */}
+          {/* Workstreams & Task Categories Overview */}
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="workstreams-overview-section">
-            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Workstreams Overview</h3>
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <div>
+                <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Task Categories & Focus Areas</h3>
+                <p className="text-slate-500 text-xs mt-0.5 font-medium">Strategic areas organizing your goals, projects & tasks</p>
+              </div>
+              <button
+                type="button"
+                onClick={handleOpenCreateCategory}
+                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                title="Add new category"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+                </svg>
+                <span>+ Add Category</span>
+              </button>
+            </div>
+
             <div className="space-y-3">
               {workstreams.map((ws) => (
-                <div key={ws.id} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 hover:border-blue-200 transition-all">
+                <div key={ws.id} className="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 hover:border-blue-200 transition-all group">
                   <div className="flex items-center justify-between mb-1.5">
-                    <h4 className="text-xs font-extrabold text-slate-900">{ws.name}</h4>
-                    <span className="text-[10px] font-black text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded uppercase">
-                      Priority {ws.priorityWeight}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-xs font-extrabold text-slate-900">{ws.name}</h4>
+                      <span className="text-[10px] font-black text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded uppercase">
+                        Priority {ws.priorityWeight}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleOpenEditCategory(ws)}
+                      className="text-xs font-bold text-blue-600 hover:text-blue-800 bg-white hover:bg-blue-50 border border-slate-200 px-2 py-1 rounded-lg transition-colors flex items-center gap-1 cursor-pointer shadow-2xs"
+                      title={`Edit ${ws.name}`}
+                    >
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                      <span>Edit</span>
+                    </button>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-500 font-medium mt-2">
-                    <span>{ws._count?.goals || 0} Goals</span>
+                  {ws.description && <p className="text-xs text-slate-500 line-clamp-2 mt-1">{ws.description}</p>}
+                  <div className="flex items-center gap-3 text-xs text-slate-500 font-medium mt-2 pt-2 border-t border-slate-200/60">
+                    <span><strong className="text-slate-700 font-bold">{ws._count?.goals || 0}</strong> Goals</span>
                     <span>&bull;</span>
-                    <span>{ws._count?.projects || 0} Projects</span>
+                    <span><strong className="text-slate-700 font-bold">{ws._count?.projects || 0}</strong> Projects</span>
                   </div>
                 </div>
               ))}
@@ -701,6 +803,198 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Create Task Category Modal */}
+      {isCreateCategoryOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md bg-white border border-slate-200/90 rounded-2xl shadow-2xl p-6 text-slate-900 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h3 className="font-bold text-slate-900 text-base">Add New Task Category</h3>
+                <p className="text-xs text-slate-500">Create a strategic workstream to organize execution</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsCreateCategoryOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleCreateCategorySubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Category Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={newCategoryName}
+                  onChange={(e) => setNewCategoryName(e.target.value)}
+                  placeholder="e.g. Study English, Freelancing, AI Engineering"
+                  disabled={isSubmittingCategory}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Description
+                </label>
+                <textarea
+                  rows={3}
+                  value={newCategoryDesc}
+                  onChange={(e) => setNewCategoryDesc(e.target.value)}
+                  placeholder="Purpose, curriculum, or delivery outcomes..."
+                  disabled={isSubmittingCategory}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Priority Weight (1 - 10)
+                </label>
+                <input
+                  type="number"
+                  min={1}
+                  max={10}
+                  value={newCategoryPriority}
+                  onChange={(e) => setNewCategoryPriority(Number(e.target.value))}
+                  disabled={isSubmittingCategory}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                />
+              </div>
+
+              <div className="pt-3 flex justify-end gap-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setIsCreateCategoryOpen(false)}
+                  disabled={isSubmittingCategory}
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmittingCategory}
+                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+                >
+                  {isSubmittingCategory ? 'Creating...' : 'Create Category'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Task Category Modal */}
+      {editingCategory && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md bg-white border border-slate-200/90 rounded-2xl shadow-2xl p-6 text-slate-900 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h3 className="font-bold text-slate-900 text-base">Edit Category / Workstream</h3>
+                <p className="text-xs text-slate-500">Update category name, focus, or status</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingCategory(null)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <form onSubmit={(e) => void handleUpdateCategorySubmit(e)} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Category Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editCategoryName}
+                  onChange={(e) => setEditCategoryName(e.target.value)}
+                  placeholder="e.g. Study English (formerly Freelance)"
+                  disabled={isUpdatingCategory}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Description
+                </label>
+                <textarea
+                  rows={3}
+                  value={editCategoryDesc}
+                  onChange={(e) => setEditCategoryDesc(e.target.value)}
+                  placeholder="Strategic description..."
+                  disabled={isUpdatingCategory}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Priority Weight
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={editCategoryPriority}
+                    onChange={(e) => setEditCategoryPriority(Number(e.target.value))}
+                    disabled={isUpdatingCategory}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Status
+                  </label>
+                  <select
+                    value={editCategoryStatus}
+                    onChange={(e) => setEditCategoryStatus(e.target.value as WorkstreamStatus)}
+                    disabled={isUpdatingCategory}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold"
+                  >
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="PAUSED">PAUSED</option>
+                    <option value="ARCHIVED">ARCHIVED</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="pt-3 flex justify-end gap-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingCategory(null)}
+                  disabled={isUpdatingCategory}
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdatingCategory}
+                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+                >
+                  {isUpdatingCategory ? 'Saving Changes...' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

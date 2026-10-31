@@ -380,7 +380,7 @@ export const TasksPage: React.FC = () => {
 
                 {/* Estimate & Time */}
                 <div className="text-right text-[11px] text-slate-400 shrink-0">
-                  <div>Est: <strong className="text-slate-200">{task.estimateMinutes}m</strong></div>
+                  <div>Est: <strong className="text-slate-800">{task.estimateMinutes}m</strong></div>
                   {task.dueDate && (
                     <div className="text-slate-500">
                       Due: {new Date(task.dueDate).toLocaleDateString()}
@@ -391,7 +391,7 @@ export const TasksPage: React.FC = () => {
 
               {/* Blockers list if any */}
               {task.blockingDependencies && task.blockingDependencies.length > 0 && (
-                <div className="bg-rose-950/20 border border-rose-900/30 rounded-lg p-2.5 text-xs text-rose-300 space-y-1">
+                <div className="bg-rose-50 border border-rose-200 rounded-xl p-2.5 text-xs text-rose-800 space-y-1">
                   <div className="font-semibold text-[11px] text-rose-400 uppercase tracking-wider flex items-center justify-between">
                     <span>Blocked By:</span>
                   </div>
@@ -532,7 +532,7 @@ export const TasksPage: React.FC = () => {
                 >
                   {projects.map((p) => (
                     <option key={p.id} value={p.id}>
-                      {p.name}
+                      {p.name} {p.workstream ? `(${p.workstream.name})` : ''}
                     </option>
                   ))}
                 </select>
