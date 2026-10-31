@@ -168,6 +168,8 @@ model User {
   userMemories UserMemory[]
   academicSemesters AcademicSemester[]
   academicCourses AcademicCourse[]
+  integrationAccounts IntegrationAccount[]
+  automationRules AutomationRule[]
 }
 
 model UserSettings {
@@ -1181,6 +1183,110 @@ model AcademicCourse {
   @@index([semesterId])
   @@index([projectId])
 }
+
+// ── Integrations & Automation ──────────────────────────────────────────────
+
+enum IntegrationProvider {
+  GOOGLE_CALENDAR
+  GMAIL
+  GITHUB
+  GOOGLE_DRIVE
+  CUSTOM_WEBHOOK
+}
+
+enum IntegrationStatus {
+  CONNECTED
+  DISCONNECTED
+  AUTHENTICATION_EXPIRED
+  SYNCING
+  ERROR
+  DISABLED
+}
+
+enum SyncDirection {
+  INBOUND
+  OUTBOUND
+  BIDIRECTIONAL
+}
+
+model IntegrationAccount {
+  id               String              @id @default(uuid())
+  userId           String
+  user             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider         IntegrationProvider
+  status           IntegrationStatus   @default(DISCONNECTED)
+  encryptedToken   String              // AES-256-GCM encrypted access token
+  encryptedRefresh String?             // AES-256-GCM encrypted refresh token
+  tokenExpiresAt   DateTime?
+  scopes           String[]
+  accountEmail     String?
+  accountName      String?
+  settings         Json?
+  lastSyncAt       DateTime?
+  lastSyncStatus   String?             // SUCCESS | PARTIAL | ERROR
+  lastErrorMessage String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  syncLogs         IntegrationSyncLog[]
+  entityMappings   IntegrationEntityMapping[]
+
+  @@unique([userId, provider])
+  @@index([userId, status])
+}
+
+model IntegrationSyncLog {
+  id                   String             @id @default(uuid())
+  integrationAccountId String
+  integrationAccount   IntegrationAccount @relation(fields: [integrationAccountId], references: [id], onDelete: Cascade)
+  userId               String
+  provider             IntegrationProvider
+  triggerType          String             // MANUAL | SCHEDULED | WEBHOOK
+  status               String             // SUCCESS | FAILED
+  itemsImported        Int                @default(0)
+  itemsExported        Int                @default(0)
+  itemsFailed          Int                @default(0)
+  durationMs           Int                @default(0)
+  errorDetails         String?
+  startedAt            DateTime           @default(now())
+  completedAt          DateTime?
+
+  @@index([integrationAccountId, startedAt])
+  @@index([userId, provider])
+}
+
+model IntegrationEntityMapping {
+  id                   String             @id @default(uuid())
+  integrationAccountId String
+  integrationAccount   IntegrationAccount @relation(fields: [integrationAccountId], references: [id], onDelete: Cascade)
+  userId               String
+  provider             IntegrationProvider
+  externalId           String             // e.g. Google Calendar Event ID or GitHub Commit SHA
+  internalEntityType   String             // TIME_BLOCK | TASK | EVIDENCE | DOCUMENT
+  internalEntityId     String             // UUID of corresponding internal entity
+  syncHash             String?
+  lastSyncedAt         DateTime           @default(now())
+
+  @@unique([userId, provider, externalId])
+  @@index([internalEntityType, internalEntityId])
+}
+
+model AutomationRule {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  triggerType String   // TASK_COMPLETED | MILESTONE_REACHED | DEADLINE_APPROACHING | LEARNING_LOGGED
+  conditions  Json     // Predicates to evaluate
+  actions     Json     // Action list to execute
+  isEnabled   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, triggerType, isEnabled])
+}
+
 
 
 

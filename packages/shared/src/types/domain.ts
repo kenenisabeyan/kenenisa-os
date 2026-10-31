@@ -1991,6 +1991,71 @@ export interface GraduationOverviewDto {
   };
 }
 
+// ── Integration & Automation Types ──────────────────────────────────────────
+
+export type IntegrationProvider =
+  | 'GOOGLE_CALENDAR'
+  | 'GMAIL'
+  | 'GITHUB'
+  | 'GOOGLE_DRIVE'
+  | 'CUSTOM_WEBHOOK';
+
+export type IntegrationStatus =
+  | 'CONNECTED'
+  | 'DISCONNECTED'
+  | 'AUTHENTICATION_EXPIRED'
+  | 'SYNCING'
+  | 'ERROR'
+  | 'DISABLED';
+
+export type SyncDirection = 'INBOUND' | 'OUTBOUND' | 'BIDIRECTIONAL';
+
+export interface IntegrationAccountDto {
+  id: string;
+  userId: string;
+  provider: IntegrationProvider;
+  status: IntegrationStatus;
+  scopes: string[];
+  accountEmail: string | null;
+  accountName: string | null;
+  settings?: Record<string, unknown> | null;
+  lastSyncAt: string | null;
+  lastSyncStatus: string | null;
+  lastErrorMessage: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IntegrationSyncLogDto {
+  id: string;
+  integrationAccountId: string;
+  userId: string;
+  provider: IntegrationProvider;
+  triggerType: string;
+  status: string;
+  itemsImported: number;
+  itemsExported: number;
+  itemsFailed: number;
+  durationMs: number;
+  errorDetails: string | null;
+  startedAt: string;
+  completedAt: string | null;
+}
+
+export interface AutomationRuleDto {
+  id: string;
+  userId: string;
+  name: string;
+  description: string | null;
+  triggerType: string;
+  conditions: Record<string, unknown>;
+  actions: Record<string, unknown>;
+  isEnabled: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+
 
 
 

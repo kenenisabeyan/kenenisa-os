@@ -4,6 +4,7 @@ import { MilestoneRepository } from '../milestones/milestone.repository.js';
 import { recordAuditLog } from '../../services/audit.service.js';
 import { TaskStatus, TaskDependencyType } from '@prisma/client';
 import { TaskQuery, TaskReorderItem, type ErrorCode } from '@kenenisa-os/shared';
+import { InternalCascadeService } from '../integration/internal-cascade.service.js';
 
 import { AppError } from '../../utils/errors.js';
 
@@ -195,6 +196,10 @@ export class TaskService {
 
     const updated = await this.taskRepo.update(id, userId, input);
 
+    if (input.status && input.status !== existing.status) {
+      await InternalCascadeService.onTaskStatusChanged(id, userId, existing.status, input.status);
+    }
+
     await recordAuditLog({
       userId,
       entityType: 'TASK',
@@ -268,16 +273,8 @@ export class TaskService {
       completedAt: new Date(),
     });
 
-    // Automatically check dependent tasks and unblock them if all blockers are now clear
-    const dependents = await this.taskRepo.findDependentTasks(id);
-    for (const dep of dependents) {
-      const blockersCount = await this.taskRepo.findUnsatisfiedBlockers(dep.dependentTaskId);
-      if (blockersCount === 0 && dep.dependentTask.status === TaskStatus.BLOCKED) {
-        await this.taskRepo.update(dep.dependentTaskId, userId, {
-          status: TaskStatus.READY,
-        });
-      }
-    }
+    // Execute internal cascading side-effects (unblocking dependents, advancing milestones & projects)
+    await InternalCascadeService.onTaskStatusChanged(id, userId, task.status, TaskStatus.DONE);
 
     await recordAuditLog({
       userId,
@@ -302,6 +299,9 @@ export class TaskService {
       status: targetStatus,
       completedAt: null,
     });
+
+    // Execute internal cascading side-effects for re-opened task
+    await InternalCascadeService.onTaskStatusChanged(id, userId, task.status, targetStatus);
 
     await recordAuditLog({
       userId,

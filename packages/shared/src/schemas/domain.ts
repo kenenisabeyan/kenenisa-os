@@ -992,6 +992,55 @@ export const updateAcademicCourseSchema = createAcademicCourseSchema.partial().o
 export type CreateAcademicCourseInput = z.infer<typeof createAcademicCourseSchema>;
 export type UpdateAcademicCourseInput = z.infer<typeof updateAcademicCourseSchema>;
 
+// ── Integration & Automation Schemas ────────────────────────────────────────
+
+export const integrationProviderSchema = z.enum([
+  'GOOGLE_CALENDAR',
+  'GMAIL',
+  'GITHUB',
+  'GOOGLE_DRIVE',
+  'CUSTOM_WEBHOOK',
+]);
+
+export const integrationStatusSchema = z.enum([
+  'CONNECTED',
+  'DISCONNECTED',
+  'AUTHENTICATION_EXPIRED',
+  'SYNCING',
+  'ERROR',
+  'DISABLED',
+]);
+
+export const connectIntegrationInputSchema = z.object({
+  provider: integrationProviderSchema,
+  accessToken: z.string().min(1, 'Access token required'),
+  refreshToken: z.string().optional(),
+  tokenExpiresAt: z.string().optional(),
+  scopes: z.array(z.string()).default([]),
+  accountEmail: z.string().email().optional().nullable(),
+  accountName: z.string().optional().nullable(),
+  settings: z.record(z.unknown()).optional().nullable(),
+});
+
+export const updateIntegrationSettingsSchema = z.object({
+  settings: z.record(z.unknown()).optional(),
+  status: integrationStatusSchema.optional(),
+});
+
+export const createAutomationRuleSchema = z.object({
+  name: z.string().min(1).max(100),
+  description: z.string().max(500).optional(),
+  triggerType: z.string().min(1),
+  conditions: z.record(z.unknown()).default({}),
+  actions: z.record(z.unknown()).default({}),
+  isEnabled: z.boolean().default(true),
+});
+
+export type ConnectIntegrationInput = z.infer<typeof connectIntegrationInputSchema>;
+export type UpdateIntegrationSettingsInput = z.infer<typeof updateIntegrationSettingsSchema>;
+export type CreateAutomationRuleInput = z.infer<typeof createAutomationRuleSchema>;
+
+
 
 
 

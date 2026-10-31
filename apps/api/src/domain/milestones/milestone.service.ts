@@ -4,6 +4,7 @@ import { MilestoneQuery, MilestoneReorderItem } from '@kenenisa-os/shared';
 import { NotFoundError } from '../../utils/errors.js';
 import { recordAuditLog } from '../../services/audit.service.js';
 import { MilestoneStatus } from '@prisma/client';
+import { InternalCascadeService } from '../integration/internal-cascade.service.js';
 
 export class MilestoneService {
   private repository: MilestoneRepository;
@@ -94,6 +95,10 @@ export class MilestoneService {
       targetDate: input.targetDate !== undefined ? (input.targetDate ? new Date(input.targetDate) : null) : undefined,
     });
 
+    if (input.status && input.status !== existing.status) {
+      await InternalCascadeService.onMilestoneStatusChanged(id, userId, input.status);
+    }
+
     await recordAuditLog({
       userId,
       entityType: 'Milestone',
@@ -115,6 +120,8 @@ export class MilestoneService {
       status: MilestoneStatus.REACHED,
       completedAt: new Date(),
     });
+
+    await InternalCascadeService.onMilestoneStatusChanged(id, userId, MilestoneStatus.REACHED);
 
     await recordAuditLog({
       userId,

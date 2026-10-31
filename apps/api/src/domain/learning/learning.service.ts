@@ -13,6 +13,7 @@ import {
   SkillDto,
 } from '@kenenisa-os/shared';
 import { NotFoundError, BadRequestError } from '../../utils/errors.js';
+import { InternalCascadeService } from '../integration/internal-cascade.service.js';
 
 export class LearningService {
   private formatLearningItem(item: {
@@ -448,6 +449,9 @@ export class LearningService {
         },
       });
     }
+
+    // Cascade accumulated practice hours to linked skills
+    await InternalCascadeService.onLearningActivityLogged(id, userId, input.minutes);
 
     await prisma.auditLog.create({
       data: {

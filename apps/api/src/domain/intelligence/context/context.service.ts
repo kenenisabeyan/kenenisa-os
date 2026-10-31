@@ -1,4 +1,5 @@
 import { prisma } from '../../../lib/prisma.js';
+import { MilestoneStatus } from '@prisma/client';
 
 export interface BoundedOperatingContext {
   currentDate: string;
@@ -22,6 +23,18 @@ export interface BoundedOperatingContext {
   activeOpportunitiesCount: number;
   upcomingFollowUpsCount: number;
   recentReviewStatus?: string;
+  graduation?: {
+    daysRemaining: number | null;
+    targetDate: string | null;
+    individualProjectProgress: number;
+    groupProjectProgress: number;
+    academicCoursesCount: number;
+  };
+  integrations?: {
+    connectedCount: number;
+    connectedProviders: string[];
+    lastSyncAt: string | null;
+  };
   summaryText: string;
 }
 
@@ -44,6 +57,10 @@ export class ContextService {
       opportunitiesCount,
       followUpsCount,
       latestReview,
+      graduationProjects,
+      academicCoursesCount,
+      connectedIntegrations,
+      targetDateMemory,
     ] = await Promise.all([
       prisma.userSettings.findUnique({ where: { userId } }),
       prisma.workstream.count({ where: { userId, status: 'ACTIVE' } }),
@@ -107,6 +124,29 @@ export class ContextService {
         where: { userId },
         orderBy: { createdAt: 'desc' },
       }),
+      prisma.project.findMany({
+        where: {
+          userId,
+          slug: { in: ['individual-graduation-project', 'group-graduation-project'] },
+        },
+        select: {
+          slug: true,
+          name: true,
+          milestones: {
+            select: { status: true },
+          },
+        },
+      }),
+      prisma.academicCourse.count({
+        where: { userId, academicStatus: 'ENROLLED' },
+      }),
+      prisma.integrationAccount.findMany({
+        where: { userId, status: 'CONNECTED' },
+        select: { provider: true, lastSyncAt: true },
+      }),
+      prisma.userMemory.findFirst({
+        where: { userId, key: 'graduation_target_date', archivedAt: null },
+      }),
     ]);
 
     const dailyCap = userSettings?.dailyWorkCapacityMinutes || 480;
@@ -118,7 +158,35 @@ export class ContextService {
     const utilizationPercentage = dailyCap > 0 ? Math.round((plannedMinutes / dailyCap) * 100) : null;
     const nextBest = todayTasks[0];
 
-    const summaryText = `Date: ${todayStr} | Active Projects: ${projectsCount} | Top Priority Task: ${nextBest ? nextBest.title : 'None'} | Overdue Tasks: ${overdueTasksCount} | Planned Time: ${plannedMinutes}/${dailyCap}m (${utilizationPercentage || 0}%)`;
+    const indProj = graduationProjects.find((p) => p.slug === 'individual-graduation-project');
+    const grpProj = graduationProjects.find((p) => p.slug === 'group-graduation-project');
+
+    const indTotal = indProj?.milestones.length || 0;
+    const indReached = indProj?.milestones.filter((m) => m.status === MilestoneStatus.REACHED).length || 0;
+    const indProgress = indTotal > 0 ? Math.round((indReached / indTotal) * 100) : 0;
+
+    const grpTotal = grpProj?.milestones.length || 0;
+    const grpReached = grpProj?.milestones.filter((m) => m.status === MilestoneStatus.REACHED).length || 0;
+    const grpProgress = grpTotal > 0 ? Math.round((grpReached / grpTotal) * 100) : 0;
+
+    const targetDate = targetDateMemory?.value || null;
+    let daysRemaining: number | null = null;
+    if (targetDate) {
+      const parsedTarget = new Date(targetDate);
+      if (!isNaN(parsedTarget.getTime())) {
+        const diffMs = parsedTarget.getTime() - new Date().getTime();
+        daysRemaining = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+      }
+    }
+
+    const latestSyncAt =
+      connectedIntegrations
+        .map((i) => i.lastSyncAt)
+        .filter((d): d is Date => d !== null)
+        .sort((a, b) => b.getTime() - a.getTime())[0]
+        ?.toISOString() || null;
+
+    const summaryText = `Date: ${todayStr} | ASTU Graduation Target: ${daysRemaining ? `${daysRemaining} days` : 'Not set'} | Ind. Project: ${indProgress}% | Group Project: ${grpProgress}% | Enrolled Courses: ${academicCoursesCount} | Integrations: ${connectedIntegrations.length} active | Top Priority Task: ${nextBest ? nextBest.title : 'None'} | Overdue Tasks: ${overdueTasksCount} | Planned Time: ${plannedMinutes}/${dailyCap}m (${utilizationPercentage || 0}%)`;
 
     return {
       currentDate: todayStr,
@@ -141,6 +209,18 @@ export class ContextService {
       activeOpportunitiesCount: opportunitiesCount,
       upcomingFollowUpsCount: followUpsCount,
       recentReviewStatus: latestReview?.status,
+      graduation: {
+        daysRemaining,
+        targetDate,
+        individualProjectProgress: indProgress,
+        groupProjectProgress: grpProgress,
+        academicCoursesCount,
+      },
+      integrations: {
+        connectedCount: connectedIntegrations.length,
+        connectedProviders: connectedIntegrations.map((i) => i.provider),
+        lastSyncAt: latestSyncAt,
+      },
       summaryText,
     };
   }
