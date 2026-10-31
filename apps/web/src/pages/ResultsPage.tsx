@@ -98,6 +98,41 @@ export const ResultsPage: React.FC = () => {
     }
   };
 
+  const handleCopySummary = () => {
+    if (!analysis) return;
+    const { overview, observations } = analysis;
+    const rate = overview.totalPlanned > 0 ? Math.round((overview.completed / overview.totalPlanned) * 100) : 0;
+    const lines = [
+      `# 📊 KENENISA OS Results & Insights Briefing (${period.toUpperCase()})`,
+      `**Completion Rate**: ${rate}% | **Total Planned**: ${overview.totalPlanned}`,
+      `**Completed**: ${overview.completed} | **Partially**: ${overview.partiallyCompleted} | **Missed**: ${overview.missed} | **Blocked**: ${overview.blocked}`,
+      ...(capacityAnalysis
+        ? [
+            `**Total Actual Minutes**: ${capacityAnalysis.totalActualMinutes}m (Scheduled: ${capacityAnalysis.totalScheduledMinutes}m, Available: ${capacityAnalysis.availableCapacityMinutes}m)`,
+            `**Over Capacity**: ${capacityAnalysis.isOverCapacity ? '⚠️ Yes' : '✓ No'}`,
+          ]
+        : []),
+      '',
+      `## Key Observations`,
+      ...(observations && observations.length > 0
+        ? observations.map((o: string) => `- ${o}`)
+        : ['- Steady operating execution across configured workstreams.']),
+      '',
+      `## Workstream Breakdown`,
+      ...(workstreams.length > 0
+        ? workstreams.map(
+            (w) =>
+              `- **${w.workstreamName}**: ${w.completionRatePercent}% completed (${w.completed}/${w.totalPlanned} items)`
+          )
+        : ['- No active workstream telemetry in selected period.']),
+      '',
+      `---`,
+      `*Generated from KENENISA OS Results & Telemetry Hub*`,
+    ];
+    navigator.clipboard.writeText(lines.join('\n'));
+    showToast('Results briefing copied to clipboard as Markdown!', 'success');
+  };
+
   const handleExportClick = async () => {
     setExporting(true);
     try {
@@ -171,10 +206,18 @@ export const ResultsPage: React.FC = () => {
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <button
+            onClick={handleCopySummary}
+            className="px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95"
+            title="Copy results summary as Markdown"
+          >
+            <span>📋</span>
+            <span>Copy Briefing</span>
+          </button>
           <button
             onClick={() => setExportModalOpen(true)}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold text-white bg-[#22C55E] hover:bg-emerald-600 rounded-xl shadow-sm transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold text-white bg-[#22C55E] hover:bg-emerald-600 rounded-xl shadow-sm transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

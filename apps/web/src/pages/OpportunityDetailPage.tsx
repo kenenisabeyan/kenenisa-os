@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import type { OpportunityDetailDto } from '@kenenisa-os/shared';
+import type {
+  OpportunityDetailDto,
+  ProjectDto,
+  SkillDto,
+  EvidenceDto,
+  TaskDto,
+} from '@kenenisa-os/shared';
 import {
   fetchOpportunityById,
   transitionOpportunityStatus,
@@ -14,6 +20,10 @@ import {
   unlinkOpportunityTask,
   createOpportunityActivity,
 } from '../features/opportunities/api.js';
+import { fetchProjects } from '../features/projects/api.js';
+import { fetchSkills } from '../features/learning/api.js';
+import { fetchEvidenceList } from '../features/evidence/api.js';
+import { fetchTasks } from '../features/tasks/api.js';
 import { useToast } from '../components/ui/Toast.js';
 
 export const OpportunityDetailPage: React.FC = () => {
@@ -25,13 +35,78 @@ export const OpportunityDetailPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Linker Modal Inputs
+  // Linker Modal Candidates State
   const [linkInputId, setLinkInputId] = useState<string>('');
   const [activeLinkType, setActiveLinkType] = useState<'skill' | 'project' | 'evidence' | 'task' | null>(null);
+  const [candidateProjects, setCandidateProjects] = useState<ProjectDto[]>([]);
+  const [candidateSkills, setCandidateSkills] = useState<SkillDto[]>([]);
+  const [candidateEvidence, setCandidateEvidence] = useState<EvidenceDto[]>([]);
+  const [candidateTasks, setCandidateTasks] = useState<TaskDto[]>([]);
+  const [loadingCandidates, setLoadingCandidates] = useState<boolean>(false);
 
   // Activity Input
   const [actTitle, setActTitle] = useState<string>('');
   const [actDesc, setActDesc] = useState<string>('');
+
+  const handleOpenLinker = async (type: 'skill' | 'project' | 'evidence' | 'task') => {
+    setActiveLinkType(type);
+    setLinkInputId('');
+    setLoadingCandidates(true);
+    try {
+      if (type === 'skill') {
+        const res = await fetchSkills();
+        setCandidateSkills(res);
+        if (res.length > 0) setLinkInputId(res[0].id);
+      } else if (type === 'project') {
+        const res = await fetchProjects();
+        setCandidateProjects(res);
+        if (res.length > 0) setLinkInputId(res[0].id);
+      } else if (type === 'evidence') {
+        const res = await fetchEvidenceList();
+        setCandidateEvidence(res);
+        if (res.length > 0) setLinkInputId(res[0].id);
+      } else if (type === 'task') {
+        const res = await fetchTasks();
+        setCandidateTasks(res);
+        if (res.length > 0) setLinkInputId(res[0].id);
+      }
+    } catch (err: unknown) {
+      console.warn('Failed to load candidate items for linking:', err);
+    } finally {
+      setLoadingCandidates(false);
+    }
+  };
+
+  const handleExportBriefing = () => {
+    if (!opportunity) return;
+    const lines = [
+      `# 💼 Opportunity Briefing: ${opportunity.title}`,
+      `**Organization**: ${opportunity.organizationName || 'N/A'}`,
+      `**Status**: ${opportunity.status} | **Priority**: ${opportunity.priority} | **Type**: ${opportunity.type}`,
+      `**Estimated Value**: ${opportunity.estimatedValue ? `${opportunity.currency} ${opportunity.estimatedValue.toLocaleString()}` : 'N/A'}`,
+      `**Remote**: ${opportunity.remote ? 'Yes (Remote)' : 'On-Site / Hybrid'}`,
+      `**Deadline**: ${opportunity.deadline ? opportunity.deadline.split('T')[0] : 'N/A'}`,
+      '',
+      `## Description & Scope`,
+      opportunity.description || 'No description provided.',
+      '',
+      `## Strategic Alignment & Linked Assets`,
+      `- **Skills (${opportunity.skills.length})**: ${opportunity.skills.map((s) => s.skill?.name || s.skillId).join(', ') || 'None linked'}`,
+      `- **Projects (${opportunity.projects.length})**: ${opportunity.projects.map((p) => p.project?.name || p.projectId).join(', ') || 'None linked'}`,
+      `- **Evidence (${opportunity.evidence.length})**: ${opportunity.evidence.map((e) => e.evidence?.title || e.evidenceId).join(', ') || 'None linked'}`,
+      `- **Tasks (${opportunity.tasks.length})**: ${opportunity.tasks.map((t) => t.task?.title || t.taskId).join(', ') || 'None linked'}`,
+      '',
+      `## Activity Log (${opportunity.activities.length})`,
+      ...(opportunity.activities.length > 0
+        ? opportunity.activities.map((a) => `- [${a.occurredAt.split('T')[0]}] **${a.title}**: ${a.description || ''}`)
+        : ['- No activity logged.']),
+      '',
+      `---`,
+      `*Generated from KENENISA OS Career Hub*`,
+    ];
+    navigator.clipboard.writeText(lines.join('\n'));
+    showToast('Opportunity briefing copied to clipboard as Markdown!', 'success');
+  };
 
   const loadOpportunity = React.useCallback(async () => {
     if (!id) return;
@@ -151,13 +226,22 @@ export const OpportunityDetailPage: React.FC = () => {
 
   return (
     <div id="opportunity-detail-page" className="space-y-6">
-      {/* Back button */}
-      <button
-        onClick={() => { void navigate('/app/opportunities'); }}
-        className="text-xs text-slate-500 font-semibold flex items-center gap-1 hover:text-slate-900 transition-colors"
-      >
-        ← Back to Opportunities
-      </button>
+      {/* Back button & Actions Bar */}
+      <div className="flex items-center justify-between gap-2">
+        <button
+          onClick={() => { void navigate('/app/opportunities'); }}
+          className="text-xs text-slate-500 font-semibold flex items-center gap-1 hover:text-slate-900 transition-colors cursor-pointer"
+        >
+          ← Back to Opportunities
+        </button>
+        <button
+          onClick={handleExportBriefing}
+          className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-300 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
+          title="Copy full opportunity briefing to clipboard as Markdown"
+        >
+          📋 Copy Briefing
+        </button>
+      </div>
 
       {/* Header Card */}
       <div className="bg-white border border-slate-200/90 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-xs">
@@ -261,8 +345,8 @@ export const OpportunityDetailPage: React.FC = () => {
                 <span className="text-xs text-slate-500 font-normal">({opportunity.skills.length})</span>
               </h3>
               <button
-                onClick={() => setActiveLinkType('skill')}
-                className="text-xs text-blue-600 hover:underline font-semibold"
+                onClick={() => { void handleOpenLinker('skill'); }}
+                className="text-xs text-blue-600 hover:underline font-semibold cursor-pointer"
               >
                 + Link Skill
               </button>
@@ -298,8 +382,8 @@ export const OpportunityDetailPage: React.FC = () => {
                 <span className="text-xs text-slate-500 font-normal">({opportunity.projects.length})</span>
               </h3>
               <button
-                onClick={() => setActiveLinkType('project')}
-                className="text-xs text-blue-600 hover:underline font-semibold"
+                onClick={() => { void handleOpenLinker('project'); }}
+                className="text-xs text-blue-600 hover:underline font-semibold cursor-pointer"
               >
                 + Link Project
               </button>
@@ -335,8 +419,8 @@ export const OpportunityDetailPage: React.FC = () => {
                 <span className="text-xs text-slate-500 font-normal">({opportunity.evidence.length})</span>
               </h3>
               <button
-                onClick={() => setActiveLinkType('evidence')}
-                className="text-xs text-blue-600 hover:underline font-semibold"
+                onClick={() => { void handleOpenLinker('evidence'); }}
+                className="text-xs text-blue-600 hover:underline font-semibold cursor-pointer"
               >
                 + Link Evidence
               </button>
@@ -375,8 +459,8 @@ export const OpportunityDetailPage: React.FC = () => {
                 <span className="text-xs text-slate-500 font-normal">({opportunity.tasks.length})</span>
               </h3>
               <button
-                onClick={() => setActiveLinkType('task')}
-                className="text-xs text-blue-600 hover:underline font-semibold"
+                onClick={() => { void handleOpenLinker('task'); }}
+                className="text-xs text-blue-600 hover:underline font-semibold cursor-pointer"
               >
                 + Link Task
               </button>
@@ -469,17 +553,59 @@ export const OpportunityDetailPage: React.FC = () => {
 
             <form onSubmit={(e) => { void handleLinkSubmit(e); }} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-700 font-medium mb-1">
-                  Enter {activeLinkType} ID (UUID)
+                <label className="block text-slate-800 font-bold mb-1.5 uppercase tracking-wide text-[10px]">
+                  Select {activeLinkType} to Link *
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder={`Paste ${activeLinkType} ID...`}
-                  value={linkInputId}
-                  onChange={(e) => setLinkInputId(e.target.value)}
-                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
-                />
+                {loadingCandidates ? (
+                  <div className="py-4 text-center text-slate-500 font-semibold bg-slate-50 border border-slate-200 rounded-xl animate-pulse text-xs">
+                    Loading {activeLinkType} candidate list...
+                  </div>
+                ) : (
+                  <select
+                    value={linkInputId}
+                    onChange={(e) => setLinkInputId(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="" disabled>Choose {activeLinkType}...</option>
+                    {activeLinkType === 'skill' &&
+                      candidateSkills.map((s) => (
+                        <option key={s.id} value={s.id}>
+                          {s.name} (Level: {s.currentLevel})
+                        </option>
+                      ))}
+                    {activeLinkType === 'project' &&
+                      candidateProjects.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name} [{p.priority}, {p.status}]
+                        </option>
+                      ))}
+                    {activeLinkType === 'evidence' &&
+                      candidateEvidence.map((e) => (
+                        <option key={e.id} value={e.id}>
+                          {e.title} [{e.type}]
+                        </option>
+                      ))}
+                    {activeLinkType === 'task' &&
+                      candidateTasks.map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.title} [{t.priority}, {t.status}]
+                        </option>
+                      ))}
+                  </select>
+                )}
+
+                <div className="mt-3 pt-2 border-t border-slate-100 space-y-1">
+                  <label className="block text-slate-400 font-bold text-[10px] uppercase tracking-wider">
+                    Or custom UUID:
+                  </label>
+                  <input
+                    type="text"
+                    placeholder={`Paste ${activeLinkType} ID...`}
+                    value={linkInputId}
+                    onChange={(e) => setLinkInputId(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-700 font-mono text-[11px] focus:outline-none focus:border-blue-500"
+                  />
+                </div>
               </div>
 
               <div className="flex justify-end gap-3">
