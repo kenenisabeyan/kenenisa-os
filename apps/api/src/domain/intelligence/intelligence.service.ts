@@ -131,14 +131,29 @@ export class IntelligenceService {
       }
     } catch (err: unknown) {
       const errMsg = err instanceof Error ? err.message : String(err);
-      logger.warn({ errMsg }, '[IntelligenceService] Primary provider failed or unavailable. Falling back to GroundedReasoningEngine');
+      logger.warn({ errMsg }, '[IntelligenceService] Provider generation failed');
 
-      response = await this.groundedEngine.generate({
-        messages: requestMessages,
-        context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
-        availableTools: this.toolRegistry.getAvailableTools(),
-      });
-      response.content = `> ℹ️ *Grounded Mode Active: Operating dynamically over live database records.*\n\n${response.content}`;
+      if (this.provider.name !== 'GroundedReasoningEngine') {
+        try {
+          response = await this.groundedEngine.generate({
+            messages: requestMessages,
+            context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
+            availableTools: this.toolRegistry.getAvailableTools(),
+          });
+          response.content = `> ℹ️ *Grounded Mode Active: Operating dynamically over live database records.*\n\n${response.content}`;
+        } catch (groundedErr: unknown) {
+          const gMsg = groundedErr instanceof Error ? groundedErr.message : String(groundedErr);
+          response = {
+            content: `### ⚠️ Operating Intelligence Advisory\n\nI encountered a transient data synthesis error: \`${gMsg}\`. Current workspace metrics: **${context.todayTasksCount} active tasks**, **${context.blockedTasksCount} blocked tasks**, **${context.activeProjectsCount} projects**.`,
+            providerName: 'GroundedReasoningEngine',
+          };
+        }
+      } else {
+        response = {
+          content: `### ⚠️ Operating Intelligence Advisory\n\nI encountered a transient data synthesis error: \`${errMsg}\`. Current workspace metrics: **${context.todayTasksCount} active tasks**, **${context.blockedTasksCount} blocked tasks**, **${context.activeProjectsCount} projects**.`,
+          providerName: 'GroundedReasoningEngine',
+        };
+      }
     }
 
     // 7. Handle action proposals from tool calls

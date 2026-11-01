@@ -302,7 +302,14 @@ export class IntelligenceToolRegistry {
           where: {
             userId,
             ...(projectId ? { id: projectId } : {}),
-            ...(projectName ? { name: { contains: projectName, mode: 'insensitive' } } : {}),
+            ...(projectName
+              ? {
+                  OR: [
+                    { name: { contains: projectName, mode: 'insensitive' } },
+                    { slug: { contains: projectName.toLowerCase().replace(/\s+/g, '-'), mode: 'insensitive' } },
+                  ],
+                }
+              : {}),
           },
           include: {
             goal: { select: { id: true, title: true } },

@@ -2,6 +2,20 @@ import { AIProvider, AIRequest, AIResponse, AIToolCall } from './ai-provider.int
 import { prisma } from '../../../lib/prisma.js';
 import { IntelligenceToolRegistry } from '../tools/intelligence-tool.registry.js';
 
+function formatDate(d: unknown): string {
+  if (!d) return '';
+  if (d instanceof Date) return d.toISOString().split('T')[0];
+  if (typeof d === 'string') return d.includes('T') ? d.split('T')[0] : d;
+  return String(d);
+}
+
+function formatTime(d: unknown): string {
+  if (!d) return '';
+  if (d instanceof Date) return d.toTimeString().slice(0, 5);
+  if (typeof d === 'string' && d.includes('T')) return d.split('T')[1].slice(0, 5);
+  return String(d);
+}
+
 export class GroundedReasoningEngine implements AIProvider {
   readonly name = 'GroundedReasoningEngine';
   private toolRegistry: IntelligenceToolRegistry;
@@ -154,7 +168,7 @@ export class GroundedReasoningEngine implements AIProvider {
 
       if (individualProjectA?.nextMilestone) {
         gradReport += `#### Immediate Next Milestone:\n`;
-        gradReport += `- **"${individualProjectA.nextMilestone.name}"** ${individualProjectA.nextMilestone.targetDate ? `(Target: ${individualProjectA.nextMilestone.targetDate.split('T')[0]})` : ''}\n\n`;
+        gradReport += `- **"${individualProjectA.nextMilestone.name}"** ${individualProjectA.nextMilestone.targetDate ? `(Target: ${formatDate(individualProjectA.nextMilestone.targetDate)})` : ''}\n\n`;
       }
 
       gradReport += `> 🎯 **Defense Readiness Assessment:** Your individual project is currently paced at **${individualProjectA?.progressPercentage || 0}%**. To ensure on-time graduation defense, ensure all milestone deliverables and empirical benchmarks are substantiated with verifiable Git commit evidence.`;
@@ -176,13 +190,27 @@ export class GroundedReasoningEngine implements AIProvider {
     if (cleanQuery.includes('project') || pageContext?.pageType === 'projects') {
       // Resolve project name from query or page context or conversation history
       let targetName: string | undefined;
-      const projMatch = lastMsg.match(/project\s+([a-zA-Z0-9_\s-]+)/i);
-      if (projMatch && projMatch[1]) {
-        targetName = projMatch[1].trim();
+      const lowerQuery = lastMsg.toLowerCase();
+      if (lowerQuery.includes('individual graduation project') || lowerQuery.includes('individual project')) {
+        targetName = 'Individual Graduation Project';
+      } else if (lowerQuery.includes('group graduation project') || lowerQuery.includes('group project')) {
+        targetName = 'Group Graduation Project';
+      } else if (lowerQuery.includes('kenenisa os')) {
+        targetName = 'KENENISA OS';
       } else if (pageContext?.entityTitle) {
         targetName = pageContext.entityTitle;
-      } else if (prevAssistantMsg.includes('Individual Project A')) {
-        targetName = 'Individual Project A';
+      } else {
+        const quotedMatch = lastMsg.match(/["']([^"']+)["']/);
+        if (quotedMatch && quotedMatch[1]) {
+          targetName = quotedMatch[1].trim();
+        } else {
+          const projMatch = lastMsg.match(/project\s+([a-zA-Z0-9_-]+)/i);
+          if (projMatch && projMatch[1] && !['and', 'the', 'status', 'milestone', 'detail', 'details'].includes(projMatch[1].toLowerCase())) {
+            targetName = projMatch[1].trim();
+          } else if (prevAssistantMsg.includes('Individual Project A') || prevAssistantMsg.includes('Individual Graduation Project')) {
+            targetName = 'Individual Graduation Project';
+          }
+        }
       }
 
       const projData = (await this.toolRegistry.executeTool('get_project_details', userId, {
@@ -200,7 +228,7 @@ export class GroundedReasoningEngine implements AIProvider {
           projReport += `#### Milestones Roadmap:\n`;
           projData.milestones.forEach((m: any) => {
             const icon = m.status === 'REACHED' ? '✅' : '⏳';
-            projReport += `- ${icon} **${m.name}** — \`${m.status}\` ${m.targetDate ? `(Due: ${m.targetDate.split('T')[0]})` : ''}\n`;
+            projReport += `- ${icon} **${m.name}** — \`${m.status}\` ${m.targetDate ? `(Due: ${formatDate(m.targetDate)})` : ''}\n`;
           });
           projReport += `\n`;
         }
@@ -271,8 +299,8 @@ export class GroundedReasoningEngine implements AIProvider {
       courses.forEach((c: any) => {
         acadReport += `* **${c.code}: ${c.name}** (\`${c.status}\`, ${c.creditHours} Credits)\n`;
         acadReport += `   - Study hours logged: **${Math.round(c.totalStudyMinutes / 60)}h**\n`;
-        if (c.examDate) acadReport += `   - 📅 **Exam Date:** \`${c.examDate.split('T')[0]}\`\n`;
-        if (c.assignmentDue) acadReport += `   - 📝 **Assignment Due:** \`${c.assignmentDue.split('T')[0]}\`\n`;
+        if (c.examDate) acadReport += `   - 📅 **Exam Date:** \`${formatDate(c.examDate)}\`\n`;
+        if (c.assignmentDue) acadReport += `   - 📝 **Assignment Due:** \`${formatDate(c.assignmentDue)}\`\n`;
         if (c.lectureSchedule) acadReport += `   - 🏛️ Schedule: *${c.lectureSchedule}*\n`;
       });
 
@@ -354,7 +382,7 @@ export class GroundedReasoningEngine implements AIProvider {
       if (scheduledBlocks.length > 0) {
         planReport += `#### Scheduled Focus Blocks Today:\n`;
         scheduledBlocks.forEach((b: any) => {
-          planReport += `- 🕒 **${b.startAt.split('T')[1].slice(0, 5)} - ${b.endAt.split('T')[1].slice(0, 5)}**: ${b.title} ${b.task ? `(*${b.task}*)` : ''}\n`;
+          planReport += `- 🕒 **${formatTime(b.startAt)} - ${formatTime(b.endAt)}**: ${b.title} ${b.task ? `(*${b.task}*)` : ''}\n`;
         });
       }
 
