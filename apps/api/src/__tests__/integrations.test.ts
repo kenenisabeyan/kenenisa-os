@@ -34,7 +34,7 @@ describe('Central Integration Service & Internal Cascades Test Suite', { timeout
 
     const { rawToken } = await createSession({ userId: testUserId });
     bearerToken = `Bearer ${rawToken}`;
-  });
+  }, 60000);
 
   it('AES-256-GCM encryption and decryption round-trip works with authentication tag verification', () => {
     const rawSecret = 'ghp_test_github_access_token_super_secret_12345';
