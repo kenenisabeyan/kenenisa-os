@@ -1625,9 +1625,17 @@ export interface ActionProposalDto {
   status: 'PROPOSED' | 'CONFIRMED' | 'CANCELLED' | 'EXECUTED' | 'FAILED';
 }
 
+export interface PageContextInput {
+  pageType: string;
+  entityId?: string;
+  activeFilters?: Record<string, unknown>;
+  entityTitle?: string;
+}
+
 export interface IntelligenceChatInput {
   conversationId?: string;
   message: string;
+  pageContext?: PageContextInput;
 }
 
 export interface IntelligenceChatOutput {

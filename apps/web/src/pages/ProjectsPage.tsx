@@ -7,6 +7,7 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 const PROJECT_BOARD_COLUMNS: {
   status: ProjectStatus;
@@ -325,6 +326,8 @@ export const ProjectsPage: React.FC = () => {
           </div>
         }
       />
+
+      <PageAiCopilot pageType="projects" entityTitle={projects[0]?.name} />
 
       {/* Filter Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">

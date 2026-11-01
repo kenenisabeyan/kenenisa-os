@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { integrationService } from './integration.service.js';
+import { webhookService } from './webhook.service.js';
 import { sendSuccess } from '../../utils/response.js';
 import type { AuthenticatedRequest } from '../auth/auth.types.js';
 import { z } from 'zod';
@@ -114,6 +115,33 @@ export class IntegrationController {
         statusCode: 200,
         message: 'Integration sync logs retrieved successfully',
         data: { logs },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public static async handleWebhook(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const provider = Array.isArray(req.params.provider) ? req.params.provider[0] : req.params.provider;
+      const result = await webhookService.processWebhook(
+        provider,
+        req.headers,
+        req.body,
+        typeof req.body === 'string' ? req.body : undefined
+      );
+
+      if (!result.success) {
+        res.status(401).json({ success: false, message: result.message });
+        return;
+      }
+
+      sendSuccess({
+        res,
+        req,
+        statusCode: 200,
+        message: result.message,
+        data: result.data,
       });
     } catch (error) {
       next(error);

@@ -18,6 +18,7 @@ import type {
   LearningItemType,
 } from '@kenenisa-os/shared';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 interface LearningColumn {
   status: string;
@@ -953,6 +954,9 @@ export function LearningPage() {
           </div>
         </div>
       )}
+
+      {/* Embedded Central AI Copilot */}
+      <PageAiCopilot pageType="learning" />
     </div>
   );
 }

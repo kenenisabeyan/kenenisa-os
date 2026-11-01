@@ -252,6 +252,8 @@ export class TaskService {
       status: TaskStatus.BLOCKED,
     });
 
+    await InternalCascadeService.onTaskStatusChanged(id, userId, task.status, TaskStatus.BLOCKED);
+
     await recordAuditLog({
       userId,
       entityType: 'TASK',
@@ -322,6 +324,8 @@ export class TaskService {
     const updated = await this.taskRepo.update(id, userId, {
       status: TaskStatus.CANCELLED,
     });
+
+    await InternalCascadeService.onTaskStatusChanged(id, userId, task.status, TaskStatus.CANCELLED);
 
     await recordAuditLog({
       userId,

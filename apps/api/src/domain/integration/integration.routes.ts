@@ -4,6 +4,9 @@ import { requireAuth } from '../../middleware/auth.js';
 
 export const integrationRouter = Router();
 
+// Webhook ingress accepts HMAC signature authorization, placed before bearer requireAuth
+integrationRouter.post('/webhook/:provider', (req, res, next) => IntegrationController.handleWebhook(req, res, next));
+
 integrationRouter.use(requireAuth);
 
 integrationRouter.get('/', (req, res, next) => IntegrationController.getAccounts(req, res, next));

@@ -1,5 +1,6 @@
 import { prisma } from '../../../lib/prisma.js';
 import { MilestoneStatus } from '@prisma/client';
+import type { PageContextInput } from '@kenenisa-os/shared';
 
 export interface BoundedOperatingContext {
   currentDate: string;
@@ -35,11 +36,17 @@ export interface BoundedOperatingContext {
     connectedProviders: string[];
     lastSyncAt: string | null;
   };
+  pageContext?: {
+    pageType: string;
+    entityId?: string;
+    entityTitle?: string;
+    details?: Record<string, unknown>;
+  };
   summaryText: string;
 }
 
 export class ContextService {
-  async buildContext(userId: string): Promise<BoundedOperatingContext> {
+  async buildContext(userId: string, pageContextInput?: PageContextInput): Promise<BoundedOperatingContext> {
     const todayStr = new Date().toISOString().split('T')[0];
 
     const [
@@ -186,7 +193,61 @@ export class ContextService {
         .sort((a, b) => b.getTime() - a.getTime())[0]
         ?.toISOString() || null;
 
-    const summaryText = `Date: ${todayStr} | ASTU Graduation Target: ${daysRemaining ? `${daysRemaining} days` : 'Not set'} | Ind. Project: ${indProgress}% | Group Project: ${grpProgress}% | Enrolled Courses: ${academicCoursesCount} | Integrations: ${connectedIntegrations.length} active | Top Priority Task: ${nextBest ? nextBest.title : 'None'} | Overdue Tasks: ${overdueTasksCount} | Planned Time: ${plannedMinutes}/${dailyCap}m (${utilizationPercentage || 0}%)`;
+    // Resolve intelligent page context if passed
+    let pageContextData: BoundedOperatingContext['pageContext'] = undefined;
+    if (pageContextInput?.pageType) {
+      let details: Record<string, unknown> = {};
+
+      if (pageContextInput.pageType === 'projects' && pageContextInput.entityId) {
+        const proj = await prisma.project.findFirst({
+          where: { id: pageContextInput.entityId, userId },
+          include: {
+            milestones: { select: { id: true, name: true, status: true } },
+            tasks: { where: { status: { not: 'DONE' } }, select: { id: true, title: true, priority: true } },
+            evidence: { include: { evidence: { select: { id: true, title: true } } } },
+          },
+        });
+        if (proj) {
+          details = {
+            name: proj.name,
+            status: proj.status,
+            milestones: proj.milestones,
+            pendingTasks: proj.tasks,
+            evidenceCount: proj.evidence.length,
+          };
+        }
+      } else if (pageContextInput.pageType === 'tasks' && pageContextInput.entityId) {
+        const t = await prisma.task.findFirst({
+          where: { id: pageContextInput.entityId, userId },
+          include: {
+            project: { select: { name: true } },
+            blockingDependencies: { include: { blockingTask: { select: { title: true, status: true } } } },
+          },
+        });
+        if (t) {
+          details = {
+            title: t.title,
+            status: t.status,
+            priority: t.priority,
+            project: t.project?.name,
+            blockers: t.blockingDependencies.map((b) => b.blockingTask),
+          };
+        }
+      }
+
+      pageContextData = {
+        pageType: pageContextInput.pageType,
+        entityId: pageContextInput.entityId,
+        entityTitle: pageContextInput.entityTitle,
+        details: Object.keys(details).length > 0 ? details : undefined,
+      };
+    }
+
+    let summaryText = `Date: ${todayStr} | ASTU Graduation: ${daysRemaining ? `${daysRemaining} days` : 'Not set'} | Ind. Project: ${indProgress}% | Group Project: ${grpProgress}% | Enrolled Courses: ${academicCoursesCount} | Integrations: ${connectedIntegrations.length} active | Top Priority: ${nextBest ? nextBest.title : 'None'} | Overdue Tasks: ${overdueTasksCount} | Capacity: ${plannedMinutes}/${dailyCap}m (${utilizationPercentage || 0}%)`;
+
+    if (pageContextData) {
+      summaryText += ` | Active Page: ${pageContextData.pageType}${pageContextData.entityTitle ? ` (${pageContextData.entityTitle})` : ''}`;
+    }
 
     return {
       currentDate: todayStr,
@@ -221,6 +282,7 @@ export class ContextService {
         connectedProviders: connectedIntegrations.map((i) => i.provider),
         lastSyncAt: latestSyncAt,
       },
+      pageContext: pageContextData,
       summaryText,
     };
   }

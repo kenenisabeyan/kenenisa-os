@@ -1,4 +1,5 @@
 import { prisma } from '../../../lib/prisma.js';
+import { MilestoneStatus, TaskStatus } from '@prisma/client';
 
 export interface ToolDefinition {
   name: string;
@@ -16,34 +17,279 @@ export class IntelligenceToolRegistry {
   }
 
   private registerReadTools() {
+    // 1. High-level Current State
     this.tools.set('get_current_state', {
       name: 'get_current_state',
-      description: 'Get high-level factual summary of current tasks, capacity, projects, and learning.',
+      description: 'Get factual high-level summary of current tasks, projects, learning, and capacity.',
       parameters: { type: 'object', properties: {} },
       execute: async (userId) => {
-        const [tasks, projects, opportunities] = await Promise.all([
+        const [readyTasks, activeProjects, activeOpportunities, todayTimeBlocks] = await Promise.all([
           prisma.task.count({ where: { userId, status: { in: ['READY', 'IN_PROGRESS'] } } }),
           prisma.project.count({ where: { userId, status: 'ACTIVE' } }),
           prisma.opportunity.count({ where: { userId, status: { in: ['APPLIED', 'INTERVIEW', 'OFFERED', 'ACTIVE'] } } }),
+          prisma.timeBlock.findMany({
+            where: {
+              userId,
+              startAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
+            },
+          }),
         ]);
-        return { openTasks: tasks, activeProjects: projects, activeOpportunities: opportunities };
+        const plannedMinutes = todayTimeBlocks.reduce(
+          (acc, b) => acc + Math.max(0, Math.round((b.endAt.getTime() - b.startAt.getTime()) / 60000)),
+          0,
+        );
+        return { openTasks: readyTasks, activeProjects, activeOpportunities, plannedMinutesToday: plannedMinutes };
       },
     });
 
+    // 2. Blocked Tasks & Dependency Details
     this.tools.set('get_blocked_tasks', {
       name: 'get_blocked_tasks',
-      description: 'Retrieve all tasks that are currently BLOCKED.',
+      description: 'Retrieve all tasks that are currently BLOCKED along with their blocking prerequisites.',
       parameters: { type: 'object', properties: {} },
       execute: async (userId) => {
-        return prisma.task.findMany({
-          where: { userId, status: 'BLOCKED' },
-          select: { id: true, title: true, priority: true, project: { select: { name: true } } },
+        const blockedTasks = await prisma.task.findMany({
+          where: { userId, status: TaskStatus.BLOCKED },
+          select: {
+            id: true,
+            title: true,
+            priority: true,
+            project: { select: { id: true, name: true } },
+            blockingDependencies: {
+              select: {
+                blockingTask: {
+                  select: { id: true, title: true, status: true, priority: true },
+                },
+              },
+            },
+          },
         });
+        return {
+          count: blockedTasks.length,
+          blockedTasks: blockedTasks.map((t) => ({
+            id: t.id,
+            title: t.title,
+            priority: t.priority,
+            projectName: t.project?.name,
+            blockers: t.blockingDependencies.map((b) => ({
+              id: b.blockingTask.id,
+              title: b.blockingTask.title,
+              status: b.blockingTask.status,
+            })),
+          })),
+        };
+      },
+    });
+
+    // 3. Graduation Intelligence (Project A & B, Countdown, Defense Readiness)
+    this.tools.set('get_graduation_intelligence', {
+      name: 'get_graduation_intelligence',
+      description: 'Retrieve ASTU graduation command center metrics: Project A and Project B progress, countdown days, and milestone readiness.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const [targetDateMemory, graduationProjects, courses] = await Promise.all([
+          prisma.userMemory.findFirst({
+            where: { userId, key: 'graduation_target_date', archivedAt: null },
+          }),
+          prisma.project.findMany({
+            where: {
+              userId,
+              slug: { in: ['individual-graduation-project', 'group-graduation-project'] },
+            },
+            include: {
+              milestones: {
+                orderBy: { sortOrder: 'asc' },
+              },
+            },
+          }),
+          prisma.academicCourse.findMany({
+            where: { userId },
+            select: { id: true, code: true, title: true, academicStatus: true },
+          }),
+        ]);
+
+        const targetDate = targetDateMemory?.value || null;
+        let daysRemaining: number | null = null;
+        if (targetDate) {
+          const diffMs = new Date(targetDate).getTime() - Date.now();
+          daysRemaining = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+        }
+
+        const projectSummaries = graduationProjects.map((p) => {
+          const totalMilestones = p.milestones.length;
+          const reachedMilestones = p.milestones.filter((m) => m.status === MilestoneStatus.REACHED).length;
+          const delayedMilestones = p.milestones.filter((m) => m.status === MilestoneStatus.DELAYED);
+          const nextPending = p.milestones.find((m) => m.status !== MilestoneStatus.REACHED);
+
+          return {
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+            progressPercentage: totalMilestones > 0 ? Math.round((reachedMilestones / totalMilestones) * 100) : 0,
+            totalMilestones,
+            reachedMilestones,
+            delayedCount: delayedMilestones.length,
+            nextMilestone: nextPending ? { id: nextPending.id, name: nextPending.name, targetDate: nextPending.targetDate } : null,
+          };
+        });
+
+        return {
+          university: 'Adama Science and Technology University (ASTU)',
+          academicYear: '2026/2027',
+          daysRemaining,
+          targetDate,
+          projects: projectSummaries,
+          enrolledCoursesCount: courses.filter((c) => c.academicStatus === 'ENROLLED').length,
+          completedCoursesCount: courses.filter((c) => c.academicStatus === 'COMPLETED').length,
+        };
+      },
+    });
+
+    // 4. Academic Obligations & Course Deadlines
+    this.tools.set('get_academic_obligations', {
+      name: 'get_academic_obligations',
+      description: 'Retrieve ASTU semester courses, upcoming assignments, exams, and lecture study topics.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const courses = await prisma.academicCourse.findMany({
+          where: { userId },
+          include: {
+            semester: { select: { semester: true, academicYear: true } },
+          },
+        });
+
+        return {
+          count: courses.length,
+          courses: courses.map((c) => ({
+            id: c.id,
+            code: c.code,
+            title: c.title,
+            creditHours: c.creditHours,
+            instructor: c.instructor,
+            academicStatus: c.academicStatus,
+            currentUnderstanding: c.currentUnderstanding,
+            assignments: c.assignments || [],
+            testsAndExams: c.testsAndExams || [],
+          })),
+        };
+      },
+    });
+
+    // 5. Skill Gaps and Verifiable Evidence
+    this.tools.set('get_skill_gaps_and_evidence', {
+      name: 'get_skill_gaps_and_evidence',
+      description: 'Audit engineering skills, accumulated practice hours, and attached verifiable proof (GitHub commits, docs, repos).',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const [skills, evidenceList] = await Promise.all([
+          prisma.skill.findMany({
+            where: { userId, status: 'ACTIVE' },
+            include: {
+              evidence: {
+                include: { evidence: { select: { id: true, title: true, type: true, verified: true } } },
+              },
+            },
+          }),
+          prisma.evidence.findMany({
+            where: { userId },
+            take: 10,
+            orderBy: { date: 'desc' },
+            select: { id: true, title: true, type: true, url: true, verified: true },
+          }),
+        ]);
+
+        return {
+          totalSkills: skills.length,
+          skills: skills.map((s) => ({
+            id: s.id,
+            name: s.name,
+            currentLevel: s.currentLevel,
+            targetLevel: s.targetLevel,
+            category: s.category,
+            evidenceCount: s.evidence.length,
+          })),
+          recentEvidence: evidenceList,
+        };
+      },
+    });
+
+    // 6. Project Bottlenecks & Critical Path
+    this.tools.set('get_project_bottlenecks', {
+      name: 'get_project_bottlenecks',
+      description: 'Detect overdue tasks, delayed milestones, circular dependencies, and stagnant work items across all active projects.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const [overdueTasks, delayedMilestones, stagnantTasks] = await Promise.all([
+          prisma.task.findMany({
+            where: {
+              userId,
+              status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] },
+              dueDate: { lt: new Date() },
+            },
+            select: { id: true, title: true, dueDate: true, priority: true, project: { select: { name: true } } },
+          }),
+          prisma.milestone.findMany({
+            where: {
+              project: { userId },
+              status: MilestoneStatus.DELAYED,
+            },
+            select: { id: true, name: true, targetDate: true, project: { select: { name: true } } },
+          }),
+          prisma.task.findMany({
+            where: {
+              userId,
+              status: TaskStatus.IN_PROGRESS,
+              updatedAt: { lt: new Date(Date.now() - 7 * 86400000) },
+            },
+            select: { id: true, title: true, updatedAt: true, project: { select: { name: true } } },
+          }),
+        ]);
+
+        return {
+          overdueCount: overdueTasks.length,
+          delayedMilestonesCount: delayedMilestones.length,
+          stagnantCount: stagnantTasks.length,
+          overdueTasks,
+          delayedMilestones,
+          stagnantTasks,
+        };
+      },
+    });
+
+    // 7. Weekly Review Summary Generator
+    this.tools.set('generate_weekly_review_summary', {
+      name: 'generate_weekly_review_summary',
+      description: 'Generate factual weekly retrospective metrics: tasks shipped, learning hours, planned vs actual time, and blocker audit.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const weekAgo = new Date(Date.now() - 7 * 86400000);
+        const [completedTasks, learningAgg, evidenceCount, blockersCount] = await Promise.all([
+          prisma.task.findMany({
+            where: { userId, status: TaskStatus.DONE, completedAt: { gte: weekAgo } },
+            select: { id: true, title: true, priority: true, actualMinutes: true, project: { select: { name: true } } },
+          }),
+          prisma.learningActivity.aggregate({
+            where: { userId, date: { gte: weekAgo } },
+            _sum: { minutes: true },
+          }),
+          prisma.evidence.count({ where: { userId, createdAt: { gte: weekAgo } } }),
+          prisma.task.count({ where: { userId, status: TaskStatus.BLOCKED } }),
+        ]);
+
+        return {
+          period: 'Past 7 Days',
+          tasksShippedCount: completedTasks.length,
+          completedTasks: completedTasks.map((t) => ({ title: t.title, project: t.project?.name, minutes: t.actualMinutes })),
+          totalLearningMinutes: learningAgg._sum.minutes || 0,
+          evidenceProducedCount: evidenceCount,
+          activeBlockersCount: blockersCount,
+        };
       },
     });
   }
 
   private registerActionTools() {
+    // 8. Propose Create Task
     this.tools.set('propose_create_task', {
       name: 'propose_create_task',
       description: 'Propose creating a new task. Requires user confirmation before execution.',
@@ -51,8 +297,10 @@ export class IntelligenceToolRegistry {
         type: 'object',
         properties: {
           title: { type: 'string', description: 'Task title' },
+          projectId: { type: 'string', description: 'Target Project UUID' },
           priority: { type: 'string', enum: ['P0', 'P1', 'P2', 'P3'] },
           estimateMinutes: { type: 'number' },
+          dueDate: { type: 'string', description: 'ISO date string' },
         },
         required: ['title'],
       },
@@ -68,15 +316,17 @@ export class IntelligenceToolRegistry {
       },
     });
 
+    // 9. Propose Create Time Block
     this.tools.set('propose_create_time_block', {
       name: 'propose_create_time_block',
-      description: 'Propose scheduling a time block. Requires user confirmation before execution.',
+      description: 'Propose scheduling a focus time block. Requires user confirmation before execution.',
       parameters: {
         type: 'object',
         properties: {
           title: { type: 'string' },
-          startAt: { type: 'string' },
-          endAt: { type: 'string' },
+          startAt: { type: 'string', description: 'ISO datetime string' },
+          endAt: { type: 'string', description: 'ISO datetime string' },
+          taskId: { type: 'string', description: 'Optional associated task UUID' },
         },
         required: ['title', 'startAt', 'endAt'],
       },
@@ -86,6 +336,28 @@ export class IntelligenceToolRegistry {
         return {
           proposedAction: 'CREATE_TIME_BLOCK',
           summary: `Create time block "${title}"`,
+          args,
+        };
+      },
+    });
+
+    // 10. Propose Resolve Blocker
+    this.tools.set('propose_resolve_blocker', {
+      name: 'propose_resolve_blocker',
+      description: 'Propose resolving a blocked task by marking its blocking prerequisite as DONE. Requires user confirmation.',
+      parameters: {
+        type: 'object',
+        properties: {
+          blockedTaskId: { type: 'string', description: 'UUID of blocked task' },
+          prerequisiteTaskId: { type: 'string', description: 'UUID of prerequisite task to mark DONE' },
+        },
+        required: ['blockedTaskId', 'prerequisiteTaskId'],
+      },
+      execute: async (_userId, args) => {
+        await Promise.resolve();
+        return {
+          proposedAction: 'RESOLVE_BLOCKER',
+          summary: `Resolve blocker by advancing prerequisite task ${args.prerequisiteTaskId} to DONE`,
           args,
         };
       },

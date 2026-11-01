@@ -14,6 +14,7 @@ import {
   updateOpportunity,
 } from '../features/opportunities/api.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 interface PipelineColumn {
   id: string;
@@ -779,6 +780,9 @@ export const OpportunitiesPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Embedded Central AI Copilot */}
+      <PageAiCopilot pageType="career" />
     </div>
   );
 };

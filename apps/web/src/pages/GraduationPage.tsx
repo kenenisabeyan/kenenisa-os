@@ -6,6 +6,7 @@ import {
   initializeGraduationWorkspace,
 } from '../features/graduation/api.js';
 import type { GraduationOverviewDto } from '@kenenisa-os/shared';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const GraduationPage: React.FC = () => {
   const [overview, setOverview] = useState<GraduationOverviewDto | null>(null);
@@ -150,6 +151,8 @@ export const GraduationPage: React.FC = () => {
             </Link>
           </div>
         </div>
+
+        <PageAiCopilot pageType="graduation" />
 
         {/* Academic Profile Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pt-6">

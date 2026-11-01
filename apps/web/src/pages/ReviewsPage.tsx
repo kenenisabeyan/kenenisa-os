@@ -11,6 +11,7 @@ import type { WeeklyReviewDto, WeeklyReviewContextDto } from '@kenenisa-os/share
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 interface RetroChecklistItem {
   id: string;
@@ -212,6 +213,8 @@ export const ReviewsPage: React.FC = () => {
           </button>
         }
       />
+
+      <PageAiCopilot pageType="reviews" />
 
       {loading ? (
         <LoadingSkeleton rows={4} height="h-28" />

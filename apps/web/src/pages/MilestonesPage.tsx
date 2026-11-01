@@ -10,6 +10,7 @@ import {
 } from '../features/milestones/api.js';
 import { fetchProjects } from '../features/projects/api.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 const MILESTONE_BOARD_COLUMNS: {
   status: MilestoneStatus;
@@ -815,6 +816,9 @@ export const MilestonesPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Embedded Central AI Copilot */}
+      <PageAiCopilot pageType="projects" />
     </div>
   );
 };

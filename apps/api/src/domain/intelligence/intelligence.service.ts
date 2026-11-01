@@ -16,6 +16,7 @@ import { MemoryService } from './memory/memory.service.js';
 import { AIProvider } from './provider/ai-provider.interface.js';
 import { OpenAIProvider } from './provider/openai-ai-provider.js';
 import { NotFoundError, ForbiddenError, BadRequestError } from '../../utils/errors.js';
+import { InternalCascadeService } from '../integration/internal-cascade.service.js';
 
 export class IntelligenceService {
   private contextService = new ContextService();
@@ -24,8 +25,8 @@ export class IntelligenceService {
   private memoryService = new MemoryService();
   private provider: AIProvider = new OpenAIProvider();
 
-  // Active proposals stored temporarily in-memory for confirmation execution
-  private pendingProposals = new Map<string, { userId: string; actionType: string; details: Record<string, unknown> }>();
+  // Active proposals stored in-memory + persisted with 24h TTL
+  private pendingProposals = new Map<string, { userId: string; actionType: string; details: Record<string, unknown>; expiresAt: number }>();
 
   async chat(userId: string, input: IntelligenceChatInput): Promise<IntelligenceChatOutput> {
     const { cleanText } = this.safetyService.sanitizeInput(input.message);
@@ -61,8 +62,8 @@ export class IntelligenceService {
       take: 10,
     });
 
-    // 4. Build deterministic context
-    const context = await this.contextService.buildContext(userId);
+    // 4. Build deterministic context with optional page-aware context
+    const context = await this.contextService.buildContext(userId, input.pageContext);
 
     // 5. Generate AI response
     const requestMessages = history.map((m) => ({
@@ -85,11 +86,25 @@ export class IntelligenceService {
 
       if (result && result.proposedAction) {
         const proposalId = `prop-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
-        this.pendingProposals.set(proposalId, {
+        const proposalPayload = {
           userId,
           actionType: result.proposedAction,
           details: result.args || toolCall.arguments,
-        });
+          expiresAt: Date.now() + 86400000, // 24-hour TTL
+        };
+
+        this.pendingProposals.set(proposalId, proposalPayload);
+
+        // Persist with 24-hour TTL in userMemory
+        await prisma.userMemory.create({
+          data: {
+            userId,
+            key: `proposal_${proposalId}`,
+            value: JSON.stringify(proposalPayload),
+            category: 'WORKFLOW',
+            source: 'AI_PROPOSAL',
+          },
+        }).catch(() => {});
 
         proposal = {
           id: proposalId,
@@ -156,12 +171,35 @@ export class IntelligenceService {
   }
 
   async executeConfirmedAction(userId: string, input: ActionExecutionInput): Promise<{ success: boolean; result: unknown }> {
-    const pending = this.pendingProposals.get(input.proposalId);
+    let pending = this.pendingProposals.get(input.proposalId);
+
+    if (!pending) {
+      // Check persistent userMemory storage
+      const mem = await prisma.userMemory.findFirst({
+        where: { userId, key: `proposal_${input.proposalId}`, archivedAt: null },
+      });
+      if (mem) {
+        try {
+          const parsed = JSON.parse(mem.value) as { userId: string; actionType: string; details: Record<string, unknown>; expiresAt: number };
+          if (parsed.expiresAt && Date.now() > parsed.expiresAt) {
+            throw new BadRequestError(`Action proposal has expired: ${input.proposalId}`);
+          }
+          pending = parsed;
+        } catch (e: any) {
+          if (e instanceof BadRequestError) throw e;
+        }
+      }
+    }
+
     if (!pending) throw new NotFoundError(`Action proposal not found or expired: ${input.proposalId}`);
     if (pending.userId !== userId) throw new ForbiddenError('Access denied');
 
     if (!input.confirm) {
       this.pendingProposals.delete(input.proposalId);
+      await prisma.userMemory.updateMany({
+        where: { userId, key: `proposal_${input.proposalId}` },
+        data: { archivedAt: new Date() },
+      }).catch(() => {});
       return { success: false, result: 'Action proposal cancelled by user.' };
     }
 
@@ -169,19 +207,26 @@ export class IntelligenceService {
 
     if (pending.actionType === 'CREATE_TASK') {
       const title = (pending.details.title as string) || 'New AI Proposed Task';
-      const defaultProject = await prisma.project.findFirst({ where: { userId, status: 'ACTIVE' } });
-      if (!defaultProject) throw new BadRequestError('Cannot create task: No active project exists to assign task.');
+      let targetProjectId = pending.details.projectId as string | undefined;
+
+      if (!targetProjectId) {
+        const defaultProject = await prisma.project.findFirst({ where: { userId, status: 'ACTIVE' } });
+        if (!defaultProject) throw new BadRequestError('Cannot create task: No active project exists to assign task.');
+        targetProjectId = defaultProject.id;
+      }
 
       const priorityVal = (pending.details.priority as 'P0' | 'P1' | 'P2' | 'P3') || 'P2';
       const estimateVal = (pending.details.estimateMinutes as number) || 60;
+      const dueDateVal = pending.details.dueDate ? new Date(pending.details.dueDate as string) : undefined;
 
       const task = await prisma.task.create({
         data: {
           userId,
-          projectId: defaultProject.id,
+          projectId: targetProjectId,
           title,
           priority: priorityVal,
           estimateMinutes: estimateVal,
+          dueDate: dueDateVal,
           status: 'READY',
         },
       });
@@ -207,9 +252,35 @@ export class IntelligenceService {
 
       const mem = await this.memoryService.createUserMemory(userId, { key, value });
       result = mem;
+    } else if (pending.actionType === 'RESOLVE_BLOCKER') {
+      const prereqId = pending.details.prerequisiteTaskId as string;
+      const blockedId = pending.details.blockedTaskId as string;
+
+      const prereqTask = await prisma.task.findFirst({ where: { id: prereqId, userId } });
+      if (!prereqTask) throw new NotFoundError(`Prerequisite task not found: ${prereqId}`);
+
+      await prisma.task.update({
+        where: { id: prereqId },
+        data: { status: 'DONE', completedAt: new Date() },
+      });
+
+      // Trigger internal cascade to unblock dependent tasks
+      await InternalCascadeService.onTaskStatusChanged(
+        prereqId,
+        userId,
+        prereqTask.status,
+        'DONE',
+      );
+
+      result = { resolvedPrerequisiteId: prereqId, unblockedTaskId: blockedId, status: 'DONE' };
     }
 
     this.pendingProposals.delete(input.proposalId);
+    await prisma.userMemory.updateMany({
+      where: { userId, key: `proposal_${input.proposalId}` },
+      data: { archivedAt: new Date() },
+    }).catch(() => {});
+
     return { success: true, result };
   }
 

@@ -6,6 +6,7 @@ import { createWorkstream, updateWorkstream } from '../features/workstreams/api.
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const DashboardPage: React.FC = () => {
   const { showToast } = useToast();
@@ -341,6 +342,8 @@ export const DashboardPage: React.FC = () => {
           </div>
         }
       />
+
+      <PageAiCopilot pageType="dashboard" />
 
       {/* 7 Core Operating Questions Front-Door Overview */}
       <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4" id="front-door-questions-panel">

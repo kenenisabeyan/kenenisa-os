@@ -811,9 +811,17 @@ export const memoryCategorySchema = z.enum([
   'OTHER',
 ]);
 
+export const pageContextSchema = z.object({
+  pageType: z.string().trim().min(1),
+  entityId: z.string().trim().optional(),
+  activeFilters: z.record(z.any()).optional(),
+  entityTitle: z.string().trim().optional(),
+});
+
 export const intelligenceChatSchema = z.object({
   conversationId: z.string().uuid('Invalid conversation ID').optional(),
   message: z.string().trim().min(1, 'Message cannot be empty').max(4000),
+  pageContext: pageContextSchema.optional(),
 });
 
 export const createConversationSchema = z.object({

@@ -20,6 +20,7 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const CareerPage: React.FC = () => {
   const navigate = useNavigate();
@@ -139,6 +140,8 @@ export const CareerPage: React.FC = () => {
           </div>
         }
       />
+
+      <PageAiCopilot pageType="career" entityTitle={selectedOpp?.title} />
 
       {loading ? (
         <LoadingSkeleton rows={5} height="h-32" />

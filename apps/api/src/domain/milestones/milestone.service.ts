@@ -145,6 +145,8 @@ export class MilestoneService {
       completedAt: null,
     });
 
+    await InternalCascadeService.onMilestoneStatusChanged(id, userId, MilestoneStatus.IN_PROGRESS);
+
     await recordAuditLog({
       userId,
       entityType: 'Milestone',

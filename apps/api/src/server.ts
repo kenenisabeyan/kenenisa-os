@@ -2,6 +2,10 @@ import { createApp } from './app.js';
 import { config } from './config/index.js';
 import { logger } from './lib/logger.js';
 import { prisma } from './lib/prisma.js';
+import { automationEngineService } from './domain/automation/automation-engine.service.js';
+
+// Initialize background event bus & automation engine
+automationEngineService.initialize();
 
 const app = createApp();
 

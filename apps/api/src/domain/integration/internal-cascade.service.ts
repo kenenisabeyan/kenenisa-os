@@ -1,6 +1,7 @@
 import { prisma } from '../../lib/prisma.js';
 import { TaskStatus, MilestoneStatus, ProjectStatus } from '@prisma/client';
 import { recordAuditLog } from '../../services/audit.service.js';
+import { domainEventBus } from '../automation/domain-event-bus.js';
 
 export interface CascadeResult {
   unblockedTaskIds: string[];
@@ -206,6 +207,18 @@ export class InternalCascadeService {
       }
     }
 
+    // Emit to Domain Event Bus for cross-module automation rules & workflows
+    await domainEventBus.emit({
+      type: 'task.status_changed',
+      userId,
+      taskId,
+      previousStatus,
+      newStatus,
+      title: task.title,
+      projectId: task.projectId,
+      milestoneId: task.milestoneId,
+    });
+
     return result;
   }
 
@@ -221,7 +234,7 @@ export class InternalCascadeService {
 
     const milestone = await prisma.milestone.findFirst({
       where: { id: milestoneId, userId },
-      select: { id: true, projectId: true },
+      select: { id: true, projectId: true, name: true, status: true },
     });
 
     if (!milestone) return result;
@@ -260,6 +273,17 @@ export class InternalCascadeService {
         };
       }
     }
+
+    // Emit to Domain Event Bus
+    await domainEventBus.emit({
+      type: 'milestone.status_changed',
+      userId,
+      milestoneId,
+      previousStatus: milestone.status,
+      newStatus,
+      title: milestone.name,
+      projectId: milestone.projectId,
+    });
 
     return result;
   }
@@ -312,6 +336,21 @@ export class InternalCascadeService {
         },
       });
     }
+
+    // Emit to Domain Event Bus
+    const learningItem = await prisma.learningItem.findUnique({
+      where: { id: learningItemId },
+      select: { title: true },
+    });
+
+    await domainEventBus.emit({
+      type: 'learning.recorded',
+      userId,
+      learningItemId,
+      minutes,
+      title: learningItem?.title || 'Learning Session',
+      skillIds: itemSkills.map((s) => s.skillId),
+    });
 
     return result;
   }

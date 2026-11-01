@@ -4,12 +4,14 @@ import { IntelligenceSafetyService } from '../domain/intelligence/safety/intelli
 import { MockAIProvider } from '../domain/intelligence/provider/mock-ai-provider.js';
 import {
   intelligenceChatSchema,
+  pageContextSchema,
   createConversationSchema,
   updateConversationSchema,
   createUserMemorySchema,
   updateUserMemorySchema,
   confirmActionSchema,
 } from '@kenenisa-os/shared';
+import { IntelligenceToolRegistry } from '../domain/intelligence/tools/intelligence-tool.registry.js';
 
 describe('Intelligence Core (Step 12) Unit Test Suite', () => {
   const service = new IntelligenceService();
@@ -136,5 +138,55 @@ describe('Intelligence Core (Step 12) Unit Test Suite', () => {
     expect(typeof service.listUserMemories).toBe('function');
     expect(typeof service.createUserMemory).toBe('function');
     expect(typeof service.archiveUserMemory).toBe('function');
+  });
+
+  it('validates page context schema and page-aware chat input', () => {
+    const pageCtx = pageContextSchema.parse({
+      pageType: 'projects',
+      entityId: 'proj-1234',
+      entityTitle: 'Individual Graduation Project',
+      activeFilters: { status: 'ACTIVE' },
+    });
+
+    expect(pageCtx.pageType).toBe('projects');
+    expect(pageCtx.entityId).toBe('proj-1234');
+    expect(pageCtx.entityTitle).toBe('Individual Graduation Project');
+
+    const chatWithCtx = intelligenceChatSchema.parse({
+      message: 'Analyze bottlenecks for this project',
+      pageContext: pageCtx,
+    });
+
+    expect(chatWithCtx.pageContext?.pageType).toBe('projects');
+  });
+
+  it('registers all 10 specialized domain tools in IntelligenceToolRegistry', () => {
+    const registry = new IntelligenceToolRegistry();
+    const availableTools = registry.getAvailableTools();
+    const toolNames = availableTools.map((t) => t.name);
+
+    expect(availableTools.length).toBeGreaterThanOrEqual(10);
+    expect(toolNames).toContain('get_current_state');
+    expect(toolNames).toContain('get_blocked_tasks');
+    expect(toolNames).toContain('get_graduation_intelligence');
+    expect(toolNames).toContain('get_academic_obligations');
+    expect(toolNames).toContain('get_skill_gaps_and_evidence');
+    expect(toolNames).toContain('get_project_bottlenecks');
+    expect(toolNames).toContain('generate_weekly_review_summary');
+    expect(toolNames).toContain('propose_create_task');
+    expect(toolNames).toContain('propose_create_time_block');
+    expect(toolNames).toContain('propose_resolve_blocker');
+  });
+
+  it('proposes blocker resolution action proposal via propose_resolve_blocker tool', async () => {
+    const registry = new IntelligenceToolRegistry();
+    const res = (await registry.executeTool('propose_resolve_blocker', 'test-user', {
+      blockedTaskId: 'task-blocked-1',
+      prerequisiteTaskId: 'task-prereq-1',
+    })) as any;
+
+    expect(res.proposedAction).toBe('RESOLVE_BLOCKER');
+    expect(res.args.blockedTaskId).toBe('task-blocked-1');
+    expect(res.args.prerequisiteTaskId).toBe('task-prereq-1');
   });
 });

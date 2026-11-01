@@ -23,6 +23,7 @@ import {
 } from '@kenenisa-os/shared';
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const PlanningPage: React.FC = () => {
   const { showToast } = useToast();
@@ -330,6 +331,8 @@ export const PlanningPage: React.FC = () => {
           </button>
         </div>
       </PageHeader>
+
+      <PageAiCopilot pageType="tasks" />
 
       {/* Horizon Tab Navigation */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-2.5 rounded-2xl border border-slate-200/90 shadow-xs">

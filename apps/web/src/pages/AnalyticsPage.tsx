@@ -33,6 +33,7 @@ import {
   fetchWeeklyHistory,
 } from '../features/analytics/api.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const AnalyticsPage: React.FC = () => {
   const { showToast } = useToast();
@@ -847,6 +848,9 @@ export const AnalyticsPage: React.FC = () => {
           )}
         </>
       )}
+
+      {/* Embedded Central AI Copilot */}
+      <PageAiCopilot pageType="analytics" />
     </div>
   );
 };

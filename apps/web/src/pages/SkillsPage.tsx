@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { fetchSkills, fetchSkillById, createSkill, updateSkill, archiveSkill } from '../features/learning/api.js';
 import type { SkillDto, SkillDetailDto, SkillLevel } from '@kenenisa-os/shared';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 const SKILL_LEVELS: SkillLevel[] = ['BEGINNER', 'ELEMENTARY', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'];
 
@@ -254,6 +255,8 @@ export function SkillsPage() {
           + Add Skill
         </button>
       </div>
+
+      <PageAiCopilot pageType="learning" entityTitle={selectedSkill?.name} />
 
       {/* Filter & View Mode Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-xs">

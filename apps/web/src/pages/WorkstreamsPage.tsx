@@ -5,6 +5,7 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const WorkstreamsPage: React.FC = () => {
   const { showToast } = useToast();
@@ -387,6 +388,9 @@ export const WorkstreamsPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Embedded Central AI Copilot */}
+      <PageAiCopilot pageType="workstreams" />
     </div>
   );
 };

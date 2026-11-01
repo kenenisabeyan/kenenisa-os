@@ -23,6 +23,7 @@ import {
   fetchCapacityAnalysis,
 } from '../features/results/api.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const ResultsPage: React.FC = () => {
   const { showToast } = useToast();
@@ -698,6 +699,9 @@ export const ResultsPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Embedded Central AI Copilot */}
+      <PageAiCopilot pageType="results" />
     </div>
   );
 };

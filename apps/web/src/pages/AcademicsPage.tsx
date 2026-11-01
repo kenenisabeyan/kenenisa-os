@@ -13,6 +13,7 @@ import type {
   UnderstandingLevel,
   AcademicStatus,
 } from '@kenenisa-os/shared';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const AcademicsPage: React.FC = () => {
   const [semesters, setSemesters] = useState<AcademicSemesterDto[]>([]);
@@ -580,6 +581,9 @@ export const AcademicsPage: React.FC = () => {
           </div>
         </div>
       ) : null}
+
+      {/* Embedded Central AI Copilot */}
+      <PageAiCopilot pageType="academics" />
     </div>
   );
 };
