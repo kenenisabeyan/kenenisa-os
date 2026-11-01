@@ -256,6 +256,244 @@ export class IntelligenceToolRegistry {
       },
     });
 
+    // 6a. Active Strategic Goals
+    this.tools.set('get_active_goals', {
+      name: 'get_active_goals',
+      description: 'Retrieve all strategic goals with their linked projects, priorities, and progress status.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const goals = await prisma.goal.findMany({
+          where: { userId, status: { in: ['PLANNED', 'IN_PROGRESS'] } },
+          include: {
+            workstream: { select: { name: true } },
+            projects: { select: { id: true, name: true, status: true } },
+          },
+          orderBy: [{ priority: 'asc' }, { targetDate: 'asc' }],
+        });
+        return {
+          goalsCount: goals.length,
+          goals: goals.map((g) => ({
+            id: g.id,
+            title: g.title,
+            workstream: g.workstream.name,
+            priority: g.priority,
+            status: g.status,
+            targetDate: g.targetDate,
+            projects: g.projects,
+          })),
+        };
+      },
+    });
+
+    // 6b. Deep Project Details & Relationship Inspection
+    this.tools.set('get_project_details', {
+      name: 'get_project_details',
+      description: 'Retrieve comprehensive details for a specific project including goal, milestones, tasks, dependencies, and evidence.',
+      parameters: {
+        type: 'object',
+        properties: {
+          projectId: { type: 'string', description: 'UUID of the project' },
+          projectName: { type: 'string', description: 'Name or partial name of the project' },
+        },
+      },
+      execute: async (userId, args) => {
+        const { projectId, projectName } = args as { projectId?: string; projectName?: string };
+        const project = await prisma.project.findFirst({
+          where: {
+            userId,
+            ...(projectId ? { id: projectId } : {}),
+            ...(projectName ? { name: { contains: projectName, mode: 'insensitive' } } : {}),
+          },
+          include: {
+            goal: { select: { id: true, title: true } },
+            milestones: {
+              orderBy: { sortOrder: 'asc' },
+              select: { id: true, name: true, status: true, targetDate: true, completedAt: true },
+            },
+            tasks: {
+              orderBy: [{ priority: 'asc' }, { dueDate: 'asc' }],
+              select: {
+                id: true,
+                title: true,
+                status: true,
+                priority: true,
+                dueDate: true,
+                blockingDependencies: {
+                  select: {
+                    blockingTask: { select: { id: true, title: true, status: true } },
+                  },
+                },
+              },
+            },
+            evidence: {
+              include: { evidence: { select: { id: true, title: true, type: true, url: true } } },
+            },
+          },
+        });
+
+        if (!project) {
+          return { found: false, message: `No project found matching ${projectId || projectName || 'query'}` };
+        }
+
+        const totalTasks = project.tasks.length;
+        const completedTasks = project.tasks.filter((t) => t.status === TaskStatus.DONE).length;
+        const blockedTasks = project.tasks.filter((t) => t.status === TaskStatus.BLOCKED);
+
+        return {
+          found: true,
+          id: project.id,
+          name: project.name,
+          description: project.description,
+          status: project.status,
+          goal: project.goal?.title || 'Unlinked',
+          progressPercentage: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
+          totalTasks,
+          completedTasks,
+          blockedTasksCount: blockedTasks.length,
+          blockedTasks: blockedTasks.map((t) => ({
+            id: t.id,
+            title: t.title,
+            priority: t.priority,
+            blockedBy: t.blockingDependencies.map((d) => `${d.blockingTask.title} (${d.blockingTask.status})`),
+          })),
+          milestones: project.milestones,
+          tasks: project.tasks.slice(0, 20),
+          evidence: project.evidence.map((e) => e.evidence),
+        };
+      },
+    });
+
+    // 6c. Upcoming Deadlines across Tasks, Milestones, and Academic Courses
+    this.tools.set('get_upcoming_deadlines', {
+      name: 'get_upcoming_deadlines',
+      description: 'Retrieve all tasks, milestones, and academic deliverables due within the next N days (default 7).',
+      parameters: {
+        type: 'object',
+        properties: {
+          daysAhead: { type: 'number', description: 'Days to look ahead (default 7)' },
+        },
+      },
+      execute: async (userId, args) => {
+        const days = Number(args.daysAhead) || 7;
+        const futureDate = new Date(Date.now() + days * 86400000);
+
+        const [upcomingTasks, upcomingMilestones, academicCourses] = await Promise.all([
+          prisma.task.findMany({
+            where: {
+              userId,
+              status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] },
+              dueDate: { lte: futureDate },
+            },
+            orderBy: { dueDate: 'asc' },
+            select: { id: true, title: true, dueDate: true, priority: true, project: { select: { name: true } } },
+          }),
+          prisma.milestone.findMany({
+            where: {
+              project: { userId },
+              status: { not: MilestoneStatus.REACHED },
+              targetDate: { lte: futureDate },
+            },
+            orderBy: { targetDate: 'asc' },
+            select: { id: true, name: true, targetDate: true, project: { select: { name: true } } },
+          }),
+          prisma.academicCourse.findMany({
+            where: { userId },
+            select: { code: true, title: true, assessmentDates: true, assignments: true, testsAndExams: true },
+          }),
+        ]);
+
+        return {
+          windowDays: days,
+          tasksDue: upcomingTasks,
+          milestonesDue: upcomingMilestones,
+          academicCourses: academicCourses,
+        };
+      },
+    });
+
+    // 6d. Daily Execution Plan & Capacity
+    this.tools.set('get_daily_plan', {
+      name: 'get_daily_plan',
+      description: "Get today's planned time blocks, candidate ready tasks, and capacity utilization.",
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const todayStart = new Date(new Date().setHours(0, 0, 0, 0));
+        const todayEnd = new Date(new Date().setHours(23, 59, 59, 999));
+
+        const [timeBlocks, inProgressTasks, readyTasks, settings] = await Promise.all([
+          prisma.timeBlock.findMany({
+            where: { userId, startAt: { gte: todayStart, lte: todayEnd } },
+            include: { task: { select: { title: true, priority: true } } },
+            orderBy: { startAt: 'asc' },
+          }),
+          prisma.task.findMany({
+            where: { userId, status: TaskStatus.IN_PROGRESS },
+            select: { id: true, title: true, priority: true, project: { select: { name: true } } },
+          }),
+          prisma.task.findMany({
+            where: { userId, status: TaskStatus.READY },
+            orderBy: { priority: 'asc' },
+            take: 5,
+            select: { id: true, title: true, priority: true, project: { select: { name: true } } },
+          }),
+          prisma.userSettings.findUnique({ where: { userId } }),
+        ]);
+
+        const plannedMinutes = timeBlocks.reduce(
+          (acc, b) => acc + Math.max(0, Math.round((b.endAt.getTime() - b.startAt.getTime()) / 60000)),
+          0,
+        );
+        const dailyCapacity = settings?.dailyWorkCapacityMinutes || 360;
+
+        return {
+          scheduledBlocks: timeBlocks.map((b) => ({
+            id: b.id,
+            title: b.title,
+            startAt: b.startAt,
+            endAt: b.endAt,
+            task: b.task?.title,
+          })),
+          inProgressTasks,
+          readyNextTasks: readyTasks,
+          plannedMinutes,
+          dailyCapacityMinutes: dailyCapacity,
+          utilizationPercentage: Math.round((plannedMinutes / dailyCapacity) * 100),
+        };
+      },
+    });
+
+    // 6e. Career Opportunities Pipeline
+    this.tools.set('get_career_opportunities', {
+      name: 'get_career_opportunities',
+      description: 'Retrieve career opportunities pipeline, active job applications, and candidate match scores.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const [opportunities, userSkills] = await Promise.all([
+          prisma.opportunity.findMany({
+            where: { userId },
+            orderBy: { updatedAt: 'desc' },
+          }),
+          prisma.skill.findMany({
+            where: { userId },
+            select: { name: true, currentLevel: true },
+          }),
+        ]);
+
+        return {
+          totalOpportunities: opportunities.length,
+          opportunities: opportunities.map((o) => ({
+            id: o.id,
+            title: o.title,
+            organizationName: o.organizationName,
+            status: o.status,
+            priority: o.priority,
+            deadline: o.deadline,
+          })),
+          userSkillNames: userSkills.map((s) => s.name),
+        };
+      },
+    });
+
     // 7. Weekly Review Summary Generator
     this.tools.set('generate_weekly_review_summary', {
       name: 'generate_weekly_review_summary',

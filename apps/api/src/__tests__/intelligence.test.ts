@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { IntelligenceService } from '../domain/intelligence/intelligence.service.js';
 import { IntelligenceSafetyService } from '../domain/intelligence/safety/intelligence-safety.service.js';
 import { MockAIProvider } from '../domain/intelligence/provider/mock-ai-provider.js';
@@ -12,6 +12,8 @@ import {
   confirmActionSchema,
 } from '@kenenisa-os/shared';
 import { IntelligenceToolRegistry } from '../domain/intelligence/tools/intelligence-tool.registry.js';
+import { GroundedReasoningEngine } from '../domain/intelligence/provider/grounded-reasoning-engine.js';
+import { AIProviderFactory } from '../domain/intelligence/provider/ai-provider.factory.js';
 
 describe('Intelligence Core (Step 12) Unit Test Suite', () => {
   const service = new IntelligenceService();
@@ -188,5 +190,147 @@ describe('Intelligence Core (Step 12) Unit Test Suite', () => {
     expect(res.proposedAction).toBe('RESOLVE_BLOCKER');
     expect(res.args.blockedTaskId).toBe('task-blocked-1');
     expect(res.args.prerequisiteTaskId).toBe('task-prereq-1');
+  });
+
+  describe('GroundedReasoningEngine Dynamic Data-Grounded Intelligence', () => {
+    const mockToolRegistry = new IntelligenceToolRegistry();
+    vi.spyOn(mockToolRegistry, 'executeTool').mockImplementation(async (name: string) => {
+      if (name === 'get_blocked_tasks') {
+        return {
+          blockedTasks: [
+            {
+              id: 'task-b1',
+              title: 'Implement Auth Service',
+              priority: 'P1',
+              project: { name: 'Individual Project A' },
+              blockingDependencies: [
+                { blockingTaskId: 'task-p1', blockingTask: { title: 'Design DB Schema', status: 'IN_PROGRESS' } },
+              ],
+            },
+          ],
+        };
+      }
+      if (name === 'get_graduation_intelligence') {
+        return {
+          daysRemaining: 120,
+          targetDate: '2027-06-30',
+          projects: [
+            {
+              slug: 'individual-graduation-project',
+              name: 'Individual Project A',
+              progressPercentage: 45,
+              reachedMilestones: 3,
+              totalMilestones: 7,
+              nextMilestone: { name: 'Chapter 2 Literature Review', targetDate: '2026-12-01T00:00:00.000Z' },
+            },
+          ],
+        };
+      }
+      if (name === 'get_project_details') {
+        return {
+          found: true,
+          name: 'Individual Project A',
+          status: 'ACTIVE',
+          goal: 'Graduate with Distinction',
+          progressPercentage: 45,
+          totalTasks: 10,
+          completedTasks: 4,
+          blockedTasksCount: 1,
+          blockedTasks: [],
+          milestones: [{ name: 'Chapter 1', status: 'REACHED' }],
+          tasks: [{ id: 't1', title: 'Task 1', status: 'READY' }],
+          evidence: [],
+        };
+      }
+      return {};
+    });
+
+    const groundedEngine = new GroundedReasoningEngine(mockToolRegistry);
+
+    it('generates dynamic data-grounded blocker synthesis', async () => {
+      const response = await groundedEngine.generate({
+        messages: [{ role: 'user', content: 'What is blocking my progress?' }],
+        context: {
+          userId: 'test-user',
+        },
+      });
+
+      expect(response.content).toBeDefined();
+      expect(response.content.length).toBeGreaterThan(50);
+      expect(response.facts).toBeDefined();
+      expect(response.providerName).toBe('GroundedReasoningEngine');
+    });
+
+    it('generates graduation intelligence with defense milestone breakdown', async () => {
+      const response = await groundedEngine.generate({
+        messages: [{ role: 'user', content: 'Audit my ASTU graduation defense readiness' }],
+        context: {
+          userId: 'test-user',
+        },
+      });
+
+      expect(response.content).toContain('ASTU Graduation Intelligence');
+      expect(response.facts).toBeDefined();
+      expect(response.providerName).toBe('GroundedReasoningEngine');
+    });
+
+    it('generates project-specific breakdown when inquiring about projects', async () => {
+      const response = await groundedEngine.generate({
+        messages: [{ role: 'user', content: 'Explain project status and deliverables' }],
+        context: {
+          userId: 'test-user',
+          pageContext: { pageType: 'projects', entityTitle: 'Individual Project A' },
+        },
+      });
+
+      expect(response.content).toBeDefined();
+      expect(response.facts).toBeDefined();
+      expect(response.providerName).toBe('GroundedReasoningEngine');
+    });
+
+    it('proposes task creation action proposal via GroundedReasoningEngine', async () => {
+      const response = await groundedEngine.generate({
+        messages: [{ role: 'user', content: 'Create a task called Submit Graduation Chapter 2' }],
+        context: {
+          userId: 'test-user',
+        },
+      });
+
+      expect(response.toolCalls).toBeDefined();
+      expect(response.toolCalls?.[0]?.name).toBe('propose_create_task');
+      expect(response.toolCalls?.[0]?.arguments.title).toBe('Submit Graduation Chapter 2');
+    });
+
+    it('acknowledges missing entities honestly when query target is not found in database', async () => {
+      const response = await groundedEngine.generate({
+        messages: [{ role: 'user', content: 'Explain project NonExistentProjectXYZ' }],
+        context: {
+          userId: 'test-user',
+          pageContext: { pageType: 'projects', entityTitle: 'NonExistentProjectXYZ' },
+        },
+      });
+
+      expect(response.content).toBeDefined();
+      expect(response.providerName).toBe('GroundedReasoningEngine');
+    });
+
+    it('proposes focus time block via GroundedReasoningEngine', async () => {
+      const response = await groundedEngine.generate({
+        messages: [{ role: 'user', content: 'Schedule a focus time block tomorrow' }],
+        context: {
+          userId: 'test-user',
+        },
+      });
+
+      expect(response.toolCalls).toBeDefined();
+      expect(response.toolCalls?.[0]?.name).toBe('propose_create_time_block');
+    });
+  });
+
+  describe('AIProviderFactory Selection', () => {
+    it('selects GroundedReasoningEngine when no API key is configured', () => {
+      const provider = AIProviderFactory.createProvider();
+      expect(provider.name).toBe('GroundedReasoningEngine');
+    });
   });
 });

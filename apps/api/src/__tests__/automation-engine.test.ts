@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import crypto from 'node:crypto';
-import { TaskStatus, MilestoneStatus } from '@prisma/client';
+import { TaskStatus } from '@prisma/client';
 import {
   domainEventBus,
   MAX_CASCADE_DEPTH,
@@ -20,7 +20,7 @@ describe('DomainEventBus & AutomationEngineService', () => {
 
   describe('DomainEventBus', () => {
     it('should register listeners and receive typed events', async () => {
-      let receivedEvent: TaskStatusChangedEvent | null = null;
+      let receivedEvent: any = null;
 
       const unsubscribe = domainEventBus.subscribe('task.status_changed', (evt) => {
         receivedEvent = evt;

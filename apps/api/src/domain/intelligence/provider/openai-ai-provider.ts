@@ -1,77 +1,117 @@
-import { AIProvider, AIRequest, AIResponse } from './ai-provider.interface.js';
-import { MockAIProvider } from './mock-ai-provider.js';
+import { AIProvider, AIRequest, AIResponse, AIToolCall } from './ai-provider.interface.js';
+import { logger } from '../../../lib/logger.js';
 
 export class OpenAIProvider implements AIProvider {
   readonly name = 'OpenAIProvider';
-  private fallbackProvider = new MockAIProvider();
 
   async generate(request: AIRequest): Promise<AIResponse> {
-    const apiKey = process.env.AI_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY || process.env.AI_API_KEY;
     if (!apiKey) {
-      // Fallback seamlessly if no API key is provided
-      return this.fallbackProvider.generate(request);
+      throw new Error('OPENAI_API_KEY (or AI_API_KEY) is not configured.');
     }
 
     const baseUrl = process.env.AI_BASE_URL || 'https://api.openai.com/v1';
     const model = process.env.AI_MODEL || 'gpt-4o-mini';
-    const timeoutMs = Number(process.env.AI_TIMEOUT_MS) || 15000;
+    const timeoutMs = Number(process.env.AI_TIMEOUT_MS) || 20000;
 
     const messages = [
       {
         role: 'system',
-        content: request.systemInstruction || 'You are KENENISA OS Intelligence Core, an AI advisor for personal engineering & career execution.',
+        content: [
+          request.systemInstruction ||
+            'You are KENENISA OS Intelligence Core, an AI systems advisor for Kenenisa Beyan managing ASTU graduation, software engineering, and career development.',
+          request.context ? `FACTUAL OPERATING SYSTEM CONTEXT:\n${JSON.stringify(request.context, null, 2)}` : '',
+        ]
+          .filter(Boolean)
+          .join('\n\n'),
       },
-      ...request.messages.map((m) => ({
-        role: m.role,
-        content: m.content,
-      })),
+      ...request.messages.map((m) => {
+        if (m.role === 'tool') {
+          return {
+            role: 'tool' as const,
+            tool_call_id: m.toolCallId || 'call_default',
+            content: m.content,
+          };
+        }
+        return {
+          role: m.role,
+          content: m.content,
+        };
+      }),
     ];
 
-    if (request.context) {
-      messages.push({
-        role: 'system',
-        content: `FACTUAL OPERATING SYSTEM CONTEXT:\n${JSON.stringify(request.context, null, 2)}`,
-      });
+    const tools = request.availableTools && request.availableTools.length > 0
+      ? request.availableTools.map((t) => ({
+          type: 'function' as const,
+          function: {
+            name: t.name,
+            description: t.description,
+            parameters: t.parameters,
+          },
+        }))
+      : undefined;
+
+    const body: Record<string, any> = {
+      model,
+      messages,
+      temperature: request.temperature ?? 0.2,
+      max_tokens: request.maxTokens ?? 1500,
+    };
+
+    if (tools) {
+      body.tools = tools;
+      body.tool_choice = 'auto';
     }
 
-    try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
 
+    try {
       const res = await fetch(`${baseUrl}/chat/completions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({
-          model,
-          messages,
-          temperature: request.temperature ?? 0.3,
-          max_tokens: request.maxTokens ?? 1000,
-        }),
+        body: JSON.stringify(body),
         signal: controller.signal,
       });
 
       clearTimeout(timer);
 
       if (!res.ok) {
-        console.warn(`[OpenAIProvider] HTTP ${res.status} error, using fallback provider`);
-        return this.fallbackProvider.generate(request);
+        const errText = await res.text();
+        logger.error({ status: res.status, errText }, '[OpenAIProvider] API request failed');
+        throw new Error(`OpenAI API error [${res.status}]: ${errText.slice(0, 200)}`);
       }
 
-      const data = (await res.json()) as {
-        choices?: Array<{ message?: { content?: string } }>;
-        usage?: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
-      };
+      const data = (await res.json()) as any;
       const choice = data.choices?.[0]?.message;
-      const text = choice?.content || 'No response generated from provider.';
+      const text = choice?.content || '';
+
+      const toolCalls: AIToolCall[] = [];
+      if (Array.isArray(choice?.tool_calls)) {
+        for (const tc of choice.tool_calls) {
+          try {
+            toolCalls.push({
+              id: tc.id,
+              name: tc.function.name,
+              arguments: JSON.parse(tc.function.arguments || '{}'),
+            });
+          } catch {
+            toolCalls.push({
+              id: tc.id,
+              name: tc.function.name,
+              arguments: {},
+            });
+          }
+        }
+      }
 
       return {
-        content: text,
-        facts: ['Generated via LLM API with factual Operating System context.'],
-        inferences: ['AI response tailored to active user context.'],
-        recommendations: ['Verify recommendations against deterministic Next Best Action.'],
+        content: text || (toolCalls.length > 0 ? `Invoking ${toolCalls.map((t) => t.name).join(', ')}...` : 'No response generated from provider.'),
+        toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
+        providerName: this.name,
         usage: {
           promptTokens: data.usage?.prompt_tokens,
           completionTokens: data.usage?.completion_tokens,
@@ -79,8 +119,11 @@ export class OpenAIProvider implements AIProvider {
         },
       };
     } catch (err: unknown) {
-      console.warn('[OpenAIProvider] Failed or timed out, falling back to MockAIProvider:', err instanceof Error ? err.message : err);
-      return this.fallbackProvider.generate(request);
+      clearTimeout(timer);
+      if (err instanceof Error && err.name === 'AbortError') {
+        throw new Error(`OpenAI API request timed out after ${timeoutMs}ms`);
+      }
+      throw err;
     }
   }
 }

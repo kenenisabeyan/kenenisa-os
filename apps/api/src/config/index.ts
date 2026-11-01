@@ -21,8 +21,10 @@ const envSchema = z.object({
   AI_PROVIDER: z.string().default('openai'),
   AI_MODEL: z.string().default('gpt-4o-mini'),
   AI_API_KEY: z.string().optional(),
+  OPENAI_API_KEY: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional(),
   AI_BASE_URL: z.string().default('https://api.openai.com/v1'),
-  AI_TIMEOUT_MS: z.coerce.number().default(15000),
+  AI_TIMEOUT_MS: z.coerce.number().default(20000),
 });
 
 const _env = envSchema.safeParse(process.env);

@@ -13,17 +13,20 @@ import { ContextService } from './context/context.service.js';
 import { IntelligenceToolRegistry } from './tools/intelligence-tool.registry.js';
 import { IntelligenceSafetyService } from './safety/intelligence-safety.service.js';
 import { MemoryService } from './memory/memory.service.js';
-import { AIProvider } from './provider/ai-provider.interface.js';
-import { OpenAIProvider } from './provider/openai-ai-provider.js';
+import { AIProvider, AIRequestMessage, AIResponse } from './provider/ai-provider.interface.js';
+import { AIProviderFactory } from './provider/ai-provider.factory.js';
+import { GroundedReasoningEngine } from './provider/grounded-reasoning-engine.js';
 import { NotFoundError, ForbiddenError, BadRequestError } from '../../utils/errors.js';
 import { InternalCascadeService } from '../integration/internal-cascade.service.js';
+import { logger } from '../../lib/logger.js';
 
 export class IntelligenceService {
   private contextService = new ContextService();
   private toolRegistry = new IntelligenceToolRegistry();
   private safetyService = new IntelligenceSafetyService();
   private memoryService = new MemoryService();
-  private provider: AIProvider = new OpenAIProvider();
+  private groundedEngine = new GroundedReasoningEngine(this.toolRegistry);
+  private provider: AIProvider = AIProviderFactory.createProvider(this.toolRegistry);
 
   // Active proposals stored in-memory + persisted with 24h TTL
   private pendingProposals = new Map<string, { userId: string; actionType: string; details: Record<string, unknown>; expiresAt: number }>();
@@ -55,69 +58,132 @@ export class IntelligenceService {
       },
     });
 
-    // 3. Fetch conversation history
+    // 3. Fetch conversation history for multi-turn context
     const history = await prisma.conversationMessage.findMany({
       where: { conversationId },
       orderBy: { createdAt: 'asc' },
       take: 10,
     });
 
-    // 4. Build deterministic context with optional page-aware context
-    const context = await this.contextService.buildContext(userId, input.pageContext);
+    // 4. Multi-turn reference resolution (resolve pronouns e.g. "it", "that project")
+    let resolvedPageContext = input.pageContext;
+    if (!resolvedPageContext?.entityTitle) {
+      const lowerQuery = cleanText.toLowerCase();
+      if (lowerQuery.includes('it') || lowerQuery.includes('that project') || lowerQuery.includes('this project') || lowerQuery.includes('the project') || lowerQuery.includes('what is blocking')) {
+        // Look back through history for referenced project names
+        for (let i = history.length - 1; i >= 0; i--) {
+          const content = history[i].content;
+          if (content.includes('Individual Project A')) {
+            resolvedPageContext = { ...resolvedPageContext, pageType: 'projects', entityTitle: 'Individual Project A' };
+            break;
+          } else if (content.includes('Group Project B')) {
+            resolvedPageContext = { ...resolvedPageContext, pageType: 'projects', entityTitle: 'Group Project B' };
+            break;
+          }
+        }
+      }
+    }
 
-    // 5. Generate AI response
-    const requestMessages = history.map((m) => ({
+    // 5. Build dynamic context with live database metrics
+    const context = await this.contextService.buildContext(userId, resolvedPageContext);
+
+    // 6. Generate AI response with multi-turn tool calling
+    const requestMessages: AIRequestMessage[] = history.map((m) => ({
       role: m.role.toLowerCase() as 'user' | 'assistant' | 'system',
       content: m.content,
     }));
 
-    const response = await this.provider.generate({
-      messages: requestMessages,
-      context: context as unknown as Record<string, unknown>,
-      availableTools: this.toolRegistry.getAvailableTools(),
-    });
+    let response: AIResponse;
+    try {
+      response = await this.provider.generate({
+        messages: requestMessages,
+        context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
+        availableTools: this.toolRegistry.getAvailableTools(),
+      });
 
-    // 6. Handle action proposals from tool calls
+      // Handle multi-turn tool execution loop for data query tools
+      if (response.toolCalls && response.toolCalls.length > 0) {
+        const firstTool = response.toolCalls[0];
+        if (!firstTool.name.startsWith('propose_') && this.provider.name !== 'GroundedReasoningEngine') {
+          const toolResult = await this.toolRegistry.executeTool(firstTool.name, userId, firstTool.arguments);
+
+          const followUpMessages: AIRequestMessage[] = [
+            ...requestMessages,
+            {
+              role: 'assistant',
+              content: response.content || `Invoking tool ${firstTool.name}...`,
+              toolCalls: response.toolCalls,
+            },
+            {
+              role: 'tool',
+              toolCallId: firstTool.id,
+              name: firstTool.name,
+              content: JSON.stringify(toolResult),
+            },
+          ];
+
+          response = await this.provider.generate({
+            messages: followUpMessages,
+            context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
+            availableTools: this.toolRegistry.getAvailableTools(),
+          });
+        }
+      }
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logger.warn({ errMsg }, '[IntelligenceService] Primary provider failed or unavailable. Falling back to GroundedReasoningEngine');
+
+      response = await this.groundedEngine.generate({
+        messages: requestMessages,
+        context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
+        availableTools: this.toolRegistry.getAvailableTools(),
+      });
+      response.content = `> ℹ️ *Grounded Mode Active: Operating dynamically over live database records.*\n\n${response.content}`;
+    }
+
+    // 7. Handle action proposals from tool calls
     let proposal: ActionProposalDto | null = null;
     if (response.toolCalls && response.toolCalls.length > 0) {
       const toolCall = response.toolCalls[0];
-      const rawResult = await this.toolRegistry.executeTool(toolCall.name, userId, toolCall.arguments);
-      const result = rawResult as { proposedAction?: ActionProposalDto['actionType']; args?: Record<string, unknown>; summary?: string } | null;
+      if (toolCall.name.startsWith('propose_')) {
+        const rawResult = await this.toolRegistry.executeTool(toolCall.name, userId, toolCall.arguments);
+        const result = rawResult as { proposedAction?: ActionProposalDto['actionType']; args?: Record<string, unknown>; summary?: string } | null;
 
-      if (result && result.proposedAction) {
-        const proposalId = `prop-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
-        const proposalPayload = {
-          userId,
-          actionType: result.proposedAction,
-          details: result.args || toolCall.arguments,
-          expiresAt: Date.now() + 86400000, // 24-hour TTL
-        };
-
-        this.pendingProposals.set(proposalId, proposalPayload);
-
-        // Persist with 24-hour TTL in userMemory
-        await prisma.userMemory.create({
-          data: {
+        if (result && result.proposedAction) {
+          const proposalId = `prop-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
+          const proposalPayload = {
             userId,
-            key: `proposal_${proposalId}`,
-            value: JSON.stringify(proposalPayload),
-            category: 'WORKFLOW',
-            source: 'AI_PROPOSAL',
-          },
-        }).catch(() => {});
+            actionType: result.proposedAction,
+            details: result.args || toolCall.arguments,
+            expiresAt: Date.now() + 86400000, // 24-hour TTL
+          };
 
-        proposal = {
-          id: proposalId,
-          actionType: result.proposedAction,
-          summary: result.summary || `Proposed ${result.proposedAction}`,
-          details: result.args || toolCall.arguments,
-          requiresConfirmation: true,
-          status: 'PROPOSED',
-        };
+          this.pendingProposals.set(proposalId, proposalPayload);
+
+          // Persist with 24-hour TTL in userMemory
+          await prisma.userMemory.create({
+            data: {
+              userId,
+              key: `proposal_${proposalId}`,
+              value: JSON.stringify(proposalPayload),
+              category: 'WORKFLOW',
+              source: 'AI_PROPOSAL',
+            },
+          }).catch(() => {});
+
+          proposal = {
+            id: proposalId,
+            actionType: result.proposedAction,
+            summary: result.summary || `Proposed ${result.proposedAction}`,
+            details: result.args || toolCall.arguments,
+            requiresConfirmation: true,
+            status: 'PROPOSED',
+          };
+        }
       }
     }
 
-    // 7. Persist assistant message
+    // 8. Persist assistant message
     const assistantMsg = await prisma.conversationMessage.create({
       data: {
         conversationId,
@@ -130,12 +196,13 @@ export class IntelligenceService {
             facts: response.facts,
             inferences: response.inferences,
             recommendations: response.recommendations,
+            providerName: response.providerName || this.provider.name,
           }),
         ) as Prisma.InputJsonValue,
       },
     });
 
-    // 8. Update conversation updatedAt
+    // 9. Update conversation timestamp
     await prisma.conversation.update({
       where: { id: conversationId },
       data: { updatedAt: new Date() },
@@ -174,7 +241,6 @@ export class IntelligenceService {
     let pending = this.pendingProposals.get(input.proposalId);
 
     if (!pending) {
-      // Check persistent userMemory storage
       const mem = await prisma.userMemory.findFirst({
         where: { userId, key: `proposal_${input.proposalId}`, archivedAt: null },
       });

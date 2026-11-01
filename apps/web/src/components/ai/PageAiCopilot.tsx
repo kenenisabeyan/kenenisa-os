@@ -29,6 +29,7 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
   const [loading, setLoading] = useState(false);
   const [activeProposal, setActiveProposal] = useState<ActionProposalDto | null>(null);
   const [executingProposal, setExecutingProposal] = useState(false);
+  const [activeProvider, setActiveProvider] = useState<string>('Grounded Intelligence');
 
   const defaultActions: Record<string, PageAiAction[]> = {
     projects: [
@@ -118,6 +119,9 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
       });
 
       setMessages((prev) => [...prev, { role: 'assistant', content: res.message.content }]);
+      if (res.message.metadata?.providerName) {
+        setActiveProvider(res.message.metadata.providerName as string);
+      }
       if (res.proposal) {
         setActiveProposal(res.proposal);
       }
@@ -205,7 +209,12 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
                 ✦
               </div>
               <div>
-                <h3 className="text-sm font-bold text-slate-900 leading-tight">KENENISA OS Copilot</h3>
+                <div className="flex items-center gap-1.5">
+                  <h3 className="text-sm font-bold text-slate-900 leading-tight">KENENISA OS Copilot</h3>
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    {activeProvider}
+                  </span>
+                </div>
                 <div className="text-[11px] text-slate-500 font-medium">
                   Context: <span className="font-semibold text-slate-700 capitalize">{pageType}</span>
                   {entityTitle ? ` • ${entityTitle.slice(0, 20)}...` : ''}

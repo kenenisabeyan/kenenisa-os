@@ -1,6 +1,21 @@
 import { prisma } from '../../../lib/prisma.js';
 import { MilestoneStatus } from '@prisma/client';
 import type { PageContextInput } from '@kenenisa-os/shared';
+import { logger } from '../../../lib/logger.js';
+
+async function safeQuery<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn();
+  } catch (err: unknown) {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      return await fn();
+    } catch {
+      logger.warn({ err: err instanceof Error ? err.message : String(err) }, '[ContextService] safeQuery fallback used');
+      return fallback;
+    }
+  }
+}
 
 export interface BoundedOperatingContext {
   currentDate: string;
@@ -49,111 +64,159 @@ export class ContextService {
   async buildContext(userId: string, pageContextInput?: PageContextInput): Promise<BoundedOperatingContext> {
     const todayStr = new Date().toISOString().split('T')[0];
 
-    const [
-      userSettings,
-      workstreamsCount,
-      goalsCount,
-      projectsCount,
-      todayTasks,
-      overdueTasksCount,
-      blockedTasksCount,
-      todayTimeBlocks,
-      learningActivities,
-      skillsCount,
-      evidenceCount,
-      opportunitiesCount,
-      followUpsCount,
-      latestReview,
-      graduationProjects,
-      academicCoursesCount,
-      connectedIntegrations,
-      targetDateMemory,
-    ] = await Promise.all([
-      prisma.userSettings.findUnique({ where: { userId } }),
-      prisma.workstream.count({ where: { userId, status: 'ACTIVE' } }),
-      prisma.goal.count({ where: { userId, status: 'IN_PROGRESS' } }),
-      prisma.project.count({ where: { userId, status: 'ACTIVE' } }),
-      prisma.task.findMany({
-        where: {
-          userId,
-          status: { in: ['READY', 'IN_PROGRESS'] },
-        },
-        orderBy: [{ priority: 'asc' }, { dueDate: 'asc' }],
-        take: 5,
-      }),
-      prisma.task.count({
-        where: {
-          userId,
-          status: { in: ['BACKLOG', 'READY', 'IN_PROGRESS', 'REVIEW'] },
-          dueDate: { lt: new Date() },
-        },
-      }),
-      prisma.task.count({
-        where: { userId, status: 'BLOCKED' },
-      }),
-      prisma.timeBlock.findMany({
-        where: {
-          userId,
-          startAt: {
-            gte: new Date(`${todayStr}T00:00:00.000Z`),
-            lte: new Date(`${todayStr}T23:59:59.999Z`),
-          },
-        },
-      }),
-      prisma.learningActivity.aggregate({
-        where: {
-          userId,
-          date: { gte: new Date(Date.now() - 7 * 86400000) },
-        },
-        _sum: { minutes: true },
-      }),
-      prisma.skill.count({ where: { userId, status: 'ACTIVE' } }),
-      prisma.evidence.count({
-        where: {
-          userId,
-          createdAt: { gte: new Date(Date.now() - 30 * 86400000) },
-        },
-      }),
-      prisma.opportunity.count({
-        where: {
-          userId,
-          status: { in: ['DISCOVERED', 'EVALUATING', 'PREPARING', 'APPLIED', 'IN_DISCUSSION', 'INTERVIEW', 'OFFERED', 'ACTIVE'] },
-        },
-      }),
-      prisma.opportunity.count({
-        where: {
-          userId,
-          followUpDate: { lte: new Date(Date.now() + 7 * 86400000) },
-          status: { notIn: ['COMPLETED', 'REJECTED', 'WITHDRAWN', 'ARCHIVED'] },
-        },
-      }),
-      prisma.weeklyReview.findFirst({
-        where: { userId },
-        orderBy: { createdAt: 'desc' },
-      }),
-      prisma.project.findMany({
-        where: {
-          userId,
-          slug: { in: ['individual-graduation-project', 'group-graduation-project'] },
-        },
-        select: {
-          slug: true,
-          name: true,
-          milestones: {
-            select: { status: true },
-          },
-        },
-      }),
-      prisma.academicCourse.count({
-        where: { userId, academicStatus: 'ENROLLED' },
-      }),
-      prisma.integrationAccount.findMany({
-        where: { userId, status: 'CONNECTED' },
-        select: { provider: true, lastSyncAt: true },
-      }),
-      prisma.userMemory.findFirst({
-        where: { userId, key: 'graduation_target_date', archivedAt: null },
-      }),
+    const userSettings = await safeQuery(
+      () => prisma.userSettings.findUnique({ where: { userId } }),
+      null,
+    );
+
+    // Group 1: Strategic hierarchy metrics
+    const [workstreamsCount, goalsCount, projectsCount] = await Promise.all([
+      safeQuery(() => prisma.workstream.count({ where: { userId, status: 'ACTIVE' } }), 0),
+      safeQuery(() => prisma.goal.count({ where: { userId, status: 'IN_PROGRESS' } }), 0),
+      safeQuery(() => prisma.project.count({ where: { userId, status: 'ACTIVE' } }), 0),
+    ]);
+
+    // Group 2: Execution & scheduling metrics
+    const [todayTasks, overdueTasksCount, blockedTasksCount, todayTimeBlocks] = await Promise.all([
+      safeQuery(
+        () =>
+          prisma.task.findMany({
+            where: {
+              userId,
+              status: { in: ['READY', 'IN_PROGRESS'] },
+            },
+            orderBy: [{ priority: 'asc' }, { dueDate: 'asc' }],
+            take: 5,
+          }),
+        [],
+      ),
+      safeQuery(
+        () =>
+          prisma.task.count({
+            where: {
+              userId,
+              status: { in: ['BACKLOG', 'READY', 'IN_PROGRESS', 'REVIEW'] },
+              dueDate: { lt: new Date() },
+            },
+          }),
+        0,
+      ),
+      safeQuery(() => prisma.task.count({ where: { userId, status: 'BLOCKED' } }), 0),
+      safeQuery(
+        () =>
+          prisma.timeBlock.findMany({
+            where: {
+              userId,
+              startAt: {
+                gte: new Date(`${todayStr}T00:00:00.000Z`),
+                lte: new Date(`${todayStr}T23:59:59.999Z`),
+              },
+            },
+          }),
+        [],
+      ),
+    ]);
+
+    // Group 3: Development, skills & evidence
+    const [learningActivities, skillsCount, evidenceCount] = await Promise.all([
+      safeQuery(
+        () =>
+          prisma.learningActivity.aggregate({
+            where: {
+              userId,
+              date: { gte: new Date(Date.now() - 7 * 86400000) },
+            },
+            _sum: { minutes: true },
+          }),
+        { _sum: { minutes: 0 } },
+      ),
+      safeQuery(() => prisma.skill.count({ where: { userId, status: 'ACTIVE' } }), 0),
+      safeQuery(
+        () =>
+          prisma.evidence.count({
+            where: {
+              userId,
+              createdAt: { gte: new Date(Date.now() - 30 * 86400000) },
+            },
+          }),
+        0,
+      ),
+    ]);
+
+    // Group 4: Opportunities & Reviews
+    const [opportunitiesCount, followUpsCount, latestReview] = await Promise.all([
+      safeQuery(
+        () =>
+          prisma.opportunity.count({
+            where: {
+              userId,
+              status: { in: ['DISCOVERED', 'EVALUATING', 'PREPARING', 'APPLIED', 'IN_DISCUSSION', 'INTERVIEW', 'OFFERED', 'ACTIVE'] },
+            },
+          }),
+        0,
+      ),
+      safeQuery(
+        () =>
+          prisma.opportunity.count({
+            where: {
+              userId,
+              followUpDate: { lte: new Date(Date.now() + 7 * 86400000) },
+              status: { notIn: ['COMPLETED', 'REJECTED', 'WITHDRAWN', 'ARCHIVED'] },
+            },
+          }),
+        0,
+      ),
+      safeQuery(
+        () =>
+          prisma.weeklyReview.findFirst({
+            where: { userId },
+            orderBy: { createdAt: 'desc' },
+          }),
+        null,
+      ),
+    ]);
+
+    // Group 5: Graduation & Integrations
+    const [graduationProjects, academicCoursesCount, connectedIntegrations, targetDateMemory] = await Promise.all([
+      safeQuery(
+        () =>
+          prisma.project.findMany({
+            where: {
+              userId,
+              slug: { in: ['individual-graduation-project', 'group-graduation-project'] },
+            },
+            select: {
+              slug: true,
+              name: true,
+              milestones: {
+                select: { status: true },
+              },
+            },
+          }),
+        [],
+      ),
+      safeQuery(
+        () =>
+          prisma.academicCourse.count({
+            where: { userId, academicStatus: 'ENROLLED' },
+          }),
+        0,
+      ),
+      safeQuery(
+        () =>
+          prisma.integrationAccount.findMany({
+            where: { userId, status: 'CONNECTED' },
+            select: { provider: true, lastSyncAt: true },
+          }),
+        [],
+      ),
+      safeQuery(
+        () =>
+          prisma.userMemory.findFirst({
+            where: { userId, key: 'graduation_target_date', archivedAt: null },
+          }),
+        null,
+      ),
     ]);
 
     const dailyCap = userSettings?.dailyWorkCapacityMinutes || 480;
@@ -198,9 +261,14 @@ export class ContextService {
     if (pageContextInput?.pageType) {
       let details: Record<string, unknown> = {};
 
-      if (pageContextInput.pageType === 'projects' && pageContextInput.entityId) {
+      if (pageContextInput.pageType === 'projects' && (pageContextInput.entityId || pageContextInput.entityTitle)) {
         const proj = await prisma.project.findFirst({
-          where: { id: pageContextInput.entityId, userId },
+          where: {
+            userId,
+            ...(pageContextInput.entityId
+              ? { id: pageContextInput.entityId }
+              : { name: { contains: pageContextInput.entityTitle, mode: 'insensitive' } }),
+          },
           include: {
             milestones: { select: { id: true, name: true, status: true } },
             tasks: { where: { status: { not: 'DONE' } }, select: { id: true, title: true, priority: true } },
@@ -209,6 +277,7 @@ export class ContextService {
         });
         if (proj) {
           details = {
+            id: proj.id,
             name: proj.name,
             status: proj.status,
             milestones: proj.milestones,
@@ -216,9 +285,14 @@ export class ContextService {
             evidenceCount: proj.evidence.length,
           };
         }
-      } else if (pageContextInput.pageType === 'tasks' && pageContextInput.entityId) {
+      } else if (pageContextInput.pageType === 'tasks' && (pageContextInput.entityId || pageContextInput.entityTitle)) {
         const t = await prisma.task.findFirst({
-          where: { id: pageContextInput.entityId, userId },
+          where: {
+            userId,
+            ...(pageContextInput.entityId
+              ? { id: pageContextInput.entityId }
+              : { title: { contains: pageContextInput.entityTitle, mode: 'insensitive' } }),
+          },
           include: {
             project: { select: { name: true } },
             blockingDependencies: { include: { blockingTask: { select: { title: true, status: true } } } },
@@ -226,6 +300,7 @@ export class ContextService {
         });
         if (t) {
           details = {
+            id: t.id,
             title: t.title,
             status: t.status,
             priority: t.priority,
@@ -233,6 +308,18 @@ export class ContextService {
             blockers: t.blockingDependencies.map((b) => b.blockingTask),
           };
         }
+      } else if (pageContextInput.pageType === 'academics') {
+        const courses = await prisma.academicCourse.findMany({
+          where: { userId },
+          select: { code: true, title: true, creditHours: true },
+        });
+        details = { enrolledCourses: courses };
+      } else if (pageContextInput.pageType === 'learning') {
+        const skills = await prisma.skill.findMany({
+          where: { userId },
+          select: { name: true, currentLevel: true, targetLevel: true },
+        });
+        details = { trackedSkills: skills };
       }
 
       pageContextData = {

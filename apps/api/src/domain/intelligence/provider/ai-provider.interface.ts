@@ -1,23 +1,28 @@
-export interface AIRequestMessage {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-}
-
 export interface AIToolCall {
   id: string;
   name: string;
   arguments: Record<string, unknown>;
 }
 
+export interface AIRequestMessage {
+  role: 'user' | 'assistant' | 'system' | 'tool';
+  content: string;
+  name?: string;
+  toolCallId?: string;
+  toolCalls?: AIToolCall[];
+}
+
+export interface AIToolDefinition {
+  name: string;
+  description: string;
+  parameters: Record<string, unknown>;
+}
+
 export interface AIRequest {
   systemInstruction?: string;
   messages: AIRequestMessage[];
   context?: Record<string, unknown>;
-  availableTools?: {
-    name: string;
-    description: string;
-    parameters: Record<string, unknown>;
-  }[];
+  availableTools?: AIToolDefinition[];
   temperature?: number;
   maxTokens?: number;
 }
@@ -28,6 +33,7 @@ export interface AIResponse {
   facts?: string[];
   inferences?: string[];
   recommendations?: string[];
+  providerName?: string;
   usage?: {
     promptTokens?: number;
     completionTokens?: number;
