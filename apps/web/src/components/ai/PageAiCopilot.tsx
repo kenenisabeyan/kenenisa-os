@@ -345,9 +345,12 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
                 Send
               </button>
             </form>
-          </div>
-        </div>
-      )}
+                </div>
+              </div>
+            )}
+          </>,
+          document.body,
+        )}
     </>
   );
 };
