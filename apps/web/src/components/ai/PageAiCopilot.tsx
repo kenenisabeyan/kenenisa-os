@@ -194,22 +194,26 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
         </button>
       </div>
 
-      {/* Floating Action Button when closed - Positioned in right bottom above all menus */}
-      {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] right-4 lg:bottom-6 lg:right-6 z-45 flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full shadow-xl border border-blue-400/30 transition-all hover:scale-105 active:scale-95 select-none cursor-pointer"
-          title="Open AI Command Copilot"
-          aria-label="Open AI Command Copilot"
-        >
-          <span className="text-sm sm:text-base">✦</span>
-          <span className="text-xs font-bold tracking-tight">AI Copilot</span>
-        </button>
-      )}
+      {/* Floating Action Button & Slide-Out Drawer - Portaled directly to document.body with fixed z-[100] */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <>
+            {/* Floating Action Button when closed - Positioned in right bottom over all other content */}
+            {!isOpen && (
+              <button
+                onClick={() => setIsOpen(true)}
+                className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] right-4 lg:bottom-6 lg:right-6 z-[100] flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full shadow-2xl border border-blue-300/40 transition-all hover:scale-105 active:scale-95 select-none cursor-pointer ring-4 ring-blue-500/20"
+                title="Open AI Command Copilot"
+                aria-label="Open AI Command Copilot"
+              >
+                <span className="text-sm sm:text-base animate-pulse">✦</span>
+                <span className="text-xs font-bold tracking-tight">AI Copilot</span>
+              </button>
+            )}
 
-      {/* Slide-Out AI Copilot Drawer */}
-      {isOpen && (
-        <div className="fixed inset-y-0 right-0 z-[60] w-full sm:w-[440px] bg-white border-l border-slate-200 shadow-2xl flex flex-col justify-between">
+            {/* Slide-Out AI Copilot Drawer */}
+            {isOpen && (
+              <div className="fixed inset-y-0 right-0 z-[110] w-full sm:w-[440px] bg-white border-l border-slate-200 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-200">
           {/* Header */}
           <div className="p-4 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
