@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { sendChatMessage, confirmActionProposal } from '../../features/intelligence/api.js';
 import type { ActionProposalDto, PageContextInput } from '@kenenisa-os/shared';
 import { useToast } from '../ui/Toast.js';
