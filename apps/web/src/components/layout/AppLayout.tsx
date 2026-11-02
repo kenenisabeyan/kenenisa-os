@@ -109,6 +109,17 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               </svg>
             </button>
 
+            {/* AI Copilot Quick Trigger (Prominent on Mobile & Desktop) */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-ai-copilot'))}
+              className="p-2 sm:px-3 sm:py-2 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-700 border border-blue-200/90 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-2xs"
+              title="Open AI Command Copilot"
+              aria-label="Open AI Command Copilot"
+            >
+              <span className="text-blue-600 text-sm">✦</span>
+              <span className="font-bold">AI</span>
+            </button>
+
             {/* + New Quick Action Button */}
             <button
               id="global-quick-action-btn"

@@ -31,6 +31,12 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
   const [executingProposal, setExecutingProposal] = useState(false);
   const [activeProvider, setActiveProvider] = useState<string>('Grounded Intelligence');
 
+  React.useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener('open-ai-copilot', handleOpen);
+    return () => window.removeEventListener('open-ai-copilot', handleOpen);
+  }, []);
+
   const defaultActions: Record<string, PageAiAction[]> = {
     projects: [
       { label: 'Explain Project Status', prompt: `Explain the current status, milestones, and pending deliverables for project ${entityTitle || 'this project'}.` },
@@ -187,14 +193,15 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
         </button>
       </div>
 
-      {/* Floating Action Button when closed */}
+      {/* Floating Action Button when closed - Moved to top on mobile to avoid bottom nav clipping */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-transform hover:scale-105 select-none"
+          className="fixed top-20 right-4 lg:top-auto lg:bottom-6 lg:right-6 z-40 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full shadow-lg border border-blue-400/30 transition-all hover:scale-105 active:scale-95 select-none cursor-pointer"
           title="Open AI Command Copilot"
+          aria-label="Open AI Command Copilot"
         >
-          <span className="text-base">✦</span>
+          <span className="text-sm sm:text-base">✦</span>
           <span className="text-xs font-bold tracking-tight">AI Copilot</span>
         </button>
       )}
