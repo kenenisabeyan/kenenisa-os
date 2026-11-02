@@ -193,11 +193,11 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
         </button>
       </div>
 
-      {/* Floating Action Button when closed - Moved to top on mobile to avoid bottom nav clipping */}
+      {/* Floating Action Button when closed - Positioned in right bottom above all menus */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-20 right-4 lg:top-auto lg:bottom-6 lg:right-6 z-40 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full shadow-lg border border-blue-400/30 transition-all hover:scale-105 active:scale-95 select-none cursor-pointer"
+          className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] right-4 lg:bottom-6 lg:right-6 z-45 flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full shadow-xl border border-blue-400/30 transition-all hover:scale-105 active:scale-95 select-none cursor-pointer"
           title="Open AI Command Copilot"
           aria-label="Open AI Command Copilot"
         >
@@ -208,7 +208,7 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
 
       {/* Slide-Out AI Copilot Drawer */}
       {isOpen && (
-        <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[440px] bg-white border-l border-slate-200 shadow-2xl flex flex-col justify-between">
+        <div className="fixed inset-y-0 right-0 z-[60] w-full sm:w-[440px] bg-white border-l border-slate-200 shadow-2xl flex flex-col justify-between">
           {/* Header */}
           <div className="p-4 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
