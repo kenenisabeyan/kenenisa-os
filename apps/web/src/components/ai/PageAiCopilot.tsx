@@ -316,7 +316,7 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
           </div>
 
           {/* Footer Input */}
-          <div className="p-3 border-t border-slate-200 bg-white">
+          <div className="p-3 border-t border-slate-200 bg-white pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))]">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
