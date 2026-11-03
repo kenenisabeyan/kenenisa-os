@@ -17,6 +17,7 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const WorkIntelligencePage: React.FC = () => {
   const navigate = useNavigate();
@@ -194,6 +195,8 @@ Recommend specific, high-leverage steps to unblock progress, sequence dependenci
           </div>
         }
       />
+
+      <PageAiCopilot pageType="work-intelligence" />
 
       {loading ? (
         <LoadingSkeleton rows={5} height="h-32" />

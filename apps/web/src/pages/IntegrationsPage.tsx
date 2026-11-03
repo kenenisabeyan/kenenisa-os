@@ -11,6 +11,7 @@ import {
   IntegrationSyncLogDto,
   IntegrationProvider,
 } from '../features/integrations/api.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 interface ProviderMeta {
   name: string;
@@ -250,6 +251,8 @@ export const IntegrationsPage: React.FC = () => {
           </button>
         </div>
       </div>
+
+      <PageAiCopilot pageType="integrations" />
 
       {/* Metric Cards */}
       {loading ? (
