@@ -138,7 +138,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <div className="h-16 shrink-0" aria-hidden="true" />
 
         {/* Dynamic Route Content */}
-        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto pb-[calc(5rem+env(safe-area-inset-bottom,0px))] lg:pb-8">
+        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto pb-[calc(5rem+env(safe-area-inset-bottom,0px))] lg:pb-8 min-w-0 overflow-x-hidden">
           <ErrorBoundary>{children}</ErrorBoundary>
         </main>
 

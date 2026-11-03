@@ -108,7 +108,7 @@ export const GraduationPage: React.FC = () => {
   } = overview!;
 
   return (
-    <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-8 animate-fadeIn">
+    <div className="space-y-6 sm:space-y-8 animate-fadeIn w-full">
       {/* SECTION A: TOP HEADER & OVERVIEW */}
       <div className="bg-white border border-slate-200/90 rounded-2xl p-6 lg:p-8 shadow-xs">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
@@ -238,132 +238,182 @@ export const GraduationPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {/* 1. Academic Requirements */}
-          <div className="p-4 bg-slate-50/80 border border-slate-200/70 rounded-xl flex flex-col justify-between">
+          <div className="p-4 bg-slate-50/90 border border-slate-200/80 rounded-2xl flex flex-col justify-between hover:border-blue-300 hover:shadow-xs transition-all">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold uppercase text-slate-500">1. Academics</span>
-                <span className="text-base font-bold text-blue-600">
-                  {progressBreakdown.academicRequirements.percent}%
-                </span>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+                    Stage 1
+                  </span>
+                  <h3 className="text-xs font-bold text-slate-800 truncate" title="Academics">
+                    Academics
+                  </h3>
+                </div>
+                <div className="shrink-0 flex items-baseline">
+                  <span className="text-base font-extrabold text-blue-600 font-mono">
+                    {progressBreakdown.academicRequirements.percent}
+                  </span>
+                  <span className="text-[10px] font-bold text-blue-500 ml-0.5">%</span>
+                </div>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-3">
+              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-2.5">
                 <div
                   className="bg-blue-600 h-full rounded-full transition-all duration-500"
                   style={{ width: `${progressBreakdown.academicRequirements.percent}%` }}
                 />
               </div>
-              <p className="text-xs text-slate-600 font-medium">
+              <p className="text-xs text-slate-700 font-semibold truncate">
                 {progressBreakdown.academicRequirements.completed} of {progressBreakdown.academicRequirements.total} Courses
               </p>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-200/60">
-              <span className="text-[11px] text-slate-500 italic block leading-snug">
+            <div className="mt-3 pt-2.5 border-t border-slate-200/70">
+              <span className="text-[11px] text-slate-500 italic block leading-snug break-words">
                 Basis: {progressBreakdown.academicRequirements.basis}
               </span>
             </div>
           </div>
 
           {/* 2. Individual Project */}
-          <div className="p-4 bg-slate-50/80 border border-slate-200/70 rounded-xl flex flex-col justify-between">
+          <div className="p-4 bg-slate-50/90 border border-slate-200/80 rounded-2xl flex flex-col justify-between hover:border-indigo-300 hover:shadow-xs transition-all">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold uppercase text-slate-500">2. Individual Proj</span>
-                <span className="text-base font-bold text-indigo-600">
-                  {progressBreakdown.individualProject.percent}%
-                </span>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+                    Stage 2
+                  </span>
+                  <h3 className="text-xs font-bold text-slate-800 truncate" title="Individual Project">
+                    Individual Proj
+                  </h3>
+                </div>
+                <div className="shrink-0 flex items-baseline">
+                  <span className="text-base font-extrabold text-indigo-600 font-mono">
+                    {progressBreakdown.individualProject.percent}
+                  </span>
+                  <span className="text-[10px] font-bold text-indigo-500 ml-0.5">%</span>
+                </div>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-3">
+              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-2.5">
                 <div
                   className="bg-indigo-600 h-full rounded-full transition-all duration-500"
                   style={{ width: `${progressBreakdown.individualProject.percent}%` }}
                 />
               </div>
-              <p className="text-xs text-slate-600 font-medium">
+              <p className="text-xs text-slate-700 font-semibold truncate">
                 {progressBreakdown.individualProject.completedMilestones} of {progressBreakdown.individualProject.totalMilestones} Milestones
               </p>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-200/60">
-              <span className="text-[11px] text-slate-500 italic block leading-snug">
+            <div className="mt-3 pt-2.5 border-t border-slate-200/70">
+              <span className="text-[11px] text-slate-500 italic block leading-snug break-words">
                 Basis: {progressBreakdown.individualProject.basis}
               </span>
             </div>
           </div>
 
           {/* 3. Group Project */}
-          <div className="p-4 bg-slate-50/80 border border-slate-200/70 rounded-xl flex flex-col justify-between">
+          <div className="p-4 bg-slate-50/90 border border-slate-200/80 rounded-2xl flex flex-col justify-between hover:border-purple-300 hover:shadow-xs transition-all">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold uppercase text-slate-500">3. Group Proj</span>
-                <span className="text-base font-bold text-purple-600">
-                  {progressBreakdown.groupProject.percent}%
-                </span>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+                    Stage 3
+                  </span>
+                  <h3 className="text-xs font-bold text-slate-800 truncate" title="Group Project">
+                    Group Proj
+                  </h3>
+                </div>
+                <div className="shrink-0 flex items-baseline">
+                  <span className="text-base font-extrabold text-purple-600 font-mono">
+                    {progressBreakdown.groupProject.percent}
+                  </span>
+                  <span className="text-[10px] font-bold text-purple-500 ml-0.5">%</span>
+                </div>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-3">
+              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-2.5">
                 <div
                   className="bg-purple-600 h-full rounded-full transition-all duration-500"
                   style={{ width: `${progressBreakdown.groupProject.percent}%` }}
                 />
               </div>
-              <p className="text-xs text-slate-600 font-medium">
+              <p className="text-xs text-slate-700 font-semibold truncate">
                 {progressBreakdown.groupProject.completedMilestones} of {progressBreakdown.groupProject.totalMilestones} Milestones
               </p>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-200/60">
-              <span className="text-[11px] text-slate-500 italic block leading-snug">
+            <div className="mt-3 pt-2.5 border-t border-slate-200/70">
+              <span className="text-[11px] text-slate-500 italic block leading-snug break-words">
                 Basis: {progressBreakdown.groupProject.basis}
               </span>
             </div>
           </div>
 
           {/* 4. Final Documentation */}
-          <div className="p-4 bg-slate-50/80 border border-slate-200/70 rounded-xl flex flex-col justify-between">
+          <div className="p-4 bg-slate-50/90 border border-slate-200/80 rounded-2xl flex flex-col justify-between hover:border-emerald-300 hover:shadow-xs transition-all">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold uppercase text-slate-500">4. Documentation</span>
-                <span className="text-base font-bold text-emerald-600">
-                  {progressBreakdown.finalDocumentation.percent}%
-                </span>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+                    Stage 4
+                  </span>
+                  <h3 className="text-xs font-bold text-slate-800 truncate" title="Final Documentation">
+                    Documentation
+                  </h3>
+                </div>
+                <div className="shrink-0 flex items-baseline">
+                  <span className="text-base font-extrabold text-emerald-600 font-mono">
+                    {progressBreakdown.finalDocumentation.percent}
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-500 ml-0.5">%</span>
+                </div>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-3">
+              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-2.5">
                 <div
                   className="bg-emerald-600 h-full rounded-full transition-all duration-500"
                   style={{ width: `${progressBreakdown.finalDocumentation.percent}%` }}
                 />
               </div>
-              <p className="text-xs text-slate-600 font-medium">
+              <p className="text-xs text-slate-700 font-semibold truncate">
                 {progressBreakdown.finalDocumentation.completed} of {progressBreakdown.finalDocumentation.total} Milestones
               </p>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-200/60">
-              <span className="text-[11px] text-slate-500 italic block leading-snug">
+            <div className="mt-3 pt-2.5 border-t border-slate-200/70">
+              <span className="text-[11px] text-slate-500 italic block leading-snug break-words">
                 Basis: {progressBreakdown.finalDocumentation.basis}
               </span>
             </div>
           </div>
 
           {/* 5. Defense Preparation */}
-          <div className="p-4 bg-slate-50/80 border border-slate-200/70 rounded-xl flex flex-col justify-between">
+          <div className="p-4 bg-slate-50/90 border border-slate-200/80 rounded-2xl flex flex-col justify-between hover:border-amber-300 hover:shadow-xs transition-all">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold uppercase text-slate-500">5. Defense Prep</span>
-                <span className="text-base font-bold text-amber-600">
-                  {progressBreakdown.defensePreparation.percent}%
-                </span>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+                    Stage 5
+                  </span>
+                  <h3 className="text-xs font-bold text-slate-800 truncate" title="Defense Preparation">
+                    Defense Prep
+                  </h3>
+                </div>
+                <div className="shrink-0 flex items-baseline">
+                  <span className="text-base font-extrabold text-amber-600 font-mono">
+                    {progressBreakdown.defensePreparation.percent}
+                  </span>
+                  <span className="text-[10px] font-bold text-amber-500 ml-0.5">%</span>
+                </div>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-3">
+              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-2.5">
                 <div
                   className="bg-amber-600 h-full rounded-full transition-all duration-500"
                   style={{ width: `${progressBreakdown.defensePreparation.percent}%` }}
                 />
               </div>
-              <p className="text-xs text-slate-600 font-medium">
+              <p className="text-xs text-slate-700 font-semibold truncate">
                 {progressBreakdown.defensePreparation.completed} of {progressBreakdown.defensePreparation.total} Checkpoints
               </p>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-200/60">
-              <span className="text-[11px] text-slate-500 italic block leading-snug">
+            <div className="mt-3 pt-2.5 border-t border-slate-200/70">
+              <span className="text-[11px] text-slate-500 italic block leading-snug break-words">
                 Basis: {progressBreakdown.defensePreparation.basis}
               </span>
             </div>
@@ -407,15 +457,15 @@ export const GraduationPage: React.FC = () => {
                   <Link
                     key={task.id}
                     to="/app/tasks"
-                    className="p-3 bg-rose-50/70 border border-rose-200/80 rounded-xl flex items-center justify-between hover:bg-rose-100/70 transition-colors"
+                    className="p-3 bg-rose-50/70 border border-rose-200/80 rounded-xl flex items-center justify-between hover:bg-rose-100/70 transition-colors gap-2"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-rose-200 text-rose-800 rounded">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-rose-200 text-rose-800 rounded shrink-0">
                         OVERDUE
                       </span>
-                      <span className="text-xs font-semibold text-slate-800 line-clamp-1">{task.title}</span>
+                      <span className="text-xs font-semibold text-slate-800 truncate" title={task.title}>{task.title}</span>
                     </div>
-                    <span className="text-xs text-rose-600 font-medium">Due {new Date(task.dueDate!).toLocaleDateString()}</span>
+                    <span className="text-xs text-rose-600 font-medium shrink-0">Due {new Date(task.dueDate!).toLocaleDateString()}</span>
                   </Link>
                 ))}
 
@@ -423,15 +473,15 @@ export const GraduationPage: React.FC = () => {
                   <Link
                     key={task.id}
                     to="/app/tasks"
-                    className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl flex items-center justify-between hover:bg-amber-100/70 transition-colors"
+                    className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl flex items-center justify-between hover:bg-amber-100/70 transition-colors gap-2"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-amber-200 text-amber-800 rounded">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-amber-200 text-amber-800 rounded shrink-0">
                         BLOCKED
                       </span>
-                      <span className="text-xs font-semibold text-slate-800 line-clamp-1">{task.title}</span>
+                      <span className="text-xs font-semibold text-slate-800 truncate" title={task.title}>{task.title}</span>
                     </div>
-                    <span className="text-xs text-amber-700 font-medium">Needs resolution</span>
+                    <span className="text-xs text-amber-700 font-medium shrink-0">Needs resolution</span>
                   </Link>
                 ))}
 
@@ -439,15 +489,15 @@ export const GraduationPage: React.FC = () => {
                   <Link
                     key={ms.id}
                     to="/app/milestones"
-                    className="p-3 bg-orange-50/70 border border-orange-200/80 rounded-xl flex items-center justify-between hover:bg-orange-100/70 transition-colors"
+                    className="p-3 bg-orange-50/70 border border-orange-200/80 rounded-xl flex items-center justify-between hover:bg-orange-100/70 transition-colors gap-2"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-orange-200 text-orange-800 rounded">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-orange-200 text-orange-800 rounded shrink-0">
                         MILESTONE DELAY
                       </span>
-                      <span className="text-xs font-semibold text-slate-800 line-clamp-1">{ms.name}</span>
+                      <span className="text-xs font-semibold text-slate-800 truncate" title={ms.name}>{ms.name}</span>
                     </div>
-                    <span className="text-xs text-orange-700 font-medium">{ms.projectName}</span>
+                    <span className="text-xs text-orange-700 font-medium shrink-0">{ms.projectName}</span>
                   </Link>
                 ))}
 
@@ -455,15 +505,15 @@ export const GraduationPage: React.FC = () => {
                   <Link
                     key={task.id}
                     to="/app/tasks"
-                    className="p-3 bg-blue-50/70 border border-blue-200/80 rounded-xl flex items-center justify-between hover:bg-blue-100/70 transition-colors"
+                    className="p-3 bg-blue-50/70 border border-blue-200/80 rounded-xl flex items-center justify-between hover:bg-blue-100/70 transition-colors gap-2"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-blue-200 text-blue-800 rounded">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase bg-blue-200 text-blue-800 rounded shrink-0">
                         DUE SOON
                       </span>
-                      <span className="text-xs font-semibold text-slate-800 line-clamp-1">{task.title}</span>
+                      <span className="text-xs font-semibold text-slate-800 truncate" title={task.title}>{task.title}</span>
                     </div>
-                    <span className="text-xs text-blue-600 font-medium">Due {new Date(task.dueDate!).toLocaleDateString()}</span>
+                    <span className="text-xs text-blue-600 font-medium shrink-0">Due {new Date(task.dueDate!).toLocaleDateString()}</span>
                   </Link>
                 ))}
               </div>
@@ -500,7 +550,7 @@ export const GraduationPage: React.FC = () => {
                   </span>
                   <span className="text-xs font-bold text-blue-700">{todayExecution.nextBestAction.priority}</span>
                 </div>
-                <h4 className="text-sm font-bold text-slate-900">{todayExecution.nextBestAction.title}</h4>
+                <h4 className="text-sm font-bold text-slate-900 break-words">{todayExecution.nextBestAction.title}</h4>
                 <div className="mt-3 flex items-center justify-end">
                   <Link
                     to="/app/tasks"
@@ -523,7 +573,7 @@ export const GraduationPage: React.FC = () => {
                     {todayExecution.currentInProgressTask.estimateMinutes || 30} min estimate
                   </span>
                 </div>
-                <div className="text-sm font-semibold text-slate-900">
+                <div className="text-sm font-semibold text-slate-900 break-words">
                   {todayExecution.currentInProgressTask.title}
                 </div>
               </div>
@@ -552,10 +602,10 @@ export const GraduationPage: React.FC = () => {
                   {todayExecution.scheduledTasks.map((t) => (
                     <div
                       key={t.id}
-                      className="p-2.5 bg-slate-50 border border-slate-200/60 rounded-lg flex items-center justify-between text-xs"
+                      className="p-2.5 bg-slate-50 border border-slate-200/60 rounded-lg flex items-center justify-between text-xs gap-2"
                     >
-                      <span className="font-medium text-slate-800 line-clamp-1">{t.title}</span>
-                      <span className="font-semibold px-2 py-0.5 rounded text-[10px] bg-slate-200 text-slate-700">
+                      <span className="font-medium text-slate-800 truncate min-w-0 flex-1" title={t.title}>{t.title}</span>
+                      <span className="font-semibold px-2 py-0.5 rounded text-[10px] bg-slate-200 text-slate-700 shrink-0">
                         {t.status}
                       </span>
                     </div>

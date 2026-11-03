@@ -226,7 +226,7 @@ export const AcademicsPage: React.FC = () => {
   const currentSemester = semesters.find((s) => s.id === selectedSemesterId);
 
   return (
-    <div className="p-6 lg:p-8 max-w-7xl mx-auto space-y-8 animate-fadeIn">
+    <div className="space-y-6 sm:space-y-8 animate-fadeIn w-full">
       {/* Header */}
       <div className="bg-white border border-slate-200/90 rounded-2xl p-6 lg:p-8 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">

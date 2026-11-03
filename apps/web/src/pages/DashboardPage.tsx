@@ -347,14 +347,16 @@ export const DashboardPage: React.FC = () => {
 
       {/* 7 Core Operating Questions Front-Door Overview */}
       <div className="bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs space-y-4" id="front-door-questions-panel">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-            <h2 className="text-xs font-black uppercase tracking-widest text-slate-900">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-1.5">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse shrink-0" />
+            <h2 className="text-xs font-black uppercase tracking-widest text-slate-900 truncate">
               COMMAND CENTER &bull; OPERATING CONTEXT ANSWERS
             </h2>
           </div>
-          <span className="text-[10px] text-slate-400 font-mono font-bold tracking-wider">REAL-TIME DOMAIN INTELLIGENCE</span>
+          <span className="text-[10px] text-slate-400 font-mono font-bold tracking-wider shrink-0">
+            REAL-TIME DOMAIN INTELLIGENCE
+          </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
@@ -570,7 +572,7 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       {/* Summary Metrics Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3.5" id="summary-metrics">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 gap-3.5" id="summary-metrics">
         {/* Workstreams */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-200 group relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-80" />

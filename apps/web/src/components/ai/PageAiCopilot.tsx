@@ -370,10 +370,11 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
               setIsOpen(true);
               handleSendPrompt(action.prompt);
             }}
-            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 rounded-full shadow-2xs transition-colors"
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 rounded-full shadow-2xs transition-colors max-w-full"
+            title={action.label}
           >
-            <span>✦</span>
-            <span>{action.label}</span>
+            <span className="shrink-0 text-blue-600">✦</span>
+            <span className="truncate max-w-[200px] sm:max-w-xs">{action.label}</span>
           </button>
         ))}
         <button
@@ -587,7 +588,7 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
                             </button>
                           )}
                         </div>
-                        <div className="whitespace-pre-wrap leading-relaxed">{m.content}</div>
+                        <div className="whitespace-pre-wrap leading-relaxed break-words [overflow-wrap:anywhere]">{m.content}</div>
                       </div>
                     ))
                   )}
