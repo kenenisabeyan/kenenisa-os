@@ -96,6 +96,26 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
       { label: 'Cross-Module Velocity Trends', prompt: 'Analyze trends in task completion rate, deep work focus hours, and blocker resolution time.' },
       { label: 'Time Allocation Audit', prompt: 'Evaluate whether actual logged hours align with strategic workstream priorities.' },
     ],
+    settings: [
+      { label: 'Security Posture Audit', prompt: 'Audit my active device sessions, security configuration, and recent audit logs.' },
+      { label: 'Capacity Configuration', prompt: 'Evaluate my daily and weekly deep work capacity limits against actual historical focus performance.' },
+      { label: 'Access Policy Check', prompt: 'Verify user access roles and permissions for system users across OWNER, ADMIN, and USER.' },
+    ],
+    executive: [
+      { label: 'Executive Briefing', prompt: 'Provide an executive high-level summary of overall system status, active milestones, and immediate delivery blockers.' },
+      { label: 'Strategic Risk Assessment', prompt: 'Identify systemic risks across graduation deliverables, engineering workstreams, and capacity balance.' },
+      { label: 'Capacity Variance', prompt: 'Analyze planned capacity against verified output across all active projects.' },
+    ],
+    integrations: [
+      { label: 'Audit Sync Health', prompt: 'Audit the connection status, last sync timestamp, and error rates across all external providers.' },
+      { label: 'GitHub Commit Ingestion', prompt: 'Explain recent code commit and pull request evidence ingested into the evidence vault.' },
+      { label: 'Calendar Sync Status', prompt: 'Verify Google Calendar sync alignment with planned deep work time blocks.' },
+    ],
+    'work-intelligence': [
+      { label: 'Bottleneck Triage', prompt: 'Analyze all blocked and overdue tasks across active workstreams and recommend unblocking steps.' },
+      { label: 'Deep Work Velocity', prompt: 'Audit deep work ratio and focus consistency across projects over the past 30 days.' },
+      { label: 'Context Switching Friction', prompt: 'Identify workstream switching frequency and recommend batching optimizations.' },
+    ],
     dashboard: [
       { label: 'Executive Synthesis', prompt: 'Provide an executive synthesis of where I stand today across Graduation, Engineering, and Capacity.' },
       { label: 'Top 3 Priorities', prompt: 'Identify the top 3 critical items requiring my immediate attention today.' },
