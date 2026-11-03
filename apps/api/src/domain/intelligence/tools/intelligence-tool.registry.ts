@@ -531,6 +531,297 @@ export class IntelligenceToolRegistry {
         };
       },
     });
+
+    // 7a. Get Dashboard Summary (Command Center Operating Status)
+    this.tools.set('get_dashboard_summary', {
+      name: 'get_dashboard_summary',
+      description: 'Get comprehensive Command Center operating status: open tasks, blocked items, overdue items, next best action, and active projects.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const [readyTasks, inProgressTasks, blockedTasks, overdueTasks, activeProjects, activeGoals, activeWorkstreams, recentDone] = await Promise.all([
+          prisma.task.count({ where: { userId, status: TaskStatus.READY } }),
+          prisma.task.count({ where: { userId, status: TaskStatus.IN_PROGRESS } }),
+          prisma.task.count({ where: { userId, status: TaskStatus.BLOCKED } }),
+          prisma.task.count({ where: { userId, status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] }, dueDate: { lt: new Date() } } }),
+          prisma.project.count({ where: { userId, status: 'ACTIVE' } }),
+          prisma.goal.count({ where: { userId, status: 'IN_PROGRESS' } }),
+          prisma.workstream.count({ where: { userId, status: 'ACTIVE' } }),
+          prisma.task.count({ where: { userId, status: TaskStatus.DONE, completedAt: { gte: new Date(Date.now() - 7 * 86400000) } } }),
+        ]);
+
+        const topReady = await prisma.task.findFirst({
+          where: { userId, status: TaskStatus.READY },
+          orderBy: [{ priority: 'asc' }, { dueDate: 'asc' }],
+          include: { project: { select: { name: true } } },
+        });
+
+        return {
+          workstreams: activeWorkstreams,
+          goals: activeGoals,
+          projects: activeProjects,
+          readyTasks,
+          inProgressTasks,
+          blockedTasks,
+          overdueTasks,
+          completedPast7Days: recentDone,
+          nextBestAction: topReady ? { id: topReady.id, title: topReady.title, priority: topReady.priority, project: topReady.project?.name } : null,
+        };
+      },
+    });
+
+    // 7b. Get Workstreams
+    this.tools.set('get_workstreams', {
+      name: 'get_workstreams',
+      description: 'Retrieve all strategic workstreams with priority weights, goal counts, and project counts.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const workstreams = await prisma.workstream.findMany({
+          where: { userId, status: 'ACTIVE' },
+          include: {
+            _count: { select: { goals: true, projects: true } },
+          },
+          orderBy: { priorityWeight: 'desc' },
+        });
+
+        return {
+          count: workstreams.length,
+          workstreams: workstreams.map((w) => ({
+            id: w.id,
+            name: w.name,
+            slug: w.slug,
+            description: w.description,
+            priorityWeight: w.priorityWeight,
+            goalsCount: w._count.goals,
+            projectsCount: w._count.projects,
+          })),
+        };
+      },
+    });
+
+    // 7c. Get Project Tasks
+    this.tools.set('get_project_tasks', {
+      name: 'get_project_tasks',
+      description: 'Retrieve tasks for a specific project by project ID or name, optionally filtered by status.',
+      parameters: {
+        type: 'object',
+        properties: {
+          projectId: { type: 'string', description: 'UUID of project' },
+          projectName: { type: 'string', description: 'Name of project' },
+          status: { type: 'string', description: 'Filter by task status (BACKLOG, READY, IN_PROGRESS, BLOCKED, REVIEW, DONE)' },
+        },
+      },
+      execute: async (userId, args) => {
+        const { projectId, projectName, status } = args as { projectId?: string; projectName?: string; status?: TaskStatus };
+        const project = await prisma.project.findFirst({
+          where: {
+            userId,
+            ...(projectId ? { id: projectId } : {}),
+            ...(projectName ? { name: { contains: projectName, mode: 'insensitive' } } : {}),
+          },
+        });
+
+        if (!project) {
+          return { found: false, message: `No project found matching criteria.` };
+        }
+
+        const tasks = await prisma.task.findMany({
+          where: {
+            userId,
+            projectId: project.id,
+            ...(status ? { status } : {}),
+          },
+          orderBy: [{ priority: 'asc' }, { dueDate: 'asc' }],
+          select: {
+            id: true,
+            title: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            estimateMinutes: true,
+            actualMinutes: true,
+          },
+          take: 30,
+        });
+
+        return {
+          found: true,
+          projectId: project.id,
+          projectName: project.name,
+          tasksCount: tasks.length,
+          tasks,
+        };
+      },
+    });
+
+    // 7d. Get Project Dependencies
+    this.tools.set('get_project_dependencies', {
+      name: 'get_project_dependencies',
+      description: 'Retrieve the dependency and blocker relationships between tasks within a project or across projects.',
+      parameters: {
+        type: 'object',
+        properties: {
+          projectId: { type: 'string', description: 'Optional project UUID' },
+          projectName: { type: 'string', description: 'Optional project name' },
+        },
+      },
+      execute: async (userId, args) => {
+        const { projectId, projectName } = args as { projectId?: string; projectName?: string };
+        let resolvedProjectId = projectId;
+
+        if (!resolvedProjectId && projectName) {
+          const p = await prisma.project.findFirst({
+            where: { userId, name: { contains: projectName, mode: 'insensitive' } },
+          });
+          resolvedProjectId = p?.id;
+        }
+
+        const dependencies = await prisma.taskDependency.findMany({
+          where: {
+            dependentTask: {
+              userId,
+              ...(resolvedProjectId ? { projectId: resolvedProjectId } : {}),
+            },
+          },
+          include: {
+            dependentTask: { select: { id: true, title: true, status: true, priority: true } },
+            blockingTask: { select: { id: true, title: true, status: true, priority: true } },
+          },
+        });
+
+        return {
+          count: dependencies.length,
+          dependencies: dependencies.map((d) => ({
+            dependentTask: d.dependentTask.title,
+            dependentStatus: d.dependentTask.status,
+            blockedBy: d.blockingTask.title,
+            blockingStatus: d.blockingTask.status,
+            isResolved: d.blockingTask.status === TaskStatus.DONE,
+          })),
+        };
+      },
+    });
+
+    // 7e. Get Capacity & Time Allocation
+    this.tools.set('get_capacity', {
+      name: 'get_capacity',
+      description: 'Get daily and weekly capacity metrics, allocated time blocks, and available deep-work bandwidth.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const todayStart = new Date(new Date().setHours(0, 0, 0, 0));
+        const todayEnd = new Date(new Date().setHours(23, 59, 59, 999));
+
+        const [settings, blocksToday] = await Promise.all([
+          prisma.userSettings.findUnique({ where: { userId } }),
+          prisma.timeBlock.findMany({
+            where: { userId, startAt: { gte: todayStart, lte: todayEnd } },
+            select: { startAt: true, endAt: true, title: true },
+          }),
+        ]);
+
+        const dailyCapacity = settings?.dailyWorkCapacityMinutes || 480;
+        const weeklyCapacity = settings?.weeklyWorkCapacityMinutes || 2400;
+        const plannedMinutes = blocksToday.reduce(
+          (acc, b) => acc + Math.max(0, Math.round((b.endAt.getTime() - b.startAt.getTime()) / 60000)),
+          0,
+        );
+
+        return {
+          dailyCapacityMinutes: dailyCapacity,
+          weeklyCapacityMinutes: weeklyCapacity,
+          plannedMinutesToday: plannedMinutes,
+          availableMinutesToday: Math.max(0, dailyCapacity - plannedMinutes),
+          utilizationPercent: dailyCapacity > 0 ? Math.round((plannedMinutes / dailyCapacity) * 100) : 0,
+          timeBlocksCount: blocksToday.length,
+        };
+      },
+    });
+
+    // 7f. Get Learning Progress
+    this.tools.set('get_learning_progress', {
+      name: 'get_learning_progress',
+      description: 'Retrieve learning and study activities logged over the past 30 days, total minutes, and linked skills.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000);
+        const [activities, totalAgg] = await Promise.all([
+          prisma.learningActivity.findMany({
+            where: { userId, date: { gte: thirtyDaysAgo } },
+            orderBy: { date: 'desc' },
+            take: 15,
+            select: { id: true, title: true, type: true, minutes: true, date: true },
+          }),
+          prisma.learningActivity.aggregate({
+            where: { userId, date: { gte: thirtyDaysAgo } },
+            _sum: { minutes: true },
+          }),
+        ]);
+
+        return {
+          past30DaysMinutes: totalAgg._sum.minutes || 0,
+          past30DaysHours: Math.round((totalAgg._sum.minutes || 0) / 60),
+          recentActivities: activities,
+        };
+      },
+    });
+
+    // 7g. Get Performance Metrics
+    this.tools.set('get_performance_metrics', {
+      name: 'get_performance_metrics',
+      description: 'Retrieve historical execution metrics: weekly completion rate, task throughput, overdue rate, and milestone progress.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const [totalTasks, completedTasks, overdueTasks, reachedMilestones, totalMilestones] = await Promise.all([
+          prisma.task.count({ where: { userId } }),
+          prisma.task.count({ where: { userId, status: TaskStatus.DONE } }),
+          prisma.task.count({ where: { userId, status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] }, dueDate: { lt: new Date() } } }),
+          prisma.milestone.count({ where: { project: { userId }, status: MilestoneStatus.REACHED } }),
+          prisma.milestone.count({ where: { project: { userId } } }),
+        ]);
+
+        const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+        const milestoneRate = totalMilestones > 0 ? Math.round((reachedMilestones / totalMilestones) * 100) : 0;
+
+        return {
+          totalTasks,
+          completedTasks,
+          overdueTasks,
+          completionRatePercent: completionRate,
+          totalMilestones,
+          reachedMilestones,
+          milestoneProgressPercent: milestoneRate,
+        };
+      },
+    });
+
+    // 7h. Get Weekly Review
+    this.tools.set('get_weekly_review', {
+      name: 'get_weekly_review',
+      description: 'Retrieve the most recent weekly review retrospective details including accomplishments, wins, challenges, and lessons learned.',
+      parameters: { type: 'object', properties: {} },
+      execute: async (userId) => {
+        const review = await prisma.weeklyReview.findFirst({
+          where: { userId },
+          orderBy: { createdAt: 'desc' },
+        });
+
+        if (!review) {
+          return { found: false, message: 'No weekly review records found yet.' };
+        }
+
+        return {
+          found: true,
+          id: review.id,
+          status: review.status,
+          startDate: review.startDate,
+          endDate: review.endDate,
+          wins: review.wins,
+          challenges: review.challenges,
+          lessons: review.lessons,
+          nextFocus: review.nextFocus,
+          notes: review.notes,
+        };
+      },
+    });
   }
 
   private registerActionTools() {

@@ -1636,6 +1636,7 @@ export interface IntelligenceChatInput {
   conversationId?: string;
   message: string;
   pageContext?: PageContextInput;
+  engineMode?: string;
 }
 
 export interface IntelligenceChatOutput {

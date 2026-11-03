@@ -822,6 +822,7 @@ export const intelligenceChatSchema = z.object({
   conversationId: z.string().uuid('Invalid conversation ID').optional(),
   message: z.string().trim().min(1, 'Message cannot be empty').max(4000),
   pageContext: pageContextSchema.optional(),
+  engineMode: z.string().optional(),
 });
 
 export const createConversationSchema = z.object({
