@@ -410,21 +410,6 @@ export const SettingsPage: React.FC = () => {
     }
   };
 
-  const handleToggleUserStatus = async (targetUser: PublicUserDto) => {
-    const newStatus = !targetUser.isActive;
-    try {
-      await apiClient<{ user: PublicUserDto }>(`/api/v1/users/${targetUser.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ isActive: newStatus }),
-      });
-      showToast(`User ${targetUser.displayName} marked as ${newStatus ? 'ACTIVE' : 'SUSPENDED'}`, 'success');
-      void fetchUsers();
-      void fetchAuditLogs();
-    } catch (err: unknown) {
-      showToast(err instanceof Error ? err.message : 'Failed to update user status', 'error');
-    }
-  };
-
   const filteredUsers = usersList.filter((u) => {
     const query = userSearchQuery.trim().toLowerCase();
     const matchesSearch =
