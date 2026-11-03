@@ -15,6 +15,7 @@ import { IntelligenceSafetyService } from './safety/intelligence-safety.service.
 import { MemoryService } from './memory/memory.service.js';
 import { AIProvider, AIRequestMessage, AIResponse } from './provider/ai-provider.interface.js';
 import { AIProviderFactory } from './provider/ai-provider.factory.js';
+import { OpenAIProvider } from './provider/openai-ai-provider.js';
 import { GroundedReasoningEngine } from './provider/grounded-reasoning-engine.js';
 import { NotFoundError, ForbiddenError, BadRequestError } from '../../utils/errors.js';
 import { InternalCascadeService } from '../integration/internal-cascade.service.js';
@@ -87,60 +88,100 @@ export class IntelligenceService {
     // 5. Build dynamic context with live database metrics
     const context = await this.contextService.buildContext(userId, resolvedPageContext);
 
-    // 6. Generate AI response with multi-turn tool calling
+    // 6. Generate AI response with iterative multi-turn tool calling (up to 5 iterations)
     const requestMessages: AIRequestMessage[] = history.map((m) => ({
       role: m.role.toLowerCase() as 'user' | 'assistant' | 'system',
       content: m.content,
     }));
 
-    let response: AIResponse;
+    // Select provider based on engineMode
+    let activeEngine: AIProvider;
+    let modelOverride: string | undefined;
+
+    if (input.engineMode === 'grounded') {
+      activeEngine = this.groundedEngine;
+    } else if (input.engineMode === 'openai-4o') {
+      activeEngine = this.provider instanceof OpenAIProvider ? this.provider : new OpenAIProvider();
+      modelOverride = 'gpt-4o';
+    } else if (input.engineMode === 'openai-mini') {
+      activeEngine = this.provider instanceof OpenAIProvider ? this.provider : new OpenAIProvider();
+      modelOverride = 'gpt-4o-mini';
+    } else {
+      activeEngine = this.provider;
+    }
+
+    let response: AIResponse = { content: '', providerName: activeEngine.name };
+    let currentIteration = 0;
+    const maxIterations = 5;
+    let currentMessages: AIRequestMessage[] = [...requestMessages];
+
     try {
-      response = await this.provider.generate({
-        messages: requestMessages,
-        context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
-        availableTools: this.toolRegistry.getAvailableTools(),
-      });
+      while (currentIteration < maxIterations) {
+        currentIteration++;
+        response = await activeEngine.generate({
+          messages: currentMessages,
+          context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
+          availableTools: this.toolRegistry.getAvailableTools(),
+          modelOverride,
+        });
 
-      // Handle multi-turn tool execution loop for data query tools
-      if (response.toolCalls && response.toolCalls.length > 0) {
-        const firstTool = response.toolCalls[0];
-        if (!firstTool.name.startsWith('propose_') && this.provider.name !== 'GroundedReasoningEngine') {
-          const toolResult = await this.toolRegistry.executeTool(firstTool.name, userId, firstTool.arguments);
-
-          const followUpMessages: AIRequestMessage[] = [
-            ...requestMessages,
-            {
-              role: 'assistant',
-              content: response.content || `Invoking tool ${firstTool.name}...`,
-              toolCalls: response.toolCalls,
-            },
-            {
-              role: 'tool',
-              toolCallId: firstTool.id,
-              name: firstTool.name,
-              content: JSON.stringify(toolResult),
-            },
-          ];
-
-          response = await this.provider.generate({
-            messages: followUpMessages,
-            context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
-            availableTools: this.toolRegistry.getAvailableTools(),
-          });
+        // If no tool calls requested, we have our final synthesized response
+        if (!response.toolCalls || response.toolCalls.length === 0) {
+          break;
         }
+
+        // If it's an action proposal (mutation proposal), handle via operator confirmation pipeline
+        const hasActionProposal = response.toolCalls.some((tc) => tc.name.startsWith('propose_'));
+        if (hasActionProposal) {
+          break;
+        }
+
+        // If the engine doesn't execute external tool loops (e.g. GroundedEngine), stop
+        if (activeEngine.name === 'GroundedReasoningEngine') {
+          break;
+        }
+
+        // Execute all requested data tools (supports parallel tool calling)
+        const toolOutputs: Array<{ id: string; name: string; output: unknown }> = [];
+        for (const toolCall of response.toolCalls) {
+          try {
+            logger.info({ tool: toolCall.name, iteration: currentIteration }, '[IntelligenceService] Executing data tool');
+            const res = await this.toolRegistry.executeTool(toolCall.name, userId, toolCall.arguments);
+            toolOutputs.push({ id: toolCall.id, name: toolCall.name, output: res });
+          } catch (toolErr: unknown) {
+            const errText = toolErr instanceof Error ? toolErr.message : String(toolErr);
+            toolOutputs.push({ id: toolCall.id, name: toolCall.name, output: { error: errText } });
+          }
+        }
+
+        // Append assistant tool-call turn and corresponding tool output turns
+        currentMessages = [
+          ...currentMessages,
+          {
+            role: 'assistant',
+            content: response.content || '',
+            toolCalls: response.toolCalls,
+          },
+          ...toolOutputs.map((to) => ({
+            role: 'tool' as const,
+            toolCallId: to.id,
+            name: to.name,
+            content: JSON.stringify(to.output),
+          })),
+        ];
       }
     } catch (err: unknown) {
       const errMsg = err instanceof Error ? err.message : String(err);
       logger.warn({ errMsg }, '[IntelligenceService] Provider generation failed');
 
-      if (this.provider.name !== 'GroundedReasoningEngine') {
+      if (activeEngine.name !== 'GroundedReasoningEngine') {
         try {
           response = await this.groundedEngine.generate({
             messages: requestMessages,
             context: { ...context, userId, pageContext: resolvedPageContext } as unknown as Record<string, unknown>,
             availableTools: this.toolRegistry.getAvailableTools(),
           });
-          response.content = `> ℹ️ *Grounded Mode Active: Operating dynamically over live database records.*\n\n${response.content}`;
+          response.content = `> ⚠️ **Provider Notice**: OpenAI could not be reached (\`${errMsg}\`). Falling back to live Grounded database synthesis.\n\n${response.content}`;
         } catch (groundedErr: unknown) {
           const gMsg = groundedErr instanceof Error ? groundedErr.message : String(groundedErr);
           response = {

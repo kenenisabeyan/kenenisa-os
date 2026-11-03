@@ -19,8 +19,9 @@ export class AIProviderFactory {
       }
     }
 
-    // 2. Explicitly configured OpenAI or standard LLM key
-    if (configuredProvider === 'openai' || process.env.OPENAI_API_KEY || (apiKey && !apiKey.includes('your_openai_api_key'))) {
+    // 2. Explicitly configured OpenAI with valid API key
+    const hasValidOpenAIKey = apiKey && apiKey.trim() !== '' && !apiKey.includes('your_openai_api_key');
+    if ((configuredProvider === 'openai' && hasValidOpenAIKey) || hasValidOpenAIKey) {
       logger.info('[AIProviderFactory] Selected OpenAIProvider');
       return new OpenAIProvider();
     }

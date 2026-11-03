@@ -748,7 +748,13 @@ export class IntelligenceToolRegistry {
             where: { userId, date: { gte: thirtyDaysAgo } },
             orderBy: { date: 'desc' },
             take: 15,
-            select: { id: true, title: true, type: true, minutes: true, date: true },
+            select: {
+              id: true,
+              minutes: true,
+              date: true,
+              notes: true,
+              learningItem: { select: { title: true, type: true } },
+            },
           }),
           prisma.learningActivity.aggregate({
             where: { userId, date: { gte: thirtyDaysAgo } },
@@ -759,7 +765,14 @@ export class IntelligenceToolRegistry {
         return {
           past30DaysMinutes: totalAgg._sum.minutes || 0,
           past30DaysHours: Math.round((totalAgg._sum.minutes || 0) / 60),
-          recentActivities: activities,
+          recentActivities: activities.map((a) => ({
+            id: a.id,
+            title: a.learningItem.title,
+            type: a.learningItem.type,
+            minutes: a.minutes,
+            date: a.date,
+            notes: a.notes,
+          })),
         };
       },
     });
@@ -802,6 +815,9 @@ export class IntelligenceToolRegistry {
         const review = await prisma.weeklyReview.findFirst({
           where: { userId },
           orderBy: { createdAt: 'desc' },
+          include: {
+            weeklyPlan: { select: { weekStart: true, weekEnd: true } },
+          },
         });
 
         if (!review) {
@@ -812,8 +828,8 @@ export class IntelligenceToolRegistry {
           found: true,
           id: review.id,
           status: review.status,
-          startDate: review.startDate,
-          endDate: review.endDate,
+          startDate: review.weeklyPlan?.weekStart,
+          endDate: review.weeklyPlan?.weekEnd,
           wins: review.wins,
           challenges: review.challenges,
           lessons: review.lessons,

@@ -18,7 +18,7 @@ interface PageAiCopilotProps {
 }
 
 type DrawerMode = 'normal' | 'expanded';
-type EngineMode = 'grounded' | 'gemini-pro' | 'gemini-flash';
+type EngineMode = 'openai-mini' | 'openai-4o' | 'grounded';
 
 export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
   pageType,
@@ -29,16 +29,22 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
   const { showToast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [drawerMode, setDrawerMode] = useState<DrawerMode>('normal');
+  const [conversationId, setConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Array<{ id: string; role: 'user' | 'assistant'; content: string; copied?: boolean }>>([]);
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
   const [activeProposal, setActiveProposal] = useState<ActionProposalDto | null>(null);
   const [executingProposal, setExecutingProposal] = useState(false);
-  const [activeProvider, setActiveProvider] = useState<string>('Grounded Intelligence');
-  const [engineMode, setEngineMode] = useState<EngineMode>('grounded');
+  const [activeProvider, setActiveProvider] = useState<string>('OpenAI GPT-4o-mini');
+  const [engineMode, setEngineMode] = useState<EngineMode>('openai-mini');
 
   // Dynamic context filter scopes
   const [selectedScopes, setSelectedScopes] = useState<string[]>(['goals', 'tasks', 'graduation']);
+
+  // Viewport tracking for mobile responsive behavior
+  const [isMobile, setIsMobile] = useState<boolean>(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false,
+  );
 
   // Floating pill draggable position state
   const [dockSide, setDockSide] = useState<'right' | 'left'>(() => {
@@ -50,12 +56,40 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
   });
   const [customOffsetY, setCustomOffsetY] = useState<number | null>(() => {
     try {
+      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+        return null; // Always dock cleanly above mobile bottom bar
+      }
       const saved = localStorage.getItem('kenenisa_copilot_dock_offset_y');
-      return saved ? parseFloat(saved) : null;
+      if (saved) {
+        const parsed = parseFloat(saved);
+        if (typeof window !== 'undefined' && parsed > window.innerHeight - 100) {
+          return null;
+        }
+        return parsed;
+      }
+      return null;
     } catch {
       return null;
     }
   });
+
+  // Dynamic window resize listener: clamps customOffsetY and updates isMobile
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setCustomOffsetY((prev) => {
+        if (prev === null) return null;
+        const bottomMargin = mobile ? 120 : 80;
+        const maxY = Math.max(72, window.innerHeight - bottomMargin);
+        if (prev > maxY) return maxY;
+        if (prev < 72) return 72;
+        return prev;
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -97,7 +131,8 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
     if (deltaX > 6 || deltaY > 6) {
       hasMovedRef.current = true;
       const windowHeight = window.innerHeight;
-      const clampedY = Math.max(80, Math.min(windowHeight - 120, clientY));
+      const bottomMargin = window.innerWidth < 768 ? 120 : 80;
+      const clampedY = Math.max(72, Math.min(windowHeight - bottomMargin, clientY));
       setCustomOffsetY(clampedY);
     }
   }, []);
@@ -269,8 +304,14 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
     try {
       const res = await sendChatMessage({
         message: userText,
+        conversationId: conversationId || undefined,
+        engineMode,
         pageContext: pageCtx,
       });
+
+      if (res.conversationId) {
+        setConversationId(res.conversationId);
+      }
 
       const assistantMsgId = `asst-${Date.now()}`;
       setMessages((prev) => [
@@ -314,8 +355,9 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
 
   const handleClearChat = () => {
     setMessages([]);
+    setConversationId(null);
     setActiveProposal(null);
-    showToast('Conversation cleared', 'info');
+    showToast('Conversation reset', 'info');
   };
 
   const handleConfirmAction = async (confirm: boolean) => {
@@ -345,14 +387,19 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
     }
   };
 
-  // Determine button positioning styles dynamically
+  // Determine button positioning styles dynamically (fixed, above all menus and cards)
   const buttonStyle: React.CSSProperties = {
     zIndex: 9999,
     position: 'fixed',
     ...(customOffsetY !== null
       ? { top: `${customOffsetY}px` }
-      : { bottom: 'calc(5.25rem + env(safe-area-inset-bottom, 0px))' }),
+      : {
+          bottom: isMobile
+            ? 'calc(4.75rem + env(safe-area-inset-bottom, 0px))'
+            : 'calc(5.25rem + env(safe-area-inset-bottom, 0px))',
+        }),
     ...(dockSide === 'left' ? { left: '1rem' } : { right: '1rem' }),
+    pointerEvents: 'auto',
   };
 
   return (
@@ -505,12 +552,18 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
                       <span>Engine:</span>
                       <select
                         value={engineMode}
-                        onChange={(e) => setEngineMode(e.target.value as EngineMode)}
+                        onChange={(e) => {
+                          const mode = e.target.value as EngineMode;
+                          setEngineMode(mode);
+                          if (mode === 'openai-mini') setActiveProvider('OpenAI GPT-4o-mini');
+                          else if (mode === 'openai-4o') setActiveProvider('OpenAI GPT-4o');
+                          else setActiveProvider('Grounded Intelligence');
+                        }}
                         className="bg-white border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-800 cursor-pointer hover:border-blue-400"
                       >
-                        <option value="grounded">⚡ Grounded Live DB</option>
-                        <option value="gemini-pro">🧠 Gemini 1.5 Pro</option>
-                        <option value="gemini-flash">🚀 Gemini Flash</option>
+                        <option value="openai-mini">⚡ OpenAI GPT-4o-mini</option>
+                        <option value="openai-4o">🧠 OpenAI GPT-4o</option>
+                        <option value="grounded">📊 Grounded Live DB</option>
                       </select>
                     </div>
 

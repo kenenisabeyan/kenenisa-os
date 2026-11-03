@@ -25,6 +25,7 @@ export interface AIRequest {
   availableTools?: AIToolDefinition[];
   temperature?: number;
   maxTokens?: number;
+  modelOverride?: string;
 }
 
 export interface AIResponse {
