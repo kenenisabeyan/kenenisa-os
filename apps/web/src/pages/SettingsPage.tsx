@@ -4,6 +4,7 @@ import { changePasswordSchema, createUserSchema } from '@kenenisa-os/shared';
 import type { PublicUserDto, CreateUserInput, AuthSessionDto, AuditLogDto, UserSettingsDto } from '@kenenisa-os/shared';
 import { apiClient, ApiError } from '../lib/api-client.js';
 import { useToast } from '../components/ui/Toast.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const SettingsPage: React.FC = () => {
   const { showToast } = useToast();
@@ -414,6 +415,8 @@ export const SettingsPage: React.FC = () => {
           Manage your account security, credentials, active sessions, and system access for KENENISA OS
         </p>
       </div>
+
+      <PageAiCopilot pageType="settings" />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Profile Info Overview Card */}

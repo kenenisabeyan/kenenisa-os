@@ -17,6 +17,7 @@ import type {
 import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
+import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 
 export const ExecutivePage: React.FC = () => {
   const navigate = useNavigate();
@@ -101,6 +102,8 @@ export const ExecutivePage: React.FC = () => {
           </div>
         }
       />
+
+      <PageAiCopilot pageType="executive" />
 
       {loading ? (
         <LoadingSkeleton rows={5} height="h-32" />
