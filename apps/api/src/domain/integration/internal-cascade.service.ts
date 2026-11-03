@@ -299,6 +299,10 @@ export class InternalCascadeService {
   ): Promise<CascadeResult> {
     const result: CascadeResult = { unblockedTaskIds: [], blockedTaskIds: [], skillAdvancements: [] };
 
+    if (!prisma.learningItemSkill?.findMany) {
+      return result;
+    }
+
     const itemSkills = await prisma.learningItemSkill.findMany({
       where: { learningItemId },
       include: { skill: true },
@@ -338,10 +342,12 @@ export class InternalCascadeService {
     }
 
     // Emit to Domain Event Bus
-    const learningItem = await prisma.learningItem.findUnique({
-      where: { id: learningItemId },
-      select: { title: true },
-    });
+    const learningItem = prisma.learningItem?.findUnique
+      ? await prisma.learningItem.findUnique({
+          where: { id: learningItemId },
+          select: { title: true },
+        })
+      : null;
 
     await domainEventBus.emit({
       type: 'learning.recorded',

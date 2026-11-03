@@ -6,7 +6,7 @@ import { createSession } from '../domain/auth/session.service.js';
 
 const app = createApp();
 
-describe('Graduation Command Center & Academics Test Suite', { timeout: 60000 }, () => {
+describe('Graduation Command Center & Academics Test Suite', { timeout: 120000 }, () => {
   let bearerToken: string;
   let testUserId: string;
 

@@ -33,6 +33,7 @@ vi.mock('../lib/prisma.js', () => {
     learningItem: {
       findMany: vi.fn(),
       findFirst: vi.fn(),
+      findUnique: vi.fn(),
       count: vi.fn(),
       create: vi.fn(),
       update: vi.fn(),
@@ -44,6 +45,7 @@ vi.mock('../lib/prisma.js', () => {
     learningItemSkill: {
       upsert: vi.fn(),
       findUnique: vi.fn(),
+      findMany: vi.fn().mockResolvedValue([]),
       delete: vi.fn(),
     },
     project: {
