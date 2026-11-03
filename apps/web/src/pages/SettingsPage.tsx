@@ -57,12 +57,16 @@ export const SettingsPage: React.FC = () => {
   // Security Audit Logs state
   const [auditLogsList, setAuditLogsList] = useState<AuditLogDto[]>([]);
   const [isLoadingLogs, setIsLoadingLogs] = useState(false);
+  const [auditLogFilter, setAuditLogFilter] = useState<'ALL' | 'AUTH' | 'USERS' | 'SECURITY'>('ALL');
 
   // User Management state (for OWNER / ADMIN)
   const isOwnerOrAdmin = user?.role === 'OWNER' || user?.role === 'ADMIN';
   const [usersList, setUsersList] = useState<PublicUserDto[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [userListError, setUserListError] = useState<string | null>(null);
+  const [userSearchQuery, setUserSearchQuery] = useState('');
+  const [userRoleFilter, setUserRoleFilter] = useState<'ALL' | 'OWNER' | 'ADMIN' | 'USER'>('ALL');
+  const [userStatusFilter, setUserStatusFilter] = useState<'ALL' | 'ACTIVE' | 'INACTIVE'>('ALL');
 
   // Edit User Modal state
   const [editingUser, setEditingUser] = useState<PublicUserDto | null>(null);
@@ -405,6 +409,44 @@ export const SettingsPage: React.FC = () => {
       }
     }
   };
+
+  const handleToggleUserStatus = async (targetUser: PublicUserDto) => {
+    const newStatus = !targetUser.isActive;
+    try {
+      await apiClient<{ user: PublicUserDto }>(`/api/v1/users/${targetUser.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ isActive: newStatus }),
+      });
+      showToast(`User ${targetUser.displayName} marked as ${newStatus ? 'ACTIVE' : 'SUSPENDED'}`, 'success');
+      void fetchUsers();
+      void fetchAuditLogs();
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update user status', 'error');
+    }
+  };
+
+  const filteredUsers = usersList.filter((u) => {
+    const query = userSearchQuery.trim().toLowerCase();
+    const matchesSearch =
+      !query ||
+      u.displayName.toLowerCase().includes(query) ||
+      u.email.toLowerCase().includes(query) ||
+      u.role.toLowerCase().includes(query);
+    const matchesRole = userRoleFilter === 'ALL' || u.role === userRoleFilter;
+    const matchesStatus =
+      userStatusFilter === 'ALL' ||
+      (userStatusFilter === 'ACTIVE' && u.isActive) ||
+      (userStatusFilter === 'INACTIVE' && !u.isActive);
+    return matchesSearch && matchesRole && matchesStatus;
+  });
+
+  const filteredAuditLogs = auditLogsList.filter((log) => {
+    if (auditLogFilter === 'ALL') return true;
+    if (auditLogFilter === 'AUTH') return log.action.includes('LOGIN') || log.action.includes('PASSWORD') || log.action.includes('SESSION');
+    if (auditLogFilter === 'USERS') return log.action.includes('USER');
+    if (auditLogFilter === 'SECURITY') return log.action.includes('FAILURE') || log.action.includes('REVOKE');
+    return true;
+  });
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-12">
@@ -855,9 +897,33 @@ export const SettingsPage: React.FC = () => {
 
       {/* Security Audit Log History Panel */}
       <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-4">
-        <div className="pb-3 border-b border-slate-100">
-          <h2 className="text-base font-bold text-slate-900">Security Audit Trail</h2>
-          <p className="text-xs text-slate-500">Real-time log of security events and authentication history for your account.</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+          <div>
+            <h2 className="text-base font-bold text-slate-900">Security Audit Trail</h2>
+            <p className="text-xs text-slate-500">Real-time log of security events and authentication history for your account.</p>
+          </div>
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {(
+              [
+                { id: 'ALL', label: 'All Events' },
+                { id: 'AUTH', label: 'Authentication' },
+                { id: 'USERS', label: 'User Actions' },
+                { id: 'SECURITY', label: 'Security Alerts' },
+              ] as const
+            ).map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => setAuditLogFilter(filter.id)}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors cursor-pointer border ${
+                  auditLogFilter === filter.id
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-2xs'
+                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                }`}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="overflow-x-auto custom-scrollbar">
@@ -877,14 +943,14 @@ export const SettingsPage: React.FC = () => {
                     Loading security audit trail...
                   </td>
                 </tr>
-              ) : auditLogsList.length === 0 ? (
+              ) : filteredAuditLogs.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="py-4 text-center text-slate-400 font-medium">
-                    No security events logged yet.
+                    No security events matched this filter.
                   </td>
                 </tr>
               ) : (
-                auditLogsList.map((log) => (
+                filteredAuditLogs.map((log) => (
                   <tr key={log.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="py-2.5 px-3">
                       <span
@@ -946,6 +1012,47 @@ export const SettingsPage: React.FC = () => {
             </div>
           )}
 
+          {/* Dynamic Search & Filter Controls */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-200/80 rounded-xl">
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-sm">
+              <svg className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                value={userSearchQuery}
+                onChange={(e) => setUserSearchQuery(e.target.value)}
+                placeholder="Search users by name or email..."
+                className="w-full pl-9 pr-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+              />
+            </div>
+
+            {/* Role & Status Filter Badges */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <select
+                value={userRoleFilter}
+                onChange={(e) => setUserRoleFilter(e.target.value as any)}
+                className="px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 cursor-pointer hover:border-slate-300"
+              >
+                <option value="ALL">All Roles</option>
+                <option value="OWNER">Owner</option>
+                <option value="ADMIN">Admin</option>
+                <option value="USER">Standard User</option>
+              </select>
+
+              <select
+                value={userStatusFilter}
+                onChange={(e) => setUserStatusFilter(e.target.value as any)}
+                className="px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 cursor-pointer hover:border-slate-300"
+              >
+                <option value="ALL">All Status</option>
+                <option value="ACTIVE">Active Only</option>
+                <option value="INACTIVE">Suspended Only</option>
+              </select>
+            </div>
+          </div>
+
           {/* Users Table */}
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
@@ -965,14 +1072,14 @@ export const SettingsPage: React.FC = () => {
                       Loading user accounts...
                     </td>
                   </tr>
-                ) : usersList.length === 0 ? (
+                ) : filteredUsers.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="py-6 text-center text-slate-400 font-medium">
-                      No additional users found.
+                      No users matched your search criteria.
                     </td>
                   </tr>
                 ) : (
-                  usersList.map((usr) => (
+                  filteredUsers.map((usr) => (
                     <tr key={usr.id} className="hover:bg-slate-50/80 transition-colors">
                       <td className="py-3 px-3">
                         <div className="flex items-center gap-2.5">
