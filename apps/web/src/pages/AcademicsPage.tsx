@@ -14,12 +14,20 @@ import type {
   AcademicStatus,
 } from '@kenenisa-os/shared';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
+import { LoadingSkeleton } from '../components/ui/StateCard.js';
 
 export const AcademicsPage: React.FC = () => {
-  const [semesters, setSemesters] = useState<AcademicSemesterDto[]>([]);
-  const [selectedSemesterId, setSelectedSemesterId] = useState<string>('');
+  const [semesters, setSemesters] = useState<AcademicSemesterDto[]>(
+    () => getCachedApiData<AcademicSemesterDto[]>('/api/v1/academics/semesters') || [],
+  );
+  const [selectedSemesterId, setSelectedSemesterId] = useState<string>(() => {
+    const cached = getCachedApiData<AcademicSemesterDto[]>('/api/v1/academics/semesters');
+    const active = cached?.find((s) => s.status === 'ACTIVE') || cached?.[0];
+    return active ? active.id : '';
+  });
   const [courses, setCourses] = useState<AcademicCourseDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => semesters.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   // Edit / Add modal state
@@ -313,10 +321,7 @@ export const AcademicsPage: React.FC = () => {
 
       {/* Courses Table / Cards */}
       {loading && courses.length === 0 ? (
-        <div className="p-12 text-center bg-white rounded-2xl border border-slate-200 shadow-xs">
-          <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-xs text-slate-500">Loading semester courses...</p>
-        </div>
+        <LoadingSkeleton rows={4} height="h-24" />
       ) : courses.length === 0 ? (
         <div className="p-12 text-center bg-white rounded-2xl border border-dashed border-slate-200 shadow-xs">
           <p className="text-sm font-semibold text-slate-700">No courses configured for this semester</p>

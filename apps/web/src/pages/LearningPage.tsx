@@ -19,6 +19,7 @@ import type {
 } from '@kenenisa-os/shared';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 interface LearningColumn {
   status: string;
@@ -51,10 +52,14 @@ const LEARNING_COLUMNS: LearningColumn[] = [
 
 export function LearningPage() {
   const { showToast } = useToast();
-  const [items, setItems] = useState<LearningItemDto[]>([]);
+  const [items, setItems] = useState<LearningItemDto[]>(
+    () => getCachedApiData<LearningItemDto[]>('/api/v1/learning/items') || [],
+  );
   const [metrics, setMetrics] = useState<LearningMetricsDto | null>(null);
-  const [skills, setSkills] = useState<SkillDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [skills, setSkills] = useState<SkillDto[]>(
+    () => getCachedApiData<SkillDto[]>('/api/v1/learning/skills') || [],
+  );
+  const [loading, setLoading] = useState(() => items.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   // View Mode: Study Board vs Grid Gallery
@@ -93,10 +98,12 @@ export function LearningPage() {
   const [selectedSkillId, setSelectedSkillId] = useState('');
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (items.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
-      const [itemsData, metricsData, skillsData] = await Promise.all([
+      const [itemsRes, metricsRes, skillsRes] = await Promise.allSettled([
         fetchLearningItems({
           status: statusFilter || undefined,
           type: typeFilter || undefined,
@@ -105,16 +112,22 @@ export function LearningPage() {
         fetchLearningMetrics(),
         fetchSkills(),
       ]);
-      setItems(itemsData);
-      setMetrics(metricsData);
-      setSkills(skillsData);
+
+      if (itemsRes.status === 'fulfilled') setItems(itemsRes.value);
+      if (metricsRes.status === 'fulfilled') setMetrics(metricsRes.value);
+      if (skillsRes.status === 'fulfilled') setSkills(skillsRes.value);
+
+      if (itemsRes.status === 'rejected') {
+        const err = itemsRes.reason;
+        setError(err instanceof Error ? err.message : 'Failed to load learning data');
+      }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to load learning data';
       setError(msg);
     } finally {
       setLoading(false);
     }
-  }, [statusFilter, typeFilter, searchQuery]);
+  }, [statusFilter, typeFilter, searchQuery, items.length]);
 
   useEffect(() => {
     void loadData();

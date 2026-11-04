@@ -11,6 +11,7 @@ import {
 import { fetchProjects } from '../features/projects/api.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 const MILESTONE_BOARD_COLUMNS: {
   status: MilestoneStatus;
@@ -56,9 +57,13 @@ const MILESTONE_BOARD_COLUMNS: {
 
 export const MilestonesPage: React.FC = () => {
   const { showToast } = useToast();
-  const [milestones, setMilestones] = useState<MilestoneDto[]>([]);
-  const [projects, setProjects] = useState<ProjectDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [milestones, setMilestones] = useState<MilestoneDto[]>(
+    () => getCachedApiData<MilestoneDto[]>('/api/v1/milestones') || [],
+  );
+  const [projects, setProjects] = useState<ProjectDto[]>(
+    () => getCachedApiData<ProjectDto[]>('/api/v1/projects') || [],
+  );
+  const [loading, setLoading] = useState(() => milestones.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   // View Mode: Timeline Order vs Notion Checkpoint Board
@@ -137,7 +142,9 @@ export const MilestonesPage: React.FC = () => {
   }, [projectId]);
 
   const loadMilestones = useCallback(async () => {
-    setLoading(true);
+    if (milestones.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const data = await fetchMilestones({
@@ -150,7 +157,7 @@ export const MilestonesPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [projectIdFilter, search]);
+  }, [projectIdFilter, search, milestones.length]);
 
   useEffect(() => {
     void loadProjects();

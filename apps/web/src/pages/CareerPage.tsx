@@ -21,21 +21,31 @@ import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const CareerPage: React.FC = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
 
-  const [opportunities, setOpportunities] = useState<OpportunityDto[]>([]);
+  const [opportunities, setOpportunities] = useState<OpportunityDto[]>(
+    () => getCachedApiData<OpportunityDto[]>('/api/v1/opportunities') || [],
+  );
   const [analytics, setAnalytics] = useState<OpportunityAnalyticsDto | null>(null);
-  const [skills, setSkills] = useState<SkillDto[]>([]);
-  const [projects, setProjects] = useState<ProjectDto[]>([]);
+  const [skills, setSkills] = useState<SkillDto[]>(
+    () => getCachedApiData<SkillDto[]>('/api/v1/learning/skills') || [],
+  );
+  const [projects, setProjects] = useState<ProjectDto[]>(
+    () => getCachedApiData<ProjectDto[]>('/api/v1/projects') || [],
+  );
   const [evidence, setEvidence] = useState<EvidenceDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => opportunities.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   // Active Opportunity detail view
-  const [selectedOpp, setSelectedOpp] = useState<OpportunityDto | null>(null);
+  const [selectedOpp, setSelectedOpp] = useState<OpportunityDto | null>(() => {
+    const cached = getCachedApiData<OpportunityDto[]>('/api/v1/opportunities') || [];
+    return cached.length > 0 ? cached[0] : null;
+  });
 
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -52,10 +62,12 @@ export const CareerPage: React.FC = () => {
   };
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (opportunities.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
-      const [oppsData, analyticsData, skillsData, projectsData, evidenceData] = await Promise.all([
+      const [oppsRes, analyticsRes, skillsRes, projectsRes, evidenceRes] = await Promise.allSettled([
         fetchOpportunities({ pageSize: 50 }),
         fetchOpportunityAnalytics(),
         fetchSkills(),
@@ -63,21 +75,26 @@ export const CareerPage: React.FC = () => {
         fetchEvidenceList({ pageSize: 20 }),
       ]);
 
-      setOpportunities(oppsData);
-      setAnalytics(analyticsData);
-      setSkills(skillsData);
-      setProjects(projectsData);
-      setEvidence(evidenceData);
+      if (oppsRes.status === 'fulfilled') {
+        setOpportunities(oppsRes.value);
+        if (oppsRes.value.length > 0 && !selectedOpp) {
+          setSelectedOpp(oppsRes.value[0]);
+        }
+      }
+      if (analyticsRes.status === 'fulfilled') setAnalytics(analyticsRes.value);
+      if (skillsRes.status === 'fulfilled') setSkills(skillsRes.value);
+      if (projectsRes.status === 'fulfilled') setProjects(projectsRes.value);
+      if (evidenceRes.status === 'fulfilled') setEvidence(evidenceRes.value);
 
-      if (oppsData.length > 0 && !selectedOpp) {
-        setSelectedOpp(oppsData[0]);
+      if (oppsRes.status === 'rejected' && projectsRes.status === 'rejected') {
+        setError('Failed to connect to Career services. Please verify backend connectivity.');
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load career hub');
     } finally {
       setLoading(false);
     }
-  }, [selectedOpp]);
+  }, [opportunities.length, selectedOpp]);
 
   useEffect(() => {
     void loadData();

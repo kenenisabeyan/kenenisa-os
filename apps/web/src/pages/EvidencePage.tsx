@@ -13,13 +13,19 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const EvidencePage: React.FC = () => {
   const { showToast } = useToast();
-  const [items, setItems] = useState<EvidenceDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState<EvidenceDto[]>(
+    () => getCachedApiData<EvidenceDto[]>('/api/v1/evidence') || [],
+  );
+  const [loading, setLoading] = useState(() => items.length === 0);
   const [error, setError] = useState<string | null>(null);
-  const [activeItem, setActiveItem] = useState<EvidenceDto | null>(null);
+  const [activeItem, setActiveItem] = useState<EvidenceDto | null>(() => {
+    const cached = getCachedApiData<EvidenceDto[]>('/api/v1/evidence') || [];
+    return cached.length > 0 ? cached[0] : null;
+  });
 
   // Multi-View Mode
   const [viewMode, setViewMode] = useState<'gallery' | 'board' | 'list'>(() => {
@@ -74,7 +80,9 @@ export const EvidencePage: React.FC = () => {
   };
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (items.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const data = await fetchEvidenceList({
@@ -90,7 +98,7 @@ export const EvidencePage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [typeFilter, searchQuery, activeItem]);
+  }, [typeFilter, searchQuery, activeItem, items.length]);
 
   useEffect(() => {
     void loadData();

@@ -12,6 +12,7 @@ import {
   IntegrationProvider,
 } from '../features/integrations/api.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 interface ProviderMeta {
   name: string;
@@ -94,10 +95,11 @@ const PROVIDER_METADATA: Record<IntegrationProvider, ProviderMeta> = {
 };
 
 export const IntegrationsPage: React.FC = () => {
-  const [providers, setProviders] = useState<ProviderSummaryDto[]>([]);
-  const [accounts, setAccounts] = useState<IntegrationAccountDto[]>([]);
+  const cachedIntegrations = getCachedApiData<{ providers: ProviderSummaryDto[]; accounts: IntegrationAccountDto[] }>('/api/v1/integrations');
+  const [providers, setProviders] = useState<ProviderSummaryDto[]>(() => cachedIntegrations?.providers || []);
+  const [accounts, setAccounts] = useState<IntegrationAccountDto[]>(() => cachedIntegrations?.accounts || []);
   const [logs, setLogs] = useState<IntegrationSyncLogDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => providers.length === 0);
   const [syncingAll, setSyncingAll] = useState(false);
   const [syncingProvider, setSyncingProvider] = useState<string | null>(null);
   const [showLogsModal, setShowLogsModal] = useState(false);
@@ -108,7 +110,9 @@ export const IntegrationsPage: React.FC = () => {
 
   const loadData = async () => {
     try {
-      setLoading(true);
+      if (providers.length === 0) {
+        setLoading(true);
+      }
       const res = await fetchIntegrations();
       setProviders(res.providers);
       setAccounts(res.accounts);

@@ -3,14 +3,17 @@ import { fetchSkills, fetchSkillById, createSkill, updateSkill, archiveSkill } f
 import type { SkillDto, SkillDetailDto, SkillLevel } from '@kenenisa-os/shared';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 const SKILL_LEVELS: SkillLevel[] = ['BEGINNER', 'ELEMENTARY', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'];
 
 export function SkillsPage() {
   const { showToast } = useToast();
-  const [skills, setSkills] = useState<SkillDto[]>([]);
+  const [skills, setSkills] = useState<SkillDto[]>(
+    () => getCachedApiData<SkillDto[]>('/api/v1/learning/skills') || [],
+  );
   const [selectedSkill, setSelectedSkill] = useState<SkillDetailDto | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => skills.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   // Multi-View Mode
@@ -34,7 +37,9 @@ export function SkillsPage() {
   const [targetLevel, setTargetLevel] = useState<SkillLevel>('ADVANCED');
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (skills.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const data = await fetchSkills({
@@ -51,7 +56,7 @@ export function SkillsPage() {
     } finally {
       setLoading(false);
     }
-  }, [statusFilter, searchQuery, selectedSkill]);
+  }, [statusFilter, searchQuery, selectedSkill, skills.length]);
 
   useEffect(() => {
     void loadData();

@@ -8,6 +8,7 @@ import {
 import type { GraduationOverviewDto } from '@kenenisa-os/shared';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 import { getCachedApiData } from '../lib/api-client.js';
+import { LoadingSkeleton, ErrorStateCard, EmptyStateCard } from '../components/ui/StateCard.js';
 
 export const GraduationPage: React.FC = () => {
   const [overview, setOverview] = useState<GraduationOverviewDto | null>(() =>
@@ -20,24 +21,28 @@ export const GraduationPage: React.FC = () => {
   const [savingTargetDate, setSavingTargetDate] = useState(false);
   const [savingInit, setSavingInit] = useState(false);
 
-  const loadData = async () => {
+  const loadData = React.useCallback(async (isSilent = false) => {
     try {
-      setLoading(true);
+      if (!isSilent && !overview) {
+        setLoading(true);
+      }
       setError(null);
       const data = await fetchGraduationOverview();
       setOverview(data);
-      if (data.graduationTargetDate) {
+      if (data?.graduationTargetDate) {
         setTargetDateInput(data.graduationTargetDate.slice(0, 10));
       }
     } catch (err: any) {
-      setError(err?.message || 'Failed to load graduation overview');
+      if (!overview) {
+        setError(err?.message || 'Failed to load graduation overview');
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, [overview]);
 
   useEffect(() => {
-    loadData();
+    void loadData();
   }, []);
 
   const handleSaveTargetDate = async () => {
@@ -67,30 +72,41 @@ export const GraduationPage: React.FC = () => {
     }
   };
 
-  if (loading && !overview) {
+  if (error && !overview) {
     return (
-      <div className="p-8 max-w-7xl mx-auto flex items-center justify-center min-h-[500px]">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm font-medium text-slate-600">Loading Graduation Command Center...</p>
-        </div>
+      <div className="p-8 max-w-7xl mx-auto" id="graduation-error">
+        <ErrorStateCard
+          title="Error Loading Graduation Data"
+          message={error}
+          onRetry={() => void loadData()}
+        />
       </div>
     );
   }
 
-  if (error && !overview) {
+  if (loading && !overview) {
     return (
-      <div className="p-8 max-w-7xl mx-auto">
-        <div className="p-6 bg-rose-50 border border-rose-200 rounded-xl text-rose-800">
-          <h3 className="text-lg font-semibold mb-2">Error Loading Graduation Data</h3>
-          <p className="text-sm mb-4">{error}</p>
-          <button
-            onClick={loadData}
-            className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-lg text-sm transition-colors"
-          >
-            Retry
-          </button>
+      <div className="p-6 max-w-7xl mx-auto space-y-6" id="graduation-loading">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200/60">
+          <div>
+            <h1 className="text-xl font-bold text-slate-900">Graduation Command Center</h1>
+            <p className="text-xs text-slate-500">ASTU 5th-Year Engineering & Graduation Dashboard</p>
+          </div>
         </div>
+        <LoadingSkeleton rows={4} height="h-32" />
+      </div>
+    );
+  }
+
+  if (!overview) {
+    return (
+      <div className="p-8 max-w-7xl mx-auto" id="graduation-empty">
+        <EmptyStateCard
+          title="Graduation Workspace Ready"
+          description="No graduation overview data found. Initialize your graduation workspace to track senior milestones, courses, and defense preparation."
+          actionLabel="Initialize Workspace"
+          onAction={() => void handleSyncWorkspace()}
+        />
       </div>
     );
   }

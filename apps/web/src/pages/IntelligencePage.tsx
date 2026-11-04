@@ -15,10 +15,13 @@ import {
   archiveUserMemory,
 } from '../features/intelligence/api.js';
 import { useToast } from '../components/ui/Toast.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const IntelligencePage: React.FC = () => {
   const { showToast } = useToast();
-  const [conversations, setConversations] = useState<ConversationDto[]>([]);
+  const [conversations, setConversations] = useState<ConversationDto[]>(
+    () => getCachedApiData<ConversationDto[]>('/api/v1/intelligence/conversations') || [],
+  );
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<ConversationMessageDto[]>([]);
   const [inputText, setInputText] = useState<string>('');

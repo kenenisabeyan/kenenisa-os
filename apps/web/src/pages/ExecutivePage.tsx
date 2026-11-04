@@ -18,24 +18,37 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const ExecutivePage: React.FC = () => {
   const navigate = useNavigate();
 
-  const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
-  const [goals, setGoals] = useState<GoalDto[]>([]);
-  const [projects, setProjects] = useState<ProjectDto[]>([]);
-  const [tasks, setTasks] = useState<TaskDto[]>([]);
+  const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>(
+    () => getCachedApiData<WorkstreamDto[]>('/api/v1/workstreams') || [],
+  );
+  const [goals, setGoals] = useState<GoalDto[]>(
+    () => getCachedApiData<GoalDto[]>('/api/v1/goals') || [],
+  );
+  const [projects, setProjects] = useState<ProjectDto[]>(
+    () => getCachedApiData<ProjectDto[]>('/api/v1/projects') || [],
+  );
+  const [tasks, setTasks] = useState<TaskDto[]>(
+    () => getCachedApiData<TaskDto[]>('/api/v1/tasks') || [],
+  );
   const [evidence, setEvidence] = useState<EvidenceDto[]>([]);
   const [reviews, setReviews] = useState<WeeklyReviewDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => workstreams.length === 0 && tasks.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    // Only show full skeleton if we have zero cached data
+    if (workstreams.length === 0 && tasks.length === 0 && projects.length === 0) {
+      setLoading(true);
+    }
     setError(null);
+
     try {
-      const [wsData, goalsData, projectsData, tasksData, evidenceData, reviewsData] = await Promise.all([
+      const [wsRes, goalsRes, projRes, tasksRes, evidRes, revsRes] = await Promise.allSettled([
         fetchWorkstreams({ pageSize: 50 }),
         fetchGoals({ pageSize: 50 }),
         fetchProjects({ pageSize: 50 }),
@@ -44,18 +57,27 @@ export const ExecutivePage: React.FC = () => {
         fetchWeeklyReviews(),
       ]);
 
-      setWorkstreams(wsData);
-      setGoals(goalsData);
-      setProjects(projectsData);
-      setTasks(tasksData);
-      setEvidence(evidenceData);
-      setReviews(reviewsData);
+      if (wsRes.status === 'fulfilled') setWorkstreams(wsRes.value);
+      if (goalsRes.status === 'fulfilled') setGoals(goalsRes.value);
+      if (projRes.status === 'fulfilled') setProjects(projRes.value);
+      if (tasksRes.status === 'fulfilled') setTasks(tasksRes.value);
+      if (evidRes.status === 'fulfilled') setEvidence(evidRes.value);
+      if (revsRes.status === 'fulfilled') setReviews(revsRes.value);
+
+      // If every single critical query rejected, report failure
+      if (
+        wsRes.status === 'rejected' &&
+        projRes.status === 'rejected' &&
+        tasksRes.status === 'rejected'
+      ) {
+        setError('Failed to connect to backend services. Please check network connectivity.');
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load executive overview data');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [workstreams.length, tasks.length, projects.length]);
 
   useEffect(() => {
     void loadData();

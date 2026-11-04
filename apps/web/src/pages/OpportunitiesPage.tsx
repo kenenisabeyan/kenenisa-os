@@ -15,6 +15,7 @@ import {
 } from '../features/opportunities/api.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 interface PipelineColumn {
   id: string;
@@ -65,9 +66,11 @@ const PIPELINE_COLUMNS: PipelineColumn[] = [
 export const OpportunitiesPage: React.FC = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const [opportunities, setOpportunities] = useState<OpportunityDto[]>([]);
+  const [opportunities, setOpportunities] = useState<OpportunityDto[]>(
+    () => getCachedApiData<OpportunityDto[]>('/api/v1/opportunities') || [],
+  );
   const [analytics, setAnalytics] = useState<OpportunityAnalyticsDto | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(() => opportunities.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   // View Mode: Notion Pipeline Board vs Grid Gallery
@@ -107,10 +110,12 @@ export const OpportunitiesPage: React.FC = () => {
   });
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (opportunities.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
-      const [listRes, analyticsRes] = await Promise.all([
+      const [listRes, analyticsRes] = await Promise.allSettled([
         fetchOpportunities({
           search: search || undefined,
           status: selectedStatus || undefined,
@@ -118,15 +123,21 @@ export const OpportunitiesPage: React.FC = () => {
         }),
         fetchOpportunityAnalytics(),
       ]);
-      setOpportunities(listRes);
-      setAnalytics(analyticsRes);
+
+      if (listRes.status === 'fulfilled') setOpportunities(listRes.value);
+      if (analyticsRes.status === 'fulfilled') setAnalytics(analyticsRes.value);
+
+      if (listRes.status === 'rejected') {
+        const err = listRes.reason;
+        setError(err instanceof Error ? err.message : 'Failed to load opportunities');
+      }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to load opportunities';
       setError(msg);
     } finally {
       setLoading(false);
     }
-  }, [search, selectedStatus, selectedType]);
+  }, [search, selectedStatus, selectedType, opportunities.length]);
 
   useEffect(() => {
     void loadData();

@@ -18,21 +18,39 @@ import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { Badge } from '../components/ui/Badge.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const WorkIntelligencePage: React.FC = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
 
-  const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
-  const [goals, setGoals] = useState<GoalDto[]>([]);
-  const [projects, setProjects] = useState<ProjectDto[]>([]);
-  const [milestones, setMilestones] = useState<MilestoneDto[]>([]);
-  const [tasks, setTasks] = useState<TaskDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>(
+    () => getCachedApiData<WorkstreamDto[]>('/api/v1/workstreams') || [],
+  );
+  const [goals, setGoals] = useState<GoalDto[]>(
+    () => getCachedApiData<GoalDto[]>('/api/v1/goals') || [],
+  );
+  const [projects, setProjects] = useState<ProjectDto[]>(
+    () => getCachedApiData<ProjectDto[]>('/api/v1/projects') || [],
+  );
+  const [milestones, setMilestones] = useState<MilestoneDto[]>(
+    () => getCachedApiData<MilestoneDto[]>('/api/v1/milestones') || [],
+  );
+  const [tasks, setTasks] = useState<TaskDto[]>(
+    () => getCachedApiData<TaskDto[]>('/api/v1/tasks') || [],
+  );
+  const [loading, setLoading] = useState(
+    () => workstreams.length === 0 && projects.length === 0 && tasks.length === 0,
+  );
   const [error, setError] = useState<string | null>(null);
 
   // Hierarchy expand state & search
-  const [expandedWs, setExpandedWs] = useState<Record<string, boolean>>({});
+  const [expandedWs, setExpandedWs] = useState<Record<string, boolean>>(() => {
+    const cached = getCachedApiData<WorkstreamDto[]>('/api/v1/workstreams') || [];
+    const expMap: Record<string, boolean> = {};
+    cached.forEach((w) => { expMap[w.id] = true; });
+    return expMap;
+  });
   const [hierarchySearch, setHierarchySearch] = useState<string>('');
 
   // AI Triage state
@@ -40,10 +58,12 @@ export const WorkIntelligencePage: React.FC = () => {
   const [aiLoading, setAiLoading] = useState<boolean>(false);
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (workstreams.length === 0 && projects.length === 0 && tasks.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
-      const [wsData, goalsData, projectsData, milestonesData, tasksData] = await Promise.all([
+      const [wsRes, goalsRes, projRes, msRes, tasksRes] = await Promise.allSettled([
         fetchWorkstreams({ pageSize: 50 }),
         fetchGoals({ pageSize: 50 }),
         fetchProjects({ pageSize: 50 }),
@@ -51,24 +71,30 @@ export const WorkIntelligencePage: React.FC = () => {
         fetchTasks({ pageSize: 100 }),
       ]);
 
-      setWorkstreams(wsData);
-      setGoals(goalsData);
-      setProjects(projectsData);
-      setMilestones(milestonesData);
-      setTasks(tasksData);
+      if (wsRes.status === 'fulfilled') {
+        setWorkstreams(wsRes.value);
+        setExpandedWs((prev) => {
+          const next = { ...prev };
+          wsRes.value.forEach((w: WorkstreamDto) => {
+            if (next[w.id] === undefined) next[w.id] = true;
+          });
+          return next;
+        });
+      }
+      if (goalsRes.status === 'fulfilled') setGoals(goalsRes.value);
+      if (projRes.status === 'fulfilled') setProjects(projRes.value);
+      if (msRes.status === 'fulfilled') setMilestones(msRes.value);
+      if (tasksRes.status === 'fulfilled') setTasks(tasksRes.value);
 
-      // Expand all workstreams by default
-      const expMap: Record<string, boolean> = {};
-      wsData.forEach((w: WorkstreamDto) => {
-        expMap[w.id] = true;
-      });
-      setExpandedWs(expMap);
+      if (wsRes.status === 'rejected' && projRes.status === 'rejected' && tasksRes.status === 'rejected') {
+        setError('Failed to load work intelligence. Please verify your connection.');
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load work intelligence');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [workstreams.length, projects.length, tasks.length]);
 
   useEffect(() => {
     void loadData();

@@ -24,6 +24,7 @@ import {
 } from '../features/results/api.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const ResultsPage: React.FC = () => {
   const { showToast } = useToast();
@@ -34,7 +35,9 @@ export const ResultsPage: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const [analysis, setAnalysis] = useState<ResultAnalysisDto | null>(null);
+  const [analysis, setAnalysis] = useState<ResultAnalysisDto | null>(
+    () => getCachedApiData<ResultAnalysisDto>('/api/v1/results/analysis'),
+  );
   const [detailedOutcomes, setDetailedOutcomes] = useState<PlanOutcomeDto[]>([]);
   const [spreadsheet, setSpreadsheet] = useState<SpreadsheetReportDto | null>(null);
   const [timelineEntries, setTimelineEntries] = useState<ResultTimelineEntryDto[]>([]);
@@ -46,7 +49,7 @@ export const ResultsPage: React.FC = () => {
   const [activeSheetIndex, setActiveSheetIndex] = useState<number>(1);
   const [selectedOutcome, setSelectedOutcome] = useState<PlanOutcomeDto | null>(null);
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(() => !analysis);
   const [exportModalOpen, setExportModalOpen] = useState<boolean>(false);
   const [exportScope, setExportScope] = useState<'current' | 'day' | 'week' | 'month' | 'year' | 'custom' | 'full'>('current');
   const [exporting, setExporting] = useState<boolean>(false);
@@ -56,7 +59,9 @@ export const ResultsPage: React.FC = () => {
   }, [period, horizonFilter, statusFilter]);
 
   const loadWorkspaceData = async () => {
-    setLoading(true);
+    if (!analysis) {
+      setLoading(true);
+    }
     try {
       const queryParams: Record<string, string> = {};
       if (horizonFilter) queryParams.horizon = horizonFilter;
@@ -72,7 +77,7 @@ export const ResultsPage: React.FC = () => {
         workstreamsRes,
         projectsRes,
         capacityRes,
-      ] = await Promise.all([
+      ] = await Promise.allSettled([
         fetchResultAnalysis(queryParams),
         fetchDetailedResults(queryParams),
         fetchSpreadsheetPreview({ ...queryParams, scope: period }),
@@ -83,14 +88,14 @@ export const ResultsPage: React.FC = () => {
         fetchCapacityAnalysis(),
       ]);
 
-      setAnalysis(analysisRes);
-      setDetailedOutcomes(detailedRes.items || []);
-      setSpreadsheet(spreadsheetRes);
-      setTimelineEntries(timelineRes || []);
-      setPeriodComparison(comparisonRes);
-      setWorkstreams(workstreamsRes || []);
-      setProjects(projectsRes || []);
-      setCapacityAnalysis(capacityRes);
+      if (analysisRes.status === 'fulfilled') setAnalysis(analysisRes.value);
+      if (detailedRes.status === 'fulfilled') setDetailedOutcomes(detailedRes.value.items || []);
+      if (spreadsheetRes.status === 'fulfilled') setSpreadsheet(spreadsheetRes.value);
+      if (timelineRes.status === 'fulfilled') setTimelineEntries(timelineRes.value || []);
+      if (comparisonRes.status === 'fulfilled') setPeriodComparison(comparisonRes.value);
+      if (workstreamsRes.status === 'fulfilled') setWorkstreams(workstreamsRes.value || []);
+      if (projectsRes.status === 'fulfilled') setProjects(projectsRes.value || []);
+      if (capacityRes.status === 'fulfilled') setCapacityAnalysis(capacityRes.value);
     } catch (err) {
       console.error('Failed to load results workspace data:', err);
       showToast('Failed to load results workspace data', 'error');

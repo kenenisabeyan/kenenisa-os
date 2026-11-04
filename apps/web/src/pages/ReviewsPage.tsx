@@ -12,6 +12,7 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 interface RetroChecklistItem {
   id: string;
@@ -30,18 +31,23 @@ const RETRO_CHECKLIST: RetroChecklistItem[] = [
 
 export const ReviewsPage: React.FC = () => {
   const { showToast } = useToast();
-  const [reviews, setReviews] = useState<WeeklyReviewDto[]>([]);
-  const [activeReview, setActiveReview] = useState<WeeklyReviewDto | null>(null);
+  const [reviews, setReviews] = useState<WeeklyReviewDto[]>(
+    () => getCachedApiData<WeeklyReviewDto[]>('/api/v1/reviews') || [],
+  );
+  const [activeReview, setActiveReview] = useState<WeeklyReviewDto | null>(() => {
+    const cached = getCachedApiData<WeeklyReviewDto[]>('/api/v1/reviews') || [];
+    return cached.length > 0 ? cached[0] : null;
+  });
   const [context, setContext] = useState<WeeklyReviewContextDto | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => reviews.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   // Form states
-  const [wins, setWins] = useState('');
-  const [challenges, setChallenges] = useState('');
-  const [lessons, setLessons] = useState('');
-  const [nextFocus, setNextFocus] = useState('');
-  const [notes, setNotes] = useState('');
+  const [wins, setWins] = useState(() => activeReview?.wins || '');
+  const [challenges, setChallenges] = useState(() => activeReview?.challenges || '');
+  const [lessons, setLessons] = useState(() => activeReview?.lessons || '');
+  const [nextFocus, setNextFocus] = useState(() => activeReview?.nextFocus || '');
+  const [notes, setNotes] = useState(() => activeReview?.notes || '');
   const [decision, setDecision] = useState<'CONTINUE' | 'ADJUST' | 'DEFER' | 'STOP' | 'INVESTIGATE'>('CONTINUE');
 
   // Interactive Checklist state per review
@@ -101,31 +107,44 @@ export const ReviewsPage: React.FC = () => {
   };
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (reviews.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
-      const [reviewsData, contextData] = await Promise.all([
+      const [reviewsRes, contextRes] = await Promise.allSettled([
         fetchWeeklyReviews(),
         fetchWeeklyReviewContext(),
       ]);
-      setReviews(reviewsData);
-      setContext(contextData);
 
-      if (reviewsData.length > 0 && !activeReview) {
-        const first = reviewsData[0];
-        setActiveReview(first);
-        setWins(first.wins || '');
-        setChallenges(first.challenges || '');
-        setLessons(first.lessons || '');
-        setNextFocus(first.nextFocus || '');
-        setNotes(first.notes || '');
+      if (reviewsRes.status === 'fulfilled') {
+        const reviewsData = reviewsRes.value;
+        setReviews(reviewsData);
+        if (reviewsData.length > 0 && !activeReview) {
+          const first = reviewsData[0];
+          setActiveReview(first);
+          setWins(first.wins || '');
+          setChallenges(first.challenges || '');
+          setLessons(first.lessons || '');
+          setNextFocus(first.nextFocus || '');
+          setNotes(first.notes || '');
+        }
+      }
+
+      if (contextRes.status === 'fulfilled') {
+        setContext(contextRes.value);
+      }
+
+      if (reviewsRes.status === 'rejected') {
+        const err = reviewsRes.reason;
+        setError(err instanceof Error ? err.message : 'Failed to load weekly reviews');
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load weekly reviews');
     } finally {
       setLoading(false);
     }
-  }, [activeReview]);
+  }, [activeReview, reviews.length]);
 
   useEffect(() => {
     void loadData();

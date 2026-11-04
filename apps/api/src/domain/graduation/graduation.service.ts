@@ -1,7 +1,7 @@
 import { prisma } from '../../lib/prisma.js';
 import { TaskPriority, TaskStatus, WorkstreamStatus, ProjectStatus, MilestoneStatus } from '@prisma/client';
 import type { GraduationOverviewDto } from '@kenenisa-os/shared';
-import { DashboardService } from '../dashboard/dashboard.service.js';
+import { NextBestActionService } from '../dashboard/next-best-action.service.js';
 
 export class GraduationService {
   /**
@@ -320,42 +320,46 @@ export class GraduationService {
   public static async getGraduationOverview(userId: string): Promise<GraduationOverviewDto> {
     await this.ensureGraduationWorkspace(userId);
 
-    // Fetch Semester and Courses
-    const semester = await prisma.academicSemester.findFirst({
-      where: { userId, status: 'ACTIVE' },
-      include: {
-        courses: {
-          include: {
-            project: {
-              select: { id: true, name: true, slug: true },
+    // Fetch Core Graduation Entities in Parallel via Promise.allSettled
+    const [semesterRes, targetDateRes, projectsRes, userSettingsRes] = await Promise.allSettled([
+      prisma.academicSemester.findFirst({
+        where: { userId, status: 'ACTIVE' },
+        include: {
+          courses: {
+            include: {
+              project: { select: { id: true, name: true, slug: true } },
             },
           },
         },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.userMemory.findFirst({
+        where: { userId, key: 'graduation_target_date', archivedAt: null },
+      }),
+      prisma.project.findMany({
+        where: {
+          userId,
+          slug: { in: ['individual-graduation-project', 'group-graduation-project'] },
+        },
+        include: {
+          milestones: {
+            orderBy: { sortOrder: 'asc' },
+          },
+          tasks: {
+            where: { status: { not: TaskStatus.CANCELLED } },
+          },
+        },
+      }),
+      prisma.userSettings.findUnique({
+        where: { userId },
+      }),
+    ]);
 
-    // Fetch Graduation Target Date from UserMemory
-    const targetDateMemory = await prisma.userMemory.findFirst({
-      where: { userId, key: 'graduation_target_date', archivedAt: null },
-    });
+    const semester = semesterRes.status === 'fulfilled' ? semesterRes.value : null;
+    const targetDateMemory = targetDateRes.status === 'fulfilled' ? targetDateRes.value : null;
     const graduationTargetDate = targetDateMemory?.value || null;
-
-    // Fetch Graduation Projects (Project A and Project B)
-    const projects = await prisma.project.findMany({
-      where: {
-        userId,
-        slug: { in: ['individual-graduation-project', 'group-graduation-project'] },
-      },
-      include: {
-        milestones: {
-          orderBy: { sortOrder: 'asc' },
-        },
-        tasks: {
-          where: { status: { not: TaskStatus.CANCELLED } },
-        },
-      },
-    });
+    const projects = projectsRes.status === 'fulfilled' ? projectsRes.value : [];
+    const userSettings = userSettingsRes.status === 'fulfilled' ? userSettingsRes.value : null;
 
     const projectA = projects.find((p) => p.slug === 'individual-graduation-project');
     const projectB = projects.find((p) => p.slug === 'group-graduation-project');
@@ -513,10 +517,6 @@ export class GraduationService {
     });
 
     // Today's Execution Panel & Available Capacity
-    // Initial suggested planning capacity: 210 minutes
-    const userSettings = await prisma.userSettings.findUnique({
-      where: { userId },
-    });
     const configuredCapacity = userSettings?.dailyWorkCapacityMinutes || 210;
 
     const startOfToday = new Date();
@@ -543,17 +543,17 @@ export class GraduationService {
       },
     });
 
-    // NBA Task Calculation using Dashboard deterministic scoring
+    // NBA Task Calculation using NextBestActionService directly (no redundant dashboard re-computation)
     let nextBestActionData: GraduationOverviewDto['todayExecution']['nextBestAction'] = null;
     try {
-      const dashboardService = new DashboardService();
-      const dashboard = await dashboardService.getDashboardData(userId, {});
-      if (dashboard.nextBestAction?.recommendedTask) {
+      const nbaService = new NextBestActionService();
+      const nbaResult = await nbaService.evaluateNextBestAction(userId, new Date());
+      if (nbaResult?.recommendedTask) {
         nextBestActionData = {
-          id: dashboard.nextBestAction.recommendedTask.id,
-          title: dashboard.nextBestAction.recommendedTask.title,
-          score: dashboard.nextBestAction.score,
-          priority: dashboard.nextBestAction.recommendedTask.priority as unknown as TaskPriority,
+          id: nbaResult.recommendedTask.id,
+          title: nbaResult.recommendedTask.title,
+          score: nbaResult.score,
+          priority: nbaResult.recommendedTask.priority as unknown as TaskPriority,
         };
       }
     } catch {

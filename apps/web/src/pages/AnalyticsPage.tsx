@@ -34,6 +34,7 @@ import {
 } from '../features/analytics/api.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const AnalyticsPage: React.FC = () => {
   const { showToast } = useToast();
@@ -42,10 +43,12 @@ export const AnalyticsPage: React.FC = () => {
   const [customTo, setCustomTo] = useState<string>('');
   const [activeTab, setActiveTab] = useState<'overview' | 'projects' | 'workstreams' | 'learning' | 'history'>('overview');
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [overview, setOverview] = useState<AnalyticsOverviewDto | null>(
+    () => getCachedApiData<AnalyticsOverviewDto>('/api/v1/analytics/overview?period=month'),
+  );
+  const [loading, setLoading] = useState<boolean>(() => !overview);
   const [error, setError] = useState<string | null>(null);
 
-  const [overview, setOverview] = useState<AnalyticsOverviewDto | null>(null);
   const [executionTrend, setExecutionTrend] = useState<ExecutionTrendPointDto[]>([]);
   const [projects, setProjects] = useState<ProjectAnalyticsItemDto[]>([]);
   const [goals, setGoals] = useState<GoalAnalyticsItemDto[]>([]);
@@ -63,7 +66,9 @@ export const AnalyticsPage: React.FC = () => {
   useEffect(() => {
     let isMounted = true;
     const loadData = async () => {
-      setLoading(true);
+      if (!overview) {
+        setLoading(true);
+      }
       setError(null);
       try {
         const query = {
@@ -72,22 +77,7 @@ export const AnalyticsPage: React.FC = () => {
           to: period === 'custom' && customTo ? customTo : undefined,
         };
 
-        const [
-          overviewRes,
-          execTrendRes,
-          projectsRes,
-          goalsRes,
-          workstreamsRes,
-          planningRes,
-          capacityRes,
-          overdueRes,
-          blockedRes,
-          learningRes,
-          learningTrendRes,
-          skillsRes,
-          evidenceRes,
-          historyRes,
-        ] = await Promise.all([
+        const results = await Promise.allSettled([
           fetchAnalyticsOverview(query),
           fetchExecutionTrend(query),
           fetchProjectAnalytics(query),
@@ -105,20 +95,41 @@ export const AnalyticsPage: React.FC = () => {
         ]);
 
         if (isMounted) {
-          setOverview(overviewRes);
-          setExecutionTrend(execTrendRes);
-          setProjects(projectsRes);
-          setGoals(goalsRes);
-          setWorkstreams(workstreamsRes);
-          setPlanning(planningRes);
-          setCapacity(capacityRes);
-          setOverdue(overdueRes);
-          setBlocked(blockedRes);
-          setLearning(learningRes);
-          setLearningTrend(learningTrendRes);
-          setSkills(skillsRes);
-          setEvidence(evidenceRes);
-          setHistory(historyRes);
+          const [
+            overviewRes,
+            execTrendRes,
+            projectsRes,
+            goalsRes,
+            workstreamsRes,
+            planningRes,
+            capacityRes,
+            overdueRes,
+            blockedRes,
+            learningRes,
+            learningTrendRes,
+            skillsRes,
+            evidenceRes,
+            historyRes,
+          ] = results;
+
+          if (overviewRes.status === 'fulfilled') setOverview(overviewRes.value);
+          if (execTrendRes.status === 'fulfilled') setExecutionTrend(execTrendRes.value);
+          if (projectsRes.status === 'fulfilled') setProjects(projectsRes.value);
+          if (goalsRes.status === 'fulfilled') setGoals(goalsRes.value);
+          if (workstreamsRes.status === 'fulfilled') setWorkstreams(workstreamsRes.value);
+          if (planningRes.status === 'fulfilled') setPlanning(planningRes.value);
+          if (capacityRes.status === 'fulfilled') setCapacity(capacityRes.value);
+          if (overdueRes.status === 'fulfilled') setOverdue(overdueRes.value);
+          if (blockedRes.status === 'fulfilled') setBlocked(blockedRes.value);
+          if (learningRes.status === 'fulfilled') setLearning(learningRes.value);
+          if (learningTrendRes.status === 'fulfilled') setLearningTrend(learningTrendRes.value);
+          if (skillsRes.status === 'fulfilled') setSkills(skillsRes.value);
+          if (evidenceRes.status === 'fulfilled') setEvidence(evidenceRes.value);
+          if (historyRes.status === 'fulfilled') setHistory(historyRes.value);
+
+          if (overviewRes.status === 'rejected' && projectsRes.status === 'rejected') {
+            setError('Unable to load analytics summary. Please check backend connection.');
+          }
         }
       } catch (err: unknown) {
         if (isMounted) {
