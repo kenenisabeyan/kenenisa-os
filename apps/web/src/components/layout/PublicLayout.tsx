@@ -50,7 +50,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     { label: 'How It Works', path: '/how-it-works' },
   ];
 
-  // Drawer menu items matching the reference screenshot structure
+  // Drawer menu items matching the exact header navbar items (Home, About, Capabilities, How It Works)
   const drawerMenuItems: MenuItem[] = [
     {
       id: 'home',
@@ -60,30 +60,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       subLinks: [
         { label: 'System Overview', path: '/' },
         { label: 'Strategic Roadmap', path: '/#roadmap' },
-        { label: 'Performance Metrics', path: '/#metrics' },
-      ],
-    },
-    {
-      id: 'portfolio',
-      label: 'Portfolio',
-      hasSubmenu: true,
-      subLinks: [
-        { label: 'Kenenisa OS Core', path: '/app/dashboard' },
-        { label: 'Graduation Command Center', path: '/app/graduation' },
-        { label: 'Evidence & Proof Vault', path: '/app/evidence' },
-        { label: 'Workstreams & Projects', path: '/app/workstreams' },
-      ],
-    },
-    {
-      id: 'services',
-      label: 'Services',
-      path: '/capabilities',
-      hasSubmenu: true,
-      subLinks: [
-        { label: 'Full-Stack Architecture', path: '/capabilities' },
-        { label: 'Autonomous AI Systems', path: '/capabilities#ai' },
-        { label: 'Deterministic UI Systems', path: '/capabilities#ui' },
-        { label: 'Distributed Backend & APIs', path: '/capabilities#backend' },
+        { label: 'Core Metrics', path: '/#metrics' },
       ],
     },
     {
@@ -99,10 +76,29 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       ],
     },
     {
-      id: 'behind-the-scenes',
-      label: 'Behind The Scenes',
+      id: 'capabilities',
+      label: 'Capabilities',
+      path: '/capabilities',
+      hasSubmenu: true,
+      subLinks: [
+        { label: 'System Capabilities Matrix', path: '/capabilities' },
+        { label: 'Execution Engine (MOD-01)', path: '/capabilities#execution' },
+        { label: 'Capacity Planning (MOD-02)', path: '/capabilities#capacity' },
+        { label: 'Evidence Vault (MOD-04)', path: '/capabilities#evidence' },
+        { label: 'AI Advisory Core (MOD-06)', path: '/capabilities#ai' },
+      ],
+    },
+    {
+      id: 'how-it-works',
+      label: 'How It Works',
       path: '/how-it-works',
-      hasSubmenu: false,
+      hasSubmenu: true,
+      subLinks: [
+        { label: 'Methodology Pipeline Flow', path: '/how-it-works' },
+        { label: 'Deterministic Execution', path: '/how-it-works#deterministic' },
+        { label: 'Observable Proof Vault', path: '/how-it-works#proof' },
+        { label: 'Continuous Trajectory & Growth', path: '/how-it-works#growth' },
+      ],
     },
     {
       id: 'contact',
@@ -138,20 +134,11 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   };
 
   const isItemActive = (item: MenuItem): boolean => {
-    if (item.id === 'home') {
+    if (item.path === '/') {
       return location.pathname === '/';
     }
-    if (item.id === 'about') {
-      return location.pathname === '/about';
-    }
-    if (item.id === 'services') {
-      return location.pathname === '/capabilities';
-    }
-    if (item.id === 'behind-the-scenes') {
-      return location.pathname === '/how-it-works';
-    }
-    if (item.id === 'portfolio') {
-      return location.pathname.startsWith('/app');
+    if (item.path) {
+      return location.pathname === item.path || location.pathname.startsWith(`${item.path}/`);
     }
     return false;
   };
