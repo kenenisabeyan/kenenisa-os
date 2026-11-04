@@ -122,15 +122,15 @@ export const HowItWorksPage: React.FC = () => {
       <section className="text-center space-y-8 max-w-[1720px] mx-auto pt-4 relative">
         {/* Eyebrow Badge */}
         <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300">
-          <span className="w-2 h-2 rounded-full bg-[#7a1c32] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#FE721D] animate-pulse" />
           <span>Behind The Scenes &bull; Methodology &bull; 2026</span>
-          <span className="text-[#7a1c32]">⚡</span>
+          <span className="text-[#FE721D]">⚡</span>
         </div>
 
         {/* Headline */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
           From Intention to <br />
-          <span className="text-[#7a1c32]">Verifiable Engineering Proof</span>.
+          <span className="text-[#20B5D6]">Verifiable Engineering Proof</span>.
         </h1>
 
         {/* Supporting Copy */}
