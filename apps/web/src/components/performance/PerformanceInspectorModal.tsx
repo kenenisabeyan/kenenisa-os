@@ -550,3 +550,4 @@ export const PerformanceInspectorModal: React.FC<{ isOpen: boolean; onClose: () 
     </div>
   );
 };
+

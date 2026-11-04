@@ -38,3 +38,4 @@ export const RouteProfiler: React.FC<RouteProfilerProps> = ({ id, children }) =>
     </Profiler>
   );
 };
+
