@@ -42,14 +42,16 @@ export const LoginPage: React.FC = () => {
       await login({ email: result.data.email, password: result.data.password });
       await navigate('/app', { replace: true });
     } catch (err: unknown) {
-      if (isApiError(err) || err instanceof ApiError) {
-        setAuthError(err.message);
+      if (typeof err === 'string' && err.trim().length > 0) {
+        setAuthError(err);
+      } else if (isApiError(err) || err instanceof ApiError) {
+        setAuthError(err.message || 'Invalid email or password.');
       } else if (err instanceof Error) {
-        setAuthError(err.message);
+        setAuthError(err.message || 'Invalid email or password.');
       } else if (typeof err === 'object' && err !== null && 'message' in err) {
         setAuthError(String((err as { message: unknown }).message));
       } else {
-        setAuthError('An unexpected authentication error occurred. Please try again.');
+        setAuthError('Authentication failed. Please check your credentials or verify the API server is online.');
       }
     } finally {
       setIsSubmitting(false);

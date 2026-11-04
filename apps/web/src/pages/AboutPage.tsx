@@ -159,56 +159,96 @@ export const AboutPage: React.FC = () => {
     <div className="space-y-24 py-6" id="about-page">
 
       {/* ══════════════════════════════════════════════════════════════════════
-           HERO — Advanced 3D Glass with Floating Metric Badges
+           HERO — High-Contrast Split Hero with Layered Portrait Card
+           (Meticulously styled to match Alazar visual aesthetic)
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative text-center max-w-[1720px] mx-auto pt-8 overflow-hidden">
-        {/* Multi-layer ambient orbs */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-br from-blue-400/25 via-indigo-300/20 to-purple-400/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" />
-        <div className="absolute top-20 left-1/4 w-64 h-64 bg-emerald-400/15 rounded-full blur-2xl pointer-events-none -z-10" />
-        <div className="absolute top-10 right-1/4 w-48 h-48 bg-cyan-400/15 rounded-full blur-2xl pointer-events-none -z-10" />
+      <section className="relative max-w-[1720px] mx-auto pt-4 pb-8 overflow-hidden" id="hero">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Column: Huge High-Impact Typography & Narrative */}
+          <div className="lg:col-span-7 space-y-6">
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.02]">
+              Kenenisa <br />
+              Beyan. <br />
+              <span className="text-[#7a1c32]">
+                Director &amp; <br />
+                Visual Systems
+              </span>
+            </h1>
 
-        {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-50/90 via-indigo-50/90 to-purple-50/90 border-2 border-blue-200/90 text-blue-900 text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-500/10 hover:scale-105 transition-all duration-300 mb-8">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-          <span>Product Philosophy &amp; Mission 🎯</span>
-          <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-ping opacity-60" />
-        </div>
+            <p className="text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed pt-2">
+              Engineering Architect &amp; Software Systems Lead designing deterministic operating platforms, evidence-backed proof vaults, and ground-truth AI reasoning architectures at Adama Science and Technology University (ASTU).
+            </p>
 
-        {/* Headline */}
-        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-indigo-950 tracking-tighter leading-[1.05] max-w-5xl mx-auto mb-6">
-          Designed to turn{' '}
-          <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-500 bg-clip-text text-transparent">ambition</span>
-            <span className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-60" />
-          </span>{' '}
-          into{' '}
-          <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-green-500 bg-clip-text text-transparent">evidence</span>
-            <span className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full opacity-60" />
-          </span>.
-        </h1>
+            {/* Quick Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-3">
+              <a
+                href="#principles"
+                className="px-7 py-3.5 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-rose-950/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              >
+                <span>EXPLORE WORK</span>
+                <span>▾</span>
+              </a>
+              <a
+                href="#roadmap"
+                className="px-7 py-3.5 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-xs transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              >
+                <span>SYSTEM ROADMAP</span>
+                <span>▸</span>
+              </a>
+            </div>
 
-        <p className="text-xl sm:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-semibold mb-12">
-          KENENISA OS was created to solve the fundamental problem of modern engineering and career fragmentation: connecting strategic direction, daily execution, verified proof, and long-term trajectory into one disciplined operating system.
-        </p>
-
-        {/* Floating Metric Badges Row */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-6">
-          {[
-            { value: '6', label: 'System Modules', icon: '⚡', color: 'bg-blue-50 border-blue-200 text-blue-900' },
-            { value: '5', label: 'R&D Phases', icon: '🔬', color: 'bg-indigo-50 border-indigo-200 text-indigo-900' },
-            { value: '4', label: 'Core Principles', icon: '💎', color: 'bg-purple-50 border-purple-200 text-purple-900' },
-            { value: '100%', label: 'TypeScript', icon: '🛡️', color: 'bg-emerald-50 border-emerald-200 text-emerald-900' },
-            { value: '0', label: 'Dark Silo Tools', icon: '🚫', color: 'bg-rose-50 border-rose-200 text-rose-900' },
-          ].map((m, i) => (
-            <div key={i} className={`flex items-center gap-3 px-5 py-3 rounded-2xl border-2 ${m.color} shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 backdrop-blur-md`}>
-              <span className="text-xl">{m.icon}</span>
-              <div className="text-left">
-                <div className="text-xl font-black leading-none">{m.value}</div>
-                <div className="text-[10px] font-bold uppercase tracking-wider opacity-70">{m.label}</div>
+            {/* Stat Counters matching the reference portfolio metrics */}
+            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200/80 max-w-xl">
+              <div>
+                <div className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
+                <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Years Experience</div>
+              </div>
+              <div>
+                <div className="text-3xl sm:text-5xl font-black text-[#7a1c32] tracking-tight">140+</div>
+                <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Projects &amp; Milestones</div>
+              </div>
+              <div>
+                <div className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">99%</div>
+                <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Verified Evidence</div>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Right Column: Layered Portrait Media Card with Offset Backing Plate */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5]">
+              {/* Offset Backing Plate in Soft Burgundy Accent */}
+              <div className="absolute -bottom-5 -right-5 sm:-bottom-7 sm:-right-7 inset-0 rounded-[2.5rem] bg-[#7a1c32]/15 border-2 border-[#7a1c32]/30 -z-10 shadow-lg" />
+              
+              {/* Main Rounded Portrait Card */}
+              <div className="w-full h-full rounded-[2.5rem] overflow-hidden border-4 border-white shadow-2xl bg-slate-100 relative group">
+                <img
+                  src="/kenenisa-portrait.jpg"
+                  alt="Kenenisa Beyan"
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
+                  }}
+                />
+
+                {/* Viewfinder Circle Graphic Element (matching Reference Screenshot) */}
+                <div className="absolute top-1/2 right-8 -translate-y-1/2 w-8 h-8 rounded-full border border-white/80 bg-white/20 backdrop-blur-xs flex items-center justify-center shadow-sm pointer-events-none">
+                  <div className="w-2 h-2 rounded-full bg-white shadow-xs" />
+                </div>
+
+                {/* Bottom Overlay Pill */}
+                <div className="absolute bottom-5 inset-x-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between">
+                  <div>
+                    <div className="font-black text-sm text-slate-900">Kenenisa Beyan</div>
+                    <div className="text-[10px] font-bold text-[#7a1c32] uppercase tracking-wider">ASTU &bull; CSE Engineering Lead</div>
+                  </div>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
