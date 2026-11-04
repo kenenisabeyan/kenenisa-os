@@ -116,10 +116,13 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     },
   ];
 
-  const handleMenuRowClick = (item: MenuItem) => {
-    if (item.hasSubmenu) {
-      setExpandedItem(expandedItem === item.id ? null : item.id);
-    } else if (item.path) {
+  const handleItemNavigate = (item: MenuItem) => {
+    if (item.id === 'contact') {
+      setDrawerOpen(false);
+      setContactModalOpen(true);
+      return;
+    }
+    if (item.path) {
       if (item.path.startsWith('mailto:')) {
         window.location.href = item.path;
       } else {
@@ -127,6 +130,30 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         setDrawerOpen(false);
       }
     }
+  };
+
+  const handleToggleSubmenu = (itemId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpandedItem(expandedItem === itemId ? null : itemId);
+  };
+
+  const isItemActive = (item: MenuItem): boolean => {
+    if (item.id === 'home') {
+      return location.pathname === '/';
+    }
+    if (item.id === 'about') {
+      return location.pathname === '/about';
+    }
+    if (item.id === 'services') {
+      return location.pathname === '/capabilities';
+    }
+    if (item.id === 'behind-the-scenes') {
+      return location.pathname === '/how-it-works';
+    }
+    if (item.id === 'portfolio') {
+      return location.pathname.startsWith('/app');
+    }
+    return false;
   };
 
   const toggleTheme = () => {
@@ -267,37 +294,38 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
               </button>
             </div>
 
-            {/* Menu Navigation Items with dividers and '+' indicators */}
-            <div className="flex-1 overflow-y-auto py-6 space-y-0.5">
+            {/* Menu Navigation Items with dividers and '+' indicators (Exact match to reference) */}
+            <div className="flex-1 overflow-y-auto py-4 space-y-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               {drawerMenuItems.map((item) => {
-                const isActive =
-                  (item.path === '/' && location.pathname === '/') ||
-                  (item.path && item.path !== '/' && location.pathname.startsWith(item.path));
+                const isActive = isItemActive(item);
                 const isExpanded = expandedItem === item.id;
 
                 return (
                   <div key={item.id} className="border-b border-slate-100 last:border-b-0">
-                    <button
-                      onClick={() => handleMenuRowClick(item)}
-                      className={`w-full py-4 flex items-center justify-between text-left text-base sm:text-lg transition-colors group ${
+                    <div
+                      onClick={() => handleItemNavigate(item)}
+                      className={`w-full py-4 flex items-center justify-between text-left text-base sm:text-lg transition-colors cursor-pointer group ${
                         isActive ? 'text-[#7a1c32] font-semibold' : 'text-slate-800 font-medium hover:text-[#7a1c32]'
                       }`}
                     >
-                      <span className="tracking-tight">{item.label}</span>
+                      <span className="tracking-tight select-none">{item.label}</span>
                       {item.hasSubmenu && (
-                        <span
-                          className={`text-lg font-light transition-transform duration-200 ${
-                            isExpanded ? 'rotate-45 text-[#7a1c32]' : 'text-slate-400 group-hover:text-[#7a1c32]'
-                          }`}
+                        <button
+                          type="button"
+                          onClick={(e) => handleToggleSubmenu(item.id, e)}
+                          className={`p-1.5 -mr-1.5 rounded-md hover:bg-slate-100 text-lg font-light transition-transform duration-200 ${
+                            isActive ? 'text-[#8b1d38] font-normal' : 'text-slate-400 group-hover:text-[#7a1c32]'
+                          } ${isExpanded ? 'rotate-45' : ''}`}
+                          aria-label={`Toggle ${item.label} sub-items`}
                         >
                           +
-                        </span>
+                        </button>
                       )}
-                    </button>
+                    </div>
 
                     {/* Submenu Expansion List */}
                     {item.hasSubmenu && isExpanded && (
-                      <div className="pb-4 pl-3 space-y-2.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                      <div className="pb-3 pl-3 space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
                         {item.subLinks?.map((sub) => (
                           <Link
                             key={sub.path}
@@ -316,14 +344,14 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             </div>
 
             {/* Bottom Action Block (CTA Button + CV Resume Link) */}
-            <div className="pt-6 border-t border-slate-100 flex flex-col gap-3">
+            <div className="pt-5 border-t border-slate-100 flex flex-col gap-3">
               {/* Primary Call to Action Button */}
               <button
                 onClick={() => {
                   setDrawerOpen(false);
                   setContactModalOpen(true);
                 }}
-                className="w-full py-3.5 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-950/20 transition-all hover:scale-102 active:scale-98"
+                className="w-full py-3.5 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-950/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
               >
                 <span>HIRE ME</span>
                 <span className="text-base font-bold leading-none">↗</span>
@@ -335,9 +363,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                   setDrawerOpen(false);
                   setCvModalOpen(true);
                 }}
-                className="w-full flex items-center justify-center gap-2 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 tracking-widest uppercase transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2 text-xs font-bold text-slate-700 hover:text-slate-950 tracking-widest uppercase transition-colors cursor-pointer"
               >
-                <span className="text-sm">⤓</span>
+                <span className="text-base font-medium leading-none">↓</span>
                 <span>CV RESUME</span>
               </button>
             </div>
