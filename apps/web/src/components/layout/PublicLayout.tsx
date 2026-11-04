@@ -24,6 +24,17 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [cvModalOpen, setCvModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Monitor scroll position for dynamic header visibility & background
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close drawer on route change
   useEffect(() => {
@@ -42,7 +53,16 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     };
   }, [drawerOpen, contactModalOpen, cvModalOpen]);
 
-  // Drawer menu items matching core system routes (Home, About, Capabilities, How It Works, Contact)
+  // Center desktop header links that appear smoothly only when scrolling starts
+  const headerNavLinks = [
+    { label: 'HOME', path: '/' },
+    { label: 'PORTFOLIO', path: '/capabilities' },
+    { label: 'SERVICES', path: '/how-it-works' },
+    { label: 'ABOUT', path: '/about' },
+    { label: 'CONTACT', isContact: true },
+  ];
+
+  // Drawer menu items matching core system routes (Home, Portfolio, Services, About, Contact)
   const drawerMenuItems: MenuItem[] = [
     {
       id: 'home',
@@ -56,20 +76,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       ],
     },
     {
-      id: 'about',
-      label: 'About',
-      path: '/about',
-      hasSubmenu: true,
-      subLinks: [
-        { label: 'Product Mission & Bio', path: '/about' },
-        { label: 'Core Engineering Principles', path: '/about#principles' },
-        { label: 'R&D Serpentine Roadmap', path: '/about#roadmap' },
-        { label: 'Technology Stack', path: '/about#stack' },
-      ],
-    },
-    {
-      id: 'capabilities',
-      label: 'Capabilities',
+      id: 'portfolio',
+      label: 'Portfolio',
       path: '/capabilities',
       hasSubmenu: true,
       subLinks: [
@@ -81,8 +89,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       ],
     },
     {
-      id: 'how-it-works',
-      label: 'How It Works',
+      id: 'services',
+      label: 'Services',
       path: '/how-it-works',
       hasSubmenu: true,
       subLinks: [
@@ -90,6 +98,18 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         { label: 'Deterministic Execution', path: '/how-it-works#deterministic' },
         { label: 'Observable Proof Vault', path: '/how-it-works#proof' },
         { label: 'Continuous Trajectory & Growth', path: '/how-it-works#growth' },
+      ],
+    },
+    {
+      id: 'about',
+      label: 'About',
+      path: '/about',
+      hasSubmenu: true,
+      subLinks: [
+        { label: 'Product Mission & Bio', path: '/about' },
+        { label: 'Core Engineering Principles', path: '/about#principles' },
+        { label: 'R&D Serpentine Roadmap', path: '/about#roadmap' },
+        { label: 'Technology Stack', path: '/about#stack' },
       ],
     },
     {
@@ -143,9 +163,15 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     <div className={`min-h-screen ${isDark ? 'bg-[#0f172a] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'} flex flex-col font-sans transition-colors duration-300 selection:bg-[#7a1c32]/20 selection:text-[#7a1c32]`}>
       
       {/* ══════════════════════════════════════════════════════════════════════
-           STICKY NAVBAR — Matching the exact minimal Alazar aesthetic
+           STICKY NAVBAR — Dynamic scroll-triggered background and navigation
       ══════════════════════════════════════════════════════════════════════ */}
-      <header className={`fixed top-0 inset-x-0 z-40 ${isDark ? 'bg-[#0f172a]/95 border-slate-800' : 'bg-white/95 border-slate-100'} backdrop-blur-xl border-b h-20 flex items-center px-4 sm:px-8 lg:px-14 justify-between transition-all duration-300`}>
+      <header
+        className={`fixed top-0 inset-x-0 z-40 h-20 flex items-center px-4 sm:px-8 lg:px-14 justify-between transition-all duration-300 ${
+          isScrolled
+            ? `${isDark ? 'bg-[#0f172a]/95 border-slate-800' : 'bg-white/95 border-slate-100'} backdrop-blur-xl border-b shadow-xs`
+            : 'bg-transparent border-b border-transparent shadow-none'
+        }`}
+      >
         {/* Author Brand Badge (Left) */}
         <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group" aria-label="Kenenisa Beyan Home">
           <div className="relative shrink-0">
@@ -170,12 +196,70 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           </div>
         </Link>
 
+        {/* Center Desktop Navigation (Clean uppercase typography — appears smoothly only on scroll) */}
+        <nav
+          aria-label="Public Center Navigation"
+          className={`hidden lg:flex items-center gap-7 sm:gap-9 transition-all duration-300 ease-in-out ${
+            isScrolled
+              ? 'opacity-100 translate-y-0 pointer-events-auto'
+              : 'opacity-0 -translate-y-2 pointer-events-none'
+          }`}
+        >
+          {headerNavLinks.map((link) => {
+            if (link.isContact) {
+              return (
+                <button
+                  key={link.label}
+                  type="button"
+                  onClick={() => setContactModalOpen(true)}
+                  className={`text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer ${
+                    contactModalOpen
+                      ? 'text-[#7a1c32] font-black'
+                      : isDark
+                        ? 'text-slate-200 hover:text-[#7a1c32]'
+                        : 'text-slate-800 hover:text-[#7a1c32]'
+                  }`}
+                >
+                  {link.label}
+                </button>
+              );
+            }
+
+            const isActive =
+              link.path === '/'
+                ? location.pathname === '/'
+                : location.pathname === link.path || location.pathname.startsWith(`${link.path}/`);
+
+            return (
+              <Link
+                key={link.path}
+                to={link.path!}
+                className={`text-xs font-bold tracking-widest uppercase transition-colors ${
+                  isActive
+                    ? 'text-[#7a1c32] font-black'
+                    : isDark
+                      ? 'text-slate-200 hover:text-[#7a1c32]'
+                      : 'text-slate-800 hover:text-[#7a1c32]'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
+
         {/* Header Right Action Buttons (Theme Toggle & Drawer Hamburger) */}
         <div className="flex items-center gap-2.5">
           {/* Theme Toggle Button (Rounded Square with subtle border) */}
           <button
             onClick={toggleTheme}
-            className={`w-10 h-10 rounded-xl border ${isDark ? 'border-slate-700 bg-slate-800 text-amber-400 hover:bg-slate-700' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'} flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95`}
+            className={`w-10 h-10 rounded-xl border ${
+              isDark
+                ? 'border-slate-700 bg-slate-800/90 text-amber-400 hover:bg-slate-700'
+                : isScrolled
+                  ? 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                  : 'border-slate-200/90 bg-white/90 text-slate-700 hover:bg-white backdrop-blur-xs'
+            } flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95`}
             title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             aria-label="Toggle Theme"
           >
@@ -193,7 +277,13 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           {/* Menu Hamburger Button (Rounded Square with subtle border) */}
           <button
             onClick={() => setDrawerOpen(true)}
-            className={`w-10 h-10 rounded-xl border ${isDark ? 'border-slate-700 bg-slate-800 text-slate-100 hover:bg-slate-700' : 'border-slate-200 bg-white text-slate-800 hover:bg-slate-50'} flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95`}
+            className={`w-10 h-10 rounded-xl border ${
+              isDark
+                ? 'border-slate-700 bg-slate-800/90 text-slate-100 hover:bg-slate-700'
+                : isScrolled
+                  ? 'border-slate-200 bg-white text-slate-800 hover:bg-slate-50'
+                  : 'border-slate-200/90 bg-white/90 text-slate-800 hover:bg-white backdrop-blur-xs'
+            } flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95`}
             title="Open Menu"
             aria-label="Open Navigation Menu"
           >
@@ -221,9 +311,6 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           )}
         </div>
       </header>
-
-      {/* Spacer for fixed header */}
-      <div className="h-20 shrink-0" aria-hidden="true" />
 
       {/* ══════════════════════════════════════════════════════════════════════
            SLIDE-OUT NAVIGATION DRAWER — Exact match to Screenshot 3
@@ -346,11 +433,15 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       )}
 
       {/* ══════════════════════════════════════════════════════════════════════
-           FLOATING ACTION BUTTON (FAB) — Circular Burgundy Button with ↑
+           FLOATING ACTION BUTTON (FAB) — Appears smoothly on scroll
       ══════════════════════════════════════════════════════════════════════ */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-[#7a1c32] hover:bg-[#631427] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer group"
+        className={`fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-[#7a1c32] hover:bg-[#631427] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer group ${
+          isScrolled
+            ? 'opacity-100 pointer-events-auto translate-y-0 scale-100'
+            : 'opacity-0 pointer-events-none translate-y-4 scale-75'
+        }`}
         title="Scroll to Top"
         aria-label="Scroll to Top"
       >
@@ -360,7 +451,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       {/* ══════════════════════════════════════════════════════════════════════
            MAIN PUBLIC PAGE CONTENT
       ══════════════════════════════════════════════════════════════════════ */}
-      <main className="flex-1 max-w-[1720px] w-full mx-auto px-4 sm:px-8 lg:px-14 py-8 sm:py-12 space-y-16">
+      <main className="flex-1 max-w-[1720px] w-full mx-auto px-4 sm:px-8 lg:px-14 pt-24 sm:pt-28 pb-12 sm:pb-16 space-y-16">
         {children}
       </main>
 
