@@ -8,6 +8,7 @@ import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 const PROJECT_BOARD_COLUMNS: {
   status: ProjectStatus;
@@ -53,10 +54,12 @@ const PROJECT_BOARD_COLUMNS: {
 
 export const ProjectsPage: React.FC = () => {
   const { showToast } = useToast();
-  const [projects, setProjects] = useState<ProjectDto[]>([]);
+  const [projects, setProjects] = useState<ProjectDto[]>(
+    () => getCachedApiData<ProjectDto[]>('/api/v1/projects') || [],
+  );
   const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
   const [goals, setGoals] = useState<GoalDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !getCachedApiData<ProjectDto[]>('/api/v1/projects'));
   const [error, setError] = useState<string | null>(null);
 
   // View Mode: Grid Gallery vs Notion Status Board
@@ -149,7 +152,9 @@ export const ProjectsPage: React.FC = () => {
   }, [workstreamId]);
 
   const loadProjects = useCallback(async () => {
-    setLoading(true);
+    if (projects.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const data = await fetchProjects({
@@ -164,7 +169,7 @@ export const ProjectsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [search, workstreamIdFilter, goalIdFilter, statusFilter]);
+  }, [projects.length, search, workstreamIdFilter, goalIdFilter, statusFilter]);
 
   useEffect(() => {
     void loadDependencies();

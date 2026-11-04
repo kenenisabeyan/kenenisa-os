@@ -19,6 +19,7 @@ import { PageHeader } from '../components/layout/PageHeader.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 const KANBAN_COLUMNS: {
   status: TaskStatus;
@@ -78,10 +79,10 @@ const KANBAN_COLUMNS: {
 
 export const TasksPage: React.FC = () => {
   const { showToast } = useToast();
-  const [tasks, setTasks] = useState<TaskDto[]>([]);
+  const [tasks, setTasks] = useState<TaskDto[]>(() => getCachedApiData<TaskDto[]>('/api/v1/tasks') || []);
   const [projects, setProjects] = useState<ProjectDto[]>([]);
   const [milestones, setMilestones] = useState<MilestoneDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !getCachedApiData<TaskDto[]>('/api/v1/tasks'));
   const [error, setError] = useState<string | null>(null);
 
   // View Mode: Notion-style Kanban Board vs List View
@@ -224,7 +225,9 @@ export const TasksPage: React.FC = () => {
   }, [projectId]);
 
   const loadTasks = useCallback(async () => {
-    setLoading(true);
+    if (tasks.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const data = await fetchTasks({
@@ -239,7 +242,7 @@ export const TasksPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [search, projectIdFilter, statusFilter, priorityFilter]);
+  }, [tasks.length, search, projectIdFilter, statusFilter, priorityFilter]);
 
   useEffect(() => {
     void loadDependencies();

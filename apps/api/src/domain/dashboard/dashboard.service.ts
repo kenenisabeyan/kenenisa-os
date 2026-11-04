@@ -34,92 +34,8 @@ export class DashboardService {
     const endOfNext7Days = new Date(endOfToday);
     endOfNext7Days.setDate(endOfNext7Days.getDate() + 7);
 
-    // 2. Execute parallel queries for dashboard sections (optimized with grouped aggregation)
-    const [
-      activeWorkstreamsCount,
-      activeGoalsCount,
-      activeProjectsCount,
-      taskStatusCounts,
-      overdueTasksCount,
-      completedTasksRecentCount,
-      nextBestAction,
-      dueTodayRaw,
-      inProgressRaw,
-      readyRaw,
-      workstreamsRaw,
-      activeProjectsRaw,
-      blockedRaw,
-      overdueRaw,
-      upcomingRaw,
-      auditLogsRaw,
-    ] = await Promise.all([
-      prisma.workstream.count({ where: { userId, status: WorkstreamStatus.ACTIVE } }),
-      prisma.goal.count({ where: { userId, status: GoalStatus.IN_PROGRESS } }),
-      prisma.project.count({ where: { userId, status: ProjectStatus.ACTIVE } }),
-      prisma.task.groupBy({
-        by: ['status'],
-        where: { userId },
-        _count: { _all: true },
-      }),
-      prisma.task.count({
-        where: {
-          userId,
-          dueDate: { lt: startOfToday },
-          status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] },
-        },
-      }),
-      prisma.task.count({
-        where: {
-          userId,
-          status: TaskStatus.DONE,
-          completedAt: { gte: startOf7DaysAgo },
-        },
-      }),
-      this.nbaService.evaluateNextBestAction(userId, targetDate),
-
-      // Tasks due today
-      prisma.task.findMany({
-        where: {
-          userId,
-          dueDate: { gte: startOfToday, lte: endOfToday },
-          status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] },
-        },
-        include: {
-          project: { select: { id: true, name: true, slug: true } },
-          milestone: { select: { id: true, name: true } },
-          parentTask: { select: { id: true, title: true } },
-          _count: { select: { subtasks: true, blockingDependencies: true, dependentDependencies: true } },
-        },
-        orderBy: { priority: 'asc' },
-        take: 10,
-      }),
-
-      // Tasks in progress
-      prisma.task.findMany({
-        where: { userId, status: TaskStatus.IN_PROGRESS },
-        include: {
-          project: { select: { id: true, name: true, slug: true } },
-          milestone: { select: { id: true, name: true } },
-          parentTask: { select: { id: true, title: true } },
-          _count: { select: { subtasks: true, blockingDependencies: true, dependentDependencies: true } },
-        },
-        orderBy: { priority: 'asc' },
-        take: 10,
-      }),
-
-      // Ready tasks
-      prisma.task.findMany({
-        where: { userId, status: TaskStatus.READY },
-        include: {
-          project: { select: { id: true, name: true, slug: true } },
-          milestone: { select: { id: true, name: true } },
-          parentTask: { select: { id: true, title: true } },
-          _count: { select: { subtasks: true, blockingDependencies: true, dependentDependencies: true } },
-        },
-        orderBy: { priority: 'asc' },
-        take: 10,
-      }),
-
+    // 2. Execute streamlined parallel queries using Promise.allSettled for high resilience
+    const [wsResult, projResult, goalsResult, tasksResult, auditResult] = await Promise.allSettled([
       // Active Workstreams
       prisma.workstream.findMany({
         where: { userId, status: WorkstreamStatus.ACTIVE },
@@ -141,11 +57,25 @@ export class DashboardService {
         take: 8,
       }),
 
-      // Blocked Tasks with details
+      // Active Goals Count
+      prisma.goal.count({ where: { userId, status: GoalStatus.IN_PROGRESS } }),
+
+      // Consolidated Tasks Query: retrieves all active tasks in one unified roundtrip
       prisma.task.findMany({
-        where: { userId, status: TaskStatus.BLOCKED },
+        where: {
+          userId,
+          status: { notIn: [TaskStatus.CANCELLED] },
+        },
         include: {
-          project: { select: { id: true, name: true, slug: true } },
+          project: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+              priority: true,
+              workstream: { select: { id: true, name: true, priorityWeight: true } },
+            },
+          },
           milestone: { select: { id: true, name: true } },
           parentTask: { select: { id: true, title: true } },
           blockingDependencies: {
@@ -157,42 +87,7 @@ export class DashboardService {
           },
           _count: { select: { subtasks: true, blockingDependencies: true, dependentDependencies: true } },
         },
-        orderBy: { priority: 'asc' },
-        take: 10,
-      }),
-
-      // Overdue Tasks
-      prisma.task.findMany({
-        where: {
-          userId,
-          dueDate: { lt: startOfToday },
-          status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] },
-        },
-        include: {
-          project: { select: { id: true, name: true, slug: true } },
-          milestone: { select: { id: true, name: true } },
-          parentTask: { select: { id: true, title: true } },
-          _count: { select: { subtasks: true, blockingDependencies: true, dependentDependencies: true } },
-        },
-        orderBy: { dueDate: 'asc' },
-        take: 10,
-      }),
-
-      // Upcoming Tasks (next 7 days)
-      prisma.task.findMany({
-        where: {
-          userId,
-          dueDate: { gt: endOfToday, lte: endOfNext7Days },
-          status: { notIn: [TaskStatus.DONE, TaskStatus.CANCELLED] },
-        },
-        include: {
-          project: { select: { id: true, name: true, slug: true } },
-          milestone: { select: { id: true, name: true } },
-          parentTask: { select: { id: true, title: true } },
-          _count: { select: { subtasks: true, blockingDependencies: true, dependentDependencies: true } },
-        },
-        orderBy: { dueDate: 'asc' },
-        take: 10,
+        orderBy: [{ priority: 'asc' }, { dueDate: 'asc' }],
       }),
 
       // Recent Activity audit logs
@@ -202,6 +97,53 @@ export class DashboardService {
         take: 8,
       }),
     ]);
+
+    const workstreamsRaw = wsResult.status === 'fulfilled' ? wsResult.value : [];
+    const activeProjectsRaw = projResult.status === 'fulfilled' ? projResult.value : [];
+    const activeGoalsCount = goalsResult.status === 'fulfilled' ? goalsResult.value : 0;
+    const allTasksRaw = tasksResult.status === 'fulfilled' ? tasksResult.value : [];
+    const auditLogsRaw = auditResult.status === 'fulfilled' ? auditResult.value : [];
+
+    // Filter tasks in-memory (0ms overhead) instead of firing multiple duplicate database roundtrips
+    const dueTodayRaw = allTasksRaw.filter(
+      (t) =>
+        t.dueDate &&
+        new Date(t.dueDate) >= startOfToday &&
+        new Date(t.dueDate) <= endOfToday &&
+        t.status !== TaskStatus.DONE,
+    ).slice(0, 10);
+
+    const inProgressRaw = allTasksRaw.filter((t) => t.status === TaskStatus.IN_PROGRESS).slice(0, 10);
+    const readyRaw = allTasksRaw.filter((t) => t.status === TaskStatus.READY).slice(0, 10);
+    const blockedRaw = allTasksRaw.filter((t) => t.status === TaskStatus.BLOCKED).slice(0, 10);
+
+    const overdueRaw = allTasksRaw.filter(
+      (t) => t.dueDate && new Date(t.dueDate) < startOfToday && t.status !== TaskStatus.DONE,
+    ).slice(0, 10);
+
+    const upcomingRaw = allTasksRaw.filter(
+      (t) =>
+        t.dueDate &&
+        new Date(t.dueDate) > endOfToday &&
+        new Date(t.dueDate) <= endOfNext7Days &&
+        t.status !== TaskStatus.DONE,
+    ).slice(0, 10);
+
+    const readyTasksCount = allTasksRaw.filter((t) => t.status === TaskStatus.READY).length;
+    const inProgressTasksCount = allTasksRaw.filter((t) => t.status === TaskStatus.IN_PROGRESS).length;
+    const blockedTasksCount = allTasksRaw.filter((t) => t.status === TaskStatus.BLOCKED).length;
+    const overdueTasksCount = allTasksRaw.filter(
+      (t) => t.dueDate && new Date(t.dueDate) < startOfToday && t.status !== TaskStatus.DONE,
+    ).length;
+    const completedTasksRecentCount = allTasksRaw.filter(
+      (t) => t.status === TaskStatus.DONE && t.completedAt && new Date(t.completedAt) >= startOf7DaysAgo,
+    ).length;
+
+    // Evaluate Next Best Action from ready/in-progress candidate tasks directly in memory
+    const candidateTasks = allTasksRaw.filter(
+      (t) => t.status === TaskStatus.READY || t.status === TaskStatus.IN_PROGRESS,
+    );
+    const nextBestAction = this.nbaService.evaluateFromCandidates(candidateTasks, targetDate);
 
     const formatTask = (t: typeof dueTodayRaw[number]): TaskDto => ({
       id: t.id,
@@ -282,16 +224,11 @@ export class DashboardService {
       };
     };
 
-    const statusMap = new Map(taskStatusCounts.map((c) => [c.status, c._count._all]));
-    const readyTasksCount = statusMap.get(TaskStatus.READY) || 0;
-    const inProgressTasksCount = statusMap.get(TaskStatus.IN_PROGRESS) || 0;
-    const blockedTasksCount = statusMap.get(TaskStatus.BLOCKED) || 0;
-
     return {
       summary: {
-        activeWorkstreams: activeWorkstreamsCount,
+        activeWorkstreams: workstreamsRaw.length,
         activeGoals: activeGoalsCount,
-        activeProjects: activeProjectsCount,
+        activeProjects: activeProjectsRaw.length,
         readyTasks: readyTasksCount,
         inProgressTasks: inProgressTasksCount,
         blockedTasks: blockedTasksCount,

@@ -6,11 +6,14 @@ import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const WorkstreamsPage: React.FC = () => {
   const { showToast } = useToast();
-  const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>(
+    () => getCachedApiData<WorkstreamDto[]>('/api/v1/workstreams') || [],
+  );
+  const [loading, setLoading] = useState(() => !getCachedApiData<WorkstreamDto[]>('/api/v1/workstreams'));
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<WorkstreamStatus | ''>('ACTIVE');
@@ -62,7 +65,9 @@ export const WorkstreamsPage: React.FC = () => {
   };
 
   const loadData = useCallback(async () => {
-    setLoading(true);
+    if (workstreams.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const data = await fetchWorkstreams({
@@ -75,7 +80,7 @@ export const WorkstreamsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [search, statusFilter]);
+  }, [workstreams.length, search, statusFilter]);
 
   useEffect(() => {
     void loadData();

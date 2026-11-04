@@ -79,9 +79,11 @@ export const PlanningPage: React.FC = () => {
 
   const loadAllData = useCallback(async () => {
     try {
-      setLoading(true);
+      if (!overviewData && !dailyData) {
+        setLoading(true);
+      }
       setError(null);
-      const [ovRes, dailyRes, weeklyRes, monthRes, outcomesRes] = await Promise.all([
+      const [ovRes, dailyRes, weeklyRes, monthRes, outcomesRes] = await Promise.allSettled([
         fetchMultiHorizonOverview(selectedDate),
         fetchDailyPlanningOverview(selectedDate),
         fetchWeeklyPlanningOverview(selectedDate),
@@ -89,17 +91,27 @@ export const PlanningPage: React.FC = () => {
         fetchOutcomes(),
       ]);
 
-      setOverviewData(ovRes);
-      setDailyData(dailyRes);
-      setWeeklyData(weeklyRes);
-      setMonthPlans(monthRes);
-      setOutcomes(outcomesRes);
+      if (ovRes.status === 'fulfilled') setOverviewData(ovRes.value);
+      if (dailyRes.status === 'fulfilled') setDailyData(dailyRes.value);
+      if (weeklyRes.status === 'fulfilled') setWeeklyData(weeklyRes.value);
+      if (monthRes.status === 'fulfilled') setMonthPlans(monthRes.value);
+      if (outcomesRes.status === 'fulfilled') setOutcomes(outcomesRes.value);
+
+      // If all failed, surface error
+      if (
+        ovRes.status === 'rejected' &&
+        dailyRes.status === 'rejected' &&
+        weeklyRes.status === 'rejected'
+      ) {
+        const firstError = ovRes.reason;
+        setError(firstError instanceof Error ? firstError.message : 'Failed to load multi-horizon planning data');
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load multi-horizon planning data');
     } finally {
       setLoading(false);
     }
-  }, [selectedDate]);
+  }, [overviewData, dailyData, selectedDate]);
 
   useEffect(() => {
     void loadAllData();

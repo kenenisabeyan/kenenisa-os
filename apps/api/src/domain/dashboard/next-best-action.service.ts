@@ -63,14 +63,21 @@ export class NextBestActionService {
       },
     });
 
-    if (candidateTasks.length === 0) {
+    return this.evaluateFromCandidates(candidateTasks, targetDate);
+  }
+
+  evaluateFromCandidates(
+    candidateTasks: any[],
+    targetDate: Date = new Date(),
+  ): NextBestActionDto | null {
+    if (!candidateTasks || candidateTasks.length === 0) {
       return null;
     }
 
     // 2. Filter out any candidate that has unresolved blockers
     const executableCandidates = candidateTasks.filter((task) => {
-      const hasUnresolvedBlockers = task.blockingDependencies.some(
-        (dep) => dep.blockingTask.status !== TaskStatus.DONE,
+      const hasUnresolvedBlockers = task.blockingDependencies?.some(
+        (dep: any) => dep.blockingTask && dep.blockingTask.status !== TaskStatus.DONE,
       );
       return !hasUnresolvedBlockers;
     });
@@ -176,7 +183,7 @@ export class NextBestActionService {
     });
 
     // 4. Deterministic Tie-Breaking Sort
-    const priorityRank: Record<TaskPriority, number> = {
+    const priorityRank: Record<string, number> = {
       P0: 4,
       P1: 3,
       P2: 2,

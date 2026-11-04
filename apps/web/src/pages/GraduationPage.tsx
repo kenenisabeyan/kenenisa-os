@@ -7,10 +7,13 @@ import {
 } from '../features/graduation/api.js';
 import type { GraduationOverviewDto } from '@kenenisa-os/shared';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const GraduationPage: React.FC = () => {
-  const [overview, setOverview] = useState<GraduationOverviewDto | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [overview, setOverview] = useState<GraduationOverviewDto | null>(() =>
+    getCachedApiData<GraduationOverviewDto>('/api/v1/graduation/overview'),
+  );
+  const [loading, setLoading] = useState<boolean>(() => !overview);
   const [error, setError] = useState<string | null>(null);
   const [editingTargetDate, setEditingTargetDate] = useState(false);
   const [targetDateInput, setTargetDateInput] = useState('');

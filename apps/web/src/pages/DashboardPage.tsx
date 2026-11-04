@@ -4,14 +4,17 @@ import { startTask, completeTask, blockTask, createTask, reopenTask } from '../f
 import { DashboardDto, TaskDto, WorkstreamDto, WorkstreamStatus, TaskPriority } from '@kenenisa-os/shared';
 import { createWorkstream, updateWorkstream } from '../features/workstreams/api.js';
 import { PageHeader } from '../components/layout/PageHeader.js';
-import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
+import { LoadingSkeleton, ErrorStateCard, EmptyStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 export const DashboardPage: React.FC = () => {
   const { showToast } = useToast();
-  const [data, setData] = useState<DashboardDto | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<DashboardDto | null>(() =>
+    getCachedApiData<DashboardDto>('/api/v1/dashboard'),
+  );
+  const [loading, setLoading] = useState<boolean>(() => !data);
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [selectedWorkstreamId, setSelectedWorkstreamId] = useState<string>('ALL');
@@ -157,22 +160,32 @@ export const DashboardPage: React.FC = () => {
     }
   };
 
-  const loadDashboard = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await fetchDashboard();
-      setData(res);
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to load Command Center data');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const loadDashboard = useCallback(
+    async (isSilent = false) => {
+      try {
+        if (!isSilent && !data) {
+          setLoading(true);
+        }
+        setError(null);
+        const res = await fetchDashboard();
+        setData(res);
+      } catch (err: unknown) {
+        const errMsg = err instanceof Error ? err.message : 'Failed to load Command Center data';
+        if (data) {
+          showToast(`Could not refresh Command Center: ${errMsg}`, 'warning');
+        } else {
+          setError(errMsg);
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    [data, showToast],
+  );
 
   useEffect(() => {
     void loadDashboard();
-  }, [loadDashboard]);
+  }, []); // Run initial load on mount
 
   const handleStartTask = async (taskId: string) => {
     try {
@@ -271,6 +284,14 @@ export const DashboardPage: React.FC = () => {
     showToast('Daily Standup briefing copied to clipboard!', 'success');
   };
 
+  if (error && !data) {
+    return (
+      <div className="my-8" id="dashboard-error">
+        <ErrorStateCard title="Error Loading Command Center" message={error} onRetry={() => void loadDashboard()} />
+      </div>
+    );
+  }
+
   if (loading && !data) {
     return (
       <div className="space-y-6" id="dashboard-loading">
@@ -280,15 +301,18 @@ export const DashboardPage: React.FC = () => {
     );
   }
 
-  if (error) {
+  if (!data) {
     return (
-      <div className="my-8" id="dashboard-error">
-        <ErrorStateCard title="Error Loading Command Center" message={error} onRetry={() => void loadDashboard()} />
+      <div className="my-8" id="dashboard-empty">
+        <EmptyStateCard
+          title="Command Center Ready"
+          description="No operating data found yet. Start by defining your core workstreams or initializing tasks."
+          actionLabel="Refresh Dashboard"
+          onAction={() => void loadDashboard()}
+        />
       </div>
     );
   }
-
-  if (!data) return null;
 
   const { summary, nextBestAction, today, workstreams, activeProjects, blockedTasks, overdueTasks, upcomingTasks, recentActivity } = data;
 

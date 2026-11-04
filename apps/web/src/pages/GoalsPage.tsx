@@ -7,6 +7,7 @@ import { Badge } from '../components/ui/Badge.js';
 import { LoadingSkeleton, EmptyStateCard, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
+import { getCachedApiData } from '../lib/api-client.js';
 
 const GOAL_BOARD_COLUMNS: {
   status: GoalStatus;
@@ -52,9 +53,9 @@ const GOAL_BOARD_COLUMNS: {
 
 export const GoalsPage: React.FC = () => {
   const { showToast } = useToast();
-  const [goals, setGoals] = useState<GoalDto[]>([]);
+  const [goals, setGoals] = useState<GoalDto[]>(() => getCachedApiData<GoalDto[]>('/api/v1/goals') || []);
   const [workstreams, setWorkstreams] = useState<WorkstreamDto[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !getCachedApiData<GoalDto[]>('/api/v1/goals'));
   const [error, setError] = useState<string | null>(null);
 
   // View Mode: Grid Gallery vs Notion Roadmap Board
@@ -139,7 +140,9 @@ export const GoalsPage: React.FC = () => {
   }, [workstreamId]);
 
   const loadGoals = useCallback(async () => {
-    setLoading(true);
+    if (goals.length === 0) {
+      setLoading(true);
+    }
     setError(null);
     try {
       const data = await fetchGoals({
@@ -154,7 +157,7 @@ export const GoalsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [search, workstreamIdFilter, statusFilter, priorityFilter]);
+  }, [goals.length, search, workstreamIdFilter, statusFilter, priorityFilter]);
 
   useEffect(() => {
     void loadWorkstreams();

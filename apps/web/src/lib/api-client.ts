@@ -43,6 +43,7 @@ export function isApiError(err: unknown): err is ApiError {
 export interface ApiClientOptions extends RequestInit {
   skipCache?: boolean;
   cacheTtlMs?: number;
+  timeoutMs?: number;
 }
 
 // In-memory cache & in-flight request deduplication store
@@ -79,6 +80,18 @@ export function prefetchApi<T>(endpoint: string): void {
   void apiClient<T>(endpoint).catch(() => {
     // Non-blocking background prefetch
   });
+}
+
+/**
+ * Returns cached data synchronously if fresh, or null.
+ */
+export function getCachedApiData<T>(endpoint: string): T | null {
+  const url = endpoint.startsWith('http') ? endpoint : `${BASE_URL}${endpoint}`;
+  const cached = apiCache.get(url);
+  if (cached && Date.now() - cached.timestamp < DEFAULT_CACHE_TTL_MS) {
+    return cached.data as T;
+  }
+  return null;
 }
 
 export async function apiClient<T>(endpoint: string, options: ApiClientOptions = {}): Promise<T> {
@@ -126,28 +139,42 @@ export async function apiClient<T>(endpoint: string, options: ApiClientOptions =
     headers.set('Content-Type', 'application/json');
   }
 
-  // Execute network request with deduplication tracking
-  const requestPromise = (async (): Promise<T> => {
-    let response: Response;
-    try {
-      response = await fetch(url, {
-        ...options,
-        headers,
-        credentials: 'include', // Critical for sending and receiving HTTP-only auth cookies
-      });
-    } catch (networkErr: unknown) {
-      const errMsg = networkErr instanceof Error ? networkErr.message : 'Network request failed';
-      throw new ApiError(
-        errMsg === 'Failed to fetch' || errMsg.includes('NetworkError') || errMsg.includes('Failed')
-          ? `Unable to connect to the backend server (${url || '/api'}). Please ensure the API server is running on port 3000.`
-          : errMsg,
-        0,
-        'NETWORK_ERROR',
-        networkErr,
-      );
-    }
+  // Execute network request with deduplication tracking & bounded timeout
+  const timeoutMs = options.timeoutMs ?? 12000;
+  const abortController = new AbortController();
+  const timeoutId = setTimeout(() => {
+    abortController.abort();
+  }, timeoutMs);
 
+  const requestPromise = (async (): Promise<T> => {
     try {
+      let response: Response;
+      try {
+        response = await fetch(url, {
+          ...options,
+          signal: options.signal || abortController.signal,
+          headers,
+          credentials: 'include', // Critical for sending and receiving HTTP-only auth cookies
+        });
+      } catch (networkErr: unknown) {
+        if (abortController.signal.aborted) {
+          throw new ApiError(
+            `Request to ${url} timed out after ${timeoutMs}ms. Please check your network or try again.`,
+            408,
+            'REQUEST_TIMEOUT',
+          );
+        }
+        const errMsg = networkErr instanceof Error ? networkErr.message : 'Network request failed';
+        throw new ApiError(
+          errMsg === 'Failed to fetch' || errMsg.includes('NetworkError') || errMsg.includes('Failed')
+            ? `Unable to connect to the backend server (${url || '/api'}). Please ensure the API server is running on port 3000.`
+            : errMsg,
+          0,
+          'NETWORK_ERROR',
+          networkErr,
+        );
+      }
+
       let data: ApiResponse<T>;
       try {
         data = (await response.json()) as ApiResponse<T>;
@@ -174,6 +201,7 @@ export async function apiClient<T>(endpoint: string, options: ApiClientOptions =
 
       return data.data;
     } finally {
+      clearTimeout(timeoutId);
       if (isGet) {
         inFlightRequests.delete(cacheKey);
       }
