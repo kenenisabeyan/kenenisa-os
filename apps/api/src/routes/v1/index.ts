@@ -19,11 +19,13 @@ import { userRouter } from '../../domain/users/user.routes.js';
 import { graduationRouter } from '../../domain/graduation/graduation.routes.js';
 import { academicRouter } from '../../domain/academics/academic.routes.js';
 import { integrationRouter } from '../../domain/integration/integration.routes.js';
+import { performanceRouter } from './performance.routes.js';
 
 export const v1Router = Router();
 
 v1Router.use('/', healthRouter);
 v1Router.use('/auth', authRouter);
+v1Router.use('/performance', performanceRouter);
 v1Router.use('/users', userRouter);
 v1Router.use('/workstreams', workstreamRouter);
 v1Router.use('/goals', goalRouter);

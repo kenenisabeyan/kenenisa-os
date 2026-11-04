@@ -8,6 +8,7 @@ import { LoadingSkeleton, ErrorStateCard, EmptyStateCard } from '../components/u
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 import { getCachedApiData } from '../lib/api-client.js';
+import { webPerformanceProfiler } from '../lib/performance-profiler.js';
 
 export const DashboardPage: React.FC = () => {
   const { showToast } = useToast();
@@ -169,6 +170,7 @@ export const DashboardPage: React.FC = () => {
         setError(null);
         const res = await fetchDashboard();
         setData(res);
+        webPerformanceProfiler.markMeaningfulContent('/app/dashboard');
       } catch (err: unknown) {
         const errMsg = err instanceof Error ? err.message : 'Failed to load Command Center data';
         if (data) {

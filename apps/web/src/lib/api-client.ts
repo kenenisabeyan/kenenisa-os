@@ -1,4 +1,5 @@
 import type { ApiResponse, ApiErrorResponse } from '@kenenisa-os/shared';
+import { webPerformanceProfiler } from './performance-profiler.js';
 
 const getBaseUrl = (): string => {
   const envUrl = import.meta.env.VITE_API_URL as string | undefined;
@@ -124,6 +125,19 @@ export async function apiClient<T>(endpoint: string, options: ApiClientOptions =
   if (isGet && !options.skipCache) {
     const cached = apiCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < ttl) {
+      webPerformanceProfiler.recordApiCall({
+        endpoint,
+        method,
+        status: 200,
+        clientDurationUs: 50,
+        clientDurationMs: 0.05,
+        serverTotalMs: 0,
+        serverDbMs: 0,
+        serverDbUs: 0,
+        dbQueryCount: 0,
+        cached: true,
+        timestamp: Date.now(),
+      });
       return cached.data as T;
     }
 
@@ -147,6 +161,7 @@ export async function apiClient<T>(endpoint: string, options: ApiClientOptions =
   }, timeoutMs);
 
   const requestPromise = (async (): Promise<T> => {
+    const t0 = performance.now();
     try {
       let response: Response;
       try {
@@ -174,6 +189,43 @@ export async function apiClient<T>(endpoint: string, options: ApiClientOptions =
           networkErr,
         );
       }
+
+      const fetchDurationMs = performance.now() - t0;
+      const fetchDurationUs = fetchDurationMs * 1000;
+
+      // Extract Server-Timing breakdown
+      const serverTiming = response.headers.get('Server-Timing');
+      let serverTotalMs: number | undefined;
+      let serverDbMs: number | undefined;
+      let dbQueryCount: number | undefined;
+
+      if (serverTiming) {
+        const parts = serverTiming.split(',').map((p) => p.trim());
+        for (const part of parts) {
+          if (part.startsWith('total;dur=')) {
+            serverTotalMs = parseFloat(part.split('total;dur=')[1]);
+          } else if (part.startsWith('db;dur=')) {
+            const match = part.match(/db;dur=([0-9.]+)/);
+            if (match) serverDbMs = parseFloat(match[1]);
+            const descMatch = part.match(/desc="[^"]*\((\d+)\s+queries\)"/);
+            if (descMatch) dbQueryCount = parseInt(descMatch[1], 10);
+          }
+        }
+      }
+
+      webPerformanceProfiler.recordApiCall({
+        endpoint,
+        method,
+        status: response.status,
+        clientDurationUs: parseFloat(fetchDurationUs.toFixed(1)),
+        clientDurationMs: parseFloat(fetchDurationMs.toFixed(3)),
+        serverTotalMs,
+        serverDbMs,
+        serverDbUs: serverDbMs ? parseFloat((serverDbMs * 1000).toFixed(1)) : undefined,
+        dbQueryCount,
+        cached: false,
+        timestamp: Date.now(),
+      });
 
       let data: ApiResponse<T>;
       try {

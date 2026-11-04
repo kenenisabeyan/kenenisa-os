@@ -4,6 +4,7 @@ import { MobileNav, MobileBottomBar } from './MobileNav.js';
 import { ErrorBoundary } from '../common/ErrorBoundary.js';
 import { QuickActionModal } from '../ui/QuickActionModal.js';
 import { GlobalSearchModal } from '../ui/GlobalSearchModal.js';
+import { PerformanceInspectorModal } from '../performance/PerformanceInspectorModal.js';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [quickActionOpen, setQuickActionOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [perfModalOpen, setPerfModalOpen] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -89,14 +91,21 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
           {/* Right Header Actions */}
           <div className="flex items-center gap-3 ml-auto">
-            {/* System Status Pill */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50/80 border border-emerald-200/60 text-[11px] font-bold text-emerald-800 shadow-2xs">
+            {/* System Status & Microsecond Telemetry Trigger */}
+            <button
+              onClick={() => setPerfModalOpen(true)}
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50/80 hover:bg-emerald-100/80 border border-emerald-200/80 text-[11px] font-bold text-emerald-800 shadow-2xs transition-all cursor-pointer"
+              title="Click to view live microsecond performance telemetry"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               <span>System Operational</span>
-            </div>
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-white font-mono text-emerald-700 border border-emerald-300">
+                ⚡ µs
+              </span>
+            </button>
 
             {/* Mobile Search Button */}
             <button
@@ -148,6 +157,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         {/* Global Modals */}
         <QuickActionModal isOpen={quickActionOpen} onClose={() => setQuickActionOpen(false)} />
         <GlobalSearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+        <PerformanceInspectorModal isOpen={perfModalOpen} onClose={() => setPerfModalOpen(false)} />
       </div>
     </div>
   );

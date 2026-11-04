@@ -8,6 +8,7 @@ import {
 import type { GraduationOverviewDto } from '@kenenisa-os/shared';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 import { getCachedApiData } from '../lib/api-client.js';
+import { webPerformanceProfiler } from '../lib/performance-profiler.js';
 import { LoadingSkeleton, ErrorStateCard, EmptyStateCard } from '../components/ui/StateCard.js';
 
 export const GraduationPage: React.FC = () => {
@@ -29,6 +30,7 @@ export const GraduationPage: React.FC = () => {
       setError(null);
       const data = await fetchGraduationOverview();
       setOverview(data);
+      webPerformanceProfiler.markMeaningfulContent('/app/graduation');
       if (data?.graduationTargetDate) {
         setTargetDateInput(data.graduationTargetDate.slice(0, 10));
       }

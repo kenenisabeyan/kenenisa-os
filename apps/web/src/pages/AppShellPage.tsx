@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from '../components/layout/AppLayout.js';
 import { RouteSuspenseFallback } from '../components/layout/RouteSuspenseFallback.js';
+import { RouteProfiler } from '../components/performance/RouteProfiler.js';
 
 // Lazy-loaded route components for high-speed code-splitting & instant sidebar transitions
 const DashboardPage = lazy(() => import('./DashboardPage.js').then((m) => ({ default: m.DashboardPage })));
@@ -34,29 +35,29 @@ export const AppShellPage: React.FC = () => {
     <AppLayout>
       <Suspense fallback={<RouteSuspenseFallback />}>
         <Routes>
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="graduation" element={<GraduationPage />} />
-          <Route path="academics" element={<AcademicsPage />} />
-          <Route path="integrations" element={<IntegrationsPage />} />
-          <Route path="executive" element={<ExecutivePage />} />
-          <Route path="work-intelligence" element={<WorkIntelligencePage />} />
-          <Route path="intelligence" element={<IntelligencePage />} />
-          <Route path="analytics" element={<AnalyticsPage />} />
-          <Route path="career" element={<CareerPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-          <Route path="opportunities" element={<OpportunitiesPage />} />
-          <Route path="opportunities/:id" element={<OpportunityDetailPage />} />
-          <Route path="planning/*" element={<PlanningPage />} />
-          <Route path="learning" element={<LearningPage />} />
-          <Route path="skills" element={<SkillsPage />} />
-          <Route path="evidence" element={<EvidencePage />} />
-          <Route path="results" element={<ResultsPage />} />
-          <Route path="reviews" element={<ReviewsPage />} />
-          <Route path="workstreams" element={<WorkstreamsPage />} />
-          <Route path="goals" element={<GoalsPage />} />
-          <Route path="projects" element={<ProjectsPage />} />
-          <Route path="milestones" element={<MilestonesPage />} />
-          <Route path="tasks" element={<TasksPage />} />
+          <Route path="dashboard" element={<RouteProfiler id="/app/dashboard"><DashboardPage /></RouteProfiler>} />
+          <Route path="graduation" element={<RouteProfiler id="/app/graduation"><GraduationPage /></RouteProfiler>} />
+          <Route path="academics" element={<RouteProfiler id="/app/academics"><AcademicsPage /></RouteProfiler>} />
+          <Route path="integrations" element={<RouteProfiler id="/app/integrations"><IntegrationsPage /></RouteProfiler>} />
+          <Route path="executive" element={<RouteProfiler id="/app/executive"><ExecutivePage /></RouteProfiler>} />
+          <Route path="work-intelligence" element={<RouteProfiler id="/app/work-intelligence"><WorkIntelligencePage /></RouteProfiler>} />
+          <Route path="intelligence" element={<RouteProfiler id="/app/intelligence"><IntelligencePage /></RouteProfiler>} />
+          <Route path="analytics" element={<RouteProfiler id="/app/analytics"><AnalyticsPage /></RouteProfiler>} />
+          <Route path="career" element={<RouteProfiler id="/app/career"><CareerPage /></RouteProfiler>} />
+          <Route path="settings" element={<RouteProfiler id="/app/settings"><SettingsPage /></RouteProfiler>} />
+          <Route path="opportunities" element={<RouteProfiler id="/app/opportunities"><OpportunitiesPage /></RouteProfiler>} />
+          <Route path="opportunities/:id" element={<RouteProfiler id="/app/opportunities/detail"><OpportunityDetailPage /></RouteProfiler>} />
+          <Route path="planning/*" element={<RouteProfiler id="/app/planning"><PlanningPage /></RouteProfiler>} />
+          <Route path="learning" element={<RouteProfiler id="/app/learning"><LearningPage /></RouteProfiler>} />
+          <Route path="skills" element={<RouteProfiler id="/app/skills"><SkillsPage /></RouteProfiler>} />
+          <Route path="evidence" element={<RouteProfiler id="/app/evidence"><EvidencePage /></RouteProfiler>} />
+          <Route path="results" element={<RouteProfiler id="/app/results"><ResultsPage /></RouteProfiler>} />
+          <Route path="reviews" element={<RouteProfiler id="/app/reviews"><ReviewsPage /></RouteProfiler>} />
+          <Route path="workstreams" element={<RouteProfiler id="/app/workstreams"><WorkstreamsPage /></RouteProfiler>} />
+          <Route path="goals" element={<RouteProfiler id="/app/goals"><GoalsPage /></RouteProfiler>} />
+          <Route path="projects" element={<RouteProfiler id="/app/projects"><ProjectsPage /></RouteProfiler>} />
+          <Route path="milestones" element={<RouteProfiler id="/app/milestones"><MilestonesPage /></RouteProfiler>} />
+          <Route path="tasks" element={<RouteProfiler id="/app/tasks"><TasksPage /></RouteProfiler>} />
           <Route path="" element={<Navigate to="dashboard" replace />} />
 
           <Route path="*" element={<NotFoundPage />} />

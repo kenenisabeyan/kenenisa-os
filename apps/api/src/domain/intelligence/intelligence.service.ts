@@ -20,6 +20,7 @@ import { GroundedReasoningEngine } from './provider/grounded-reasoning-engine.js
 import { NotFoundError, ForbiddenError, BadRequestError } from '../../utils/errors.js';
 import { InternalCascadeService } from '../integration/internal-cascade.service.js';
 import { logger } from '../../lib/logger.js';
+import { performanceProfiler, type AiPhaseTiming } from '../../lib/performance-profiler.js';
 
 export class IntelligenceService {
   private contextService = new ContextService();
@@ -33,6 +34,12 @@ export class IntelligenceService {
   private pendingProposals = new Map<string, { userId: string; actionType: string; details: Record<string, unknown>; expiresAt: number }>();
 
   async chat(userId: string, input: IntelligenceChatInput): Promise<IntelligenceChatOutput> {
+    const aiTraceId = `ai-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
+    const aiPhases: AiPhaseTiming[] = [];
+    const tTotalStart = process.hrtime.bigint();
+
+    // ── Phase 1: Request Initialization & Validation ──────────────────────────
+    const tInitStart = process.hrtime.bigint();
     const { cleanText } = this.safetyService.sanitizeInput(input.message);
 
     // 1. Resolve or create conversation
@@ -59,6 +66,18 @@ export class IntelligenceService {
       },
     });
 
+    const initDurationNs = process.hrtime.bigint() - tInitStart;
+    const initDurationUs = Number(initDurationNs) / 1000;
+    aiPhases.push({
+      phase: '1. Request Initialization',
+      durationUs: parseFloat(initDurationUs.toFixed(1)),
+      durationMs: parseFloat((initDurationUs / 1000).toFixed(3)),
+      description: 'Input sanitization, conversation resolution, and user message persistence',
+    });
+
+    // ── Phase 2: Live Database Context Retrieval ──────────────────────────────
+    const tContextStart = process.hrtime.bigint();
+
     // 3. Fetch conversation history for multi-turn context
     const history = await prisma.conversationMessage.findMany({
       where: { conversationId },
@@ -66,12 +85,11 @@ export class IntelligenceService {
       take: 10,
     });
 
-    // 4. Multi-turn reference resolution (resolve pronouns e.g. "it", "that project")
+    // 4. Multi-turn reference resolution
     let resolvedPageContext = input.pageContext;
     if (!resolvedPageContext?.entityTitle) {
       const lowerQuery = cleanText.toLowerCase();
       if (lowerQuery.includes('it') || lowerQuery.includes('that project') || lowerQuery.includes('this project') || lowerQuery.includes('the project') || lowerQuery.includes('what is blocking')) {
-        // Look back through history for referenced project names
         for (let i = history.length - 1; i >= 0; i--) {
           const content = history[i].content;
           if (content.includes('Individual Project A')) {
@@ -88,13 +106,24 @@ export class IntelligenceService {
     // 5. Build dynamic context with live database metrics
     const context = await this.contextService.buildContext(userId, resolvedPageContext);
 
-    // 6. Generate AI response with iterative multi-turn tool calling (up to 5 iterations)
+    const contextDurationNs = process.hrtime.bigint() - tContextStart;
+    const contextDurationUs = Number(contextDurationNs) / 1000;
+    aiPhases.push({
+      phase: '2. Context Retrieval',
+      durationUs: parseFloat(contextDurationUs.toFixed(1)),
+      durationMs: parseFloat((contextDurationUs / 1000).toFixed(3)),
+      description: 'Live database metric extraction and cross-module page context synthesis',
+    });
+
+    // ── Phase 3: AI Model Inference / Generation ──────────────────────────────
+    const tInferenceStart = process.hrtime.bigint();
+
+    // 6. Generate AI response with iterative multi-turn tool calling
     const requestMessages: AIRequestMessage[] = history.map((m) => ({
       role: m.role.toLowerCase() as 'user' | 'assistant' | 'system',
       content: m.content,
     }));
 
-    // Select provider based on engineMode
     let activeEngine: AIProvider;
     let modelOverride: string | undefined;
 
@@ -114,6 +143,7 @@ export class IntelligenceService {
     let currentIteration = 0;
     const maxIterations = 5;
     let currentMessages: AIRequestMessage[] = [...requestMessages];
+    let toolExecutionDurationNs = 0n;
 
     try {
       while (currentIteration < maxIterations) {
@@ -125,23 +155,21 @@ export class IntelligenceService {
           modelOverride,
         });
 
-        // If no tool calls requested, we have our final synthesized response
         if (!response.toolCalls || response.toolCalls.length === 0) {
           break;
         }
 
-        // If it's an action proposal (mutation proposal), handle via operator confirmation pipeline
         const hasActionProposal = response.toolCalls.some((tc) => tc.name.startsWith('propose_'));
         if (hasActionProposal) {
           break;
         }
 
-        // If the engine doesn't execute external tool loops (e.g. GroundedEngine), stop
         if (activeEngine.name === 'GroundedReasoningEngine') {
           break;
         }
 
-        // Execute all requested data tools (supports parallel tool calling)
+        // ── Phase 4: Data Tool Execution ──────────────────────────────────────
+        const tToolStart = process.hrtime.bigint();
         const toolOutputs: Array<{ id: string; name: string; output: unknown }> = [];
         for (const toolCall of response.toolCalls) {
           try {
@@ -153,8 +181,8 @@ export class IntelligenceService {
             toolOutputs.push({ id: toolCall.id, name: toolCall.name, output: { error: errText } });
           }
         }
+        toolExecutionDurationNs += process.hrtime.bigint() - tToolStart;
 
-        // Append assistant tool-call turn and corresponding tool output turns
         currentMessages = [
           ...currentMessages,
           {
@@ -197,6 +225,26 @@ export class IntelligenceService {
       }
     }
 
+    const inferenceTotalNs = process.hrtime.bigint() - tInferenceStart - toolExecutionDurationNs;
+    const inferenceUs = Number(inferenceTotalNs) / 1000;
+    aiPhases.push({
+      phase: '3. Model Inference',
+      durationUs: parseFloat(inferenceUs.toFixed(1)),
+      durationMs: parseFloat((inferenceUs / 1000).toFixed(3)),
+      description: `Inference via ${response.providerName || activeEngine.name}`,
+    });
+
+    const toolUs = Number(toolExecutionDurationNs) / 1000;
+    aiPhases.push({
+      phase: '4. Tool Execution',
+      durationUs: parseFloat(toolUs.toFixed(1)),
+      durationMs: parseFloat((toolUs / 1000).toFixed(3)),
+      description: 'Domain tool resolution and external API query execution',
+    });
+
+    // ── Phase 5: Response Finalization & Action Proposal Handling ─────────────
+    const tFinalStart = process.hrtime.bigint();
+
     // 7. Handle action proposals from tool calls
     let proposal: ActionProposalDto | null = null;
     if (response.toolCalls && response.toolCalls.length > 0) {
@@ -211,12 +259,11 @@ export class IntelligenceService {
             userId,
             actionType: result.proposedAction,
             details: result.args || toolCall.arguments,
-            expiresAt: Date.now() + 86400000, // 24-hour TTL
+            expiresAt: Date.now() + 86400000,
           };
 
           this.pendingProposals.set(proposalId, proposalPayload);
 
-          // Persist with 24-hour TTL in userMemory
           await prisma.userMemory.create({
             data: {
               userId,
@@ -239,6 +286,23 @@ export class IntelligenceService {
       }
     }
 
+    // Record timing metadata
+    const finalNs = process.hrtime.bigint() - tFinalStart;
+    const finalUs = Number(finalNs) / 1000;
+    aiPhases.push({
+      phase: '5. Response Persistence',
+      durationUs: parseFloat(finalUs.toFixed(1)),
+      durationMs: parseFloat((finalUs / 1000).toFixed(3)),
+      description: 'Assistant message persistence and proposal registration',
+    });
+
+    const totalAiNs = process.hrtime.bigint() - tTotalStart;
+    const totalAiUs = Number(totalAiNs) / 1000;
+    const totalAiMs = totalAiUs / 1000;
+
+    // Record into performance profiler
+    performanceProfiler.recordAiPhases(aiTraceId, aiPhases);
+
     // 8. Persist assistant message
     const assistantMsg = await prisma.conversationMessage.create({
       data: {
@@ -253,6 +317,12 @@ export class IntelligenceService {
             inferences: response.inferences,
             recommendations: response.recommendations,
             providerName: response.providerName || this.provider.name,
+            timing: {
+              traceId: aiTraceId,
+              phases: aiPhases,
+              totalDurationUs: parseFloat(totalAiUs.toFixed(1)),
+              totalDurationMs: parseFloat(totalAiMs.toFixed(2)),
+            },
           }),
         ) as Prisma.InputJsonValue,
       },
