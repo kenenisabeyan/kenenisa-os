@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../features/auth/useAuth.js';
 
 interface PublicLayoutProps {
@@ -42,15 +42,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     };
   }, [drawerOpen, contactModalOpen, cvModalOpen]);
 
-  // Top header pill navigation items
-  const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
-    { label: 'Capabilities', path: '/capabilities' },
-    { label: 'How It Works', path: '/how-it-works' },
-  ];
-
-  // Drawer menu items matching the exact header navbar items (Home, About, Capabilities, How It Works)
+  // Drawer menu items matching core system routes (Home, About, Capabilities, How It Works, Contact)
   const drawerMenuItems: MenuItem[] = [
     {
       id: 'home',
