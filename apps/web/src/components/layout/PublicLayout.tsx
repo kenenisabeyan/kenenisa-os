@@ -179,16 +179,16 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         </Link>
 
         {/* Center Desktop Navigation (Clean Floating Pill) */}
-        <nav aria-label="Public Navigation" className="hidden lg:flex items-center gap-1 bg-slate-100/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/80 shadow-xs">
+        <nav aria-label="Public Navigation" className="hidden lg:flex items-center gap-1.5 bg-[#f0f4f8]/90 backdrop-blur-md py-1.5 px-3 rounded-full border border-slate-200/90 shadow-xs">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               end={link.path === '/'}
               className={({ isActive }) =>
-                `px-5 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+                `px-6 py-2 rounded-full text-sm font-bold transition-all duration-200 select-none ${
                   isActive
-                    ? 'bg-white text-[#7a1c32] shadow-sm font-extrabold'
+                    ? 'bg-white text-[#7a1c32] shadow-[0_2px_8px_rgba(0,0,0,0.06)] font-black'
                     : 'text-slate-700 hover:text-slate-950 hover:bg-white/60'
                 }`
               }
