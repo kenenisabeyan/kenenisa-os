@@ -121,22 +121,21 @@ export const HowItWorksPage: React.FC = () => {
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
       <section className="text-center space-y-8 max-w-[1720px] mx-auto pt-4 relative">
         {/* Eyebrow Badge */}
-        <div className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-gradient-to-r from-teal-50/90 via-emerald-50/90 to-cyan-50/90 border-2 border-teal-200/90 text-teal-900 text-xs font-black uppercase tracking-widest shadow-md shadow-teal-500/10 hover:scale-105 transition-all duration-300">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-600"></span>
-          </span>
-          <span>Methodology &amp; System Flow Architecture 🔬</span>
+        <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300">
+          <span className="w-2 h-2 rounded-full bg-[#7a1c32] animate-pulse" />
+          <span>Behind The Scenes &bull; Methodology &bull; 2026</span>
+          <span className="text-[#7a1c32]">⚡</span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-indigo-950 tracking-tight leading-[1.12] max-w-5xl mx-auto">
-          From <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">intention</span> to <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">verifiable evidence</span>.
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
+          From Intention to <br />
+          <span className="text-[#7a1c32]">Verifiable Engineering Proof</span>.
         </h1>
 
         {/* Supporting Copy */}
-        <p className="text-lg sm:text-xl lg:text-2xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-semibold">
-          KENENISA OS transforms high-level strategic direction into structured, executable work, capacity-matched daily planning, observable proof, and continuous career growth.
+        <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
+          KENENISA OS transforms strategic ambition into structured execution, capacity-matched daily planning, observable evidence, and continuous career growth.
         </p>
       </section>
 

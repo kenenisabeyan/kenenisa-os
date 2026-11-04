@@ -142,26 +142,22 @@ export const CapabilitiesPage: React.FC = () => {
     <div className="space-y-24 py-6" id="capabilities-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
       <section className="text-center space-y-8 max-w-[1720px] mx-auto pt-4 relative">
-        {/* Ambient Glow Orbs */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-tr from-blue-400/20 via-indigo-300/20 to-purple-400/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" />
-
         {/* Eyebrow Badge */}
-        <div className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-50/90 via-sky-50/90 to-cyan-50/90 border-2 border-blue-200/90 text-blue-900 text-xs font-black uppercase tracking-widest shadow-md shadow-blue-500/10 hover:scale-105 transition-all duration-300">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
-          </span>
-          <span>System Capabilities Architecture ⚡</span>
+        <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300">
+          <span className="w-2 h-2 rounded-full bg-[#7a1c32] animate-pulse" />
+          <span>System Services &bull; Full-Stack Capabilities &bull; 2026</span>
+          <span className="text-[#7a1c32]">⚡</span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-indigo-950 tracking-tight leading-[1.12] max-w-5xl mx-auto">
-          Built for <span className="bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 bg-clip-text text-transparent">engineering precision</span> and real execution.
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
+          Built for Engineering Precision &amp; <br />
+          <span className="text-[#7a1c32]">Modular System Architecture</span>.
         </h1>
 
         {/* Supporting Copy */}
-        <p className="text-lg sm:text-xl lg:text-2xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-semibold">
-          Explore the core modular components of KENENISA OS. Each capability works independently while sharing state across the entire operating system.
+        <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
+          Explore the core modular capabilities of KENENISA OS. Each service works independently while sharing live PostgreSQL state across the entire operating system.
         </p>
 
         {/* ── INTERACTIVE SYSTEM ARCHITECTURE CAPABILITY MATRICES ── */}
