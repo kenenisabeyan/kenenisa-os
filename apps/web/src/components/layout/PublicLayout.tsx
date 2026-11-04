@@ -178,26 +178,6 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           </div>
         </Link>
 
-        {/* Center Desktop Navigation (Clean Floating Pill) */}
-        <nav aria-label="Public Navigation" className="hidden lg:flex items-center gap-1.5 bg-[#f0f4f8]/90 backdrop-blur-md py-1.5 px-3 rounded-full border border-slate-200/90 shadow-xs">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              end={link.path === '/'}
-              className={({ isActive }) =>
-                `px-6 py-2 rounded-full text-sm font-bold transition-all duration-200 select-none ${
-                  isActive
-                    ? 'bg-white text-[#7a1c32] shadow-[0_2px_8px_rgba(0,0,0,0.06)] font-black'
-                    : 'text-slate-700 hover:text-slate-950 hover:bg-white/60'
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-
         {/* Header Right Action Buttons (Theme Toggle & Drawer Hamburger) */}
         <div className="flex items-center gap-2.5">
           {/* Theme Toggle Button (Rounded Square with subtle border) */}
@@ -230,7 +210,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             </svg>
           </button>
 
-          {/* Desktop Direct App Link */}
+          {/* Desktop Direct App / Sign In Link */}
           {user ? (
             <button
               onClick={() => navigate('/app/dashboard')}
@@ -267,14 +247,14 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
 
           {/* Slide-In White Drawer Panel from Right */}
           <aside
-            className="fixed top-0 right-0 bottom-0 w-80 sm:w-96 max-w-[88vw] h-full bg-white z-50 shadow-2xl flex flex-col justify-between p-6 sm:p-8 animate-in slide-in-from-right duration-300 ease-out font-sans text-slate-900"
+            className="fixed top-0 right-0 bottom-0 w-80 sm:w-96 max-w-[88vw] h-full bg-white z-50 shadow-2xl flex flex-col justify-between p-6 sm:p-7 animate-in slide-in-from-right duration-300 ease-out font-sans text-slate-900"
             aria-label="Slide-Out Navigation Drawer"
           >
             {/* Top Close Button */}
-            <div className="flex items-center justify-end">
+            <div className="shrink-0 flex items-center justify-end pb-2">
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors text-2xl font-light"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors text-2xl font-light cursor-pointer"
                 aria-label="Close Menu"
               >
                 ✕
@@ -282,7 +262,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             </div>
 
             {/* Menu Navigation Items with dividers and '+' indicators (Exact match to reference) */}
-            <div className="flex-1 overflow-y-auto py-4 space-y-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex-1 overflow-y-auto py-2 pr-1 space-y-0 [scrollbar-width:thin] [-ms-overflow-style:none]">
               {drawerMenuItems.map((item) => {
                 const isActive = isItemActive(item);
                 const isExpanded = expandedItem === item.id;
@@ -291,7 +271,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                   <div key={item.id} className="border-b border-slate-100 last:border-b-0">
                     <div
                       onClick={() => handleItemNavigate(item)}
-                      className={`w-full py-4 flex items-center justify-between text-left text-base sm:text-lg transition-colors cursor-pointer group ${
+                      className={`w-full py-3 sm:py-3.5 flex items-center justify-between text-left text-base sm:text-lg transition-colors cursor-pointer group ${
                         isActive ? 'text-[#7a1c32] font-semibold' : 'text-slate-800 font-medium hover:text-[#7a1c32]'
                       }`}
                     >
@@ -300,7 +280,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                         <button
                           type="button"
                           onClick={(e) => handleToggleSubmenu(item.id, e)}
-                          className={`p-1.5 -mr-1.5 rounded-md hover:bg-slate-100 text-lg font-light transition-transform duration-200 ${
+                          className={`p-1.5 -mr-1 rounded-md hover:bg-slate-100 text-lg font-light transition-transform duration-200 cursor-pointer ${
                             isActive ? 'text-[#8b1d38] font-normal' : 'text-slate-400 group-hover:text-[#7a1c32]'
                           } ${isExpanded ? 'rotate-45' : ''}`}
                           aria-label={`Toggle ${item.label} sub-items`}
@@ -312,7 +292,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
 
                     {/* Submenu Expansion List */}
                     {item.hasSubmenu && isExpanded && (
-                      <div className="pb-3 pl-3 space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                      <div className="pb-3 pl-3 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
                         {item.subLinks?.map((sub) => (
                           <Link
                             key={sub.path}
@@ -331,7 +311,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             </div>
 
             {/* Bottom Action Block (CTA Button + CV Resume Link) */}
-            <div className="pt-5 border-t border-slate-100 flex flex-col gap-3">
+            <div className="shrink-0 pt-4 border-t border-slate-100 flex flex-col gap-2.5">
               {/* Primary Call to Action Button */}
               {user ? (
                 <button
