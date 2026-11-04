@@ -9,6 +9,30 @@ export class GraduationService {
    * strategic goals, two graduation project workspaces, academic semester, and 7 courses.
    */
   public static async ensureGraduationWorkspace(userId: string): Promise<void> {
+    // Fast path: if workstream and both graduation projects exist, skip redundant re-initialization
+    const existingWorkstream = await prisma.workstream.findUnique({
+      where: {
+        userId_slug: {
+          userId,
+          slug: 'astu-graduation-2026-2027',
+        },
+      },
+      select: { id: true },
+    });
+
+    if (existingWorkstream) {
+      const existingProjectsCount = await prisma.project.count({
+        where: {
+          userId,
+          slug: { in: ['individual-graduation-project', 'group-graduation-project'] },
+        },
+      });
+
+      if (existingProjectsCount === 2) {
+        return;
+      }
+    }
+
     // 1. Ensure Workstream
     const workstream = await prisma.workstream.upsert({
       where: {

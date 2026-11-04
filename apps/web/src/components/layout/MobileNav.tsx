@@ -1,6 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Sidebar } from './Sidebar.js';
+import { prefetchApi } from '../../lib/api-client.js';
+
+const mobilePrefetchMap: Record<string, () => void> = {
+  '/app/dashboard': () => prefetchApi('/api/v1/dashboard'),
+  '/app/tasks': () => prefetchApi('/api/v1/tasks'),
+  '/app/planning': () => prefetchApi('/api/v1/planning/overview'),
+  '/app/results': () => prefetchApi('/api/v1/results/overview'),
+};
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -71,6 +79,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenMenu }) 
           key={link.path}
           to={link.path}
           aria-label={link.label}
+          onMouseEnter={() => mobilePrefetchMap[link.path]?.()}
           className={({ isActive }) =>
             `flex flex-col items-center justify-center flex-1 min-h-[44px] py-1 px-1 rounded-xl text-[10px] font-semibold transition-all ${
               isActive

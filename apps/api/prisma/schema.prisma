@@ -234,6 +234,7 @@ model Goal {
   weeklyPlans  WeeklyPlan[]
   planOutcomes PlanOutcome[]
 
+  @@index([userId, status])
   @@index([workstreamId, status])
   @@index([userId, targetDate])
 }
@@ -270,6 +271,7 @@ model Project {
   academicCourses  AcademicCourse[]
 
   @@unique([userId, slug])
+  @@index([userId, status])
   @@index([workstreamId, status])
   @@index([goalId])
   @@index([userId, targetDate])
@@ -330,6 +332,9 @@ model Task {
   opportunityLinks      OpportunityTask[]
   planOutcomes          PlanOutcome[]
 
+  @@index([userId, status])
+  @@index([userId, dueDate])
+  @@index([userId, createdAt])
   @@index([projectId, status])
   @@index([projectId, dueDate])
   @@index([projectId, priority])

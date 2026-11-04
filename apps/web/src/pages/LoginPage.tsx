@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Navigate, Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.js';
 import { loginSchema } from '@kenenisa-os/shared';
-import { ApiError } from '../lib/api-client.js';
+import { ApiError, isApiError } from '../lib/api-client.js';
 
 export const LoginPage: React.FC = () => {
   const { login, authState } = useAuth();
@@ -41,9 +41,13 @@ export const LoginPage: React.FC = () => {
     try {
       await login({ email: result.data.email, password: result.data.password });
       await navigate('/app', { replace: true });
-    } catch (err) {
-      if (err instanceof ApiError) {
+    } catch (err: unknown) {
+      if (isApiError(err) || err instanceof ApiError) {
         setAuthError(err.message);
+      } else if (err instanceof Error) {
+        setAuthError(err.message);
+      } else if (typeof err === 'object' && err !== null && 'message' in err) {
+        setAuthError(String((err as { message: unknown }).message));
       } else {
         setAuthError('An unexpected authentication error occurred. Please try again.');
       }

@@ -34,14 +34,12 @@ export class DashboardService {
     const endOfNext7Days = new Date(endOfToday);
     endOfNext7Days.setDate(endOfNext7Days.getDate() + 7);
 
-    // 2. Execute parallel queries for dashboard sections
+    // 2. Execute parallel queries for dashboard sections (optimized with grouped aggregation)
     const [
       activeWorkstreamsCount,
       activeGoalsCount,
       activeProjectsCount,
-      readyTasksCount,
-      inProgressTasksCount,
-      blockedTasksCount,
+      taskStatusCounts,
       overdueTasksCount,
       completedTasksRecentCount,
       nextBestAction,
@@ -58,9 +56,11 @@ export class DashboardService {
       prisma.workstream.count({ where: { userId, status: WorkstreamStatus.ACTIVE } }),
       prisma.goal.count({ where: { userId, status: GoalStatus.IN_PROGRESS } }),
       prisma.project.count({ where: { userId, status: ProjectStatus.ACTIVE } }),
-      prisma.task.count({ where: { userId, status: TaskStatus.READY } }),
-      prisma.task.count({ where: { userId, status: TaskStatus.IN_PROGRESS } }),
-      prisma.task.count({ where: { userId, status: TaskStatus.BLOCKED } }),
+      prisma.task.groupBy({
+        by: ['status'],
+        where: { userId },
+        _count: { _all: true },
+      }),
       prisma.task.count({
         where: {
           userId,
@@ -281,6 +281,11 @@ export class DashboardService {
         createdAt: log.createdAt.toISOString(),
       };
     };
+
+    const statusMap = new Map(taskStatusCounts.map((c) => [c.status, c._count._all]));
+    const readyTasksCount = statusMap.get(TaskStatus.READY) || 0;
+    const inProgressTasksCount = statusMap.get(TaskStatus.IN_PROGRESS) || 0;
+    const blockedTasksCount = statusMap.get(TaskStatus.BLOCKED) || 0;
 
     return {
       summary: {

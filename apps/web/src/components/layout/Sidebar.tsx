@@ -1,6 +1,24 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../features/auth/useAuth.js';
+import { prefetchApi } from '../../lib/api-client.js';
+
+// Route-to-API prefetch mappings for instant sidebar transitions on hover
+const routePrefetchMap: Record<string, () => void> = {
+  '/app/dashboard': () => prefetchApi('/api/v1/dashboard'),
+  '/app/graduation': () => prefetchApi('/api/v1/graduation/overview'),
+  '/app/tasks': () => prefetchApi('/api/v1/tasks'),
+  '/app/projects': () => prefetchApi('/api/v1/projects'),
+  '/app/workstreams': () => prefetchApi('/api/v1/workstreams'),
+  '/app/goals': () => prefetchApi('/api/v1/goals'),
+  '/app/planning': () => prefetchApi('/api/v1/planning/overview'),
+  '/app/academics': () => prefetchApi('/api/v1/academics/semesters'),
+  '/app/evidence': () => prefetchApi('/api/v1/evidence'),
+  '/app/learning': () => prefetchApi('/api/v1/learning'),
+  '/app/skills': () => prefetchApi('/api/v1/skills'),
+  '/app/opportunities': () => prefetchApi('/api/v1/opportunities'),
+  '/app/settings': () => prefetchApi('/api/v1/settings'),
+};
 
 export interface NavItem {
   label: string;
@@ -209,6 +227,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
                   key={item.path}
                   to={item.path}
                   onClick={onCloseMobile}
+                  onMouseEnter={() => routePrefetchMap[item.path]?.()}
                   title={item.label}
                   aria-current={isActive ? 'page' : undefined}
                   className={`group relative flex items-center justify-between gap-2.5 w-full px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-150 ${
