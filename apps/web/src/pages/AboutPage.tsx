@@ -241,7 +241,7 @@ export const AboutPage: React.FC = () => {
                 <div className="absolute bottom-5 inset-x-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between">
                   <div>
                     <div className="font-black text-sm text-slate-900">Kenenisa Beyan</div>
-                    <div className="text-[10px] font-bold text-[#7a1c32] uppercase tracking-wider">ASTU &bull; CSE Engineering Lead</div>
+                    <div className="text-[10px] font-bold text-[#7a1c32] uppercase tracking-wider">ASTU &bull; Computer Science and Engineering Lead</div>
                   </div>
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
                 </div>

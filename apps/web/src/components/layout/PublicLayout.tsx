@@ -498,7 +498,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-slate-500">Education:</span>
-                  <span className="font-bold text-slate-800">ASTU &bull; CSE (Computer Science)</span>
+                  <span className="font-bold text-slate-800">ASTU &bull; Computer Science and Engineering</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-slate-500">Status:</span>
