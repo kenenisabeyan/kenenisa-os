@@ -184,7 +184,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       >
         {/* Horizontal Scroll Progress Bar Indicator — Tracks body scroll progress along header top */}
         <div
-          className={`absolute top-0 left-0 h-[3.5px] bg-gradient-to-r from-[#7a1c32] via-[#911f3b] to-[#631427] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
+          className={`absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#7a1c32] via-[#8b1d38] to-[#7a1c32] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
             isScrolled ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ width: `${scrollProgress}%` }}
@@ -193,10 +193,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-label="Body scroll progress"
-        >
-          {/* Subtle glowing indicator icon on leading edge */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#7a1c32] shadow-[0_0_8px_#7a1c32] ring-1 ring-white/50" />
-        </div>
+        />
 
         {/* Author Brand Badge (Left) */}
         <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group" aria-label="Kenenisa Beyan Home">
