@@ -56,13 +56,13 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   // Center desktop header links that appear smoothly only when scrolling starts
   const headerNavLinks = [
     { label: 'HOME', path: '/' },
-    { label: 'PORTFOLIO', path: '/capabilities' },
-    { label: 'SERVICES', path: '/how-it-works' },
     { label: 'ABOUT', path: '/about' },
+    { label: 'CAPABILITIES', path: '/capabilities' },
+    { label: 'HOW IT WORKS', path: '/how-it-works' },
     { label: 'CONTACT', isContact: true },
   ];
 
-  // Drawer menu items matching core system routes (Home, Portfolio, Services, About, Contact)
+  // Drawer menu items matching core Kenenisa OS routes (Home, About, Capabilities, How It Works, Contact)
   const drawerMenuItems: MenuItem[] = [
     {
       id: 'home',
@@ -76,8 +76,20 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       ],
     },
     {
-      id: 'portfolio',
-      label: 'Portfolio',
+      id: 'about',
+      label: 'About',
+      path: '/about',
+      hasSubmenu: true,
+      subLinks: [
+        { label: 'Product Mission & Bio', path: '/about' },
+        { label: 'Core Engineering Principles', path: '/about#principles' },
+        { label: 'R&D Serpentine Roadmap', path: '/about#roadmap' },
+        { label: 'Technology Stack', path: '/about#stack' },
+      ],
+    },
+    {
+      id: 'capabilities',
+      label: 'Capabilities',
       path: '/capabilities',
       hasSubmenu: true,
       subLinks: [
@@ -89,8 +101,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       ],
     },
     {
-      id: 'services',
-      label: 'Services',
+      id: 'how-it-works',
+      label: 'How It Works',
       path: '/how-it-works',
       hasSubmenu: true,
       subLinks: [
@@ -98,18 +110,6 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         { label: 'Deterministic Execution', path: '/how-it-works#deterministic' },
         { label: 'Observable Proof Vault', path: '/how-it-works#proof' },
         { label: 'Continuous Trajectory & Growth', path: '/how-it-works#growth' },
-      ],
-    },
-    {
-      id: 'about',
-      label: 'About',
-      path: '/about',
-      hasSubmenu: true,
-      subLinks: [
-        { label: 'Product Mission & Bio', path: '/about' },
-        { label: 'Core Engineering Principles', path: '/about#principles' },
-        { label: 'R&D Serpentine Roadmap', path: '/about#roadmap' },
-        { label: 'Technology Stack', path: '/about#stack' },
       ],
     },
     {
@@ -489,7 +489,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 <li><Link to="/" className="hover:text-[#7a1c32] transition-colors">Home</Link></li>
                 <li><Link to="/about" className="hover:text-[#7a1c32] transition-colors">About</Link></li>
                 <li><Link to="/capabilities" className="hover:text-[#7a1c32] transition-colors">Capabilities</Link></li>
-                <li><Link to="/how-it-works" className="hover:text-[#7a1c32] transition-colors">Behind The Scenes</Link></li>
+                <li><Link to="/how-it-works" className="hover:text-[#7a1c32] transition-colors">How It Works</Link></li>
               </ul>
             </div>
 
