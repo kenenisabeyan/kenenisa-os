@@ -333,16 +333,29 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             {/* Bottom Action Block (CTA Button + CV Resume Link) */}
             <div className="pt-5 border-t border-slate-100 flex flex-col gap-3">
               {/* Primary Call to Action Button */}
-              <button
-                onClick={() => {
-                  setDrawerOpen(false);
-                  setContactModalOpen(true);
-                }}
-                className="w-full py-3.5 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-950/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
-              >
-                <span>HIRE ME</span>
-                <span className="text-base font-bold leading-none">↗</span>
-              </button>
+              {user ? (
+                <button
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    navigate('/app/dashboard');
+                  }}
+                  className="w-full py-3.5 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-950/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
+                >
+                  <span>DASHBOARD</span>
+                  <span className="text-base font-bold leading-none">↗</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    navigate('/login');
+                  }}
+                  className="w-full py-3.5 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-950/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
+                >
+                  <span>SIGN IN</span>
+                  <span className="text-base font-bold leading-none">↗</span>
+                </button>
+              )}
 
               {/* CV Resume Download Link */}
               <button
