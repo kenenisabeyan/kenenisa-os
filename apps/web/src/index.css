@@ -437,7 +437,7 @@ dialog {
   animation: electricFlicker 2s ease-in-out infinite;
 }
 
-/* ── Sleek Vertical Scrollbar matching burgundy OS styling ───────────────── */
+/* ── Sleek Vertical Scrollbar matching Kenenisa OS brand palette ─────────────── */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -446,11 +446,11 @@ dialog {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #7a1c32;
+  background: linear-gradient(to bottom, #20B5D6, #FE721D);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #631427;
+  background: linear-gradient(to bottom, #1aa3c2, #e56315);
 }
 
 

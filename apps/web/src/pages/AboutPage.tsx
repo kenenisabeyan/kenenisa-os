@@ -170,7 +170,7 @@ export const AboutPage: React.FC = () => {
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.02]">
               Kenenisa <br />
               Beyan. <br />
-              <span className="text-[#7a1c32]">
+              <span className="text-[#20B5D6]">
                 Director &amp; <br />
                 Visual Systems
               </span>
@@ -184,7 +184,7 @@ export const AboutPage: React.FC = () => {
             <div className="flex flex-wrap items-center gap-4 pt-3">
               <a
                 href="#principles"
-                className="px-7 py-3.5 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-rose-950/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                className="px-7 py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
               >
                 <span>EXPLORE WORK</span>
                 <span>▾</span>
@@ -205,7 +205,7 @@ export const AboutPage: React.FC = () => {
                 <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Years Experience</div>
               </div>
               <div>
-                <div className="text-3xl sm:text-5xl font-black text-[#7a1c32] tracking-tight">140+</div>
+                <div className="text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
                 <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Projects &amp; Milestones</div>
               </div>
               <div>
@@ -218,8 +218,8 @@ export const AboutPage: React.FC = () => {
           {/* Right Column: Layered Portrait Media Card with Offset Backing Plate */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5]">
-              {/* Offset Backing Plate in Soft Burgundy Accent */}
-              <div className="absolute -bottom-5 -right-5 sm:-bottom-7 sm:-right-7 inset-0 rounded-[2.5rem] bg-[#7a1c32]/15 border-2 border-[#7a1c32]/30 -z-10 shadow-lg" />
+              {/* Offset Backing Plate in Kenenisa OS Brand Gradient */}
+              <div className="absolute -bottom-5 -right-5 sm:-bottom-7 sm:-right-7 inset-0 rounded-[2.5rem] bg-gradient-to-br from-[#20B5D6]/20 to-[#FE721D]/20 border-2 border-[#20B5D6]/40 -z-10 shadow-lg" />
               
               {/* Main Rounded Portrait Card */}
               <div className="w-full h-full rounded-[2.5rem] overflow-hidden border-4 border-white shadow-2xl bg-slate-100 relative group">
@@ -241,7 +241,7 @@ export const AboutPage: React.FC = () => {
                 <div className="absolute bottom-5 inset-x-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between">
                   <div>
                     <div className="font-black text-sm text-slate-900">Kenenisa Beyan</div>
-                    <div className="text-[10px] font-bold text-[#7a1c32] uppercase tracking-wider">ASTU &bull; Computer Science and Engineering Lead</div>
+                    <div className="text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider">ASTU &bull; Computer Science and Engineering Lead</div>
                   </div>
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
                 </div>

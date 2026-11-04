@@ -170,14 +170,14 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-[#0f172a] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'} flex flex-col font-sans transition-colors duration-300 selection:bg-[#7a1c32]/20 selection:text-[#7a1c32]`}>
+    <div className={`min-h-screen ${isDark ? 'bg-[#0f172a] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'} flex flex-col font-sans transition-colors duration-300 selection:bg-[#20B5D6]/20 selection:text-[#0b7994]`}>
       
       {/* ══════════════════════════════════════════════════════════════════════
            STICKY NAVBAR — Dynamic scroll-triggered background and navigation
       ══════════════════════════════════════════════════════════════════════ */}
       {/* Vertical Scroll Progress Bar Indicator — Tracks body scroll progress along viewport right edge */}
       <div
-        className={`fixed top-0 right-0 w-[3px] bg-gradient-to-b from-[#7a1c32] via-[#8b1d38] to-[#7a1c32] rounded-b-full transition-all duration-150 z-50 pointer-events-none ${
+        className={`fixed top-0 right-0 w-[3px] bg-gradient-to-b from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-b-full transition-all duration-150 z-50 pointer-events-none ${
           isScrolled ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ height: `${scrollProgress}%` }}
@@ -197,7 +197,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       >
         {/* Horizontal Scroll Progress Bar Indicator — Tracks body scroll progress along header top */}
         <div
-          className={`absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#7a1c32] via-[#8b1d38] to-[#7a1c32] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
+          className={`absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
             isScrolled ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ width: `${scrollProgress}%` }}
@@ -223,10 +223,10 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
           </div>
           <div className="flex flex-col">
-            <span className={`font-black text-sm sm:text-base tracking-tight ${isDark ? 'text-white' : 'text-slate-900'} group-hover:text-[#7a1c32] transition-colors leading-tight`}>
+            <span className={`font-black text-sm sm:text-base tracking-tight ${isDark ? 'text-white' : 'text-slate-900'} group-hover:text-[#20B5D6] transition-colors leading-tight`}>
               KENENISA
             </span>
-            <span className="text-[9px] sm:text-[10px] text-[#7a1c32] font-black tracking-widest uppercase mt-0.5 leading-tight">
+            <span className="text-[9px] sm:text-[10px] text-[#20B5D6] font-black tracking-widest uppercase mt-0.5 leading-tight">
               DIRECTOR &amp; DESIGNER
             </span>
           </div>
@@ -250,10 +250,10 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                   onClick={() => setContactModalOpen(true)}
                   className={`text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer ${
                     contactModalOpen
-                      ? 'text-[#7a1c32] font-black'
+                      ? 'text-[#20B5D6] font-black'
                       : isDark
-                        ? 'text-slate-200 hover:text-[#7a1c32]'
-                        : 'text-slate-800 hover:text-[#7a1c32]'
+                        ? 'text-slate-200 hover:text-[#FE721D]'
+                        : 'text-slate-800 hover:text-[#FE721D]'
                   }`}
                 >
                   {link.label}
@@ -272,10 +272,10 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 to={link.path!}
                 className={`text-xs font-bold tracking-widest uppercase transition-colors ${
                   isActive
-                    ? 'text-[#7a1c32] font-black'
+                    ? 'text-[#20B5D6] font-black'
                     : isDark
-                      ? 'text-slate-200 hover:text-[#7a1c32]'
-                      : 'text-slate-800 hover:text-[#7a1c32]'
+                      ? 'text-slate-200 hover:text-[#FE721D]'
+                      : 'text-slate-800 hover:text-[#FE721D]'
                 }`}
               >
                 {link.label}
@@ -340,7 +340,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           ) : (
             <Link
               to="/login"
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#7a1c32] hover:bg-[#631427] text-white text-xs font-bold transition-all shadow-xs"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FE721D] hover:bg-[#e56315] text-white text-xs font-bold transition-all shadow-md shadow-orange-500/20"
             >
               <span>Sign In</span>
             </Link>
@@ -387,7 +387,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                     <div
                       onClick={() => handleItemNavigate(item)}
                       className={`w-full py-3 sm:py-3.5 flex items-center justify-between text-left text-base sm:text-lg transition-colors cursor-pointer group ${
-                        isActive ? 'text-[#7a1c32] font-semibold' : 'text-slate-800 font-medium hover:text-[#7a1c32]'
+                        isActive ? 'text-[#20B5D6] font-semibold' : 'text-slate-800 font-medium hover:text-[#FE721D]'
                       }`}
                     >
                       <span className="tracking-tight select-none">{item.label}</span>
@@ -396,7 +396,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                           type="button"
                           onClick={(e) => handleToggleSubmenu(item.id, e)}
                           className={`p-1.5 -mr-1 rounded-md hover:bg-slate-100 text-lg font-light transition-transform duration-200 cursor-pointer ${
-                            isActive ? 'text-[#8b1d38] font-normal' : 'text-slate-400 group-hover:text-[#7a1c32]'
+                            isActive ? 'text-[#20B5D6] font-normal' : 'text-slate-400 group-hover:text-[#FE721D]'
                           } ${isExpanded ? 'rotate-45' : ''}`}
                           aria-label={`Toggle ${item.label} sub-items`}
                         >
@@ -413,7 +413,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                             key={sub.path}
                             to={sub.path}
                             onClick={() => setDrawerOpen(false)}
-                            className="block text-xs font-semibold text-slate-500 hover:text-[#7a1c32] py-1 transition-colors"
+                            className="block text-xs font-semibold text-slate-500 hover:text-[#FE721D] py-1 transition-colors"
                           >
                             {sub.label}
                           </Link>
@@ -434,7 +434,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                     setDrawerOpen(false);
                     navigate('/app/dashboard');
                   }}
-                  className="w-full py-3.5 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-950/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
+                  className="w-full py-3.5 px-4 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
                 >
                   <span>DASHBOARD</span>
                   <span className="text-base font-bold leading-none">↗</span>
@@ -445,7 +445,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                     setDrawerOpen(false);
                     navigate('/login');
                   }}
-                  className="w-full py-3.5 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-950/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
+                  className="w-full py-3.5 px-4 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-widest uppercase rounded-sm flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition-all hover:scale-102 active:scale-98 cursor-pointer"
                 >
                   <span>SIGN IN</span>
                   <span className="text-base font-bold leading-none">↗</span>
@@ -473,7 +473,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       ══════════════════════════════════════════════════════════════════════ */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-[#7a1c32] hover:bg-[#631427] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer group ${
+        className={`fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-[#FE721D] hover:bg-[#e56315] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer group ${
           isScrolled
             ? 'opacity-100 pointer-events-auto translate-y-0 scale-100'
             : 'opacity-0 pointer-events-none translate-y-4 scale-75'
@@ -508,7 +508,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
               />
               <div className="flex flex-col">
                 <span className="font-extrabold text-lg tracking-tight text-slate-900">KENENISA BEYAN</span>
-                <span className="text-[10px] text-[#7a1c32] font-black tracking-widest uppercase">
+                <span className="text-[10px] text-[#20B5D6] font-black tracking-widest uppercase">
                   DIRECTOR &amp; DESIGNER &bull; ENGINEERING ARCHITECT
                 </span>
               </div>
@@ -520,21 +520,21 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
 
           <div className="flex flex-wrap gap-10 text-xs font-bold text-slate-700">
             <div className="space-y-3">
-              <span className="text-[10px] font-black uppercase text-[#7a1c32] tracking-widest">Navigation</span>
+              <span className="text-[10px] font-black uppercase text-[#20B5D6] tracking-widest">Navigation</span>
               <ul className="space-y-2">
-                <li><Link to="/" className="hover:text-[#7a1c32] transition-colors">Home</Link></li>
-                <li><Link to="/about" className="hover:text-[#7a1c32] transition-colors">About</Link></li>
-                <li><Link to="/capabilities" className="hover:text-[#7a1c32] transition-colors">Capabilities</Link></li>
-                <li><Link to="/how-it-works" className="hover:text-[#7a1c32] transition-colors">How It Works</Link></li>
+                <li><Link to="/" className="hover:text-[#FE721D] transition-colors">Home</Link></li>
+                <li><Link to="/about" className="hover:text-[#FE721D] transition-colors">About</Link></li>
+                <li><Link to="/capabilities" className="hover:text-[#FE721D] transition-colors">Capabilities</Link></li>
+                <li><Link to="/how-it-works" className="hover:text-[#FE721D] transition-colors">How It Works</Link></li>
               </ul>
             </div>
 
             <div className="space-y-3">
-              <span className="text-[10px] font-black uppercase text-[#7a1c32] tracking-widest">Connect</span>
+              <span className="text-[10px] font-black uppercase text-[#20B5D6] tracking-widest">Connect</span>
               <ul className="space-y-2">
-                <li><a href="mailto:beyankenenisa@gmail.com" className="hover:text-[#7a1c32] transition-colors">beyankenenisa@gmail.com</a></li>
-                <li><button onClick={() => setCvModalOpen(true)} className="hover:text-[#7a1c32] transition-colors text-left">View CV Resume</button></li>
-                <li><Link to="/login" className="hover:text-[#7a1c32] transition-colors">Sign In</Link></li>
+                <li><a href="mailto:beyankenenisa@gmail.com" className="hover:text-[#FE721D] transition-colors">beyankenenisa@gmail.com</a></li>
+                <li><button onClick={() => setCvModalOpen(true)} className="hover:text-[#FE721D] transition-colors text-left">View CV Resume</button></li>
+                <li><Link to="/login" className="hover:text-[#FE721D] transition-colors">Sign In</Link></li>
               </ul>
             </div>
           </div>
@@ -542,8 +542,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
 
         <div className="max-w-[1720px] mx-auto mt-10 pt-6 border-t border-slate-200/60 flex flex-col sm:flex-row justify-between items-center text-[11px] font-medium text-slate-500 gap-3">
           <span>&copy; {new Date().getFullYear()} KENENISA OS &bull; Personal Engineering Operating System</span>
-          <span className="inline-flex items-center gap-1.5 text-[#7a1c32] font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#7a1c32]" />
+          <span className="inline-flex items-center gap-1.5 text-[#20B5D6] font-bold">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6]" />
             Evidence-Backed &bull; Factual &bull; Deterministic
           </span>
         </div>
@@ -571,7 +571,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 />
                 <div>
                   <h3 className="text-lg font-black text-slate-900">Kenenisa Beyan</h3>
-                  <p className="text-[10px] font-bold text-[#7a1c32] uppercase tracking-wider">
+                  <p className="text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider">
                     Full-Stack Lead &bull; Software Architect
                   </p>
                 </div>
@@ -591,7 +591,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-slate-500">Email:</span>
-                  <a href="mailto:beyankenenisa@gmail.com" className="font-bold text-[#7a1c32] hover:underline">
+                  <a href="mailto:beyankenenisa@gmail.com" className="font-bold text-[#20B5D6] hover:underline">
                     beyankenenisa@gmail.com
                   </a>
                 </div>
@@ -612,7 +612,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="mailto:beyankenenisa@gmail.com"
-                className="flex-1 py-3 px-4 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs tracking-wider uppercase rounded-xl text-center shadow-md transition-all"
+                className="flex-1 py-3 px-4 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs tracking-wider uppercase rounded-xl text-center shadow-md shadow-orange-500/20 transition-all"
               >
                 Send Direct Email ↗
               </a>
@@ -642,7 +642,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           <div className="relative bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 z-10 animate-in zoom-in-95 duration-200 font-sans">
             <div className="flex justify-between items-start pb-4 border-b border-slate-100 mb-6">
               <div>
-                <span className="text-[10px] font-black uppercase text-[#7a1c32] tracking-widest">
+                <span className="text-[10px] font-black uppercase text-[#20B5D6] tracking-widest">
                   Executive Briefing
                 </span>
                 <h3 className="text-2xl font-black text-slate-900">Kenenisa Beyan — CV &amp; Profile</h3>
@@ -675,7 +675,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                     <div className="font-bold text-slate-900">Adama Science and Technology University (ASTU)</div>
                     <div className="text-xs text-slate-500">B.Sc. in Computer Science and Engineering (CSE)</div>
                   </div>
-                  <span className="text-xs font-bold text-[#7a1c32] bg-rose-50 px-2.5 py-1 rounded-lg border border-rose-200">
+                  <span className="text-xs font-bold text-[#20B5D6] bg-cyan-50 px-2.5 py-1 rounded-lg border border-cyan-200">
                     Graduation Command P0
                   </span>
                 </div>

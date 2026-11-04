@@ -124,9 +124,9 @@ export const HomePage: React.FC = () => {
       <section className="text-center space-y-8 sm:space-y-10 max-w-[1720px] mx-auto pt-6 px-1">
         {/* Eyebrow Badge */}
         <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300 mx-auto">
-          <span className="w-2 h-2 rounded-full bg-[#7a1c32] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#FE721D] animate-pulse" />
           <span>Personal Engineering &amp; Career OS &bull; 2026</span>
-          <span className="text-[#7a1c32]">⚡</span>
+          <span className="text-[#FE721D]">⚡</span>
         </div>
 
         {/* Headline matching Alazar bold high-impact typographic hierarchy */}
@@ -134,7 +134,7 @@ export const HomePage: React.FC = () => {
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.02]">
             Kenenisa <br className="hidden sm:inline" />
             Beyan. <br />
-            <span className="text-[#7a1c32]">
+            <span className="text-[#20B5D6]">
               Engineering OS &amp; <br className="hidden sm:inline" />
               Visual Architecture
             </span>
@@ -149,7 +149,7 @@ export const HomePage: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
           <a
             href="#workstreams"
-            className="px-8 py-3.5 bg-[#7a1c32] hover:bg-[#631427] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-rose-950/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+            className="px-8 py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <span>EXPLORE WORK</span>
             <span>▾</span>
@@ -179,7 +179,7 @@ export const HomePage: React.FC = () => {
             <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Years Experience</div>
           </div>
           <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-            <div className="text-4xl sm:text-6xl font-black text-[#7a1c32] tracking-tight">140+</div>
+            <div className="text-4xl sm:text-6xl font-black text-[#FE721D] tracking-tight">140+</div>
             <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Projects &amp; Milestones</div>
           </div>
           <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
