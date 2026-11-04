@@ -25,11 +25,21 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [cvModalOpen, setCvModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Monitor scroll position for dynamic header visibility & background
+  // Monitor scroll position for dynamic header visibility, background & horizontal progress
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 30);
+
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = Math.min(100, Math.max(0, (currentScrollY / totalHeight) * 100));
+        setScrollProgress(progress);
+      } else {
+        setScrollProgress(0);
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
@@ -172,6 +182,22 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             : 'bg-transparent border-b border-transparent shadow-none'
         }`}
       >
+        {/* Horizontal Scroll Progress Bar Indicator — Tracks body scroll progress along header top */}
+        <div
+          className={`absolute top-0 left-0 h-[3.5px] bg-gradient-to-r from-[#7a1c32] via-[#911f3b] to-[#631427] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
+            isScrolled ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ width: `${scrollProgress}%` }}
+          role="progressbar"
+          aria-valuenow={Math.round(scrollProgress)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Body scroll progress"
+        >
+          {/* Subtle glowing indicator icon on leading edge */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#7a1c32] shadow-[0_0_8px_#7a1c32] ring-1 ring-white/50" />
+        </div>
+
         {/* Author Brand Badge (Left) */}
         <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group" aria-label="Kenenisa Beyan Home">
           <div className="relative shrink-0">
@@ -199,7 +225,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         {/* Center Desktop Navigation (Clean uppercase typography — appears smoothly only on scroll) */}
         <nav
           aria-label="Public Center Navigation"
-          className={`hidden lg:flex items-center gap-7 sm:gap-9 transition-all duration-300 ease-in-out ${
+          className={`hidden lg:flex items-center gap-7 sm:gap-9 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 transition-all duration-300 ease-in-out ${
             isScrolled
               ? 'opacity-100 translate-y-0 pointer-events-auto'
               : 'opacity-0 -translate-y-2 pointer-events-none'
