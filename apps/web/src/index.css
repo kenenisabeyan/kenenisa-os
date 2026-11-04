@@ -437,5 +437,21 @@ dialog {
   animation: electricFlicker 2s ease-in-out infinite;
 }
 
+/* ── Sleek Vertical Scrollbar matching burgundy OS styling ───────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #7a1c32;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #631427;
+}
+
 
 

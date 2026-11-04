@@ -175,6 +175,19 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       {/* ══════════════════════════════════════════════════════════════════════
            STICKY NAVBAR — Dynamic scroll-triggered background and navigation
       ══════════════════════════════════════════════════════════════════════ */}
+      {/* Vertical Scroll Progress Bar Indicator — Tracks body scroll progress along viewport right edge */}
+      <div
+        className={`fixed top-0 right-0 w-[3px] bg-gradient-to-b from-[#7a1c32] via-[#8b1d38] to-[#7a1c32] rounded-b-full transition-all duration-150 z-50 pointer-events-none ${
+          isScrolled ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ height: `${scrollProgress}%` }}
+        role="progressbar"
+        aria-valuenow={Math.round(scrollProgress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Vertical body scroll progress"
+      />
+
       <header
         className={`fixed top-0 inset-x-0 z-40 h-20 flex items-center px-4 sm:px-8 lg:px-14 justify-between transition-all duration-300 ${
           isScrolled
