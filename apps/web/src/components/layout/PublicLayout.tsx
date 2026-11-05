@@ -209,27 +209,23 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         />
 
         {/* Author Brand Badge (Left) */}
-        <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group" aria-label="Kenenisa Beyan Home">
+        <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group" aria-label="Kenenisa OS Home">
           <div className="relative shrink-0">
             <img
               src="/kenenisa-avatar.jpg"
-              alt="Kenenisa Beyan"
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover border border-slate-200/90 shadow-sm group-hover:scale-105 transition-transform"
+              alt="Kenenisa OS"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-slate-200/90 shadow-sm group-hover:scale-105 transition-transform"
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
               }}
             />
             {/* Online Status Green Indicator Dot */}
-            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
+            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
           </div>
-          <div className="flex flex-col">
-            <span className={`font-black text-sm sm:text-base tracking-tight ${isDark ? 'text-white' : 'text-slate-900'} group-hover:text-[#20B5D6] transition-colors leading-tight`}>
-              KENENISA
-            </span>
-            <span className="text-[9px] sm:text-[10px] text-[#20B5D6] font-black tracking-widest uppercase mt-0.5 leading-tight">
-              DIRECTOR &amp; DESIGNER
-            </span>
-          </div>
+          <span className={`font-black text-base sm:text-lg tracking-tight ${isDark ? 'text-white' : 'text-slate-900'} group-hover:text-[#20B5D6] transition-colors leading-none flex items-center gap-1.5`}>
+            <span>KENENISA</span>
+            <span className="text-[#20B5D6]">OS</span>
+          </span>
         </Link>
 
         {/* Center Desktop Navigation (Clean uppercase typography — appears smoothly only on scroll) */}
@@ -500,16 +496,18 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <div className="flex items-center gap-3">
               <img
                 src="/kenenisa-avatar.jpg"
-                alt="Kenenisa Beyan"
+                alt="Kenenisa OS"
                 className="w-12 h-12 rounded-full object-cover border border-slate-200 shadow-sm"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
                 }}
               />
               <div className="flex flex-col">
-                <span className="font-extrabold text-lg tracking-tight text-slate-900">KENENISA BEYAN</span>
+                <span className="font-extrabold text-lg tracking-tight text-slate-900">
+                  KENENISA <span className="text-[#20B5D6]">OS</span>
+                </span>
                 <span className="text-[10px] text-[#20B5D6] font-black tracking-widest uppercase">
-                  DIRECTOR &amp; DESIGNER &bull; ENGINEERING ARCHITECT
+                  Personal Engineering Operating System
                 </span>
               </div>
             </div>
