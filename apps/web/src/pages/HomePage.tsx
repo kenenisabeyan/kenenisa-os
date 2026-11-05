@@ -718,8 +718,8 @@ export const HomePage: React.FC = () => {
             {/* Engineers */}
             <div className="relative bg-gradient-to-br from-cyan-50/90 via-blue-50/60 to-white border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden text-center flex flex-col items-center">
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-600" />
-              <div className="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
-                ⚡
+              <div className="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <ZapIcon className="w-7 h-7 text-cyan-600" />
               </div>
               <div className="space-y-2">
                 <h3 className="text-2xl font-black text-cyan-950">Engineers</h3>
