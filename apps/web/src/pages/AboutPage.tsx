@@ -276,17 +276,16 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            THE FRAGMENTATION PROBLEM — 3-column with visual dividers
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-blue-50/90 via-sky-50/70 to-indigo-50/90 border-2 border-blue-200/90 rounded-3xl p-8 sm:p-14 shadow-2xl shadow-blue-500/10 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-600" />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative bg-gradient-to-br from-cyan-50/50 via-sky-50/30 to-slate-50/60 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-16 -left-16 w-64 h-64 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 text-center space-y-3 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-blue-900 bg-blue-100/90 border border-blue-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
             Why KENENISA OS Exists
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">The Fragmentation Problem</h2>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">The Fragmentation Problem</h2>
           <p className="text-lg text-slate-600 font-semibold max-w-3xl mx-auto">
             Modern practitioners operate across too many disconnected tools. This creates three compounding failures:
           </p>
@@ -414,15 +413,13 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            TECH STACK SHOWCASE
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-slate-50/90 via-blue-50/60 to-indigo-50/90 border-2 border-slate-200/90 rounded-3xl p-8 sm:p-14 shadow-2xl shadow-slate-300/30 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 via-blue-400 to-cyan-500" />
-
+      <section className="relative bg-gradient-to-br from-slate-50/80 via-cyan-50/30 to-slate-50/80 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
         <div className="text-center space-y-3">
           <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-700 bg-slate-100/90 border border-slate-300 px-4 py-1.5 rounded-full tracking-widest">
             <span className="w-2 h-2 rounded-full bg-slate-600 animate-pulse" />
             Technology Foundation
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Engineering Stack 🔧</h2>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Engineering Stack 🔧</h2>
           <p className="text-slate-600 font-semibold text-lg max-w-2xl mx-auto">
             Production-grade technologies chosen for reliability, type-safety, and real engineering precision.
           </p>
