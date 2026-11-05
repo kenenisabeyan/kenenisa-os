@@ -119,12 +119,12 @@ export const HowItWorksPage: React.FC = () => {
   return (
     <div className="w-full flex flex-col space-y-0" id="how-it-works-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="w-full pt-6 pb-14 sm:pb-18 bg-white">
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-8 relative">
+      <section className="w-full pt-4 pb-10 sm:pb-14 bg-white">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-4 sm:space-y-5 relative">
           {/* Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-[1.02] max-w-5xl mx-auto">
             <span>From Intention to</span>
-            <span className="block mt-2.5 sm:mt-4 md:mt-5 text-[#20B5D6]">
+            <span className="block text-[#20B5D6]">
               Verifiable Engineering Proof.
             </span>
           </h1>

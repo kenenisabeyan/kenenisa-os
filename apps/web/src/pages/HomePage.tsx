@@ -121,28 +121,24 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full flex flex-col space-y-0" id="public-home-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="w-full pt-6 pb-12 sm:pb-16 bg-white">
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-8 sm:space-y-10">
+      <section className="w-full pt-4 pb-10 sm:pb-14 bg-white">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-6 sm:space-y-8">
           {/* Headline matching Alazar bold high-impact typographic hierarchy */}
-          <div className="space-y-4 max-w-4xl mx-auto">
-            <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
-              <span>
-                Kenenisa <br className="hidden sm:inline" />
-                Beyan.
-              </span>
-              <span className="block mt-3 sm:mt-5 md:mt-6 text-[#20B5D6]">
-                Engineering OS &amp; <br className="hidden sm:inline" />
-                Visual Architecture
+          <div className="space-y-3 max-w-4xl mx-auto">
+            <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[1.02] break-words">
+              <span>Kenenisa Beyan.</span>
+              <span className="block text-[#20B5D6]">
+                Engineering OS &amp; Visual Architecture
               </span>
             </h1>
 
-            <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed pt-2">
+            <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
               A unified operating platform connecting strategic direction, daily capacity budgeting, verified evidence, and ground-truth AI reasoning into one cohesive discipline.
             </p>
           </div>
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-1">
             <a
               href="#workstreams"
               className="px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"

@@ -162,29 +162,25 @@ export const AboutPage: React.FC = () => {
            HERO — High-Contrast Split Hero with Layered Portrait Card
            (Meticulously styled to match Alazar visual aesthetic)
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full pt-6 pb-12 sm:pb-16 bg-white overflow-hidden" id="hero">
+      <section className="w-full pt-4 pb-10 sm:pb-14 bg-white overflow-hidden" id="hero">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             
             {/* Left Column: Huge High-Impact Typography & Narrative */}
-            <div className="lg:col-span-7 space-y-6">
-              <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
-                <span>
-                  Kenenisa <br />
-                  Beyan.
-                </span>
-                <span className="block mt-3 sm:mt-5 md:mt-6 text-[#20B5D6]">
-                  Director &amp; <br />
-                  Visual Systems
+            <div className="lg:col-span-7 space-y-4">
+              <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[1.02] break-words">
+                <span>Kenenisa Beyan.</span>
+                <span className="block text-[#20B5D6]">
+                  Director &amp; Visual Systems
                 </span>
               </h1>
 
-              <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed pt-2">
+              <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed">
                 Engineering Architect &amp; Software Systems Lead designing deterministic operating platforms, evidence-backed proof vaults, and ground-truth AI reasoning architectures at Adama Science and Technology University (ASTU).
               </p>
 
               {/* Quick Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
                 <a
                   href="#principles"
                   className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
