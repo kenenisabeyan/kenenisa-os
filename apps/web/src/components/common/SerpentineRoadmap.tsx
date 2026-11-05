@@ -50,9 +50,9 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'User & stakeholder requirements',
         'Structural architecture planning',
       ],
-      themeColor: '#7C3AED',
-      bgBadgeColor: 'bg-purple-50 border-purple-200 text-[#7C3AED]',
-      badgeTextColor: 'text-[#7C3AED]',
+      themeColor: '#20B5D6',
+      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#20B5D6]',
+      badgeTextColor: 'text-[#20B5D6]',
       icon: (
         <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -72,9 +72,9 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'REST & GraphQL API specifications',
         'UI/UX wireframing & tech selection',
       ],
-      themeColor: '#0284C7',
-      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#0284C7]',
-      badgeTextColor: 'text-[#0284C7]',
+      themeColor: '#FE721D',
+      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FE721D]',
+      badgeTextColor: 'text-[#FE721D]',
       icon: (
         <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -95,9 +95,9 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'State management & micro-interactions',
         'Database migration & ORM integration',
       ],
-      themeColor: '#2563EB',
-      bgBadgeColor: 'bg-blue-50 border-blue-200 text-[#2563EB]',
-      badgeTextColor: 'text-[#2563EB]',
+      themeColor: '#20B5D6',
+      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#20B5D6]',
+      badgeTextColor: 'text-[#20B5D6]',
       icon: (
         <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -117,9 +117,9 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Performance & load optimization',
         'Verifiable proof & evidence vaulting',
       ],
-      themeColor: '#EA580C',
-      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#EA580C]',
-      badgeTextColor: 'text-[#EA580C]',
+      themeColor: '#FE721D',
+      bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FE721D]',
+      badgeTextColor: 'text-[#FE721D]',
       icon: (
         <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -139,9 +139,9 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         'Incident response & recovery runbooks',
         'Continuous feature evolution',
       ],
-      themeColor: '#16A34A',
-      bgBadgeColor: 'bg-green-50 border-green-200 text-[#16A34A]',
-      badgeTextColor: 'text-[#16A34A]',
+      themeColor: '#20B5D6',
+      bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#20B5D6]',
+      badgeTextColor: 'text-[#20B5D6]',
       icon: (
         <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M13 10V3L4 14h7v7l9-11h-7z" />
