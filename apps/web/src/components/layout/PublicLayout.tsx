@@ -589,17 +589,17 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 Available for engineering leadership, full-stack systems development, autonomous AI advisory architectures, and high-impact software design.
               </p>
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
                   <span className="font-semibold text-slate-500">Email:</span>
-                  <a href="mailto:beyankenenisa@gmail.com" className="font-bold text-[#20B5D6] hover:underline">
+                  <a href="mailto:beyankenenisa@gmail.com" className="font-bold text-[#20B5D6] hover:underline break-all">
                     beyankenenisa@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
                   <span className="font-semibold text-slate-500">Education:</span>
                   <span className="font-bold text-slate-800">ASTU &bull; Computer Science and Engineering</span>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
                   <span className="font-semibold text-slate-500">Status:</span>
                   <span className="font-bold text-emerald-600 inline-flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
