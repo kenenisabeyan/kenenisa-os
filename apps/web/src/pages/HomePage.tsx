@@ -131,7 +131,7 @@ export const HomePage: React.FC = () => {
 
         {/* Headline matching Alazar bold high-impact typographic hierarchy */}
         <div className="space-y-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.02]">
+          <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
             Kenenisa <br className="hidden sm:inline" />
             Beyan. <br />
             <span className="text-[#20B5D6]">
@@ -140,16 +140,16 @@ export const HomePage: React.FC = () => {
             </span>
           </h1>
 
-          <p className="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed pt-2">
+          <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed pt-2">
             A unified operating platform connecting strategic direction, daily capacity budgeting, verified evidence, and ground-truth AI reasoning into one cohesive discipline.
           </p>
         </div>
 
         {/* Primary Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-3">
           <a
             href="#workstreams"
-            className="px-8 py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+            className="px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <span>EXPLORE WORK</span>
             <span>▾</span>
@@ -157,7 +157,7 @@ export const HomePage: React.FC = () => {
 
           <Link
             to="/how-it-works"
-            className="px-8 py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+            className="px-6 sm:px-8 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <span>SYSTEM TOUR</span>
             <span>▸</span>
@@ -165,7 +165,7 @@ export const HomePage: React.FC = () => {
 
           <Link
             to="/login"
-            className="px-8 py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+            className="px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <span>LAUNCH OS</span>
             <span>→</span>
@@ -173,18 +173,18 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* 3 Metric Cards matching reference portfolio presentation */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto pt-6">
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-            <div className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">5+</div>
-            <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Years Experience</div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-6">
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+            <div className="text-3xl xs:text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">5+</div>
+            <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Years Experience</div>
           </div>
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-            <div className="text-4xl sm:text-6xl font-black text-[#FE721D] tracking-tight">140+</div>
-            <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Projects &amp; Milestones</div>
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+            <div className="text-3xl xs:text-4xl sm:text-6xl font-black text-[#FE721D] tracking-tight">140+</div>
+            <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Projects &amp; Milestones</div>
           </div>
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-            <div className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">99%</div>
-            <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Verified Proof &amp; Reliability</div>
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
+            <div className="text-3xl xs:text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">99%</div>
+            <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Verified Proof &amp; Reliability</div>
           </div>
         </div>
 
