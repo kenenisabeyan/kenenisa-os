@@ -283,85 +283,139 @@ export const AnalyticsPage: React.FC = () => {
         <>
           {/* Top KPI Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500" />
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-black text-blue-600 tracking-widest">Tasks Done</span>
-                <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
-              </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                {overview.execution.completedTasks}
-                <span className="text-xs text-slate-400 font-normal ml-1">/ {overview.execution.totalTasks}</span>
-              </div>
-              <div className="text-[11px] text-blue-600 font-bold">
-                {overview.execution.completionRate !== null ? `${overview.execution.completionRate}% completion` : 'N/A'}
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-black text-emerald-600 tracking-widest">Capacity</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
-              </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                {Math.round(overview.planning.plannedMinutes / 60)}h
-                <span className="text-xs text-slate-400 font-normal ml-1">
-                  / {Math.round((capacity?.totalAvailableMinutes || 0) / 60)}h
-                </span>
-              </div>
-              <div className="text-[11px] text-emerald-600 font-bold">
-                {capacity?.utilizationPercentage !== null ? `${capacity?.utilizationPercentage}% utilized` : 'N/A'}
+            {/* Tasks Done */}
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-blue-500 via-cyan-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-blue-500/15 blur-lg pointer-events-none group-hover:bg-blue-500/25 transition-all duration-300" />
+              <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-full shadow-[0_0_8px_rgba(34,211,238,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-blue-400/70 group-hover:border-blue-500 transition-colors pointer-events-none" />
+                <span className="absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-blue-400/70 group-hover:border-blue-500 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-black text-blue-600 tracking-widest">// TASKS DONE</span>
+                  <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  {overview.execution.completedTasks}
+                  <span className="text-xs text-slate-400 font-normal ml-1">/ {overview.execution.totalTasks}</span>
+                </div>
+                <div className="text-[11px] text-blue-600 font-bold">
+                  {overview.execution.completionRate !== null ? `${overview.execution.completionRate}% completion` : 'N/A'}
+                </div>
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-indigo-500" />
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-black text-purple-600 tracking-widest">Learning</span>
-                <span className="w-2 h-2 rounded-full bg-purple-500 group-hover:scale-125 transition-transform" />
-              </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                {Math.round(overview.learning.learningMinutes / 60)}h
-              </div>
-              <div className="text-[11px] text-purple-600 font-bold">
-                {overview.learning.learningActivityDays} active days
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-black text-amber-600 tracking-widest">Evidence</span>
-                <span className="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" />
-              </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.evidence.evidenceCreated}</div>
-              <div className="text-[11px] text-amber-600 font-bold">
-                {overview.evidence.evidenceVerified} verified
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-blue-500" />
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-black text-indigo-600 tracking-widest">Projects</span>
-                <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
-              </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.projects.activeProjects}</div>
-              <div className="text-[11px] text-slate-500 font-bold">
-                {overview.projects.completedProjects} completed
+            {/* Capacity */}
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-emerald-500 via-teal-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-emerald-500/15 blur-lg pointer-events-none group-hover:bg-emerald-500/25 transition-all duration-300" />
+              <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent rounded-full shadow-[0_0_8px_rgba(52,211,153,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-emerald-400/70 group-hover:border-emerald-500 transition-colors pointer-events-none" />
+                <span className="absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-emerald-400/70 group-hover:border-emerald-500 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover:border-emerald-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover:border-emerald-400 transition-colors pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-black text-emerald-600 tracking-widest">// CAPACITY</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  {Math.round(overview.planning.plannedMinutes / 60)}h
+                  <span className="text-xs text-slate-400 font-normal ml-1">
+                    / {Math.round((capacity?.totalAvailableMinutes || 0) / 60)}h
+                  </span>
+                </div>
+                <div className="text-[11px] text-emerald-600 font-bold">
+                  {capacity?.utilizationPercentage !== null ? `${capacity?.utilizationPercentage}% utilized` : 'N/A'}
+                </div>
               </div>
             </div>
 
-            <div className="bg-white border border-slate-200/90 p-4 rounded-3xl space-y-2 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden group">
-              <div className={`absolute top-0 left-0 right-0 h-1 ${overview.execution.overdueTasks > 0 ? 'bg-rose-500' : 'bg-slate-300'}`} />
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-black text-rose-600 tracking-widest">Overdue</span>
-                <span className={`w-2 h-2 rounded-full ${overview.execution.overdueTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+            {/* Learning */}
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-purple-500 via-indigo-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-purple-500/15 blur-lg pointer-events-none group-hover:bg-purple-500/25 transition-all duration-300" />
+              <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-purple-400 to-transparent rounded-full shadow-[0_0_8px_rgba(192,132,252,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-purple-400/70 group-hover:border-purple-500 transition-colors pointer-events-none" />
+                <span className="absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-purple-400/70 group-hover:border-purple-500 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover:border-purple-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover:border-purple-400 transition-colors pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-black text-purple-600 tracking-widest">// LEARNING</span>
+                  <span className="w-2 h-2 rounded-full bg-purple-500 group-hover:scale-125 transition-transform" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  {Math.round(overview.learning.learningMinutes / 60)}h
+                </div>
+                <div className="text-[11px] text-purple-600 font-bold">
+                  {overview.learning.learningActivityDays} active days
+                </div>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-rose-600 tracking-tight">{overview.execution.overdueTasks}</div>
-              <div className="text-[11px] text-amber-600 font-bold">
-                {blocked?.currentlyBlocked || 0} blocked
+            </div>
+
+            {/* Evidence */}
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500 via-orange-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-amber-500/15 blur-lg pointer-events-none group-hover:bg-amber-500/25 transition-all duration-300" />
+              <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full shadow-[0_0_8px_rgba(251,191,36,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-amber-400/70 group-hover:border-amber-500 transition-colors pointer-events-none" />
+                <span className="absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-amber-400/70 group-hover:border-amber-500 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover:border-amber-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover:border-amber-400 transition-colors pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-black text-amber-600 tracking-widest">// EVIDENCE</span>
+                  <span className="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.evidence.evidenceCreated}</div>
+                <div className="text-[11px] text-amber-600 font-bold">
+                  {overview.evidence.evidenceVerified} verified
+                </div>
+              </div>
+            </div>
+
+            {/* Projects */}
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-indigo-500 via-blue-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-1 transition-all duration-300 group">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-indigo-500/15 blur-lg pointer-events-none group-hover:bg-indigo-500/25 transition-all duration-300" />
+              <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full shadow-[0_0_8px_rgba(96,165,250,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-indigo-400/70 group-hover:border-indigo-500 transition-colors pointer-events-none" />
+                <span className="absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-indigo-400/70 group-hover:border-indigo-500 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover:border-indigo-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover:border-indigo-400 transition-colors pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-black text-indigo-600 tracking-widest">// PROJECTS</span>
+                  <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.projects.activeProjects}</div>
+                <div className="text-[11px] text-slate-500 font-bold">
+                  {overview.projects.completedProjects} completed
+                </div>
+              </div>
+            </div>
+
+            {/* Overdue */}
+            <div className={`relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b ${overview.execution.overdueTasks > 0 ? 'from-rose-500 via-rose-300/40' : 'from-slate-400 via-slate-300/40'} to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-rose-500/20 hover:-translate-y-1 transition-all duration-300 group`}>
+              <div className={`absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 ${overview.execution.overdueTasks > 0 ? 'bg-rose-500/15' : 'bg-slate-400/10'} blur-lg pointer-events-none group-hover:bg-rose-500/25 transition-all duration-300`} />
+              <div className={`absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent ${overview.execution.overdueTasks > 0 ? 'via-rose-500' : 'via-slate-400'} to-transparent rounded-full shadow-[0_0_8px_rgba(244,63,94,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300`} />
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className={`absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 ${overview.execution.overdueTasks > 0 ? 'border-rose-400/70 group-hover:border-rose-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
+                <span className={`absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 ${overview.execution.overdueTasks > 0 ? 'border-rose-400/70 group-hover:border-rose-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
+                <span className="absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover:border-rose-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover:border-rose-400 transition-colors pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-black text-rose-600 tracking-widest">// OVERDUE</span>
+                  <span className={`w-2 h-2 rounded-full ${overview.execution.overdueTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+                </div>
+                <div className="text-2xl sm:text-3xl font-black text-rose-600 tracking-tight">{overview.execution.overdueTasks}</div>
+                <div className="text-[11px] text-amber-600 font-bold">
+                  {blocked?.currentlyBlocked || 0} blocked
+                </div>
               </div>
             </div>
           </div>

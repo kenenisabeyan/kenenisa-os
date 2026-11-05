@@ -224,49 +224,85 @@ export const CapabilitiesPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 text-xs text-center">
-            {/* Card 1 */}
-            <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
-                🔒
+            {/* Card 1: Secure Enclave */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-blue-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                  🔒
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
+                  <span>SECURE ENCLAVE</span>
+                </div>
+                <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover:text-[#20B5D6] transition-colors">
+                  Isolated Private Operating Context
+                </h4>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                  All personal tasks, goals, project artifacts, and evidence reside behind strict authenticated sessions. Public pages never expose private user data.
+                </p>
               </div>
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">SECURE ENCLAVE</div>
-              <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
-                Isolated Private Operating Context
-              </h4>
-              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
-                All personal tasks, goals, project artifacts, and evidence reside behind strict authenticated sessions. Public pages never expose private user data.
-              </p>
             </div>
 
-            {/* Card 2 */}
-            <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-orange-500/20 group-hover/card:scale-110 transition-transform">
-                🤖
+            {/* Card 2: Human Control */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#FE721D] via-orange-400/50 to-slate-200/60 shadow-lg shadow-orange-500/10 hover:shadow-2xl hover:shadow-orange-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
+
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                  🤖
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[10px] font-mono font-bold text-orange-800 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FE721D] animate-pulse" />
+                  <span>HUMAN CONTROL</span>
+                </div>
+                <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover:text-[#FE721D] transition-colors">
+                  Human-In-The-Loop AI
+                </h4>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                  Intelligence Core acts strictly as an advisory layer. The system will never mutate tasks, delete projects, or send external data without explicit human confirmation.
+                </p>
               </div>
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#FE721D]">HUMAN CONTROL</div>
-              <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#FE721D] transition-colors">
-                Human-In-The-Loop AI
-              </h4>
-              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
-                Intelligence Core acts strictly as an advisory layer. The system will never mutate tasks, delete projects, or send external data without explicit human confirmation.
-              </p>
             </div>
 
-            {/* Card 3 */}
-            <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center sm:col-span-2 lg:col-span-1">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-sky-600" />
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
-                🗄️
+            {/* Card 3: Database Truth */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-sky-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden sm:col-span-2 lg:col-span-1">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                  🗄️
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
+                  <span>DATABASE TRUTH</span>
+                </div>
+                <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover:text-[#20B5D6] transition-colors">
+                  Authoritative System State
+                </h4>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                  Your PostgreSQL database state is the single source of truth. AI reasoning is transient and downstream from verified database state.
+                </p>
               </div>
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">DATABASE TRUTH</div>
-              <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
-                Authoritative System State
-              </h4>
-              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
-                Your PostgreSQL database state is the single source of truth. AI reasoning is transient and downstream from verified database state.
-              </p>
             </div>
           </div>
         </div>

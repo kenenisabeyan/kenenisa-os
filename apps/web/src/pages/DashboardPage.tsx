@@ -601,95 +601,167 @@ export const DashboardPage: React.FC = () => {
       {/* Summary Metrics Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 gap-3.5" id="summary-metrics">
         {/* Workstreams */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-blue-300 transition-all duration-200 group relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-80" />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Workstreams</span>
-            <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+        <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-blue-500 via-cyan-400/40 to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300 group">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-blue-500/15 blur-lg pointer-events-none group-hover:bg-blue-500/25 transition-all duration-300" />
+          <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-full shadow-[0_0_8px_rgba(34,211,238,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-blue-400/70 group-hover:border-blue-500 transition-colors pointer-events-none" />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-blue-400/70 group-hover:border-blue-500 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Workstreams</span>
+                <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeWorkstreams}</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Core</div>
           </div>
-          <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeWorkstreams}</div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Core</div>
         </div>
 
         {/* Goals */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-indigo-300 transition-all duration-200 group relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-80" />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Goals</span>
-            <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
+        <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-indigo-500 via-purple-400/40 to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-1 transition-all duration-300 group">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-indigo-500/15 blur-lg pointer-events-none group-hover:bg-indigo-500/25 transition-all duration-300" />
+          <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-transparent rounded-full shadow-[0_0_8px_rgba(192,132,252,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-indigo-400/70 group-hover:border-indigo-500 transition-colors pointer-events-none" />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-indigo-400/70 group-hover:border-indigo-500 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-indigo-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-indigo-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Goals</span>
+                <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeGoals}</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">In Progress</div>
           </div>
-          <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeGoals}</div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">In Progress</div>
         </div>
 
         {/* Projects */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-cyan-300 transition-all duration-200 group relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-teal-500 opacity-80" />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Projects</span>
-            <span className="w-2 h-2 rounded-full bg-cyan-500 group-hover:scale-125 transition-transform" />
+        <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-cyan-500 via-teal-400/40 to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1 transition-all duration-300 group">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-cyan-500/15 blur-lg pointer-events-none group-hover:bg-cyan-500/25 transition-all duration-300" />
+          <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent rounded-full shadow-[0_0_8px_rgba(45,212,191,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-cyan-400/70 group-hover:border-cyan-500 transition-colors pointer-events-none" />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-cyan-400/70 group-hover:border-cyan-500 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-cyan-600 uppercase tracking-widest">Projects</span>
+                <span className="w-2 h-2 rounded-full bg-cyan-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeProjects}</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Build</div>
           </div>
-          <div className="text-2xl font-black text-slate-900 mt-2 tracking-tight">{summary.activeProjects}</div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Build</div>
         </div>
 
         {/* Ready Tasks */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-sky-300 transition-all duration-200 group relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-500 to-blue-500 opacity-80" />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Ready</span>
-            <span className="w-2 h-2 rounded-full bg-sky-500 group-hover:scale-125 transition-transform" />
+        <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-sky-500 via-blue-400/40 to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-sky-500/20 hover:-translate-y-1 transition-all duration-300 group">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-sky-500/15 blur-lg pointer-events-none group-hover:bg-sky-500/25 transition-all duration-300" />
+          <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full shadow-[0_0_8px_rgba(96,165,250,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-sky-400/70 group-hover:border-sky-500 transition-colors pointer-events-none" />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-sky-400/70 group-hover:border-sky-500 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-sky-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-sky-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-sky-600 uppercase tracking-widest">Ready</span>
+                <span className="w-2 h-2 rounded-full bg-sky-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl font-black text-sky-600 mt-2 tracking-tight">{summary.readyTasks}</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">Candidate Queue</div>
           </div>
-          <div className="text-2xl font-black text-sky-600 mt-2 tracking-tight">{summary.readyTasks}</div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">Candidate Queue</div>
         </div>
 
         {/* In Progress */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-blue-400 transition-all duration-200 group relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-80" />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">In Progress</span>
-            <span className="w-2 h-2 rounded-full bg-blue-600 group-hover:scale-125 transition-transform" />
+        <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-blue-600 via-indigo-400/40 to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-1 transition-all duration-300 group">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-blue-600/15 blur-lg pointer-events-none group-hover:bg-blue-600/25 transition-all duration-300" />
+          <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-indigo-400 to-transparent rounded-full shadow-[0_0_8px_rgba(129,140,248,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-blue-400/70 group-hover:border-blue-600 transition-colors pointer-events-none" />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-blue-400/70 group-hover:border-blue-600 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">In Progress</span>
+                <span className="w-2 h-2 rounded-full bg-blue-600 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl font-black text-blue-600 mt-2 tracking-tight">{summary.inProgressTasks}</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Focus</div>
           </div>
-          <div className="text-2xl font-black text-blue-600 mt-2 tracking-tight">{summary.inProgressTasks}</div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">Active Focus</div>
         </div>
 
         {/* Blocked */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-rose-300 transition-all duration-200 group relative overflow-hidden">
-          <div className={`absolute top-0 left-0 right-0 h-1 ${summary.blockedTasks > 0 ? 'bg-rose-500' : 'bg-slate-300'} opacity-80`} />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Blocked</span>
-            <span className={`w-2 h-2 rounded-full ${summary.blockedTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+        <div className={`relative p-[2px] rounded-2xl bg-gradient-to-b ${summary.blockedTasks > 0 ? 'from-rose-500 via-rose-300/40' : 'from-slate-400 via-slate-300/40'} to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-rose-500/20 hover:-translate-y-1 transition-all duration-300 group`}>
+          <div className={`absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 ${summary.blockedTasks > 0 ? 'bg-rose-500/15' : 'bg-slate-400/10'} blur-lg pointer-events-none group-hover:bg-rose-500/25 transition-all duration-300`} />
+          <div className={`absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent ${summary.blockedTasks > 0 ? 'via-rose-500' : 'via-slate-400'} to-transparent rounded-full shadow-[0_0_8px_rgba(244,63,94,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300`} />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className={`absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l ${summary.blockedTasks > 0 ? 'border-rose-400/70 group-hover:border-rose-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
+            <span className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r ${summary.blockedTasks > 0 ? 'border-rose-400/70 group-hover:border-rose-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-rose-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-rose-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Blocked</span>
+                <span className={`w-2 h-2 rounded-full ${summary.blockedTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+              </div>
+              <div className={`text-2xl font-black mt-2 tracking-tight ${summary.blockedTasks > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
+                {summary.blockedTasks}
+              </div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">Needs Action</div>
           </div>
-          <div className={`text-2xl font-black mt-2 tracking-tight ${summary.blockedTasks > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
-            {summary.blockedTasks}
-          </div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">Needs Action</div>
         </div>
 
         {/* Overdue */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-amber-300 transition-all duration-200 group relative overflow-hidden">
-          <div className={`absolute top-0 left-0 right-0 h-1 ${summary.overdueTasks > 0 ? 'bg-amber-500' : 'bg-slate-300'} opacity-80`} />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Overdue</span>
-            <span className={`w-2 h-2 rounded-full ${summary.overdueTasks > 0 ? 'bg-amber-500 animate-pulse' : 'bg-slate-300'}`} />
+        <div className={`relative p-[2px] rounded-2xl bg-gradient-to-b ${summary.overdueTasks > 0 ? 'from-amber-500 via-orange-300/40' : 'from-slate-400 via-slate-300/40'} to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-1 transition-all duration-300 group`}>
+          <div className={`absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 ${summary.overdueTasks > 0 ? 'bg-amber-500/15' : 'bg-slate-400/10'} blur-lg pointer-events-none group-hover:bg-amber-500/25 transition-all duration-300`} />
+          <div className={`absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent ${summary.overdueTasks > 0 ? 'via-amber-500' : 'via-slate-400'} to-transparent rounded-full shadow-[0_0_8px_rgba(245,158,11,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300`} />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className={`absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l ${summary.overdueTasks > 0 ? 'border-amber-400/70 group-hover:border-amber-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
+            <span className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r ${summary.overdueTasks > 0 ? 'border-amber-400/70 group-hover:border-amber-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-amber-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-amber-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest">Overdue</span>
+                <span className={`w-2 h-2 rounded-full ${summary.overdueTasks > 0 ? 'bg-amber-500 animate-pulse' : 'bg-slate-300'}`} />
+              </div>
+              <div className={`text-2xl font-black mt-2 tracking-tight ${summary.overdueTasks > 0 ? 'text-amber-600' : 'text-slate-400'}`}>
+                {summary.overdueTasks}
+              </div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">Past Target</div>
           </div>
-          <div className={`text-2xl font-black mt-2 tracking-tight ${summary.overdueTasks > 0 ? 'text-amber-600' : 'text-slate-400'}`}>
-            {summary.overdueTasks}
-          </div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">Past Target</div>
         </div>
 
         {/* 7d Completed */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-emerald-300 transition-all duration-200 group relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-80" />
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">7d Done</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
+        <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-emerald-500 via-teal-400/40 to-slate-200/60 shadow-2xs hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300 group">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-emerald-500/15 blur-lg pointer-events-none group-hover:bg-emerald-500/25 transition-all duration-300" />
+          <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent rounded-full shadow-[0_0_8px_rgba(45,212,191,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+          <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-emerald-400/70 group-hover:border-emerald-500 transition-colors pointer-events-none" />
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-emerald-400/70 group-hover:border-emerald-500 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-emerald-400 transition-colors pointer-events-none" />
+            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-emerald-400 transition-colors pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">7d Done</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
+              </div>
+              <div className="text-2xl font-black text-emerald-600 mt-2 tracking-tight">{summary.completedTasksRecent}</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-semibold mt-1">Verified Impact</div>
           </div>
-          <div className="text-2xl font-black text-emerald-600 mt-2 tracking-tight">{summary.completedTasksRecent}</div>
-          <div className="text-[10px] text-slate-500 font-semibold mt-1">Verified Impact</div>
         </div>
       </div>
 

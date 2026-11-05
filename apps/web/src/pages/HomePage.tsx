@@ -172,25 +172,57 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* 3 Metric Cards with glassmorphic depth & subtle brand accent — always in one row */}
+          {/* 3 Metric Cards with Cybernetic Gradient Perimeter & HUD Reticles — always in one row */}
           <div className="grid grid-cols-3 gap-2 xs:gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-4">
-            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-xl sm:rounded-2xl p-2.5 xs:p-4 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
-              <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Years Building Systems</div>
-              <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Architecture &amp; Full-Stack</p>
+            {/* Metric 1 */}
+            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-28 h-10 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover:bg-[#20B5D6]/35 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/30 via-white to-white rounded-[10px] sm:rounded-[14px] p-2.5 xs:p-4 sm:p-7 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+
+                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
+                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Years Building Systems</div>
+                <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Architecture &amp; Full-Stack</p>
+              </div>
             </div>
-            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#FE721D]/50 rounded-xl sm:rounded-2xl p-2.5 xs:p-4 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FE721D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
-              <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Projects &amp; Milestones</div>
-              <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Academic &amp; Commercial</p>
+
+            {/* Metric 2 */}
+            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-md shadow-orange-500/10 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-28 h-10 bg-[#FE721D]/20 blur-lg pointer-events-none group-hover:bg-[#FE721D]/35 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/30 via-white to-white rounded-[10px] sm:rounded-[14px] p-2.5 xs:p-4 sm:p-7 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-orange-400/70 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-orange-400/70 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-orange-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-orange-400 transition-colors pointer-events-none" />
+
+                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
+                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Projects &amp; Milestones</div>
+                <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Academic &amp; Commercial</p>
+              </div>
             </div>
-            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-xl sm:rounded-2xl p-2.5 xs:p-4 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#20B5D6] tracking-tight">99%</div>
-              <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Verified Proof &amp; Reliability</div>
-              <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Deterministic Contracts</p>
+
+            {/* Metric 3 */}
+            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-teal-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-28 h-10 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover:bg-[#20B5D6]/35 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/30 via-white to-white rounded-[10px] sm:rounded-[14px] p-2.5 xs:p-4 sm:p-7 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+
+                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#20B5D6] tracking-tight">99%</div>
+                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Verified Proof &amp; Reliability</div>
+                <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Deterministic Contracts</p>
+              </div>
             </div>
           </div>
 
@@ -594,34 +626,41 @@ export const HomePage: React.FC = () => {
               </p>
 
               {/* Inner Recommendation Box */}
-              <div className="relative bg-white/95 backdrop-blur-xl border-2 border-cyan-300/80 p-6 rounded-2xl space-y-4 shadow-xl shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300 group/box overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600" />
-                
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-cyan-500/20">
-                    <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    <span>EXAMPLE RECOMMENDATION</span>
-                  </div>
-                  <span className="bg-rose-100 text-rose-800 border border-rose-300/80 px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wider">
-                    P0 Critical
-                  </span>
-                </div>
-
-                <div className="space-y-1">
-                  <p className="font-black text-lg sm:text-xl text-indigo-950 group-hover/box:text-cyan-700 transition-colors">
-                    KENENISA OS Planning Engine Pull Request
-                  </p>
-                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200/90 px-2.5 py-1 rounded-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 shrink-0" />
-                      Engineering OS
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-rose-900 bg-rose-50 border border-rose-200/90 px-2.5 py-1 rounded-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
+              <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-300/50 to-slate-200/60 shadow-xl shadow-cyan-500/15 hover:shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 group/box">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover/box:bg-[#20B5D6]/35 transition-all duration-300" />
+                <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full shadow-[0_0_10px_rgba(32,181,214,0.7)] pointer-events-none group-hover/box:left-2 group-hover/box:right-2 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-6 space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/80 group-hover/box:border-[#20B5D6] transition-colors pointer-events-none" />
+                  <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/80 group-hover/box:border-[#20B5D6] transition-colors pointer-events-none" />
+                  <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300 group-hover/box:border-cyan-400 transition-colors pointer-events-none" />
+                  <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300 group-hover/box:border-cyan-400 transition-colors pointer-events-none" />
+                  
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-cyan-500/20">
+                      <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      <span>EXAMPLE RECOMMENDATION</span>
+                    </div>
+                    <span className="bg-rose-100 text-rose-800 border border-rose-300/80 px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wider">
                       P0 Critical
                     </span>
+                  </div>
+
+                  <div className="space-y-1">
+                    <p className="font-black text-lg sm:text-xl text-indigo-950 group-hover/box:text-cyan-700 transition-colors">
+                      KENENISA OS Planning Engine Pull Request
+                    </p>
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                      <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200/90 px-2.5 py-1 rounded-lg">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-600 shrink-0" />
+                        Engineering OS
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-rose-900 bg-rose-50 border border-rose-200/90 px-2.5 py-1 rounded-lg">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
+                        P0 Critical
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -648,38 +687,45 @@ export const HomePage: React.FC = () => {
               </p>
 
               {/* Inner Advisory Context Box */}
-              <div className="relative bg-white/95 backdrop-blur-xl border-2 border-purple-300/80 p-6 rounded-2xl space-y-4 shadow-xl shadow-purple-500/10 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 group/box overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-600" />
-                
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-purple-500/20">
-                    <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                    <span>AI ADVISORY CONTEXT</span>
+              <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-purple-500 via-fuchsia-300/50 to-slate-200/60 shadow-xl shadow-purple-500/15 hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 group/box">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-purple-500/20 blur-lg pointer-events-none group-hover/box:bg-purple-500/35 transition-all duration-300" />
+                <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent rounded-full shadow-[0_0_10px_rgba(168,85,247,0.7)] pointer-events-none group-hover/box:left-2 group-hover/box:right-2 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-6 space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-purple-400/80 group-hover/box:border-purple-600 transition-colors pointer-events-none" />
+                  <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-purple-400/80 group-hover/box:border-purple-600 transition-colors pointer-events-none" />
+                  <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300 group-hover/box:border-purple-400 transition-colors pointer-events-none" />
+                  <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300 group-hover/box:border-purple-400 transition-colors pointer-events-none" />
+                  
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-purple-500/20">
+                      <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                      <span>AI ADVISORY CONTEXT</span>
+                    </div>
+                    <span className="bg-amber-100 text-amber-900 border border-amber-300/80 px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wider">
+                      Action Required
+                    </span>
                   </div>
-                  <span className="bg-amber-100 text-amber-900 border border-amber-300/80 px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wider">
-                    Action Required
-                  </span>
-                </div>
 
-                <div className="space-y-2">
-                  <p className="text-indigo-950 font-bold text-base sm:text-lg leading-relaxed">
-                    "3 tasks in <span className="underline decoration-purple-400 decoration-2 underline-offset-2 font-black text-purple-950">'Engineering'</span> are blocked by pending PR review. Resolving these dependencies will unblock 2 upcoming milestones."
-                  </p>
-                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-purple-900 bg-purple-50 border border-purple-200/90 px-2.5 py-1 rounded-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
-                      Engineering
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-amber-900 bg-amber-50 border border-amber-200/90 px-2.5 py-1 rounded-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
-                      3 Pending PRs
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-emerald-900 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
-                      Unlocks 2 Milestones
-                    </span>
+                  <div className="space-y-2">
+                    <p className="text-indigo-950 font-bold text-base sm:text-lg leading-relaxed">
+                      "3 tasks in <span className="underline decoration-purple-400 decoration-2 underline-offset-2 font-black text-purple-950">'Engineering'</span> are blocked by pending PR review. Resolving these dependencies will unblock 2 upcoming milestones."
+                    </p>
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                      <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-purple-900 bg-purple-50 border border-purple-200/90 px-2.5 py-1 rounded-lg">
+                        <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
+                        Engineering
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-amber-900 bg-amber-50 border border-amber-200/90 px-2.5 py-1 rounded-lg">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
+                        3 Pending PRs
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold text-emerald-900 bg-emerald-50 border border-emerald-200/90 px-2.5 py-1 rounded-lg">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                        Unlocks 2 Milestones
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
