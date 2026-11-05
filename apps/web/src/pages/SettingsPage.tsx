@@ -901,7 +901,7 @@ export const SettingsPage: React.FC = () => {
                 onClick={() => setAuditLogFilter(filter.id)}
                 className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors cursor-pointer border ${
                   auditLogFilter === filter.id
-                    ? 'bg-blue-600 text-white border-blue-600 shadow-2xs'
+                    ? 'bg-[#20B5D6] text-white border-[#20B5D6] shadow-xs'
                     : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                 }`}
               >
@@ -972,7 +972,7 @@ export const SettingsPage: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base font-bold text-slate-900">User Management & System Access</h2>
-                <span className="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 font-extrabold text-[10px] rounded uppercase">
+                <span className="px-2 py-0.5 bg-cyan-50 text-[#20B5D6] border border-cyan-200 font-extrabold text-[10px] rounded uppercase">
                   Owner Provisioning
                 </span>
               </div>
@@ -982,7 +982,7 @@ export const SettingsPage: React.FC = () => {
             </div>
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-xs transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+              className="py-2.5 px-4 bg-[#FE721D] hover:bg-[#e56315] text-white font-bold rounded-xl text-xs shadow-md shadow-orange-500/20 transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
