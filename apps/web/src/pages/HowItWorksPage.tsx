@@ -123,8 +123,10 @@ export const HowItWorksPage: React.FC = () => {
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-8 relative">
           {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
-            From Intention to <br />
-            <span className="text-[#20B5D6]">Verifiable Engineering Proof</span>.
+            <span>From Intention to</span>
+            <span className="block mt-2.5 sm:mt-4 md:mt-5 text-[#20B5D6]">
+              Verifiable Engineering Proof.
+            </span>
           </h1>
 
           {/* Supporting Copy */}

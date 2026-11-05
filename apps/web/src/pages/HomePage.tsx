@@ -126,9 +126,11 @@ export const HomePage: React.FC = () => {
           {/* Headline matching Alazar bold high-impact typographic hierarchy */}
           <div className="space-y-4 max-w-4xl mx-auto">
             <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
-              Kenenisa <br className="hidden sm:inline" />
-              Beyan. <br />
-              <span className="text-[#20B5D6]">
+              <span>
+                Kenenisa <br className="hidden sm:inline" />
+                Beyan.
+              </span>
+              <span className="block mt-3 sm:mt-5 md:mt-6 text-[#20B5D6]">
                 Engineering OS &amp; <br className="hidden sm:inline" />
                 Visual Architecture
               </span>

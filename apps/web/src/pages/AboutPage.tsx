@@ -169,9 +169,11 @@ export const AboutPage: React.FC = () => {
             {/* Left Column: Huge High-Impact Typography & Narrative */}
             <div className="lg:col-span-7 space-y-6">
               <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
-                Kenenisa <br />
-                Beyan. <br />
-                <span className="text-[#20B5D6]">
+                <span>
+                  Kenenisa <br />
+                  Beyan.
+                </span>
+                <span className="block mt-3 sm:mt-5 md:mt-6 text-[#20B5D6]">
                   Director &amp; <br />
                   Visual Systems
                 </span>
