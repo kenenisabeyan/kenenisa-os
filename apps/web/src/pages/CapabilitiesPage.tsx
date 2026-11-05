@@ -141,20 +141,29 @@ export const CapabilitiesPage: React.FC = () => {
   return (
     <div className="w-full flex flex-col space-y-0" id="capabilities-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="w-full pt-4 pb-10 sm:pb-14 bg-white">
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-4 sm:space-y-5 relative">
+      <section className="w-full pt-2 sm:pt-4 pb-10 sm:pb-14 bg-white relative overflow-hidden">
+        {/* Ambient Lighting & Micro-texture */}
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#20B5D6]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-12 right-1/4 w-96 h-96 bg-[#FE721D]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#20B5D612_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-3 sm:space-y-4 relative z-10">
           {/* Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-[1.02] max-w-5xl mx-auto">
-            <span>Built for Engineering Precision &amp;</span>
-            <span className="block text-[#20B5D6]">
+          <h1 className="font-black tracking-tight flex flex-col items-center justify-center max-w-5xl mx-auto">
+            <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05]">
+              Built for Engineering Precision &amp;
+            </span>
+            <span className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent tracking-tight leading-[1.1] mt-1 sm:mt-1.5">
               Modular System Architecture.
             </span>
           </h1>
 
           {/* Supporting Copy */}
-          <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="text-xs xs:text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium pt-1">
             Explore the core modular capabilities of KENENISA OS. Each service works independently while sharing live PostgreSQL state across the entire operating system.
           </p>
+        </div>
+      </section>
 
           {/* ── INTERACTIVE SYSTEM ARCHITECTURE CAPABILITY MATRICES ── */}
           <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 max-w-5xl mx-auto text-center">
