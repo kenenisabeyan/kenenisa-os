@@ -178,7 +178,7 @@ export const AboutPage: React.FC = () => {
                   Kenenisa Beyan.
                 </span>
                 <span className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent tracking-tight leading-[1.1] mt-1 sm:mt-1.5">
-                  Director &amp; Visual Systems
+                  Engineering OS &amp; Visual Architecture
                 </span>
               </h1>
 
