@@ -139,59 +139,61 @@ export const CapabilitiesPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-24 py-6" id="capabilities-page">
+    <div className="w-full flex flex-col space-y-0" id="capabilities-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="text-center space-y-8 max-w-[1720px] mx-auto pt-4 relative">
-        {/* Eyebrow Badge */}
-        <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300">
-          <span className="w-2 h-2 rounded-full bg-[#FE721D] animate-pulse" />
-          <span>System Services &bull; Full-Stack Capabilities &bull; 2026</span>
-          <span className="text-[#FE721D]">⚡</span>
-        </div>
+      <section className="w-full pt-6 pb-14 sm:pb-18 bg-white">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-8 relative">
+          {/* Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300">
+            <span className="w-2 h-2 rounded-full bg-[#FE721D] animate-pulse" />
+            <span>System Services &bull; Full-Stack Capabilities &bull; 2026</span>
+            <span className="text-[#FE721D]">⚡</span>
+          </div>
 
-        {/* Headline */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
-          Built for Engineering Precision &amp; <br />
-          <span className="text-[#20B5D6]">Modular System Architecture</span>.
-        </h1>
+          {/* Headline */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
+            Built for Engineering Precision &amp; <br />
+            <span className="text-[#20B5D6]">Modular System Architecture</span>.
+          </h1>
 
-        {/* Supporting Copy */}
-        <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
-          Explore the core modular capabilities of KENENISA OS. Each service works independently while sharing live PostgreSQL state across the entire operating system.
-        </p>
+          {/* Supporting Copy */}
+          <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
+            Explore the core modular capabilities of KENENISA OS. Each service works independently while sharing live PostgreSQL state across the entire operating system.
+          </p>
 
-        {/* ── INTERACTIVE SYSTEM ARCHITECTURE CAPABILITY MATRICES ── */}
-        <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 max-w-5xl mx-auto text-center">
-          {[
-            { label: 'Execution Engine', code: 'MOD-01', color: 'from-blue-500 to-indigo-600', textColor: 'text-blue-700', bg: 'bg-blue-50/90 border-blue-200/90', icon: '⚡' },
-            { label: 'Capacity Planning', code: 'MOD-02', color: 'from-cyan-500 to-blue-600', textColor: 'text-cyan-700', bg: 'bg-cyan-50/90 border-cyan-200/90', icon: '⏱️' },
-            { label: 'Skill Development', code: 'MOD-03', color: 'from-indigo-500 to-purple-600', textColor: 'text-indigo-700', bg: 'bg-indigo-50/90 border-indigo-200/90', icon: '📘' },
-            { label: 'Evidence Vault', code: 'MOD-04', color: 'from-emerald-500 to-teal-600', textColor: 'text-emerald-700', bg: 'bg-emerald-50/90 border-emerald-200/90', icon: '🛡️' },
-            { label: 'Career Pipeline', code: 'MOD-05', color: 'from-amber-500 to-orange-600', textColor: 'text-amber-800', bg: 'bg-amber-50/90 border-amber-200/90', icon: '💼' },
-            { label: 'AI Advisory', code: 'MOD-06', color: 'from-purple-500 to-pink-600', textColor: 'text-purple-700', bg: 'bg-purple-50/90 border-purple-200/90', icon: '🤖' },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className={`relative rounded-2xl p-4 border-2 ${item.bg} backdrop-blur-md shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer overflow-hidden flex flex-col items-center justify-center text-center`}
-            >
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center font-bold text-base shadow-md mb-2 group-hover:scale-110 transition-transform`}>
-                {item.icon}
+          {/* ── INTERACTIVE SYSTEM ARCHITECTURE CAPABILITY MATRICES ── */}
+          <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 max-w-5xl mx-auto text-center">
+            {[
+              { label: 'Execution Engine', code: 'MOD-01', color: 'from-blue-500 to-indigo-600', textColor: 'text-blue-700', bg: 'bg-blue-50/90 border-blue-200/90', icon: '⚡' },
+              { label: 'Capacity Planning', code: 'MOD-02', color: 'from-cyan-500 to-blue-600', textColor: 'text-cyan-700', bg: 'bg-cyan-50/90 border-cyan-200/90', icon: '⏱️' },
+              { label: 'Skill Development', code: 'MOD-03', color: 'from-indigo-500 to-purple-600', textColor: 'text-indigo-700', bg: 'bg-indigo-50/90 border-indigo-200/90', icon: '📘' },
+              { label: 'Evidence Vault', code: 'MOD-04', color: 'from-emerald-500 to-teal-600', textColor: 'text-emerald-700', bg: 'bg-emerald-50/90 border-emerald-200/90', icon: '🛡️' },
+              { label: 'Career Pipeline', code: 'MOD-05', color: 'from-amber-500 to-orange-600', textColor: 'text-amber-800', bg: 'bg-amber-50/90 border-amber-200/90', icon: '💼' },
+              { label: 'AI Advisory', code: 'MOD-06', color: 'from-purple-500 to-pink-600', textColor: 'text-purple-700', bg: 'bg-purple-50/90 border-purple-200/90', icon: '🤖' },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className={`relative rounded-2xl p-4 border-2 ${item.bg} backdrop-blur-md shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer overflow-hidden flex flex-col items-center justify-center text-center`}
+              >
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center font-bold text-base shadow-md mb-2 group-hover:scale-110 transition-transform`}>
+                  {item.icon}
+                </div>
+                <div className="text-[10px] font-mono font-black tracking-wider text-slate-500 uppercase mb-0.5">{item.code}</div>
+                <div className="text-xs sm:text-sm font-black text-indigo-950 group-hover:text-blue-700 transition-colors leading-snug">
+                  {item.label}
+                </div>
+                <div className="mt-2.5 inline-flex items-center gap-1.5 text-[9px] font-bold text-slate-600 bg-white/90 px-2 py-0.5 rounded-md border border-slate-200/80 shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  State Active
+                </div>
               </div>
-              <div className="text-[10px] font-mono font-black tracking-wider text-slate-500 uppercase mb-0.5">{item.code}</div>
-              <div className="text-xs sm:text-sm font-black text-indigo-950 group-hover:text-blue-700 transition-colors leading-snug">
-                {item.label}
-              </div>
-              <div className="mt-2.5 inline-flex items-center gap-1.5 text-[9px] font-bold text-slate-600 bg-white/90 px-2 py-0.5 rounded-md border border-slate-200/80 shadow-2xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                State Active
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── CONNECTED CAPABILITIES SERPENTINE ROADMAP ───────────────────────────── */}
-      <section>
+      <section className="w-full">
         <SerpentineRoadmap
           title="Connected System Capabilities Architecture"
           subtitle="No isolated silos. Information flows seamlessly between operational modules to turn goals into verifiable outcomes."
@@ -205,102 +207,106 @@ export const CapabilitiesPage: React.FC = () => {
       </section>
 
       {/* ── SECURITY & CONTROL ARCHITECTURE ─────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-purple-50/70 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden group">
+      <section className="w-full relative bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-purple-50/70 py-16 sm:py-24 overflow-hidden group">
         <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-blue-400/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="text-center space-y-3 max-w-3xl mx-auto relative z-10">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-blue-900 bg-blue-100/90 border border-blue-300 px-4 py-1.5 rounded-full tracking-widest shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-            Data Ownership &amp; Security
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
-            Security &amp; Privacy Architecture
-          </h2>
-          <p className="text-base sm:text-lg text-slate-700 font-semibold">
-            Enterprise-grade security standards with human-in-the-loop control.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 text-xs relative z-10">
-          {/* Card 1 */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
-              🔒
-            </div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">SECURE ENCLAVE</div>
-            <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
-              Isolated Private Operating Context
-            </h4>
-            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
-              All personal tasks, goals, project artifacts, and evidence reside behind strict authenticated sessions. Public pages never expose private user data.
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 text-center relative z-10">
+          <div className="space-y-3 max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-blue-900 bg-blue-100/90 border border-blue-300 px-4 py-1.5 rounded-full tracking-widest shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+              Data Ownership &amp; Security
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
+              Security &amp; Privacy Architecture
+            </h2>
+            <p className="text-base sm:text-lg text-slate-700 font-semibold">
+              Enterprise-grade security standards with human-in-the-loop control.
             </p>
           </div>
 
-          {/* Card 2 */}
-          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-orange-500/20 group-hover/card:scale-110 transition-transform">
-              🤖
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 text-xs text-center">
+            {/* Card 1 */}
+            <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
+                🔒
+              </div>
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">SECURE ENCLAVE</div>
+              <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
+                Isolated Private Operating Context
+              </h4>
+              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                All personal tasks, goals, project artifacts, and evidence reside behind strict authenticated sessions. Public pages never expose private user data.
+              </p>
             </div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-[#FE721D]">HUMAN CONTROL</div>
-            <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#FE721D] transition-colors">
-              Human-In-The-Loop AI
-            </h4>
-            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
-              Intelligence Core acts strictly as an advisory layer. The system will never mutate tasks, delete projects, or send external data without explicit human confirmation.
-            </p>
-          </div>
 
-          {/* Card 3 */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center sm:col-span-2 lg:col-span-1">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-sky-600" />
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
-              🗄️
+            {/* Card 2 */}
+            <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-orange-500/20 group-hover/card:scale-110 transition-transform">
+                🤖
+              </div>
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#FE721D]">HUMAN CONTROL</div>
+              <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#FE721D] transition-colors">
+                Human-In-The-Loop AI
+              </h4>
+              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                Intelligence Core acts strictly as an advisory layer. The system will never mutate tasks, delete projects, or send external data without explicit human confirmation.
+              </p>
             </div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">DATABASE TRUTH</div>
-            <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
-              Authoritative System State
-            </h4>
-            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
-              Your PostgreSQL database state is the single source of truth. AI reasoning is transient and downstream from verified database state.
-            </p>
+
+            {/* Card 3 */}
+            <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center sm:col-span-2 lg:col-span-1">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-sky-600" />
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
+                🗄️
+              </div>
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">DATABASE TRUTH</div>
+              <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
+                Authoritative System State
+              </h4>
+              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                Your PostgreSQL database state is the single source of truth. AI reasoning is transient and downstream from verified database state.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── CTA BANNER ────────────────────────────────────────────────────────── */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 p-10 sm:p-14 text-center space-y-6 max-w-[1720px] mx-auto overflow-hidden group">
-        <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-          Ready to start using these capabilities?
-        </h3>
+      <section className="w-full relative bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 py-16 sm:py-24 text-center overflow-hidden group">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-6 relative z-10">
+          <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            Ready to start using these capabilities?
+          </h3>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 pt-2 relative z-10">
-          <Link
-            to="/login"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
-          >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
-              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
-              <span>Get Started Free</span>
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
-                →
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 pt-2">
+            <Link
+              to="/login"
+              className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
+                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+                <span>Get Started Free</span>
+                <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+                  →
+                </span>
               </span>
-            </span>
-          </Link>
+            </Link>
 
-          <Link
-            to="/about"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300"
-          >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors duration-200 overflow-hidden whitespace-nowrap border border-slate-200">
-              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
-              <span>About KENENISA OS</span>
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
-                ℹ️
+            <Link
+              to="/about"
+              className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors duration-200 overflow-hidden whitespace-nowrap border border-slate-200">
+                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
+                <span>About KENENISA OS</span>
+                <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+                  ℹ️
+                </span>
               </span>
-            </span>
-          </Link>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

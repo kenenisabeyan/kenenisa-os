@@ -156,248 +156,256 @@ export const AboutPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-24 py-6" id="about-page">
+    <div className="w-full flex flex-col space-y-0" id="about-page">
 
       {/* ══════════════════════════════════════════════════════════════════════
            HERO — High-Contrast Split Hero with Layered Portrait Card
            (Meticulously styled to match Alazar visual aesthetic)
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative max-w-[1720px] mx-auto pt-4 pb-8 overflow-hidden" id="hero">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column: Huge High-Impact Typography & Narrative */}
-          <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
-              Kenenisa <br />
-              Beyan. <br />
-              <span className="text-[#20B5D6]">
-                Director &amp; <br />
-                Visual Systems
-              </span>
-            </h1>
+      <section className="w-full pt-6 pb-12 sm:pb-16 bg-white overflow-hidden" id="hero">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            {/* Left Column: Huge High-Impact Typography & Narrative */}
+            <div className="lg:col-span-7 space-y-6">
+              <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
+                Kenenisa <br />
+                Beyan. <br />
+                <span className="text-[#20B5D6]">
+                  Director &amp; <br />
+                  Visual Systems
+                </span>
+              </h1>
 
-            <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed pt-2">
-              Engineering Architect &amp; Software Systems Lead designing deterministic operating platforms, evidence-backed proof vaults, and ground-truth AI reasoning architectures at Adama Science and Technology University (ASTU).
-            </p>
+              <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed pt-2">
+                Engineering Architect &amp; Software Systems Lead designing deterministic operating platforms, evidence-backed proof vaults, and ground-truth AI reasoning architectures at Adama Science and Technology University (ASTU).
+              </p>
 
-            {/* Quick Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
-              <a
-                href="#principles"
-                className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
-              >
-                <span>EXPLORE WORK</span>
-                <span>▾</span>
-              </a>
-              <a
-                href="#roadmap"
-                className="px-6 sm:px-7 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
-              >
-                <span>SYSTEM ROADMAP</span>
-                <span>▸</span>
-              </a>
-            </div>
-
-            {/* Stat Counters matching the reference portfolio metrics */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-6 sm:pt-8 border-t border-slate-200/80 max-w-xl">
-              <div>
-                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Years Experience</div>
+              {/* Quick Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
+                <a
+                  href="#principles"
+                  className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                >
+                  <span>EXPLORE WORK</span>
+                  <span>▾</span>
+                </a>
+                <a
+                  href="#roadmap"
+                  className="px-6 sm:px-7 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                >
+                  <span>SYSTEM ROADMAP</span>
+                  <span>▸</span>
+                </a>
               </div>
-              <div>
-                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Projects &amp; Milestones</div>
-              </div>
-              <div>
-                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">99%</div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Verified Evidence</div>
-              </div>
-            </div>
-          </div>
 
-          {/* Right Column: Layered Portrait Media Card with Offset Backing Plate */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5]">
-              {/* Offset Backing Plate in Kenenisa OS Brand Gradient */}
-              <div className="absolute -bottom-5 -right-5 sm:-bottom-7 sm:-right-7 inset-0 rounded-[2.5rem] bg-gradient-to-br from-[#20B5D6]/20 to-[#FE721D]/20 border-2 border-[#20B5D6]/40 -z-10 shadow-lg" />
-              
-              {/* Main Rounded Portrait Card */}
-              <div className="w-full h-full rounded-[2.5rem] overflow-hidden border-4 border-white shadow-2xl bg-slate-100 relative group">
-                <img
-                  src="/kenenisa-portrait.jpg"
-                  alt="Kenenisa Beyan"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
-                  }}
-                />
-
-                {/* Viewfinder Circle Graphic Element (matching Reference Screenshot) */}
-                <div className="absolute top-1/2 right-8 -translate-y-1/2 w-8 h-8 rounded-full border border-white/80 bg-white/20 backdrop-blur-xs flex items-center justify-center shadow-sm pointer-events-none">
-                  <div className="w-2 h-2 rounded-full bg-white shadow-xs" />
+              {/* Stat Counters matching the reference portfolio metrics */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-6 sm:pt-8 border-t border-slate-200/80 max-w-xl">
+                <div>
+                  <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
+                  <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Years Experience</div>
                 </div>
+                <div>
+                  <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
+                  <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Projects &amp; Milestones</div>
+                </div>
+                <div>
+                  <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">99%</div>
+                  <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Verified Evidence</div>
+                </div>
+              </div>
+            </div>
 
-                {/* Bottom Overlay Pill */}
-                <div className="absolute bottom-5 inset-x-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between">
-                  <div>
-                    <div className="font-black text-sm text-slate-900">Kenenisa Beyan</div>
-                    <div className="text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider">ASTU &bull; Computer Science and Engineering Lead</div>
+            {/* Right Column: Layered Portrait Media Card with Offset Backing Plate */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5]">
+                {/* Offset Backing Plate in Kenenisa OS Brand Gradient */}
+                <div className="absolute -bottom-5 -right-5 sm:-bottom-7 sm:-right-7 inset-0 rounded-[2.5rem] bg-gradient-to-br from-[#20B5D6]/20 to-[#FE721D]/20 border-2 border-[#20B5D6]/40 -z-10 shadow-lg" />
+                
+                {/* Main Rounded Portrait Card */}
+                <div className="w-full h-full rounded-[2.5rem] overflow-hidden border-4 border-white shadow-2xl bg-slate-100 relative group">
+                  <img
+                    src="/kenenisa-portrait.jpg"
+                    alt="Kenenisa Beyan"
+                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
+                    }}
+                  />
+
+                  {/* Viewfinder Circle Graphic Element (matching Reference Screenshot) */}
+                  <div className="absolute top-1/2 right-8 -translate-y-1/2 w-8 h-8 rounded-full border border-white/80 bg-white/20 backdrop-blur-xs flex items-center justify-center shadow-sm pointer-events-none">
+                    <div className="w-2 h-2 rounded-full bg-white shadow-xs" />
                   </div>
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
+
+                  {/* Bottom Overlay Pill */}
+                  <div className="absolute bottom-5 inset-x-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between">
+                    <div>
+                      <div className="font-black text-sm text-slate-900">Kenenisa Beyan</div>
+                      <div className="text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider">ASTU &bull; Computer Science and Engineering Lead</div>
+                    </div>
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
            ANIMATED SYSTEM STATISTICS
       ══════════════════════════════════════════════════════════════════════ */}
-      <section ref={statsRef} className="max-w-[1720px] mx-auto">
-        <div className="text-center mb-10 space-y-3">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-700 bg-slate-100/90 border border-slate-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-slate-600 animate-pulse" />
-            System Architecture at a Glance
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Built by the Numbers 📊</h2>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <StatCard value={6} suffix="+" label="Core Modules" icon="⚡" color="from-blue-500/5 to-indigo-500/10" border="border-blue-200/90" start={statsInView} />
-          <StatCard value={5} suffix="" label="R&D Phases" icon="🔬" color="from-indigo-500/5 to-purple-500/10" border="border-indigo-200/90" start={statsInView} />
-          <StatCard value={100} suffix="%" label="TypeScript" icon="🛡️" color="from-emerald-500/5 to-teal-500/10" border="border-emerald-200/90" start={statsInView} />
-          <StatCard value={4} suffix="" label="Principles" icon="💎" color="from-purple-500/5 to-pink-500/10" border="border-purple-200/90" start={statsInView} />
-          <StatCard value={0} suffix="" label="Data Silos" icon="🚫" color="from-rose-500/5 to-orange-500/10" border="border-rose-200/90" start={statsInView} />
-          <StatCard value={1} suffix="" label="Unified OS" icon="🎯" color="from-cyan-500/5 to-sky-500/10" border="border-cyan-200/90" start={statsInView} />
+      <section ref={statsRef} className="w-full py-12 sm:py-16 bg-white">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14">
+          <div className="text-center mb-10 space-y-3">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-700 bg-slate-100/90 border border-slate-300 px-4 py-1.5 rounded-full tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-slate-600 animate-pulse" />
+              System Architecture at a Glance
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Built by the Numbers 📊</h2>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <StatCard value={6} suffix="+" label="Core Modules" icon="⚡" color="from-blue-500/5 to-indigo-500/10" border="border-blue-200/90" start={statsInView} />
+            <StatCard value={5} suffix="" label="R&D Phases" icon="🔬" color="from-indigo-500/5 to-purple-500/10" border="border-indigo-200/90" start={statsInView} />
+            <StatCard value={100} suffix="%" label="TypeScript" icon="🛡️" color="from-emerald-500/5 to-teal-500/10" border="border-emerald-200/90" start={statsInView} />
+            <StatCard value={4} suffix="" label="Principles" icon="💎" color="from-purple-500/5 to-pink-500/10" border="border-purple-200/90" start={statsInView} />
+            <StatCard value={0} suffix="" label="Data Silos" icon="🚫" color="from-rose-500/5 to-orange-500/10" border="border-rose-200/90" start={statsInView} />
+            <StatCard value={1} suffix="" label="Unified OS" icon="🎯" color="from-cyan-500/5 to-sky-500/10" border="border-cyan-200/90" start={statsInView} />
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
            THE FRAGMENTATION PROBLEM — 3-column with visual dividers
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-cyan-50/50 via-sky-50/30 to-slate-50/60 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
+      <section className="w-full relative bg-gradient-to-br from-cyan-50/50 via-sky-50/30 to-slate-50/60 py-16 sm:py-24 overflow-hidden">
         <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-16 -left-16 w-64 h-64 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 text-center space-y-3 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
-            Why KENENISA OS Exists
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">The Fragmentation Problem</h2>
-          <p className="text-lg text-slate-600 font-semibold max-w-3xl mx-auto">
-            Modern practitioners operate across too many disconnected tools. This creates three compounding failures:
-          </p>
-        </div>
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
+              Why KENENISA OS Exists
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">The Fragmentation Problem</h2>
+            <p className="text-lg text-slate-600 font-semibold max-w-3xl mx-auto">
+              Modern practitioners operate across too many disconnected tools. This creates three compounding failures:
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 relative z-10">
-          {[
-            {
-              num: '01', icon: '🎯', title: 'High Operational Noise',
-              body: 'Academic coursework sits in university portals; software engineering code lives in GitHub; task lists sit in personal todo apps; learning courses stay on tutorial sites; and career opportunities exist in scattered spreadsheets.',
-              border: 'border-[#20B5D6]/30', badge: 'bg-cyan-100 text-cyan-900 border-[#20B5D6]/30',
-              gradient: 'from-[#20B5D6] to-blue-600',
-            },
-            {
-              num: '02', icon: '⚡', title: 'Artificial Separation',
-              body: 'This fragmentation creates artificial separation between what you intend to do, what you actually work on, and the verifiable proof of what you accomplished.',
-              border: 'border-[#FE721D]/30', badge: 'bg-orange-100 text-orange-900 border-[#FE721D]/30',
-              gradient: 'from-[#FE721D] to-orange-600',
-            },
-            {
-              num: '03', icon: '🛡️', title: 'Unified OS Is the Fix',
-              body: 'KENENISA OS replaces fragmented tools with a single unified operating environment where every action contributes directly to strategic goals and verifiable evidence.',
-              border: 'border-[#20B5D6]/30', badge: 'bg-cyan-100 text-cyan-900 border-[#20B5D6]/30',
-              gradient: 'from-[#20B5D6] to-sky-600',
-            },
-          ].map((card, i) => (
-            <div
-              key={i}
-              className={`relative bg-white/95 border-2 ${card.border} p-6 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3.5 sm:space-y-4 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col items-center text-center`}
-            >
-              <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${card.gradient}`} />
-              <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                {card.icon}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              {
+                num: '01', icon: '🎯', title: 'High Operational Noise',
+                body: 'Academic coursework sits in university portals; software engineering code lives in GitHub; task lists sit in personal todo apps; learning courses stay on tutorial sites; and career opportunities exist in scattered spreadsheets.',
+                border: 'border-[#20B5D6]/30', badge: 'bg-cyan-100 text-cyan-900 border-[#20B5D6]/30',
+                gradient: 'from-[#20B5D6] to-blue-600',
+              },
+              {
+                num: '02', icon: '⚡', title: 'Artificial Separation',
+                body: 'This fragmentation creates artificial separation between what you intend to do, what you actually work on, and the verifiable proof of what you accomplished.',
+                border: 'border-[#FE721D]/30', badge: 'bg-orange-100 text-orange-900 border-[#FE721D]/30',
+                gradient: 'from-[#FE721D] to-orange-600',
+              },
+              {
+                num: '03', icon: '🛡️', title: 'Unified OS Is the Fix',
+                body: 'KENENISA OS replaces fragmented tools with a single unified operating environment where every action contributes directly to strategic goals and verifiable evidence.',
+                border: 'border-[#20B5D6]/30', badge: 'bg-cyan-100 text-cyan-900 border-[#20B5D6]/30',
+                gradient: 'from-[#20B5D6] to-sky-600',
+              },
+            ].map((card, i) => (
+              <div
+                key={i}
+                className={`relative bg-white/95 border-2 ${card.border} p-6 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3.5 sm:space-y-4 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col items-center text-center`}
+              >
+                <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${card.gradient}`} />
+                <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                  {card.icon}
+                </div>
+                <span className={`text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
+                  PROBLEM {card.num}
+                </span>
+                <h4 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">{card.body}</p>
               </div>
-              <span className={`text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
-                PROBLEM {card.num}
-              </span>
-              <h4 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
-              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">{card.body}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
            INTERACTIVE CORE PRINCIPLES — Expand on click
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="space-y-10 max-w-[1720px] mx-auto" id="principles">
-        <div className="text-center space-y-3">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
-            Core Principles
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Product Philosophy 💎</h2>
-          <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
-        </div>
+      <section className="w-full py-16 sm:py-24 bg-white" id="principles">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10">
+          <div className="text-center space-y-3">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
+              Core Principles
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Product Philosophy 💎</h2>
+            <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {principles.map((p, i) => {
-            const isActive = activePrinciple === i;
-            return (
-              <div
-                key={i}
-                onClick={() => setActivePrinciple(isActive ? null : i)}
-                className={`relative bg-white/95 border-2 rounded-2xl sm:rounded-3xl p-5 xs:p-6 sm:p-7 md:p-8 flex flex-col items-center text-center shadow-md cursor-pointer overflow-hidden transition-all duration-500 group
-                  ${isActive ? 'border-[#20B5D6] shadow-2xl shadow-cyan-500/20 scale-[1.01] sm:scale-[1.02]' : 'border-slate-200/80 hover:shadow-xl hover:-translate-y-1.5 hover:border-[#20B5D6]/60'}`}
-              >
-                {/* Top gradient bar */}
-                <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color} transition-all duration-300`} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {principles.map((p, i) => {
+              const isActive = activePrinciple === i;
+              return (
+                <div
+                  key={i}
+                  onClick={() => setActivePrinciple(isActive ? null : i)}
+                  className={`relative bg-white/95 border-2 rounded-2xl sm:rounded-3xl p-5 xs:p-6 sm:p-7 md:p-8 flex flex-col items-center text-center shadow-md cursor-pointer overflow-hidden transition-all duration-500 group
+                    ${isActive ? 'border-[#20B5D6] shadow-2xl shadow-cyan-500/20 scale-[1.01] sm:scale-[1.02]' : 'border-slate-200/80 hover:shadow-xl hover:-translate-y-1.5 hover:border-[#20B5D6]/60'}`}
+                >
+                  {/* Top gradient bar */}
+                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color} transition-all duration-300`} />
 
-                {/* Active ring glow */}
-                {isActive && <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-2 ring-[#20B5D6]/40 pointer-events-none" />}
+                  {/* Active ring glow */}
+                  {isActive && <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-2 ring-[#20B5D6]/40 pointer-events-none" />}
 
-                {/* Centered Squircle Icon Box - Adaptive sizing */}
-                <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
-                  {p.icon}
-                </div>
+                  {/* Centered Squircle Icon Box - Adaptive sizing */}
+                  <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
+                    {p.icon}
+                  </div>
 
-                {/* Centered Eyebrow & Title */}
-                <div className="space-y-1.5 text-center mb-2.5 sm:mb-3">
-                  <div className="text-[11px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
-                  <h3 className={`text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
-                    {p.title}
-                  </h3>
-                </div>
+                  {/* Centered Eyebrow & Title */}
+                  <div className="space-y-1.5 text-center mb-2.5 sm:mb-3">
+                    <div className="text-[11px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
+                    <h3 className={`text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
+                      {p.title}
+                    </h3>
+                  </div>
 
-                {/* Centered Body */}
-                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4">{p.body}</p>
+                  {/* Centered Body */}
+                  <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4">{p.body}</p>
 
-                {/* Expanded detail - Responsive max-height */}
-                <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
-                  <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
-                    <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
+                  {/* Expanded detail - Responsive max-height */}
+                  <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
+                    <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
+                      <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
+                      <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
+                    </div>
+                  </div>
+
+                  {/* Expand indicator */}
+                  <div className={`mt-auto flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
+                    <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
+                    <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
                   </div>
                 </div>
-
-                {/* Expand indicator */}
-                <div className={`mt-auto flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
-                  <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
-                  <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
            ENGINEERING R&D ROADMAP
       ══════════════════════════════════════════════════════════════════════ */}
-      <section>
+      <section className="w-full">
         <SerpentineRoadmap
           title="Engineering R&D Methodology Roadmap"
           subtitle="How features and system methodologies in KENENISA OS are designed, tested, verified, and established."
@@ -413,117 +421,121 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            TECH STACK SHOWCASE
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-slate-50/80 via-cyan-50/30 to-slate-50/80 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
-        <div className="text-center space-y-3">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-700 bg-slate-100/90 border border-slate-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-slate-600 animate-pulse" />
-            Technology Foundation
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Engineering Stack 🔧</h2>
-          <p className="text-slate-600 font-semibold text-lg max-w-2xl mx-auto">
-            Production-grade technologies chosen for reliability, type-safety, and real engineering precision.
-          </p>
-        </div>
+      <section className="w-full relative bg-gradient-to-br from-slate-50/80 via-cyan-50/30 to-slate-50/80 py-16 sm:py-24 overflow-hidden" id="stack">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
+          <div className="text-center space-y-3">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-700 bg-slate-100/90 border border-slate-300 px-4 py-1.5 rounded-full tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-slate-600 animate-pulse" />
+              Technology Foundation
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Engineering Stack 🔧</h2>
+            <p className="text-slate-600 font-semibold text-lg max-w-2xl mx-auto">
+              Production-grade technologies chosen for reliability, type-safety, and real engineering precision.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-          {techStack.map((tech, i) => (
-            <div key={i} className={`relative border-2 ${tech.color} rounded-2xl p-4 text-center space-y-2.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-default`}>
-              <div className={`w-2 h-2 rounded-full ${tech.dot} mx-auto animate-pulse`} />
-              <div className="text-[9px] font-black uppercase tracking-widest opacity-60">{tech.badge}</div>
-              <div className="font-black text-sm leading-tight">{tech.name}</div>
-              <div className="text-[10px] font-semibold opacity-70 leading-snug">{tech.role}</div>
-            </div>
-          ))}
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+            {techStack.map((tech, i) => (
+              <div key={i} className={`relative border-2 ${tech.color} rounded-2xl p-4 text-center space-y-2.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-default`}>
+                <div className={`w-2 h-2 rounded-full ${tech.dot} mx-auto animate-pulse`} />
+                <div className="text-[9px] font-black uppercase tracking-widest opacity-60">{tech.badge}</div>
+                <div className="font-black text-sm leading-tight">{tech.name}</div>
+                <div className="text-[10px] font-semibold opacity-70 leading-snug">{tech.role}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
            AI ADVISORY PIPELINE — Advanced Visual Diagram
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-purple-50/70 via-indigo-50/50 to-blue-50/60 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
+      <section className="w-full relative bg-gradient-to-br from-purple-50/70 via-indigo-50/50 to-blue-50/60 py-16 sm:py-24 overflow-hidden">
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="flex flex-col items-center justify-center text-center space-y-3 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-purple-900 bg-purple-100/90 border border-purple-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
-            Human + AI Advisory Collaboration
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">AI Intelligence Pipeline 🤖</h2>
-          <p className="text-slate-700 font-semibold text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            AI should increase clarity, not remove human agency. Intelligence is strictly downstream of real system data in KENENISA OS.
-          </p>
-          <div className="inline-flex items-center gap-1.5 bg-purple-100/90 border-2 border-purple-300 px-4 py-1.5 rounded-full text-xs font-black text-purple-900 uppercase tracking-wider shadow-xs mt-1">
-            Clear Boundary ⚡ Enforced
-          </div>
-        </div>
-
-        {/* Pipeline diagram */}
-        <div className="bg-white/95 rounded-2xl sm:rounded-3xl border-2 border-indigo-200/90 shadow-md p-4 sm:p-8">
-          {/* Mobile & Tablet Vertical Flow (< lg) */}
-          <div className="lg:hidden flex flex-col gap-2.5">
-            {aiPipeline.map((step, i) => (
-              <React.Fragment key={i}>
-                <div className={`relative w-full border-2 ${step.color} rounded-2xl p-4 text-center space-y-1.5 shadow-xs`}>
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-xl">{step.icon}</span>
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-70">STEP {step.step}</span>
-                  </div>
-                  <div className="font-black text-sm text-slate-900">{step.label}</div>
-                  <div className="text-xs font-semibold text-slate-600">{step.desc}</div>
-                </div>
-                {i < aiPipeline.length - 1 && (
-                  <div className="flex justify-center py-0.5 text-[#20B5D6]">
-                    <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="animate-pulse">
-                      <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
+          <div className="flex flex-col items-center justify-center text-center space-y-3 max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-purple-900 bg-purple-100/90 border border-purple-300 px-4 py-1.5 rounded-full tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
+              Human + AI Advisory Collaboration
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">AI Intelligence Pipeline 🤖</h2>
+            <p className="text-slate-700 font-semibold text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+              AI should increase clarity, not remove human agency. Intelligence is strictly downstream of real system data in KENENISA OS.
+            </p>
+            <div className="inline-flex items-center gap-1.5 bg-purple-100/90 border-2 border-purple-300 px-4 py-1.5 rounded-full text-xs font-black text-purple-900 uppercase tracking-wider shadow-xs mt-1">
+              Clear Boundary ⚡ Enforced
+            </div>
           </div>
 
-          {/* Desktop Horizontal Flow (>= lg) */}
-          <div className="hidden lg:flex items-start gap-0 overflow-x-auto">
-            {aiPipeline.map((step, i) => (
-              <React.Fragment key={i}>
-                <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
-                  {/* Step card */}
-                  <div className={`relative w-full border-2 ${step.color} rounded-2xl p-4 text-center space-y-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-default`}>
-                    <div className="text-2xl">{step.icon}</div>
-                    <div className="text-[9px] font-black uppercase tracking-widest opacity-60">STEP {step.step}</div>
-                    <div className="font-black text-sm leading-tight text-slate-900">{step.label}</div>
-                    <div className="text-[10px] font-semibold opacity-70 leading-snug">{step.desc}</div>
-                    {/* Animated active dot */}
-                    <div className="flex justify-center">
-                      <span className="w-2 h-2 rounded-full bg-current animate-ping opacity-60" />
+          {/* Pipeline diagram */}
+          <div className="bg-white/95 rounded-2xl sm:rounded-3xl border-2 border-indigo-200/90 shadow-md p-4 sm:p-8">
+            {/* Mobile & Tablet Vertical Flow (< lg) */}
+            <div className="lg:hidden flex flex-col gap-2.5">
+              {aiPipeline.map((step, i) => (
+                <React.Fragment key={i}>
+                  <div className={`relative w-full border-2 ${step.color} rounded-2xl p-4 text-center space-y-1.5 shadow-xs`}>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-xl">{step.icon}</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest opacity-70">STEP {step.step}</span>
                     </div>
+                    <div className="font-black text-sm text-slate-900">{step.label}</div>
+                    <div className="text-xs font-semibold text-slate-600">{step.desc}</div>
                   </div>
-                </div>
-                {/* Arrow connector */}
-                {i < aiPipeline.length - 1 && (
-                  <div className="flex items-center self-start mt-8 px-1 shrink-0">
-                    <div className="flex items-center gap-0.5">
-                      <div className="w-4 h-0.5 bg-gradient-to-r from-[#20B5D6] to-blue-500" />
-                      <div className="w-4 h-0.5 bg-gradient-to-r from-blue-500 to-[#20B5D6] animate-pulse" />
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-[#20B5D6] shrink-0">
-                        <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  {i < aiPipeline.length - 1 && (
+                    <div className="flex justify-center py-0.5 text-[#20B5D6]">
+                      <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="animate-pulse">
+                        <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
 
-          {/* Bottom rule */}
-          <div className="mt-6 pt-4 border-t-2 border-indigo-100/90 flex flex-wrap gap-3 items-center">
-            <span className="text-xs font-black text-slate-500 uppercase tracking-wider">Invariants:</span>
-            {['AI never auto-mutates state', 'Human confirmation required', 'Database is single truth source', 'Advisory is non-authoritative'].map((rule, i) => (
-              <span key={i} className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                {rule}
-              </span>
-            ))}
+            {/* Desktop Horizontal Flow (>= lg) */}
+            <div className="hidden lg:flex items-start gap-0 overflow-x-auto">
+              {aiPipeline.map((step, i) => (
+                <React.Fragment key={i}>
+                  <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                    {/* Step card */}
+                    <div className={`relative w-full border-2 ${step.color} rounded-2xl p-4 text-center space-y-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-default`}>
+                      <div className="text-2xl">{step.icon}</div>
+                      <div className="text-[9px] font-black uppercase tracking-widest opacity-60">STEP {step.step}</div>
+                      <div className="font-black text-sm leading-tight text-slate-900">{step.label}</div>
+                      <div className="text-[10px] font-semibold opacity-70 leading-snug">{step.desc}</div>
+                      {/* Animated active dot */}
+                      <div className="flex justify-center">
+                        <span className="w-2 h-2 rounded-full bg-current animate-ping opacity-60" />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Arrow connector */}
+                  {i < aiPipeline.length - 1 && (
+                    <div className="flex items-center self-start mt-8 px-1 shrink-0">
+                      <div className="flex items-center gap-0.5">
+                        <div className="w-4 h-0.5 bg-gradient-to-r from-[#20B5D6] to-blue-500" />
+                        <div className="w-4 h-0.5 bg-gradient-to-r from-blue-500 to-[#20B5D6] animate-pulse" />
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-[#20B5D6] shrink-0">
+                          <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+
+            {/* Bottom rule */}
+            <div className="mt-6 pt-4 border-t-2 border-indigo-100/90 flex flex-wrap gap-3 items-center">
+              <span className="text-xs font-black text-slate-500 uppercase tracking-wider">Invariants:</span>
+              {['AI never auto-mutates state', 'Human confirmation required', 'Database is single truth source', 'Advisory is non-authoritative'].map((rule, i) => (
+                <span key={i} className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  {rule}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -531,49 +543,51 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            PUBLIC vs PRIVATE ARCHITECTURE BOUNDARY
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-cyan-50/60 rounded-3xl p-8 sm:p-14 space-y-8 max-w-[1720px] mx-auto overflow-hidden">
-        <div className="text-center space-y-3">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-indigo-900 bg-indigo-100/90 border border-indigo-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
-            Architecture Boundary
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-black text-indigo-950 tracking-tight">
-            Public Website vs Private Operating Environment
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-cyan-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
-            <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
-            <div className="space-y-1">
-              <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
-              <h4 className="font-black text-xl sm:text-2xl text-slate-900">Public Experience</h4>
-            </div>
-            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
-              Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
-            </p>
-            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
-              {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
-                <span key={p} className="text-[11px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
-              ))}
-            </div>
+      <section className="w-full relative bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-cyan-50/60 py-16 sm:py-24 overflow-hidden">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8 relative z-10">
+          <div className="text-center space-y-3">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-indigo-900 bg-indigo-100/90 border border-indigo-300 px-4 py-1.5 rounded-full tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+              Architecture Boundary
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-indigo-950 tracking-tight">
+              Public Website vs Private Operating Environment
+            </h2>
           </div>
 
-          <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-orange-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
-            <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
-            <div className="space-y-1">
-              <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
-              <h4 className="font-black text-xl sm:text-2xl text-slate-900">Private Operating System</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-cyan-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
+              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
+              <div className="space-y-1">
+                <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
+                <h4 className="font-black text-xl sm:text-2xl text-slate-900">Public Experience</h4>
+              </div>
+              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
+                Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
+              </p>
+              <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
+                {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
+                  <span key={p} className="text-[11px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
+                ))}
+              </div>
             </div>
-            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
-              Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
-            </p>
-            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
-              {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
-                <span key={p} className="text-[11px] sm:text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
-              ))}
+
+            <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-orange-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
+              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
+              <div className="space-y-1">
+                <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
+                <h4 className="font-black text-xl sm:text-2xl text-slate-900">Private Operating System</h4>
+              </div>
+              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
+                Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
+              </p>
+              <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
+                {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
+                  <span key={p} className="text-[11px] sm:text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -582,49 +596,51 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            FINAL CTA BANNER — Premium Glass
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 p-12 sm:p-16 text-center space-y-8 max-w-[1720px] mx-auto overflow-hidden group">
+      <section className="w-full relative bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 py-16 sm:py-24 text-center overflow-hidden group">
         <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-orange-400/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
-            Ready to Operate
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8 relative z-10">
+          <div className="space-y-4 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
+              Ready to Operate
+            </div>
+            <h3 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              Enter your personal operating environment.
+            </h3>
+            <p className="text-slate-600 font-semibold text-xl max-w-2xl mx-auto">
+              Connect strategic direction, daily execution, verified proof, and long-term trajectory into a single disciplined system.
+            </p>
           </div>
-          <h3 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Enter your personal operating environment.
-          </h3>
-          <p className="text-slate-600 font-semibold text-xl max-w-2xl mx-auto">
-            Connect strategic direction, daily execution, verified proof, and long-term trajectory into a single disciplined system.
-          </p>
-        </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 relative z-10">
-          <Link
-            to="/login"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
-          >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
-              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
-              <span>Get Started Free</span>
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
-                →
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+            <Link
+              to="/login"
+              className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
+                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+                <span>Get Started Free</span>
+                <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+                  →
+                </span>
               </span>
-            </span>
-          </Link>
+            </Link>
 
-          <Link
-            to="/login"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
-          >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors overflow-hidden whitespace-nowrap border border-slate-200">
-              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
-              <span>Sign In</span>
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
-                🔑
+            <Link
+              to="/login"
+              className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors overflow-hidden whitespace-nowrap border border-slate-200">
+                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
+                <span>Sign In</span>
+                <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+                  🔑
+                </span>
               </span>
-            </span>
-          </Link>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

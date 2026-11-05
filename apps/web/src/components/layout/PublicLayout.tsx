@@ -487,7 +487,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       {/* ══════════════════════════════════════════════════════════════════════
            MAIN PUBLIC PAGE CONTENT
       ══════════════════════════════════════════════════════════════════════ */}
-      <main className="flex-1 max-w-[1720px] w-full mx-auto px-4 sm:px-8 lg:px-14 pt-24 sm:pt-28 pb-12 sm:pb-16 space-y-16">
+      <main className="flex-1 w-full pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-x-hidden">
         {children}
       </main>
 
