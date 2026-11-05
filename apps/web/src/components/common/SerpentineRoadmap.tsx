@@ -41,7 +41,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
     {
       number: '01',
       badgeTitle: 'REQUIREMENT ANALYSIS',
-      title: 'DISCOVER & PLAN THE CHALLENGE',
+      title: 'Discover & Plan the Challenge',
       subtitle: 'Understand Before We Engineer.',
       description:
         'We begin with in-depth requirement analysis, tech stack selection, scope definition, and structural architecture planning to understand your organization, users, workflows, and long-term objectives.',
@@ -63,7 +63,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
     {
       number: '02',
       badgeTitle: 'ARCHITECTURE & DESIGN',
-      title: 'STRATEGIZE, DESIGN & ARCHITECT',
+      title: 'Strategize, Design & Architect',
       subtitle: 'Turn Insight Into a Clear Technology Blueprint.',
       description:
         'Our engineers transform requirements into high-performance microservices architecture designs, REST/GraphQL API specifications, intuitive UI/UX wireframes, and actionable implementation roadmaps.',
@@ -86,7 +86,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
     {
       number: '03',
       badgeTitle: 'ENGINEERING & BUILD',
-      title: 'ENGINEER & CONSTRUCT SOLUTION',
+      title: 'Engineer & Construct Solution',
       subtitle: 'Build Robust Technology with Clean Code.',
       description:
         'Execute development sprints using test-driven methodology, modular component architecture, robust typing, and continuous automated quality gates.',
@@ -108,7 +108,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
     {
       number: '04',
       badgeTitle: 'VERIFICATION & QA',
-      title: 'VALIDATE, TEST & PRODUCE PROOF',
+      title: 'Validate, Test & Produce Proof',
       subtitle: 'Ensure Production Reliability Before Deployment.',
       description:
         'Rigorous end-to-end QA testing, performance profiling, security audits, and observable evidence generation before pushing to staging and production.',
@@ -130,7 +130,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
     {
       number: '05',
       badgeTitle: 'DEPLOYMENT & SCALING',
-      title: 'DEPLOY, MONITOR & EVOLVE',
+      title: 'Deploy, Monitor & Evolve',
       subtitle: 'Zero-Downtime Delivery & Continuous Evolution.',
       description:
         'Automated zero-downtime deployment pipelines, real-time observability telemetry, health monitoring, and data-driven continuous optimization.',
@@ -247,7 +247,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
               <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#20B5D6] block">
                 {summaryBadgeText}
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug tracking-tight uppercase">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug tracking-tight">
                 {summaryTitle}
               </h3>
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
@@ -549,7 +549,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                       {/* Header Content */}
                       <div className="flex items-start justify-between gap-3 pl-2 relative z-10">
                         <div>
-                          <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase leading-snug">
+                          <h3 className="text-lg font-black text-slate-900 tracking-tight leading-snug">
                             {step.title}
                           </h3>
                           <p className="text-xs font-bold italic text-slate-500 mt-1">
@@ -633,7 +633,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                           </div>
 
                           <div className="flex-1 pt-0.5">
-                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight uppercase leading-snug">
+                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
                               {step.title}
                             </h3>
                             <p className="text-sm sm:text-base lg:text-lg font-bold italic text-slate-500 mt-1">
@@ -717,7 +717,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                         {/* Header: Title Block on LEFT + Icon on RIGHT */}
                         <div className="flex items-start justify-between gap-5">
                           <div className="flex-1 pt-0.5">
-                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight uppercase leading-snug">
+                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
                               {step.title}
                             </h3>
                             <p className="text-sm sm:text-base lg:text-lg font-bold italic text-slate-500 mt-1">

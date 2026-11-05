@@ -7,7 +7,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       number: '01',
       badgeTitle: 'STRATEGIC TRAJECTORY',
-      title: 'DEFINTION OF INTENTION & WORKSTREAMS',
+      title: 'Definition of Intention & Workstreams',
       subtitle: 'From Abstract Career Ambition to Quantified Objectives.',
       description:
         'Map your long-term direction into structured Workstreams (Engineering OS, Academic Research, Career Acceleration). Define measurable Goals with firm target dates.',
@@ -29,7 +29,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       number: '02',
       badgeTitle: 'GRAPH DECOMPOSITION',
-      title: 'HIERARCHICAL TASK DECOMPOSITION',
+      title: 'Hierarchical Task Decomposition',
       subtitle: 'Transforming Objectives into Executable Graph Nodes.',
       description:
         'Deconstruct high-level goals into multi-phase Projects, Milestone gates, and individual Actionable Tasks linked by strict dependency graphs and priority tags (P0/P1).',
@@ -51,7 +51,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       number: '03',
       badgeTitle: 'CAPACITY MATCHING',
-      title: 'TIME-BLOCKED DAILY BUDGETING',
+      title: 'Time-Blocked Daily Budgeting',
       subtitle: 'Deterministic Effort Matching to Available Hours.',
       description:
         'Eliminate overcommitment by calculating real daily focus budgets. Tasks are dynamically scheduled into dedicated focus blocks matching your exact capacity.',
@@ -73,7 +73,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       number: '04',
       badgeTitle: 'DETERMINISTIC ENGINE',
-      title: 'NEXT BEST ACTION ALGORITHM',
+      title: 'Next Best Action Algorithm',
       subtitle: 'Zero Cognitive Friction in Task Selection.',
       description:
         'Execute deep work with absolute focus. The Deterministic Engine evaluates task priorities, unblocked dependencies, and capacity to recommend your exact next action.',
@@ -95,7 +95,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       number: '05',
       badgeTitle: 'VERIFIED EVIDENCE VAULT',
-      title: 'OBSERVABLE PROOF & CAREER GROWTH',
+      title: 'Observable Proof & Career Growth',
       subtitle: 'Converting Daily Output into Verifiable Portfolio Assets.',
       description:
         'Task completions automatically output verifiable proof items (Git commits, PRs, docs, test passes) into the Evidence Vault to match target career opportunities.',

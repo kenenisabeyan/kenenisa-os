@@ -58,7 +58,7 @@ export const AboutPage: React.FC = () => {
   /* ─── R&D Roadmap Steps ─── */
   const rdSteps: RoadmapStep[] = [
     {
-      number: '01', badgeTitle: 'PROBLEM DEFINITION', title: 'PINPOINT OPERATIONAL GAPS',
+      number: '01', badgeTitle: 'PROBLEM DEFINITION', title: 'Pinpoint Operational Gaps',
       subtitle: 'Identify Real Friction Before Coding.',
       description: 'We analyze real-world operational fragmentation where academic coursework, engineering code, learning progress, and career opportunities exist in isolated silos.',
       focusAreas: ['Tool fragmentation analysis', 'Academic & engineering workflow audits', 'User pain point & bottleneck mapping', 'Core system objective definition'],
@@ -66,7 +66,7 @@ export const AboutPage: React.FC = () => {
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
     },
     {
-      number: '02', badgeTitle: 'ARCHITECTURE', title: 'DESIGN & FORMULATE BLUEPRINTS',
+      number: '02', badgeTitle: 'ARCHITECTURE', title: 'Design & Formulate Blueprints',
       subtitle: 'Architect Clean Contracts & Data Schemas.',
       description: 'Construct clear information architecture, PostgreSQL schemas, domain service contracts, and UI design systems prior to writing production code.',
       focusAreas: ['Domain model & database schema design', 'REST API & controller specifications', 'Google Roboto design system & UI tokens', 'Deterministic state transition logic'],
@@ -74,7 +74,7 @@ export const AboutPage: React.FC = () => {
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
     },
     {
-      number: '03', badgeTitle: 'IMPLEMENTATION', title: 'BUILD MODULAR SOFTWARE',
+      number: '03', badgeTitle: 'IMPLEMENTATION', title: 'Build Modular Software',
       subtitle: 'Engineering Execution Without Superficial Decoration.',
       description: 'Develop resilient Express services, React SPA pages, state management hooks, and background execution algorithms focused on core system utility.',
       focusAreas: ['TypeScript API & Vite SPA implementation', 'Capacity & daily plan calculation engines', 'Evidence logging & artifact mapping', 'Argon2id auth & session management'],
@@ -82,7 +82,7 @@ export const AboutPage: React.FC = () => {
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
     },
     {
-      number: '04', badgeTitle: 'VERIFICATION', title: 'TEST & COLLECT PROOF',
+      number: '04', badgeTitle: 'VERIFICATION', title: 'Test & Collect Proof',
       subtitle: 'Empirical Proof Before Declaring Success.',
       description: 'Validate every feature using strict Vitest test suites, full TypeScript compilation checks, Vite production builds, and observable runtime evidence.',
       focusAreas: ['Automated API & Web Vitest test coverage', 'Strict tsc type-checking & linting', 'Production bundle optimization & audits', 'Empirical log-based error diagnosis'],
@@ -90,7 +90,7 @@ export const AboutPage: React.FC = () => {
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
     },
     {
-      number: '05', badgeTitle: 'EVOLUTION', title: 'EVALUATE & CONTINUOUSLY EVOLVE',
+      number: '05', badgeTitle: 'EVOLUTION', title: 'Evaluate & Continuously Evolve',
       subtitle: 'Refine Architecture Based on Real Execution Data.',
       description: 'Refine capacity assumptions, upgrade UI components, integrate AI advisory insights, and evolve product capabilities through continuous iterative feedback.',
       focusAreas: ['System state & capacity audit review', 'Intelligence Core AI advisory optimization', 'Component refactoring & design system polish', 'Long-term product roadmap evolution'],

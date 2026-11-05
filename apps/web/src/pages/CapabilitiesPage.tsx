@@ -8,7 +8,7 @@ export const CapabilitiesPage: React.FC = () => {
     {
       number: '01',
       badgeTitle: 'EXECUTION ENGINE',
-      title: 'HIERARCHICAL WORK DECOMPOSITION',
+      title: 'Hierarchical Work Decomposition',
       subtitle: 'From High-Level Strategy to Executable Tasks.',
       description:
         'Organize strategic direction into Workstreams, Goals, Projects, Milestones, and Tasks with strict priority levels (P0 Critical, P1 High) and blocker dependencies.',
@@ -30,7 +30,7 @@ export const CapabilitiesPage: React.FC = () => {
     {
       number: '02',
       badgeTitle: 'CAPACITY PLANNING',
-      title: 'CAPACITY & SCHEDULE MATCHING',
+      title: 'Capacity & Schedule Matching',
       subtitle: 'Match Effort with Real Available Time.',
       description:
         'Realistic daily capacity budgeting. Map available time blocks against estimated task effort to eliminate overload, identify scheduling conflicts, and maintain velocity.',
@@ -52,7 +52,7 @@ export const CapabilitiesPage: React.FC = () => {
     {
       number: '03',
       badgeTitle: 'SKILL DEVELOPMENT',
-      title: 'LEARNING & SKILL PRACTICE',
+      title: 'Learning & Skill Practice',
       subtitle: 'Connect Theoretical Knowledge to Real Output.',
       description:
         'Track course progress, technical reading, certifications, and target skills. Link skill practice directly to active software projects for real-world application.',
@@ -74,7 +74,7 @@ export const CapabilitiesPage: React.FC = () => {
     {
       number: '04',
       badgeTitle: 'EVIDENCE VAULT',
-      title: 'VERIFIABLE PROOF & ARTIFACTS',
+      title: 'Verifiable Proof & Artifacts',
       subtitle: 'Proof Before Assertions.',
       description:
         'Store concrete artifacts proving task and project completions. Keep pull request links, technical documentation, deployed sites, and test verification output in one verifiable vault.',
@@ -96,7 +96,7 @@ export const CapabilitiesPage: React.FC = () => {
     {
       number: '05',
       badgeTitle: 'CAREER PIPELINE',
-      title: 'CAREER OPPORTUNITY PIPELINE',
+      title: 'Career Opportunity Pipeline',
       subtitle: 'Translate Execution into Real Market Value.',
       description:
         'Manage target job roles, academic applications, and client proposals. Map required role skills against verified evidence items to identify gaps and target interview preparation.',
@@ -118,7 +118,7 @@ export const CapabilitiesPage: React.FC = () => {
     {
       number: '06',
       badgeTitle: 'INTELLIGENCE CORE',
-      title: 'CONTEXTUAL AI ADVISORY',
+      title: 'Contextual AI Advisory',
       subtitle: 'AI Advisory Without Replacing Human Agency.',
       description:
         'Advisory layer reasoning over system state. Analyzes task progress, capacity conflicts, and evidence gaps to recommend high-impact actions while keeping human agency authoritative.',

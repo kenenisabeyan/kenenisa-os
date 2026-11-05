@@ -10,7 +10,7 @@ export const HomePage: React.FC = () => {
     {
       number: '01',
       badgeTitle: 'DIRECTION & TARGETS',
-      title: 'DEFINE STRATEGIC DIRECTION',
+      title: 'Define Strategic Direction',
       subtitle: 'Set Clear Objectives Before Execution.',
       description:
         'Establish high-level Workstreams (Engineering OS, University Coursework, Career Advancement) and quantitative Goals with target completion dates.',
@@ -32,7 +32,7 @@ export const HomePage: React.FC = () => {
     {
       number: '02',
       badgeTitle: 'WORK DECOMPOSITION',
-      title: 'STRUCTURE PROJECTS & TASKS',
+      title: 'Structure Projects & Tasks',
       subtitle: 'Break Ambition into Executable Units.',
       description:
         'Deconstruct goals into executable multi-stage Projects, sequential Milestones, and actionable Tasks with strict P0/P1/P2 priority tags and dependency graphs.',
@@ -54,7 +54,7 @@ export const HomePage: React.FC = () => {
     {
       number: '03',
       badgeTitle: 'CAPACITY MATCHING',
-      title: 'PLAN CAPACITY & TIME BLOCKS',
+      title: 'Plan Capacity & Time Blocks',
       subtitle: 'Match Effort Against Available Focus Hours.',
       description:
         'Calculate real daily hours budget and allocate task effort into dedicated time blocks to eliminate overcommitment and scheduling collisions.',
@@ -76,7 +76,7 @@ export const HomePage: React.FC = () => {
     {
       number: '04',
       badgeTitle: 'DETERMINISTIC EXECUTION',
-      title: 'EXECUTE VIA NEXT BEST ACTION',
+      title: 'Execute via Next Best Action',
       subtitle: 'Focus Deep Work on High-Impact Tasks.',
       description:
         'Work through unblocked tasks using system-derived Next Best Action selection based on strategic priority, target deadlines, and available capacity.',
@@ -98,7 +98,7 @@ export const HomePage: React.FC = () => {
     {
       number: '05',
       badgeTitle: 'VERIFIED PROOF & CAREER',
-      title: 'PRODUCE EVIDENCE & ADVANCE CAREER',
+      title: 'Produce Evidence & Advance Career',
       subtitle: 'Turn Completed Work into Real Career Assets.',
       description:
         'Task completions generate observable proof items (PRs, commits, test passes, docs) stored in the Evidence Vault to power job applications and career advancement.',
