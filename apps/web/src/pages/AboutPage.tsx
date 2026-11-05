@@ -191,14 +191,14 @@ export const AboutPage: React.FC = () => {
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
                 <a
                   href="#principles"
-                  className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
+                  className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/20 hover:shadow-orange-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
                 >
                   <span>EXPLORE WORK</span>
                   <span>▾</span>
                 </a>
                 <a
                   href="#roadmap"
-                  className="px-6 sm:px-7 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-xl shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
+                  className="px-6 sm:px-7 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
                 >
                   <span>SYSTEM ROADMAP</span>
                   <span>▸</span>
