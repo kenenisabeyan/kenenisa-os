@@ -121,18 +121,25 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full flex flex-col space-y-0" id="public-home-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="w-full pt-4 pb-10 sm:pb-14 bg-white">
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-6 sm:space-y-8">
-          {/* Headline matching Alazar bold high-impact typographic hierarchy */}
+      <section className="w-full pt-4 pb-12 sm:pb-16 bg-white relative overflow-hidden">
+        {/* Ambient Lighting & Micro-texture */}
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#20B5D6]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-12 right-1/4 w-96 h-96 bg-[#FE721D]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#20B5D612_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-6 sm:space-y-8 relative z-10">
+          {/* Headline with balanced typographic hierarchy & brand gradient shimmer */}
           <div className="space-y-3 max-w-4xl mx-auto">
-            <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[1.02] break-words">
-              <span>Kenenisa Beyan.</span>
-              <span className="block text-[#20B5D6]">
+            <h1 className="font-black tracking-tight break-words">
+              <span className="block text-4xl xs:text-5xl sm:text-7xl lg:text-8xl text-slate-900 leading-[1.04]">
+                Kenenisa Beyan.
+              </span>
+              <span className="block text-2xl xs:text-3xl sm:text-5xl lg:text-6xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent mt-2 sm:mt-3 leading-[1.08]">
                 Engineering OS &amp; Visual Architecture
               </span>
             </h1>
 
-            <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
+            <p className="text-sm xs:text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
               A unified operating platform connecting strategic direction, daily capacity budgeting, verified evidence, and ground-truth AI reasoning into one cohesive discipline.
             </p>
           </div>
@@ -141,7 +148,7 @@ export const HomePage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-1">
             <a
               href="#workstreams"
-              className="px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
             >
               <span>EXPLORE WORK</span>
               <span>▾</span>
@@ -149,7 +156,7 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/how-it-works"
-              className="px-6 sm:px-8 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="px-6 sm:px-8 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-xl shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
             >
               <span>SYSTEM TOUR</span>
               <span>▸</span>
@@ -157,26 +164,32 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/login"
-              className="px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
             >
               <span>LAUNCH OS</span>
               <span>→</span>
             </Link>
           </div>
 
-          {/* 3 Metric Cards matching reference portfolio presentation */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-6">
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-              <div className="text-3xl xs:text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">5+</div>
-              <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Years Experience</div>
+          {/* 3 Metric Cards with glassmorphic depth & subtle brand accent */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-4">
+            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-2xl p-5 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="text-3xl xs:text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
+              <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Years Building Systems</div>
+              <p className="text-xs text-slate-400 mt-1 font-medium">Architecture &amp; Full-Stack</p>
             </div>
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-              <div className="text-3xl xs:text-4xl sm:text-6xl font-black text-[#FE721D] tracking-tight">140+</div>
+            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#FE721D]/50 rounded-2xl p-5 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FE721D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="text-3xl xs:text-4xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
               <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Projects &amp; Milestones</div>
+              <p className="text-xs text-slate-400 mt-1 font-medium">Academic &amp; Commercial</p>
             </div>
-            <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-8 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all text-center">
-              <div className="text-3xl xs:text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">99%</div>
+            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-2xl p-5 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="text-3xl xs:text-4xl sm:text-5xl font-black text-[#20B5D6] tracking-tight">99%</div>
               <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Verified Proof &amp; Reliability</div>
+              <p className="text-xs text-slate-400 mt-1 font-medium">Deterministic Contracts</p>
             </div>
           </div>
 

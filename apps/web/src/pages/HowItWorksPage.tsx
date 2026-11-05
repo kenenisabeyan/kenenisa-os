@@ -119,12 +119,19 @@ export const HowItWorksPage: React.FC = () => {
   return (
     <div className="w-full flex flex-col space-y-0" id="how-it-works-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="w-full pt-4 pb-10 sm:pb-14 bg-white">
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-4 sm:space-y-5 relative">
+      <section className="w-full pt-4 pb-12 sm:pb-16 bg-white relative overflow-hidden">
+        {/* Ambient Lighting & Micro-texture */}
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#20B5D6]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-12 right-1/4 w-96 h-96 bg-[#FE721D]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#20B5D612_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-4 sm:space-y-6 relative z-10">
           {/* Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-[1.02] max-w-5xl mx-auto">
-            <span>From Intention to</span>
-            <span className="block text-[#20B5D6]">
+          <h1 className="font-black tracking-tight max-w-5xl mx-auto break-words">
+            <span className="block text-4xl sm:text-6xl lg:text-7xl text-slate-900 leading-[1.04]">
+              From Intention to
+            </span>
+            <span className="block text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent mt-2 sm:mt-3 leading-[1.08]">
               Verifiable Engineering Proof.
             </span>
           </h1>
