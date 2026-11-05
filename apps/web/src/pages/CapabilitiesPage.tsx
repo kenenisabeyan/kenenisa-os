@@ -145,8 +145,10 @@ export const CapabilitiesPage: React.FC = () => {
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-8 relative">
           {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
-            Built for Engineering Precision &amp; <br />
-            <span className="text-[#20B5D6]">Modular System Architecture</span>.
+            <span>Built for Engineering Precision &amp;</span>
+            <span className="block mt-2.5 sm:mt-4 md:mt-5 text-[#20B5D6]">
+              Modular System Architecture.
+            </span>
           </h1>
 
           {/* Supporting Copy */}
