@@ -222,48 +222,48 @@ export const CapabilitiesPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 text-xs relative z-10">
           {/* Card 1 */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
-            <div className="w-16 h-16 rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
               🔒
             </div>
             <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">SECURE ENCLAVE</div>
-            <h4 className="font-black text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
+            <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
               Isolated Private Operating Context
             </h4>
-            <p className="text-slate-600 leading-relaxed font-medium text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
               All personal tasks, goals, project artifacts, and evidence reside behind strict authenticated sessions. Public pages never expose private user data.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-3xl p-8 space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
-            <div className="w-16 h-16 rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-orange-500/20 group-hover/card:scale-110 transition-transform">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-orange-500/20 group-hover/card:scale-110 transition-transform">
               🤖
             </div>
             <div className="text-[10px] font-black uppercase tracking-widest text-[#FE721D]">HUMAN CONTROL</div>
-            <h4 className="font-black text-lg text-slate-900 group-hover/card:text-[#FE721D] transition-colors">
+            <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#FE721D] transition-colors">
               Human-In-The-Loop AI
             </h4>
-            <p className="text-slate-600 leading-relaxed font-medium text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
               Intelligence Core acts strictly as an advisory layer. The system will never mutate tasks, delete projects, or send external data without explicit human confirmation.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center sm:col-span-2 lg:col-span-1">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-sky-600" />
-            <div className="w-16 h-16 rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
               🗄️
             </div>
             <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">DATABASE TRUTH</div>
-            <h4 className="font-black text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
+            <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
               Authoritative System State
             </h4>
-            <p className="text-slate-600 leading-relaxed font-medium text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
               Your PostgreSQL database state is the single source of truth. AI reasoning is transient and downstream from verified database state.
             </p>
           </div>

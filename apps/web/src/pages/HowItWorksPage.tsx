@@ -168,47 +168,47 @@ export const HowItWorksPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {/* Pillar 1 */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden flex flex-col items-center text-center">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden flex flex-col items-center text-center">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
-            <div className="w-18 h-18 rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+            <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
               🎯
             </div>
-            <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 01</div>
-            <div className="space-y-2">
-              <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Deterministic Execution</h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+            <div className="text-[10px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 01</div>
+            <div className="space-y-1.5 sm:space-y-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Deterministic Execution</h3>
+              <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium">
                 No guessing what to work on next. The Next Best Action engine evaluates open task dependencies, deadlines, and scheduled focus blocks.
               </p>
             </div>
           </div>
 
           {/* Pillar 2 */}
-          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-orange-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20 group overflow-hidden flex flex-col items-center text-center">
+          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-xl shadow-orange-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20 group overflow-hidden flex flex-col items-center text-center">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
-            <div className="w-18 h-18 rounded-[1.75rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-3xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
+            <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
               🛡️
             </div>
-            <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 02</div>
-            <div className="space-y-2">
-              <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#FE721D] transition-colors">Observable Proof Vault</h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+            <div className="text-[10px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 02</div>
+            <div className="space-y-1.5 sm:space-y-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#FE721D] transition-colors">Observable Proof Vault</h3>
+              <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium">
                 Task completions generate verifiable evidence items (PRs, commits, test runs, architecture docs) stored directly in your Evidence Vault.
               </p>
             </div>
           </div>
 
           {/* Pillar 3 */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden flex flex-col items-center text-center">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 space-y-3.5 sm:space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden flex flex-col items-center text-center">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-sky-600" />
-            <div className="w-18 h-18 rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+            <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
               ⚙️
             </div>
-            <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 03</div>
-            <div className="space-y-2">
-              <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Multi-Outcome Sync</h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
+            <div className="text-[10px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 03</div>
+            <div className="space-y-1.5 sm:space-y-2">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Multi-Outcome Sync</h3>
+              <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium">
                 Completing one task simultaneously advances coursework, software projects, skill capabilities, and target career opportunities.
               </p>
             </div>
@@ -235,40 +235,40 @@ export const HowItWorksPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-center text-xs relative z-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 text-center text-xs relative z-10">
           {/* 1. Problem */}
-          <div className="relative bg-white/95 border-2 border-slate-200/90 rounded-2xl p-5 space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-slate-400 transition-all duration-300 group/step overflow-hidden">
+          <div className="relative bg-white/95 border-2 border-slate-200/90 rounded-2xl p-4 sm:p-5 space-y-1.5 sm:space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-slate-400 transition-all duration-300 group/step overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-1 bg-slate-500" />
             <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest block">1. Problem</span>
-            <p className="font-black text-base text-indigo-950 group-hover/step:text-slate-700 transition-colors">Identify Gap</p>
+            <p className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-slate-700 transition-colors">Identify Gap</p>
           </div>
 
           {/* 2. Question */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl p-5 space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-cyan-400 transition-all duration-300 group/step overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-cyan-500" />
-            <span className="text-[10px] font-black text-cyan-600 uppercase tracking-widest block">2. Question</span>
-            <p className="font-black text-base text-cyan-950 group-hover/step:text-cyan-600 transition-colors">Hypothesize</p>
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl p-4 sm:p-5 space-y-1.5 sm:space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-cyan-400 transition-all duration-300 group/step overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#20B5D6]" />
+            <span className="text-[10px] font-black text-[#20B5D6] uppercase tracking-widest block">2. Question</span>
+            <p className="font-black text-sm sm:text-base text-cyan-950 group-hover/step:text-[#20B5D6] transition-colors">Hypothesize</p>
           </div>
 
           {/* 3. Design */}
-          <div className="relative bg-white/95 border-2 border-teal-200/90 rounded-2xl p-5 space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-teal-400 transition-all duration-300 group/step overflow-hidden">
+          <div className="relative bg-white/95 border-2 border-teal-200/90 rounded-2xl p-4 sm:p-5 space-y-1.5 sm:space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-teal-400 transition-all duration-300 group/step overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-1 bg-teal-500" />
             <span className="text-[10px] font-black text-teal-600 uppercase tracking-widest block">3. Design</span>
-            <p className="font-black text-base text-indigo-950 group-hover/step:text-teal-600 transition-colors">Architecture</p>
+            <p className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-teal-600 transition-colors">Architecture</p>
           </div>
 
           {/* 4. Build */}
-          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-2xl p-5 space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-orange-400 transition-all duration-300 group/step overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-orange-500" />
-            <span className="text-[10px] font-black text-orange-600 uppercase tracking-widest block">4. Build</span>
-            <p className="font-black text-base text-orange-950 group-hover/step:text-orange-600 transition-colors">Implementation</p>
+          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-2xl p-4 sm:p-5 space-y-1.5 sm:space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-orange-400 transition-all duration-300 group/step overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#FE721D]" />
+            <span className="text-[10px] font-black text-[#FE721D] uppercase tracking-widest block">4. Build</span>
+            <p className="font-black text-sm sm:text-base text-orange-950 group-hover/step:text-[#FE721D] transition-colors">Implementation</p>
           </div>
 
           {/* 5. Verification */}
-          <div className="relative bg-white/95 border-2 border-emerald-200/90 rounded-2xl p-5 space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-emerald-400 transition-all duration-300 group/step overflow-hidden">
+          <div className="relative bg-white/95 border-2 border-emerald-200/90 rounded-2xl p-4 sm:p-5 space-y-1.5 sm:space-y-2 shadow-md hover:shadow-xl hover:-translate-y-1.5 hover:border-emerald-400 transition-all duration-300 group/step overflow-hidden col-span-2 sm:col-span-1">
             <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500" />
             <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest block">5. Verification</span>
-            <p className="font-black text-base text-emerald-950 group-hover/step:text-emerald-600 transition-colors">Evidence</p>
+            <p className="font-black text-sm sm:text-base text-emerald-950 group-hover/step:text-emerald-600 transition-colors">Evidence</p>
           </div>
         </div>
       </section>
