@@ -152,7 +152,7 @@ export const ForgotEmailPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-2 py-2.5 sm:py-3.5 px-4 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md shadow-blue-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer"
+            className="w-full mt-2 py-2.5 sm:py-3.5 px-4 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold rounded-sm text-xs sm:text-sm shadow-md shadow-blue-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer"
           >
             {isSubmitting ? (
               <>
@@ -179,7 +179,7 @@ export const ForgotEmailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setName('Kenenisa Beyan')}
-              className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-1.5"
+              className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-sm text-xs transition-colors flex items-center justify-center gap-1.5"
             >
               <ZapIcon className="w-3.5 h-3.5 text-amber-500" />
               <span>Autofill Owner Name (Kenenisa Beyan)</span>
@@ -245,7 +245,7 @@ export const ForgotEmailPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => toggleEmailVisibility(acc.email)}
-                        className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-slate-600 rounded-sm hover:bg-slate-100 transition-colors"
                         title={isVisible ? 'Mask email' : 'Reveal full email'}
                       >
                         {isVisible ? (
@@ -263,7 +263,7 @@ export const ForgotEmailPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleCopy(acc.email)}
-                        className="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors flex items-center gap-1.5"
+                        className="px-2.5 py-1.5 text-xs font-semibold rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors flex items-center gap-1.5"
                       >
                         {isCopied ? (
                           <span className="text-emerald-600 font-bold flex items-center gap-1">
@@ -281,7 +281,7 @@ export const ForgotEmailPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => navigate(`/login?email=${encodeURIComponent(acc.email)}`)}
-                      className="py-2.5 px-3 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold rounded-xl text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
+                      className="py-2.5 px-3 bg-[#3B82F6] hover:bg-blue-600 text-white font-bold rounded-sm text-xs transition-colors shadow-sm flex items-center justify-center gap-1.5"
                     >
                       <span>Sign In with Email</span>
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -292,7 +292,7 @@ export const ForgotEmailPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => navigate(`/forgot-password?email=${encodeURIComponent(acc.email)}`)}
-                      className="py-2.5 px-3 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5"
+                      className="py-2.5 px-3 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-bold rounded-sm text-xs transition-colors flex items-center justify-center gap-1.5"
                     >
                       <span>Reset Password</span>
                     </button>

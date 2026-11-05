@@ -285,7 +285,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           {/* Theme Toggle Button (Rounded Square with subtle border) */}
           <button
             onClick={toggleTheme}
-            className={`w-10 h-10 rounded-xl border ${
+            className={`w-10 h-10 rounded-sm border ${
               isDark
                 ? 'border-slate-700 bg-slate-800/90 text-amber-400 hover:bg-slate-700'
                 : isScrolled
@@ -309,7 +309,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           {/* Menu Hamburger Button (Rounded Square with subtle border) */}
           <button
             onClick={() => setDrawerOpen(true)}
-            className={`w-10 h-10 rounded-xl border ${
+            className={`w-10 h-10 rounded-sm border ${
               isDark
                 ? 'border-slate-700 bg-slate-800/90 text-slate-100 hover:bg-slate-700'
                 : isScrolled
@@ -328,7 +328,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           {user ? (
             <button
               onClick={() => navigate('/app/dashboard')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#20B5D6] hover:bg-[#1aa3c2] text-white text-xs font-bold transition-all shadow-md shadow-cyan-500/20"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-sm bg-[#20B5D6] hover:bg-[#1aa3c2] text-white text-xs font-bold transition-all shadow-md shadow-cyan-500/20"
             >
               <span>App</span>
               <span>→</span>
@@ -336,7 +336,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           ) : (
             <Link
               to="/login"
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FE721D] hover:bg-[#e56315] text-white text-xs font-bold transition-all shadow-md shadow-orange-500/20"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-sm bg-[#FE721D] hover:bg-[#e56315] text-white text-xs font-bold transition-all shadow-md shadow-orange-500/20"
             >
               <span>Sign In</span>
             </Link>
@@ -365,7 +365,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <div className="shrink-0 flex items-center justify-end pb-2">
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors text-2xl font-light cursor-pointer"
+                className="w-9 h-9 rounded-sm flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors text-2xl font-light cursor-pointer"
                 aria-label="Close Menu"
               >
                 ✕
@@ -576,7 +576,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
               </div>
               <button
                 onClick={() => setContactModalOpen(false)}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors text-lg"
+                className="w-8 h-8 rounded-sm flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors text-lg"
               >
                 ✕
               </button>
@@ -610,7 +610,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="mailto:beyankenenisa@gmail.com"
-                className="flex-1 py-3 px-4 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs tracking-wider uppercase rounded-xl text-center shadow-md shadow-orange-500/20 transition-all"
+                className="flex-1 py-3 px-4 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs tracking-wider uppercase rounded-sm text-center shadow-md shadow-orange-500/20 transition-all"
               >
                 Send Direct Email ↗
               </a>
@@ -619,7 +619,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                   setContactModalOpen(false);
                   setCvModalOpen(true);
                 }}
-                className="py-3 px-4 border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold text-xs tracking-wider uppercase rounded-xl text-center transition-all"
+                className="py-3 px-4 border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold text-xs tracking-wider uppercase rounded-sm text-center transition-all"
               >
                 View CV Resume
               </button>
@@ -648,7 +648,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
               </div>
               <button
                 onClick={() => setCvModalOpen(false)}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors text-lg"
+                className="w-8 h-8 rounded-sm flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors text-lg"
               >
                 ✕
               </button>
@@ -725,7 +725,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
               </span>
               <button
                 onClick={() => window.print()}
-                className="px-4 py-2 bg-[#20B5D6] hover:bg-[#1aa3c2] text-white font-bold text-xs rounded-xl shadow-md shadow-cyan-500/20 transition-all hover:scale-105 active:scale-95"
+                className="px-4 py-2 bg-[#20B5D6] hover:bg-[#1aa3c2] text-white font-bold text-xs rounded-sm shadow-md shadow-cyan-500/20 transition-all hover:scale-105 active:scale-95"
               >
                 Print / Save PDF
               </button>

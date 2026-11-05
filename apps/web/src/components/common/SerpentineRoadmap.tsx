@@ -322,7 +322,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                       }
                     }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-sm text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                       isCur
                         ? 'text-white shadow-md scale-105'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -341,7 +341,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
 
             <button
               onClick={() => setAutoTourActive((v) => !v)}
-              className={`ml-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 border cursor-pointer ${
+              className={`ml-2 px-3 py-1.5 rounded-sm text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 border cursor-pointer ${
                 autoTourActive
                   ? 'bg-[#FE721D] text-white border-[#e56315] shadow-md shadow-orange-500/25 animate-pulse'
                   : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'

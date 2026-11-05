@@ -344,7 +344,7 @@ export const DashboardPage: React.FC = () => {
             <button
               id="export-standup-btn"
               onClick={handleExportStandup}
-              className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+              className="px-3.5 py-2.5 rounded-sm bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
               title="Copy Daily Standup briefing to clipboard as Markdown"
             >
               <span>📋</span>
@@ -354,7 +354,7 @@ export const DashboardPage: React.FC = () => {
               id="refresh-dashboard-btn"
               onClick={() => { void loadDashboard(); }}
               disabled={loading}
-              className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-xs font-bold text-slate-700 flex items-center gap-2 transition-all shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
+              className="px-4 py-2.5 rounded-sm bg-white hover:bg-slate-50 border border-slate-200/90 text-xs font-bold text-slate-700 flex items-center gap-2 transition-all shadow-sm active:scale-95 disabled:opacity-50 cursor-pointer"
             >
               <svg
                 className={`w-4 h-4 text-cyan-600 ${loading ? 'animate-spin' : ''}`}
@@ -551,7 +551,7 @@ export const DashboardPage: React.FC = () => {
                     id="nba-start-btn"
                     onClick={() => { void handleStartTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-white hover:bg-slate-100 text-blue-700 font-extrabold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-sm bg-white hover:bg-slate-100 text-blue-700 font-extrabold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -565,7 +565,7 @@ export const DashboardPage: React.FC = () => {
                     id="nba-complete-btn"
                     onClick={() => { void handleCompleteTask(nextBestAction.recommendedTask!.id); }}
                     disabled={actionLoading === nextBestAction.recommendedTask.id}
-                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+                    className="w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 rounded-sm bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -578,7 +578,7 @@ export const DashboardPage: React.FC = () => {
                   id="nba-block-btn"
                   onClick={() => { void handleBlockTask(nextBestAction.recommendedTask!.id); }}
                   disabled={actionLoading === nextBestAction.recommendedTask.id}
-                  className="w-full sm:w-auto px-3.5 py-2 sm:px-4 sm:py-3 rounded-xl bg-white/15 hover:bg-rose-500/30 text-white border border-white/20 hover:border-rose-300/40 text-xs font-bold transition-all disabled:opacity-50 text-center cursor-pointer backdrop-blur-md"
+                  className="w-full sm:w-auto px-3.5 py-2 sm:px-4 sm:py-3 rounded-sm bg-white/15 hover:bg-rose-500/30 text-white border border-white/20 hover:border-rose-300/40 text-xs font-bold transition-all disabled:opacity-50 text-center cursor-pointer backdrop-blur-md"
                 >
                   Flag Blocked
                 </button>
@@ -1272,14 +1272,14 @@ export const DashboardPage: React.FC = () => {
                   type="button"
                   onClick={() => setIsCreateCategoryOpen(false)}
                   disabled={isSubmittingCategory}
-                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-sm text-xs transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmittingCategory}
-                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
                 >
                   {isSubmittingCategory ? 'Creating...' : 'Create Category'}
                 </button>
@@ -1387,14 +1387,14 @@ export const DashboardPage: React.FC = () => {
                   type="button"
                   onClick={() => setIsConvertToTaskOpen(false)}
                   disabled={isConverting}
-                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-sm text-xs transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isConverting}
-                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
                 >
                   {isConverting ? 'Creating Task...' : 'Create Executable Task'}
                 </button>
@@ -1492,14 +1492,14 @@ export const DashboardPage: React.FC = () => {
                   type="button"
                   onClick={() => setEditingCategory(null)}
                   disabled={isUpdatingCategory}
-                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs transition-colors cursor-pointer"
+                  className="py-2 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-sm text-xs transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isUpdatingCategory}
-                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer"
                 >
                   {isUpdatingCategory ? 'Saving Changes...' : 'Save Changes'}
                 </button>

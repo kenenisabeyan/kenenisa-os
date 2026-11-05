@@ -53,7 +53,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <div className="flex items-center gap-3 lg:hidden">
             <button
               onClick={() => setMobileOpen(true)}
-              className="p-2 rounded-xl bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 border border-slate-200/90 transition-all cursor-pointer"
+              className="p-2 rounded-sm bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 border border-slate-200/90 transition-all cursor-pointer"
               aria-label="Open navigation menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               <img
                 src="/logo-icon.jpg"
                 alt="KENENISA OS"
-                className="w-7 h-7 rounded-lg object-cover shadow-xs ring-1 ring-cyan-400/30"
+                className="w-7 h-7 rounded-sm object-cover shadow-xs ring-1 ring-cyan-400/30"
               />
               <span className="font-black text-xs text-slate-900 tracking-tight">KENENISA OS</span>
             </div>
@@ -74,7 +74,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <div className="hidden lg:flex items-center flex-1 max-w-md">
             <button
               onClick={() => setSearchOpen(true)}
-              className="w-full bg-slate-100/80 hover:bg-white hover:border-blue-300/80 border border-slate-200/80 rounded-2xl px-3.5 py-2 flex items-center justify-between text-xs text-slate-500 transition-all group shadow-2xs hover:shadow-xs cursor-pointer"
+              className="w-full bg-slate-100/80 hover:bg-white hover:border-blue-300/80 border border-slate-200/80 rounded-sm px-3.5 py-2 flex items-center justify-between text-xs text-slate-500 transition-all group shadow-2xs hover:shadow-xs cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
                 <svg className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,7 +111,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             {/* Mobile Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 transition-all cursor-pointer"
+              className="lg:hidden p-2 rounded-sm bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 transition-all cursor-pointer"
               title="Global Search"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             {/* AI Copilot Quick Trigger (Prominent on Mobile & Desktop) */}
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-ai-copilot'))}
-              className="p-2 sm:px-3 sm:py-2 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-700 border border-blue-200/90 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-2xs"
+              className="p-2 sm:px-3 sm:py-2 rounded-sm bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-700 border border-blue-200/90 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-2xs"
               title="Open AI Command Copilot"
               aria-label="Open AI Command Copilot"
             >
@@ -134,7 +134,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <button
               id="global-quick-action-btn"
               onClick={() => setQuickActionOpen(true)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 text-white font-black text-xs shadow-md shadow-blue-500/25 flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-4 py-2 rounded-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 text-white font-black text-xs shadow-md shadow-blue-500/25 flex items-center gap-1.5 transition-all cursor-pointer"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />

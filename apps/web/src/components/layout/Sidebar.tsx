@@ -230,7 +230,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
                   onMouseEnter={() => routePrefetchMap[item.path]?.()}
                   title={item.label}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`group relative flex items-center justify-between gap-2.5 w-full px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-150 ${
+                  className={`group relative flex items-center justify-between gap-2.5 w-full px-3 py-2 rounded-sm text-xs font-semibold transition-all duration-150 ${
                     isActive
                       ? 'bg-blue-50/90 text-blue-700 font-bold shadow-2xs border border-blue-200/70'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
@@ -272,7 +272,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
         <div className="flex items-center justify-between px-2 py-1.5">
           <div className="flex items-center gap-2.5 min-w-0 pr-2">
             <div className="relative">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 border border-blue-400/40 flex items-center justify-center font-black text-xs text-white shadow-xs">
+              <div className="w-8 h-8 rounded-sm bg-gradient-to-tr from-blue-600 to-indigo-600 border border-blue-400/40 flex items-center justify-center font-black text-xs text-white shadow-xs">
                 {(user?.displayName || 'K')[0]}
               </div>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" title="System Connected" />
@@ -286,7 +286,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
             <NavLink
               to="/app/settings"
               title="Settings & Security"
-              className="p-1.5 rounded-lg bg-white hover:bg-blue-50 text-slate-500 hover:text-blue-600 transition-colors shadow-2xs border border-slate-200 hover:border-blue-200"
+              className="p-1.5 rounded-sm bg-white hover:bg-blue-50 text-slate-500 hover:text-blue-600 transition-colors shadow-2xs border border-slate-200 hover:border-blue-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -297,7 +297,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
               onClick={() => void logout()}
               title="Logout"
               aria-label="Logout of Kenenisa OS"
-              className="p-1.5 rounded-lg bg-white hover:bg-rose-50 text-slate-500 hover:text-rose-600 transition-colors shadow-2xs border border-slate-200 hover:border-rose-200 cursor-pointer"
+              className="p-1.5 rounded-sm bg-white hover:bg-rose-50 text-slate-500 hover:text-rose-600 transition-colors shadow-2xs border border-slate-200 hover:border-rose-200 cursor-pointer"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
