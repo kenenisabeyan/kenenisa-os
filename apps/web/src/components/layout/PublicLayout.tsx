@@ -235,7 +235,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         {/* Center Desktop Navigation (Clean uppercase typography — appears smoothly only on scroll) */}
         <nav
           aria-label="Public Center Navigation"
-          className={`hidden lg:flex items-center gap-7 sm:gap-9 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 transition-all duration-300 ease-in-out ${
+          className={`hidden lg:flex items-center gap-5 sm:gap-7 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 transition-all duration-300 ease-in-out ${
             isScrolled
               ? 'opacity-100 translate-y-0 pointer-events-auto'
               : 'opacity-0 -translate-y-2 pointer-events-none'
@@ -487,7 +487,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       {/* ══════════════════════════════════════════════════════════════════════
            MAIN PUBLIC PAGE CONTENT
       ══════════════════════════════════════════════════════════════════════ */}
-      <main className="flex-1 w-full pt-20 sm:pt-24 pb-0 overflow-x-hidden">
+      <main className="flex-1 w-full pt-16 sm:pt-20 pb-0 overflow-x-hidden">
         {children}
       </main>
 
