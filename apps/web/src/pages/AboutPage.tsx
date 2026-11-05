@@ -548,37 +548,37 @@ export const AboutPage: React.FC = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="relative bg-white/95 p-8 rounded-3xl border-2 border-cyan-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-cyan-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
-            <div className="w-18 h-18 rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
+            <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
             <div className="space-y-1">
               <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
-              <h4 className="font-black text-2xl text-slate-900">Public Experience</h4>
+              <h4 className="font-black text-xl sm:text-2xl text-slate-900">Public Experience</h4>
             </div>
-            <p className="text-slate-600 leading-relaxed font-medium text-sm max-w-md">
+            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
               Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
             </p>
-            <div className="flex flex-wrap justify-center gap-2 pt-2">
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
               {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
-                <span key={p} className="text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-3 py-1 rounded-lg">{p}</span>
+                <span key={p} className="text-[11px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
               ))}
             </div>
           </div>
 
-          <div className="relative bg-white/95 p-8 rounded-3xl border-2 border-orange-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
+          <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-orange-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
-            <div className="w-18 h-18 rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
+            <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
             <div className="space-y-1">
               <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
-              <h4 className="font-black text-2xl text-slate-900">Private Operating System</h4>
+              <h4 className="font-black text-xl sm:text-2xl text-slate-900">Private Operating System</h4>
             </div>
-            <p className="text-slate-600 leading-relaxed font-medium text-sm max-w-md">
+            <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
               Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
             </p>
-            <div className="flex flex-wrap justify-center gap-2 pt-2">
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
               {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
-                <span key={p} className="text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-3 py-1 rounded-lg">{p}</span>
+                <span key={p} className="text-[11px] sm:text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
               ))}
             </div>
           </div>
