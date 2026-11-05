@@ -217,14 +217,12 @@ export const HowItWorksPage: React.FC = () => {
       </section>
 
       {/* ── ENGINEERING R&D PHILOSOPHY ─────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-teal-50/90 via-emerald-50/70 to-cyan-50/90 border-2 border-teal-200/90 rounded-3xl p-8 sm:p-14 shadow-2xl shadow-teal-500/10 space-y-10 text-center max-w-[1720px] mx-auto overflow-hidden group">
-        {/* Top Accent Line */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-teal-500 via-emerald-500 to-cyan-600" />
-        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-teal-400/15 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative bg-gradient-to-br from-cyan-50/70 via-emerald-50/50 to-slate-50/70 rounded-3xl p-8 sm:p-14 space-y-10 text-center max-w-[1720px] mx-auto overflow-hidden">
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="space-y-3 max-w-3xl mx-auto relative z-10">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-teal-900 bg-white/90 border border-teal-300 px-4 py-1.5 rounded-full tracking-widest shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-teal-600 animate-pulse" />
+          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
             Scientific R&amp;D Discipline
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
@@ -274,9 +272,7 @@ export const HowItWorksPage: React.FC = () => {
       </section>
 
       {/* ── CALL TO ACTION ────────────────────────────────────────────────────── */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/90 via-white to-orange-50/80 border-2 border-cyan-200/80 p-10 sm:p-14 text-center space-y-6 shadow-2xl shadow-cyan-500/10 max-w-[1720px] mx-auto overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D]" />
-        
+      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 p-10 sm:p-14 text-center space-y-6 max-w-[1720px] mx-auto overflow-hidden">
         <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
           Ready to examine the full system capabilities?
         </h3>
