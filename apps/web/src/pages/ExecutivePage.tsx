@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 import { fetchWorkstreams } from '../features/workstreams/api.js';
 import { fetchGoals } from '../features/goals/api.js';
 import { fetchProjects } from '../features/projects/api.js';
@@ -119,7 +120,8 @@ export const ExecutivePage: React.FC = () => {
               onClick={() => navigate('/app/planning')}
               className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-[11px] sm:text-xs shadow-lg shadow-blue-500/20 transition-all flex items-center gap-1.5"
             >
-              <span>⚡ Strategic Planning</span>
+              <ZapIcon className="w-3.5 h-3.5 text-white" />
+              <span>Strategic Planning</span>
             </button>
           </div>
         }

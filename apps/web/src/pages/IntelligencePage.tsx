@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 import type {
   ConversationDto,
   ConversationMessageDto,
@@ -336,9 +337,10 @@ export const IntelligencePage: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setInputText('Am I overloading my available capacity?')}
-                    className="p-3 bg-white border border-slate-200 hover:border-blue-300 rounded-xl text-left text-slate-700 hover:text-slate-900 transition-all shadow-xs font-medium"
+                    className="p-3 bg-white border border-slate-200 hover:border-blue-300 rounded-xl text-left text-slate-700 hover:text-slate-900 transition-all shadow-xs font-medium flex items-center gap-2"
                   >
-                    ⚡ Am I overloading my available capacity?
+                    <ZapIcon className="w-4 h-4 text-amber-500 shrink-0" />
+                    <span>Am I overloading my available capacity?</span>
                   </button>
                   <button
                     onClick={() => setInputText('What opportunities am I currently pursuing?')}
@@ -482,9 +484,10 @@ export const IntelligencePage: React.FC = () => {
             <button
               type="button"
               onClick={() => setInputText('Audit my current capacity and workload balance')}
-              className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200/90 rounded-lg text-slate-700 font-semibold whitespace-nowrap transition-colors shadow-xs"
+              className="px-2.5 py-1 bg-white hover:bg-blue-50 hover:border-blue-300 border border-slate-200/90 rounded-lg text-slate-700 font-semibold whitespace-nowrap transition-colors shadow-xs inline-flex items-center gap-1.5"
             >
-              ⚡ Workload Capacity
+              <ZapIcon className="w-3.5 h-3.5 text-amber-500" />
+              <span>Workload Capacity</span>
             </button>
             <button
               type="button"

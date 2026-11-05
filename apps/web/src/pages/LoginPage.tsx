@@ -3,6 +3,7 @@ import { useNavigate, Navigate, Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.js';
 import { loginSchema } from '@kenenisa-os/shared';
 import { ApiError, isApiError } from '../lib/api-client.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 export const LoginPage: React.FC = () => {
   const { login, authState } = useAuth();

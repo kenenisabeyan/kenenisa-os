@@ -13,6 +13,7 @@ import { LoadingSkeleton, ErrorStateCard } from '../components/ui/StateCard.js';
 import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 import { getCachedApiData } from '../lib/api-client.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 interface RetroChecklistItem {
   id: string;
@@ -457,9 +458,10 @@ export const ReviewsPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleApplyTemplate('sprint')}
-                      className="px-2.5 py-1 text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg transition-colors cursor-pointer"
+                      className="px-2.5 py-1 text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg transition-colors cursor-pointer inline-flex items-center gap-1.5"
                     >
-                      ⚡ Engineering Retro
+                      <ZapIcon className="w-3 h-3 text-indigo-600" />
+                      <span>Engineering Retro</span>
                     </button>
                     <button
                       type="button"
