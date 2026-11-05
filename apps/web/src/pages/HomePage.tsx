@@ -172,25 +172,25 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* 3 Metric Cards with glassmorphic depth & subtle brand accent */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-4">
-            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-2xl p-5 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
+          {/* 3 Metric Cards with glassmorphic depth & subtle brand accent — always in one row */}
+          <div className="grid grid-cols-3 gap-2 xs:gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-4">
+            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-xl sm:rounded-2xl p-2.5 xs:p-4 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="text-3xl xs:text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
-              <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Years Building Systems</div>
-              <p className="text-xs text-slate-400 mt-1 font-medium">Architecture &amp; Full-Stack</p>
+              <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
+              <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Years Building Systems</div>
+              <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Architecture &amp; Full-Stack</p>
             </div>
-            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#FE721D]/50 rounded-2xl p-5 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
+            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#FE721D]/50 rounded-xl sm:rounded-2xl p-2.5 xs:p-4 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FE721D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="text-3xl xs:text-4xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
-              <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Projects &amp; Milestones</div>
-              <p className="text-xs text-slate-400 mt-1 font-medium">Academic &amp; Commercial</p>
+              <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
+              <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Projects &amp; Milestones</div>
+              <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Academic &amp; Commercial</p>
             </div>
-            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-2xl p-5 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
+            <div className="relative bg-white/95 backdrop-blur-sm border border-slate-200/90 hover:border-[#20B5D6]/50 rounded-xl sm:rounded-2xl p-2.5 xs:p-4 sm:p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden group">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="text-3xl xs:text-4xl sm:text-5xl font-black text-[#20B5D6] tracking-tight">99%</div>
-              <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">Verified Proof &amp; Reliability</div>
-              <p className="text-xs text-slate-400 mt-1 font-medium">Deterministic Contracts</p>
+              <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#20B5D6] tracking-tight">99%</div>
+              <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Verified Proof &amp; Reliability</div>
+              <p className="text-[8px] xs:text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 font-medium leading-tight">Deterministic Contracts</p>
             </div>
           </div>
 
