@@ -260,10 +260,6 @@ export const AboutPage: React.FC = () => {
       <section ref={statsRef} className="w-full py-12 sm:py-16 bg-white">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14">
           <div className="text-center mb-10 space-y-3">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-700 bg-slate-100/90 border border-slate-300 px-4 py-1.5 rounded-full tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-slate-600 animate-pulse" />
-              System Architecture at a Glance
-            </span>
             <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Built by the Numbers 📊</h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -286,10 +282,6 @@ export const AboutPage: React.FC = () => {
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
           <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
-              Why KENENISA OS Exists
-            </span>
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">The Fragmentation Problem</h2>
             <p className="text-lg text-slate-600 font-semibold max-w-3xl mx-auto">
               Modern practitioners operate across too many disconnected tools. This creates three compounding failures:
@@ -342,10 +334,6 @@ export const AboutPage: React.FC = () => {
       <section className="w-full py-16 sm:py-24 bg-white" id="principles">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10">
           <div className="text-center space-y-3">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
-              Core Principles
-            </span>
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Product Philosophy 💎</h2>
             <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
           </div>
@@ -424,10 +412,6 @@ export const AboutPage: React.FC = () => {
       <section className="w-full relative bg-gradient-to-br from-slate-50/80 via-cyan-50/30 to-slate-50/80 py-16 sm:py-24 overflow-hidden" id="stack">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
           <div className="text-center space-y-3">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-700 bg-slate-100/90 border border-slate-300 px-4 py-1.5 rounded-full tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-slate-600 animate-pulse" />
-              Technology Foundation
-            </span>
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Engineering Stack 🔧</h2>
             <p className="text-slate-600 font-semibold text-lg max-w-2xl mx-auto">
               Production-grade technologies chosen for reliability, type-safety, and real engineering precision.
@@ -455,10 +439,6 @@ export const AboutPage: React.FC = () => {
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
           <div className="flex flex-col items-center justify-center text-center space-y-3 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-purple-900 bg-purple-100/90 border border-purple-300 px-4 py-1.5 rounded-full tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
-              Human + AI Advisory Collaboration
-            </span>
             <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">AI Intelligence Pipeline 🤖</h2>
             <p className="text-slate-700 font-semibold text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
               AI should increase clarity, not remove human agency. Intelligence is strictly downstream of real system data in KENENISA OS.
@@ -546,10 +526,6 @@ export const AboutPage: React.FC = () => {
       <section className="w-full relative bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-cyan-50/60 py-16 sm:py-24 overflow-hidden">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8 relative z-10">
           <div className="text-center space-y-3">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-indigo-900 bg-indigo-100/90 border border-indigo-300 px-4 py-1.5 rounded-full tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
-              Architecture Boundary
-            </span>
             <h2 className="text-3xl sm:text-4xl font-black text-indigo-950 tracking-tight">
               Public Website vs Private Operating Environment
             </h2>
@@ -602,10 +578,6 @@ export const AboutPage: React.FC = () => {
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8 relative z-10">
           <div className="space-y-4 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
-              Ready to Operate
-            </div>
             <h3 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
               Enter your personal operating environment.
             </h3>

@@ -123,13 +123,6 @@ export const HomePage: React.FC = () => {
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
       <section className="w-full pt-6 pb-12 sm:pb-16 bg-white">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-8 sm:space-y-10">
-          {/* Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300 mx-auto">
-            <span className="w-2 h-2 rounded-full bg-[#FE721D] animate-pulse" />
-            <span>Personal Engineering &amp; Career OS &bull; 2026</span>
-            <span className="text-[#FE721D]">⚡</span>
-          </div>
-
           {/* Headline matching Alazar bold high-impact typographic hierarchy */}
           <div className="space-y-4 max-w-4xl mx-auto">
             <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
@@ -370,10 +363,6 @@ export const HomePage: React.FC = () => {
       <section className="w-full py-16 sm:py-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10">
           <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 text-xs font-black text-rose-600 bg-rose-50 border border-rose-200/90 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-              CHALLENGE &amp; SOLUTION
-            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
               The Problem: Fragmented Execution
             </h2>
@@ -462,10 +451,6 @@ export const HomePage: React.FC = () => {
       <section className="w-full py-16 sm:py-24 bg-white text-center">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10">
           <div className="max-w-3xl mx-auto space-y-3 relative z-10">
-            <span className="inline-flex items-center gap-2 text-xs font-black text-cyan-900 bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-              CORE ENGINEERING CONCEPT
-            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
               One Activity. Multiple Outcomes.
             </h2>
@@ -562,9 +547,6 @@ export const HomePage: React.FC = () => {
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
             <div>
-              <span className="text-xs font-extrabold text-[#0284C7] uppercase tracking-widest block mb-1">
-                OPERATIONAL COMMAND
-              </span>
               <h2 className="text-2xl sm:text-4xl font-black text-indigo-950 tracking-tight">
                 Command Center &amp; Intelligence Core
               </h2>
@@ -698,10 +680,6 @@ export const HomePage: React.FC = () => {
       <section className="w-full py-16 sm:py-24 bg-white">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 text-center">
           <div className="space-y-3 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 text-xs font-black text-purple-900 bg-purple-100/90 border border-purple-300 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
-              TARGET AUDIENCE
-            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
               Designed for Serious Practitioners
             </h2>

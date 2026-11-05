@@ -27,7 +27,7 @@ export interface SerpentineRoadmapProps {
 export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
   title = 'Structured Engineering Journey',
   subtitle = 'From initial requirement discovery to zero-downtime production deployment, our 5-phase engineering roadmap built for reliability and scale.',
-  badgeText = 'DEVELOPMENT LIFECYCLE & PROCESS',
+  badgeText: _badgeText,
   summaryBadgeText = 'FIVE STEPS',
   summaryTitle = 'FROM CHALLENGE TO DIGITAL IMPACT',
   summaryDescription = 'A structured engineering process that transforms complex business challenges into reliable, scalable, and future-ready technology solutions.',
@@ -218,21 +218,13 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
 
       <div className="max-w-[1720px] mx-auto relative z-10">
         {/* ── SECTION TOP HEADER ─────────────────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
-          <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 tracking-tight">
-              {title}
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-slate-500 font-medium mt-3 max-w-5xl">
-              {subtitle}
-            </p>
-          </div>
-
-          <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-cyan-50/90 border border-cyan-200/90 text-[#20B5D6] text-[10px] sm:text-xs font-extrabold uppercase tracking-widest shadow-xs shrink-0">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#20B5D6] animate-pulse" />
-            <span>{badgeText}</span>
-            <span className="text-[#FE721D]">⚡</span>
-          </div>
+        <div className="mb-10">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 tracking-tight">
+            {title}
+          </h2>
+          <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-slate-500 font-medium mt-3 max-w-5xl">
+            {subtitle}
+          </p>
         </div>
 
         {/* ── SUMMARY CARD (PLACED DIRECTLY BELOW HEADER WITH MARGIN) ─────────────── */}

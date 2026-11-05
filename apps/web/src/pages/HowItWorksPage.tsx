@@ -121,13 +121,6 @@ export const HowItWorksPage: React.FC = () => {
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
       <section className="w-full pt-6 pb-14 sm:pb-18 bg-white">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-8 relative">
-          {/* Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black uppercase tracking-widest shadow-xs hover:scale-105 transition-all duration-300">
-            <span className="w-2 h-2 rounded-full bg-[#FE721D] animate-pulse" />
-            <span>Behind The Scenes &bull; Methodology &bull; 2026</span>
-            <span className="text-[#FE721D]">⚡</span>
-          </div>
-
           {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.08] max-w-5xl mx-auto">
             From Intention to <br />
@@ -159,10 +152,6 @@ export const HowItWorksPage: React.FC = () => {
       <section className="w-full py-16 sm:py-24 bg-white">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10">
           <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 text-xs font-black text-teal-900 bg-teal-100/90 border border-teal-300 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-              CORE METHODOLOGY PILLARS
-            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
               Built on 3 Engineering Principles
             </h2>
@@ -226,10 +215,6 @@ export const HowItWorksPage: React.FC = () => {
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 text-center relative z-10">
           <div className="space-y-3 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
-              Scientific R&amp;D Discipline
-            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-indigo-950 tracking-tight">
               Think Like an Engineer
             </h2>
