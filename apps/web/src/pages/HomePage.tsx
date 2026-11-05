@@ -149,7 +149,7 @@ export const HomePage: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
           <a
             href="#workstreams"
-            className="px-8 py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+            className="px-8 py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <span>EXPLORE WORK</span>
             <span>▾</span>
@@ -157,7 +157,7 @@ export const HomePage: React.FC = () => {
 
           <Link
             to="/how-it-works"
-            className="px-8 py-3.5 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-xs transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+            className="px-8 py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <span>SYSTEM TOUR</span>
             <span>▸</span>
@@ -165,7 +165,7 @@ export const HomePage: React.FC = () => {
 
           <Link
             to="/login"
-            className="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-xs transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+            className="px-8 py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <span>LAUNCH OS</span>
             <span>→</span>
@@ -195,17 +195,17 @@ export const HomePage: React.FC = () => {
             {/* Step 1 */}
             <Link
               to="/workstreams"
-              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-indigo-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
             >
               {/* Centered Squircle Icon Box */}
-              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-indigo-300 group-hover/step:shadow-indigo-500/20 transition-all duration-300">
-                <svg className="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                 </svg>
               </div>
               {/* Title & Subtitle */}
               <div className="space-y-1 text-center w-full">
-                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-indigo-600 transition-colors">
+                <h3 className="font-black text-sm sm:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
                   Workstreams
                 </h3>
                 <p className="text-[11px] font-semibold text-slate-500 leading-tight">
@@ -217,18 +217,18 @@ export const HomePage: React.FC = () => {
             {/* Step 2 */}
             <Link
               to="/goals"
-              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-blue-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#FE721D] rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
             >
               {/* Centered Squircle Icon Box */}
-              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-blue-300 group-hover/step:shadow-blue-500/20 transition-all duration-300">
-                <svg className="w-7 h-7 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="9" strokeWidth={2} />
                   <circle cx="12" cy="12" r="4" strokeWidth={2} />
                 </svg>
               </div>
               {/* Title & Subtitle */}
               <div className="space-y-1 text-center w-full">
-                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-cyan-600 transition-colors">
+                <h3 className="font-black text-sm sm:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
                   Goals
                 </h3>
                 <p className="text-[11px] font-semibold text-slate-500 leading-tight">
@@ -240,17 +240,17 @@ export const HomePage: React.FC = () => {
             {/* Step 3 */}
             <Link
               to="/projects"
-              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-purple-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
             >
               {/* Centered Squircle Icon Box */}
-              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-purple-300 group-hover/step:shadow-purple-500/20 transition-all duration-300">
-                <svg className="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
               {/* Title & Subtitle */}
               <div className="space-y-1 text-center w-full">
-                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-purple-600 transition-colors">
+                <h3 className="font-black text-sm sm:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
                   Projects
                 </h3>
                 <p className="text-[11px] font-semibold text-slate-500 leading-tight">
@@ -262,17 +262,17 @@ export const HomePage: React.FC = () => {
             {/* Step 4 */}
             <Link
               to="/tasks"
-              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-amber-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-amber-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#FE721D] rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
             >
               {/* Centered Squircle Icon Box */}
-              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-amber-300 group-hover/step:shadow-amber-500/20 transition-all duration-300">
-                <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               {/* Title & Subtitle */}
               <div className="space-y-1 text-center w-full">
-                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-amber-600 transition-colors">
+                <h3 className="font-black text-sm sm:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
                   Tasks
                 </h3>
                 <p className="text-[11px] font-semibold text-slate-500 leading-tight">
@@ -284,17 +284,17 @@ export const HomePage: React.FC = () => {
             {/* Step 5 */}
             <Link
               to="/evidence"
-              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-emerald-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
             >
               {/* Centered Squircle Icon Box */}
-              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-emerald-300 group-hover/step:shadow-emerald-500/20 transition-all duration-300">
-                <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
               {/* Title & Subtitle */}
               <div className="space-y-1 text-center w-full">
-                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-emerald-600 transition-colors">
+                <h3 className="font-black text-sm sm:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
                   Evidence
                 </h3>
                 <p className="text-[11px] font-semibold text-slate-500 leading-tight">
@@ -306,17 +306,17 @@ export const HomePage: React.FC = () => {
             {/* Step 6 */}
             <Link
               to="/reflection"
-              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-rose-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-rose-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#FE721D] rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px]"
             >
               {/* Centered Squircle Icon Box */}
-              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-rose-300 group-hover/step:shadow-rose-500/20 transition-all duration-300">
-                <svg className="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
               </div>
               {/* Title & Subtitle */}
               <div className="space-y-1 text-center w-full">
-                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-rose-600 transition-colors">
+                <h3 className="font-black text-sm sm:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
                   Reflect
                 </h3>
                 <p className="text-[11px] font-semibold text-slate-500 leading-tight">
@@ -328,17 +328,17 @@ export const HomePage: React.FC = () => {
             {/* Step 7 */}
             <Link
               to="/career"
-              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-indigo-100 hover:border-sky-400 rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-sky-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px] col-span-2 sm:col-span-1 lg:col-span-1"
+              className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[160px] col-span-2 sm:col-span-1 lg:col-span-1"
             >
               {/* Centered Squircle Icon Box */}
-              <div className="w-14 h-14 rounded-2xl bg-white border border-indigo-100 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-sky-300 group-hover/step:shadow-sky-500/20 transition-all duration-300">
-                <svg className="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                <svg className="w-7 h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
               </div>
               {/* Title & Subtitle */}
               <div className="space-y-1 text-center w-full">
-                <h3 className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-sky-600 transition-colors">
+                <h3 className="font-black text-sm sm:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
                   Career
                 </h3>
                 <p className="text-[11px] font-semibold text-slate-500 leading-tight">
@@ -767,16 +767,16 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── FINAL CTA BANNER ────────────────────────────────────────────────────── */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-indigo-50/90 via-purple-50/80 to-cyan-50/90 border-2 border-indigo-200/90 p-10 sm:p-16 text-center space-y-8 shadow-2xl shadow-purple-500/10 max-w-[1720px] mx-auto overflow-hidden group">
+      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/90 via-white to-orange-50/80 border-2 border-cyan-200/80 p-10 sm:p-16 text-center space-y-8 shadow-2xl shadow-cyan-500/10 max-w-[1720px] mx-auto overflow-hidden group">
         {/* Top Accent Line */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600" />
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D]" />
         
         {/* Ambient Glowing Orbs */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#20B5D6]/15 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#FE721D]/15 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
 
         <div className="space-y-4 max-w-3xl mx-auto relative z-10">
-          <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight leading-tight text-indigo-950">
+          <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight leading-tight text-slate-900">
             Build your personal operating system.
           </h2>
           <p className="text-sm sm:text-xl text-slate-700 leading-relaxed font-semibold">
@@ -788,16 +788,16 @@ export const HomePage: React.FC = () => {
           {/* Button 1: Get Started Free */}
           <Link
             to="/login"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg sm:shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
+            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
               {/* Shimmer light pass */}
               <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
               
               <span>Get Started Free</span>
 
               {/* Glowing Arrow Badge */}
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-blue-600 group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
                 →
               </span>
             </span>
@@ -806,16 +806,16 @@ export const HomePage: React.FC = () => {
           {/* Button 2: Sign In */}
           <Link
             to="/login"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-purple-300 via-indigo-400 to-cyan-300 shadow-md sm:shadow-lg shadow-purple-500/10 hover:shadow-xl hover:shadow-purple-500/25 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-indigo-950 group-hover/btn:text-purple-700 font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors duration-200 overflow-hidden whitespace-nowrap">
+            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors duration-200 overflow-hidden whitespace-nowrap border border-slate-200">
               {/* Shimmer light pass */}
-              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-purple-400/20 to-transparent pointer-events-none" />
+              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
               
               <span>Sign In</span>
 
               {/* Glowing User Icon Badge */}
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center group-hover/btn:bg-purple-600 group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0">
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0">
                 <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                 </svg>

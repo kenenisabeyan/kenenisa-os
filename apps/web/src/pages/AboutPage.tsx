@@ -61,7 +61,7 @@ export const AboutPage: React.FC = () => {
       subtitle: 'Identify Real Friction Before Coding.',
       description: 'We analyze real-world operational fragmentation where academic coursework, engineering code, learning progress, and career opportunities exist in isolated silos.',
       focusAreas: ['Tool fragmentation analysis', 'Academic & engineering workflow audits', 'User pain point & bottleneck mapping', 'Core system objective definition'],
-      themeColor: '#6366F1', bgBadgeColor: 'bg-indigo-100 border-indigo-200 text-[#6366F1]', badgeTextColor: 'text-[#6366F1]',
+      themeColor: '#20B5D6', bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#20B5D6]', badgeTextColor: 'text-[#20B5D6]',
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
     },
     {
@@ -69,7 +69,7 @@ export const AboutPage: React.FC = () => {
       subtitle: 'Architect Clean Contracts & Data Schemas.',
       description: 'Construct clear information architecture, PostgreSQL schemas, domain service contracts, and UI design systems prior to writing production code.',
       focusAreas: ['Domain model & database schema design', 'REST API & controller specifications', 'Google Roboto design system & UI tokens', 'Deterministic state transition logic'],
-      themeColor: '#2563EB', bgBadgeColor: 'bg-blue-100 border-blue-200 text-[#2563EB]', badgeTextColor: 'text-[#2563EB]',
+      themeColor: '#FE721D', bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FE721D]', badgeTextColor: 'text-[#FE721D]',
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
     },
     {
@@ -77,7 +77,7 @@ export const AboutPage: React.FC = () => {
       subtitle: 'Engineering Execution Without Superficial Decoration.',
       description: 'Develop resilient Express services, React SPA pages, state management hooks, and background execution algorithms focused on core system utility.',
       focusAreas: ['TypeScript API & Vite SPA implementation', 'Capacity & daily plan calculation engines', 'Evidence logging & artifact mapping', 'Argon2id auth & session management'],
-      themeColor: '#EA580C', bgBadgeColor: 'bg-orange-100 border-orange-200 text-[#EA580C]', badgeTextColor: 'text-[#EA580C]',
+      themeColor: '#20B5D6', bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#20B5D6]', badgeTextColor: 'text-[#20B5D6]',
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
     },
     {
@@ -85,7 +85,7 @@ export const AboutPage: React.FC = () => {
       subtitle: 'Empirical Proof Before Declaring Success.',
       description: 'Validate every feature using strict Vitest test suites, full TypeScript compilation checks, Vite production builds, and observable runtime evidence.',
       focusAreas: ['Automated API & Web Vitest test coverage', 'Strict tsc type-checking & linting', 'Production bundle optimization & audits', 'Empirical log-based error diagnosis'],
-      themeColor: '#16A34A', bgBadgeColor: 'bg-emerald-100 border-emerald-200 text-[#16A34A]', badgeTextColor: 'text-[#16A34A]',
+      themeColor: '#FE721D', bgBadgeColor: 'bg-orange-50 border-orange-200 text-[#FE721D]', badgeTextColor: 'text-[#FE721D]',
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
     },
     {
@@ -93,7 +93,7 @@ export const AboutPage: React.FC = () => {
       subtitle: 'Refine Architecture Based on Real Execution Data.',
       description: 'Refine capacity assumptions, upgrade UI components, integrate AI advisory insights, and evolve product capabilities through continuous iterative feedback.',
       focusAreas: ['System state & capacity audit review', 'Intelligence Core AI advisory optimization', 'Component refactoring & design system polish', 'Long-term product roadmap evolution'],
-      themeColor: '#9333EA', bgBadgeColor: 'bg-purple-100 border-purple-200 text-[#9333EA]', badgeTextColor: 'text-[#9333EA]',
+      themeColor: '#20B5D6', bgBadgeColor: 'bg-cyan-50 border-cyan-200 text-[#20B5D6]', badgeTextColor: 'text-[#20B5D6]',
       icon: <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
     },
   ];
@@ -191,7 +191,7 @@ export const AboutPage: React.FC = () => {
               </a>
               <a
                 href="#roadmap"
-                className="px-7 py-3.5 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-xs transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                className="px-7 py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
               >
                 <span>SYSTEM ROADMAP</span>
                 <span>▸</span>
