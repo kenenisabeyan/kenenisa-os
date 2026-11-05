@@ -118,7 +118,7 @@ export const AboutPage: React.FC = () => {
       detailBg: 'bg-orange-50/95 border-[#FE721D]/40',
     },
     {
-      icon: '⚡', title: 'Simplicity Before Complexity',
+      icon: <ZapIcon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />, title: 'Simplicity Before Complexity',
       tagline: 'Elegant, not elaborate.',
       body: 'Never introduce complicated workflows or heavy dependencies merely because they are fashionable. Maintain clear, simple execution pathways.',
       detail: 'Complexity is debt. Every abstraction must reduce friction, not add layers of indirection without benefit.',
@@ -269,7 +269,7 @@ export const AboutPage: React.FC = () => {
             <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Built by the Numbers 📊</h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            <StatCard value={6} suffix="+" label="Core Modules" icon="⚡" color="from-blue-500/5 to-indigo-500/10" border="border-blue-200/90" start={statsInView} />
+            <StatCard value={6} suffix="+" label="Core Modules" icon={<ZapIcon className="w-6 h-6 text-blue-600 mx-auto" />} color="from-blue-500/5 to-indigo-500/10" border="border-blue-200/90" start={statsInView} />
             <StatCard value={5} suffix="" label="R&D Phases" icon="🔬" color="from-indigo-500/5 to-purple-500/10" border="border-indigo-200/90" start={statsInView} />
             <StatCard value={100} suffix="%" label="TypeScript" icon="🛡️" color="from-emerald-500/5 to-teal-500/10" border="border-emerald-200/90" start={statsInView} />
             <StatCard value={4} suffix="" label="Principles" icon="💎" color="from-purple-500/5 to-pink-500/10" border="border-purple-200/90" start={statsInView} />
