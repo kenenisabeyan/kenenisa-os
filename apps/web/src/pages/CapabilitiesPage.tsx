@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SerpentineRoadmap, RoadmapStep } from '../components/common/SerpentineRoadmap.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 export const CapabilitiesPage: React.FC = () => {
   const capabilitySteps: RoadmapStep[] = [
@@ -166,7 +167,7 @@ export const CapabilitiesPage: React.FC = () => {
           {/* ── INTERACTIVE SYSTEM ARCHITECTURE CAPABILITY MATRICES ── */}
           <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 max-w-5xl mx-auto text-center">
             {[
-              { label: 'Execution Engine', code: 'MOD-01', color: 'from-blue-500 to-indigo-600', textColor: 'text-blue-700', bg: 'bg-blue-50/90 border-blue-200/90', icon: '⚡' },
+              { label: 'Execution Engine', code: 'MOD-01', color: 'from-blue-500 to-indigo-600', textColor: 'text-blue-700', bg: 'bg-blue-50/90 border-blue-200/90', icon: <ZapIcon className="w-5 h-5 text-white" /> },
               { label: 'Capacity Planning', code: 'MOD-02', color: 'from-cyan-500 to-blue-600', textColor: 'text-cyan-700', bg: 'bg-cyan-50/90 border-cyan-200/90', icon: '⏱️' },
               { label: 'Skill Development', code: 'MOD-03', color: 'from-indigo-500 to-purple-600', textColor: 'text-indigo-700', bg: 'bg-indigo-50/90 border-indigo-200/90', icon: '📘' },
               { label: 'Evidence Vault', code: 'MOD-04', color: 'from-emerald-500 to-teal-600', textColor: 'text-emerald-700', bg: 'bg-emerald-50/90 border-emerald-200/90', icon: '🛡️' },

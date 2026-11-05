@@ -303,7 +303,7 @@ export const AboutPage: React.FC = () => {
                 gradient: 'from-[#20B5D6] to-blue-600',
               },
               {
-                num: '02', icon: '⚡', title: 'Artificial Separation',
+                num: '02', icon: <ZapIcon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />, title: 'Artificial Separation',
                 body: 'This fragmentation creates artificial separation between what you intend to do, what you actually work on, and the verifiable proof of what you accomplished.',
                 border: 'border-[#FE721D]/30', badge: 'bg-orange-100 text-orange-900 border-[#FE721D]/30',
                 gradient: 'from-[#FE721D] to-orange-600',
@@ -450,7 +450,9 @@ export const AboutPage: React.FC = () => {
               AI should increase clarity, not remove human agency. Intelligence is strictly downstream of real system data in KENENISA OS.
             </p>
             <div className="inline-flex items-center gap-1.5 bg-purple-100/90 border-2 border-purple-300 px-4 py-1.5 rounded-full text-xs font-black text-purple-900 uppercase tracking-wider shadow-xs mt-1">
-              Clear Boundary ⚡ Enforced
+              <span>Clear Boundary</span>
+              <ZapIcon className="w-3.5 h-3.5 text-purple-700" />
+              <span>Enforced</span>
             </div>
           </div>
 

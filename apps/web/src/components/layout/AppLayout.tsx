@@ -5,6 +5,7 @@ import { ErrorBoundary } from '../common/ErrorBoundary.js';
 import { QuickActionModal } from '../ui/QuickActionModal.js';
 import { GlobalSearchModal } from '../ui/GlobalSearchModal.js';
 import { PerformanceInspectorModal } from '../performance/PerformanceInspectorModal.js';
+import { ZapIcon } from '../common/ZapIcon.js';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -102,8 +103,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               <span>System Operational</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-white font-mono text-emerald-700 border border-emerald-300">
-                ⚡ µs
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-white font-mono text-emerald-700 border border-emerald-300 inline-flex items-center gap-1">
+                <ZapIcon className="w-2.5 h-2.5 text-amber-500" /> µs
               </span>
             </button>
 
