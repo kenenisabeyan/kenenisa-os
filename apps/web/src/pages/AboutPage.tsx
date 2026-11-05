@@ -105,32 +105,32 @@ export const AboutPage: React.FC = () => {
       tagline: 'Utility first. Always.',
       body: 'Focus on solving real operational problems with clean information architecture before adding superficial visual flair or trendy features.',
       detail: 'Every interface element must earn its place by delivering observable value — not aesthetic novelty.',
-      color: 'from-blue-500 to-indigo-600', bg: 'bg-blue-50/90 border-blue-200/90', hoverText: 'text-blue-700',
-      detailBg: 'bg-blue-50/95 border-blue-300',
+      color: 'from-[#20B5D6] via-blue-600 to-indigo-600', bg: 'bg-cyan-50/90 border-[#20B5D6]/30', hoverText: 'text-[#20B5D6]',
+      detailBg: 'bg-cyan-50/95 border-[#20B5D6]/40',
     },
     {
       icon: '🛡️', title: 'Evidence Before Assumptions',
       tagline: 'Proof or it didn\'t happen.',
       body: 'Decisions and progress claims must be backed by observable proof (commits, test passes, documents, deliverables) rather than arbitrary assertions.',
       detail: 'Assertions without evidence are noise. Verifiable artifacts are the only valid currency of progress.',
-      color: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50/90 border-emerald-200/90', hoverText: 'text-emerald-700',
-      detailBg: 'bg-emerald-50/95 border-emerald-300',
+      color: 'from-[#FE721D] via-orange-500 to-amber-600', bg: 'bg-orange-50/90 border-[#FE721D]/30', hoverText: 'text-[#FE721D]',
+      detailBg: 'bg-orange-50/95 border-[#FE721D]/40',
     },
     {
       icon: '⚡', title: 'Simplicity Before Complexity',
       tagline: 'Elegant, not elaborate.',
       body: 'Never introduce complicated workflows or heavy dependencies merely because they are fashionable. Maintain clear, simple execution pathways.',
       detail: 'Complexity is debt. Every abstraction must reduce friction, not add layers of indirection without benefit.',
-      color: 'from-indigo-500 to-purple-600', bg: 'bg-indigo-50/90 border-indigo-200/90', hoverText: 'text-indigo-700',
-      detailBg: 'bg-indigo-50/95 border-indigo-300',
+      color: 'from-[#20B5D6] via-sky-500 to-cyan-700', bg: 'bg-cyan-50/90 border-[#20B5D6]/30', hoverText: 'text-[#20B5D6]',
+      detailBg: 'bg-cyan-50/95 border-[#20B5D6]/40',
     },
     {
       icon: '🤖', title: 'Human Agency Authoritative',
       tagline: 'AI advises. Humans decide.',
       body: 'AI serves strictly as an advisory intelligence layer. The user retains absolute authority over decisions, planning changes, and state mutations.',
       detail: 'The system never auto-mutates user state. Every AI recommendation requires explicit human confirmation before execution.',
-      color: 'from-purple-500 to-pink-600', bg: 'bg-purple-50/90 border-purple-200/90', hoverText: 'text-purple-700',
-      detailBg: 'bg-purple-50/95 border-purple-300',
+      color: 'from-[#FE721D] via-rose-500 to-orange-700', bg: 'bg-orange-50/90 border-[#FE721D]/30', hoverText: 'text-[#FE721D]',
+      detailBg: 'bg-orange-50/95 border-[#FE721D]/40',
     },
   ];
 
@@ -292,33 +292,40 @@ export const AboutPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-0 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
           {[
             {
               num: '01', icon: '🎯', title: 'High Operational Noise',
               body: 'Academic coursework sits in university portals; software engineering code lives in GitHub; task lists sit in personal todo apps; learning courses stay on tutorial sites; and career opportunities exist in scattered spreadsheets.',
-              border: 'border-blue-200/90', badge: 'bg-blue-100 text-blue-800',
+              border: 'border-[#20B5D6]/30', badge: 'bg-cyan-100 text-cyan-900 border-[#20B5D6]/30',
+              gradient: 'from-[#20B5D6] to-blue-600',
             },
             {
               num: '02', icon: '⚡', title: 'Artificial Separation',
               body: 'This fragmentation creates artificial separation between what you intend to do, what you actually work on, and the verifiable proof of what you accomplished.',
-              border: 'border-purple-200/90', badge: 'bg-purple-100 text-purple-800',
+              border: 'border-[#FE721D]/30', badge: 'bg-orange-100 text-orange-900 border-[#FE721D]/30',
+              gradient: 'from-[#FE721D] to-orange-600',
             },
             {
               num: '03', icon: '🛡️', title: 'Unified OS Is the Fix',
               body: 'KENENISA OS replaces fragmented tools with a single unified operating environment where every action contributes directly to strategic goals and verifiable evidence.',
-              border: 'border-emerald-200/90', badge: 'bg-emerald-100 text-emerald-800',
+              border: 'border-[#20B5D6]/30', badge: 'bg-cyan-100 text-cyan-900 border-[#20B5D6]/30',
+              gradient: 'from-[#20B5D6] to-sky-600',
             },
           ].map((card, i) => (
-            <div key={i} className={`relative bg-white/95 border-2 ${card.border} p-6 sm:p-8 space-y-4 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group overflow-hidden rounded-2xl lg:rounded-none ${i === 0 ? 'lg:rounded-l-2xl' : ''} ${i === 2 ? 'lg:rounded-r-2xl' : ''} ${i === 1 ? 'lg:border-l-0 lg:border-r-0' : ''}`}>
-              <div className="flex items-center gap-3">
-                <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg ${card.badge} uppercase tracking-widest`}>
-                  {card.num}
-                </span>
-                <span className="text-2xl">{card.icon}</span>
+            <div
+              key={i}
+              className={`relative bg-white/95 border-2 ${card.border} p-8 rounded-3xl space-y-4 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col items-center text-center`}
+            >
+              <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${card.gradient}`} />
+              <div className={`w-16 h-16 rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                {card.icon}
               </div>
-              <h4 className="text-xl font-black text-indigo-950 group-hover:text-blue-700 transition-colors">{card.title}</h4>
-              <p className="text-slate-700 leading-relaxed font-semibold text-sm">{card.body}</p>
+              <span className={`text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
+                PROBLEM {card.num}
+              </span>
+              <h4 className="text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
+              <p className="text-slate-600 leading-relaxed font-medium text-sm">{card.body}</p>
             </div>
           ))}
         </div>
@@ -327,57 +334,60 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            INTERACTIVE CORE PRINCIPLES — Expand on click
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="space-y-10 max-w-[1720px] mx-auto">
+      <section className="space-y-10 max-w-[1720px] mx-auto" id="principles">
         <div className="text-center space-y-3">
-          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-indigo-900 bg-indigo-100/90 border border-indigo-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+          <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
             Core Principles
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Product Philosophy 💎</h2>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Product Philosophy 💎</h2>
           <p className="text-slate-600 font-semibold text-lg">Click any principle to expand its engineering rationale.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {principles.map((p, i) => {
             const isActive = activePrinciple === i;
             return (
               <div
                 key={i}
                 onClick={() => setActivePrinciple(isActive ? null : i)}
-                className={`relative bg-white/95 border-2 rounded-3xl p-7 space-y-4 shadow-md cursor-pointer overflow-hidden transition-all duration-500 group
-                  ${isActive ? 'border-indigo-400/90 shadow-2xl shadow-indigo-500/20 scale-[1.02]' : 'border-slate-200/80 hover:shadow-xl hover:-translate-y-1.5 hover:border-indigo-300/80'}`}
+                className={`relative bg-white/95 border-2 rounded-3xl p-7 sm:p-8 flex flex-col items-center text-center shadow-md cursor-pointer overflow-hidden transition-all duration-500 group
+                  ${isActive ? 'border-[#20B5D6] shadow-2xl shadow-cyan-500/20 scale-[1.02]' : 'border-slate-200/80 hover:shadow-xl hover:-translate-y-1.5 hover:border-[#20B5D6]/60'}`}
               >
                 {/* Top gradient bar */}
                 <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color} transition-all duration-300`} />
 
                 {/* Active ring glow */}
-                {isActive && <div className="absolute inset-0 rounded-3xl ring-2 ring-indigo-400/40 pointer-events-none" />}
+                {isActive && <div className="absolute inset-0 rounded-3xl ring-2 ring-[#20B5D6]/40 pointer-events-none" />}
 
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                {/* Centered Squircle Icon Box */}
+                <div className={`w-20 h-20 rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-3xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
                   {p.icon}
                 </div>
 
-                <div>
-                  <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{p.tagline}</div>
-                  <h3 className={`text-lg font-black text-indigo-950 transition-colors duration-300 ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
+                {/* Centered Eyebrow & Title */}
+                <div className="space-y-1.5 text-center mb-3">
+                  <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
+                  <h3 className={`text-xl sm:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
                     {p.title}
                   </h3>
                 </div>
 
-                <p className="text-slate-700 leading-relaxed font-semibold text-sm">{p.body}</p>
+                {/* Centered Body */}
+                <p className="text-slate-600 leading-relaxed font-medium text-sm text-center max-w-sm mb-4">{p.body}</p>
 
                 {/* Expanded detail */}
-                <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <div className={`mt-2 p-4 rounded-2xl border-2 ${p.detailBg} space-y-1`}>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Engineering Rationale</div>
-                    <p className="text-sm font-semibold text-slate-700 leading-relaxed">{p.detail}</p>
+                <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-48 opacity-100 mb-4' : 'max-h-0 opacity-0'}`}>
+                  <div className={`p-4 rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
+                    <p className="text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
                   </div>
                 </div>
 
                 {/* Expand indicator */}
-                <div className={`flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-400 group-hover:text-indigo-500'}`}>
+                <div className={`mt-auto flex items-center justify-center gap-1.5 text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
                   <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
-                  {isActive ? 'Collapse' : 'Expand Rationale'}
+                  <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
                 </div>
               </div>
             );
@@ -539,40 +549,36 @@ export const AboutPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="relative bg-white/95 p-8 rounded-2xl border-2 border-cyan-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-5 overflow-hidden group">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 to-sky-500" />
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-cyan-100 text-2xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">🌐</div>
-              <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-cyan-700">Unauthenticated Layer</div>
-                <h4 className="font-black text-xl text-indigo-950">Public Experience</h4>
-              </div>
+          <div className="relative bg-white/95 p-8 rounded-3xl border-2 border-cyan-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
+            <div className="w-18 h-18 rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
+            <div className="space-y-1">
+              <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
+              <h4 className="font-black text-2xl text-slate-900">Public Experience</h4>
             </div>
-            <p className="text-slate-700 leading-relaxed font-semibold text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-sm max-w-md">
               Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center gap-2 pt-2">
               {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
-                <span key={p} className="text-xs font-bold text-cyan-800 bg-cyan-50 border border-cyan-200 px-3 py-1 rounded-lg">{p}</span>
+                <span key={p} className="text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-3 py-1 rounded-lg">{p}</span>
               ))}
             </div>
           </div>
 
-          <div className="relative bg-white/95 p-8 rounded-2xl border-2 border-emerald-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-5 overflow-hidden group">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500" />
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-2xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">🔒</div>
-              <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-emerald-700">Authenticated Layer</div>
-                <h4 className="font-black text-xl text-indigo-950">Private Operating System</h4>
-              </div>
+          <div className="relative bg-white/95 p-8 rounded-3xl border-2 border-orange-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
+            <div className="w-18 h-18 rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
+            <div className="space-y-1">
+              <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
+              <h4 className="font-black text-2xl text-slate-900">Private Operating System</h4>
             </div>
-            <p className="text-slate-700 leading-relaxed font-semibold text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-sm max-w-md">
               Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center gap-2 pt-2">
               {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
-                <span key={p} className="text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-lg">{p}</span>
+                <span key={p} className="text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-3 py-1 rounded-lg">{p}</span>
               ))}
             </div>
           </div>

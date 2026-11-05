@@ -170,42 +170,45 @@ export const HowItWorksPage: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Pillar 1 */}
-          <div className="relative bg-gradient-to-br from-teal-50/90 via-cyan-50/60 to-white border-2 border-teal-200/90 rounded-3xl p-8 space-y-5 shadow-xl shadow-teal-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-500/20 group overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-teal-500 to-cyan-600" />
-            <div className="w-14 h-14 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
+            <div className="w-18 h-18 rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
               🎯
             </div>
+            <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 01</div>
             <div className="space-y-2">
-              <h3 className="text-2xl font-black text-teal-950">1. Deterministic Execution</h3>
-              <p className="text-base text-slate-700 leading-relaxed font-semibold">
+              <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Deterministic Execution</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
                 No guessing what to work on next. The Next Best Action engine evaluates open task dependencies, deadlines, and scheduled focus blocks.
               </p>
             </div>
           </div>
 
           {/* Pillar 2 */}
-          <div className="relative bg-gradient-to-br from-emerald-50/90 via-teal-50/60 to-white border-2 border-emerald-200/90 rounded-3xl p-8 space-y-5 shadow-xl shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20 group overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-600" />
-            <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-orange-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20 group overflow-hidden flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
+            <div className="w-18 h-18 rounded-[1.75rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-3xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
               🛡️
             </div>
+            <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 02</div>
             <div className="space-y-2">
-              <h3 className="text-2xl font-black text-emerald-950">2. Observable Proof Vault</h3>
-              <p className="text-base text-slate-700 leading-relaxed font-semibold">
+              <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#FE721D] transition-colors">Observable Proof Vault</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
                 Task completions generate verifiable evidence items (PRs, commits, test runs, architecture docs) stored directly in your Evidence Vault.
               </p>
             </div>
           </div>
 
           {/* Pillar 3 */}
-          <div className="relative bg-gradient-to-br from-indigo-50/90 via-blue-50/60 to-white border-2 border-indigo-200/90 rounded-3xl p-8 space-y-5 shadow-xl shadow-indigo-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/20 group overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 to-blue-600" />
-            <div className="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-sky-600" />
+            <div className="w-18 h-18 rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
               ⚙️
             </div>
+            <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">PILLAR 03</div>
             <div className="space-y-2">
-              <h3 className="text-2xl font-black text-indigo-950">3. Multi-Outcome Sync</h3>
-              <p className="text-base text-slate-700 leading-relaxed font-semibold">
+              <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Multi-Outcome Sync</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
                 Completing one task simultaneously advances coursework, software projects, skill capabilities, and target career opportunities.
               </p>
             </div>

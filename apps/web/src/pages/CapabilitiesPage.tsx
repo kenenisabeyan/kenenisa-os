@@ -224,40 +224,46 @@ export const CapabilitiesPage: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs relative z-10">
           {/* Card 1 */}
-          <div className="relative bg-white/95 border-2 border-blue-200/90 rounded-2xl p-6 space-y-3 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-lg shadow-inner">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
+            <div className="w-16 h-16 rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
               🔒
             </div>
-            <h4 className="font-black text-lg text-indigo-950 group-hover/card:text-blue-700 transition-colors">
+            <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">SECURE ENCLAVE</div>
+            <h4 className="font-black text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
               Isolated Private Operating Context
             </h4>
-            <p className="text-slate-700 leading-relaxed font-semibold text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-sm">
               All personal tasks, goals, project artifacts, and evidence reside behind strict authenticated sessions. Public pages never expose private user data.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="relative bg-white/95 border-2 border-purple-200/90 rounded-2xl p-6 space-y-3 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-lg shadow-inner">
+          <div className="relative bg-white/95 border-2 border-orange-200/90 rounded-3xl p-8 space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
+            <div className="w-16 h-16 rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-orange-500/20 group-hover/card:scale-110 transition-transform">
               🤖
             </div>
-            <h4 className="font-black text-lg text-indigo-950 group-hover/card:text-purple-700 transition-colors">
+            <div className="text-[10px] font-black uppercase tracking-widest text-[#FE721D]">HUMAN CONTROL</div>
+            <h4 className="font-black text-lg text-slate-900 group-hover/card:text-[#FE721D] transition-colors">
               Human-In-The-Loop AI
             </h4>
-            <p className="text-slate-700 leading-relaxed font-semibold text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-sm">
               Intelligence Core acts strictly as an advisory layer. The system will never mutate tasks, delete projects, or send external data without explicit human confirmation.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-2xl p-6 space-y-3 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-black text-lg shadow-inner">
+          <div className="relative bg-white/95 border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group/card overflow-hidden flex flex-col items-center text-center">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-sky-600" />
+            <div className="w-16 h-16 rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-cyan-500/20 group-hover/card:scale-110 transition-transform">
               🗄️
             </div>
-            <h4 className="font-black text-lg text-indigo-950 group-hover/card:text-cyan-700 transition-colors">
+            <div className="text-[10px] font-black uppercase tracking-widest text-[#20B5D6]">DATABASE TRUTH</div>
+            <h4 className="font-black text-lg text-slate-900 group-hover/card:text-[#20B5D6] transition-colors">
               Authoritative System State
             </h4>
-            <p className="text-slate-700 leading-relaxed font-semibold text-sm">
+            <p className="text-slate-600 leading-relaxed font-medium text-sm">
               Your PostgreSQL database state is the single source of truth. AI reasoning is transient and downstream from verified database state.
             </p>
           </div>
