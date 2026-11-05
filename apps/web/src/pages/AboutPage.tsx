@@ -531,9 +531,7 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            PUBLIC vs PRIVATE ARCHITECTURE BOUNDARY
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-indigo-50/90 via-purple-50/80 to-cyan-50/90 border-2 border-indigo-200/90 rounded-3xl p-8 sm:p-14 shadow-2xl shadow-indigo-500/10 space-y-8 max-w-[1720px] mx-auto overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600" />
-
+      <section className="relative bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-cyan-50/60 rounded-3xl p-8 sm:p-14 space-y-8 max-w-[1720px] mx-auto overflow-hidden">
         <div className="text-center space-y-3">
           <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-indigo-900 bg-indigo-100/90 border border-indigo-300 px-4 py-1.5 rounded-full tracking-widest">
             <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
@@ -584,17 +582,16 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            FINAL CTA BANNER — Premium Glass
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-blue-50/90 via-indigo-50/80 to-purple-50/90 border-2 border-blue-200/90 p-12 sm:p-16 text-center space-y-8 shadow-2xl shadow-blue-500/10 max-w-[1720px] mx-auto overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600" />
-        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -top-20 -right-20 w-64 h-64 bg-purple-400/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 p-12 sm:p-16 text-center space-y-8 max-w-[1720px] mx-auto overflow-hidden group">
+        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-20 -right-20 w-64 h-64 bg-orange-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-black uppercase text-indigo-900 bg-indigo-100/90 border border-indigo-300 px-4 py-1.5 rounded-full tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+          <div className="inline-flex items-center gap-2 text-xs font-black uppercase text-[#20B5D6] bg-cyan-100/90 border border-cyan-300 px-4 py-1.5 rounded-full tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-[#20B5D6] animate-pulse" />
             Ready to Operate
           </div>
-          <h3 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">
+          <h3 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
             Enter your personal operating environment.
           </h3>
           <p className="text-slate-600 font-semibold text-xl max-w-2xl mx-auto">
@@ -605,12 +602,12 @@ export const AboutPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 relative z-10">
           <Link
             to="/login"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg sm:shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/60 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
+            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
               <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
               <span>Get Started Free</span>
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-blue-600 group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
                 →
               </span>
             </span>
@@ -618,12 +615,12 @@ export const AboutPage: React.FC = () => {
 
           <Link
             to="/login"
-            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-blue-300 via-indigo-400 to-sky-300 shadow-md sm:shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+            className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-indigo-950 group-hover/btn:text-blue-700 font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors overflow-hidden whitespace-nowrap">
-              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent pointer-events-none" />
+            <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors overflow-hidden whitespace-nowrap border border-slate-200">
+              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
               <span>Sign In</span>
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center group-hover/btn:bg-blue-600 group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
                 🔑
               </span>
             </span>

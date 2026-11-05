@@ -205,8 +205,7 @@ export const CapabilitiesPage: React.FC = () => {
       </section>
 
       {/* ── SECURITY & CONTROL ARCHITECTURE ─────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-indigo-50/90 via-sky-50/70 to-purple-50/90 border-2 border-indigo-200/90 rounded-3xl p-8 sm:p-14 shadow-2xl shadow-indigo-500/10 space-y-10 max-w-[1720px] mx-auto overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 via-sky-500 to-indigo-600" />
+      <section className="relative bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-purple-50/70 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden group">
         <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-blue-400/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="text-center space-y-3 max-w-3xl mx-auto relative z-10">
@@ -271,9 +270,7 @@ export const CapabilitiesPage: React.FC = () => {
       </section>
 
       {/* ── CTA BANNER ────────────────────────────────────────────────────────── */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/90 via-white to-orange-50/80 border-2 border-cyan-200/80 p-10 sm:p-14 text-center space-y-6 shadow-2xl shadow-cyan-500/10 max-w-[1720px] mx-auto overflow-hidden group">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D]" />
-        
+      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 p-10 sm:p-14 text-center space-y-6 max-w-[1720px] mx-auto overflow-hidden group">
         <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
           Ready to start using these capabilities?
         </h3>
