@@ -5,12 +5,12 @@ export default {
             colors: {
                 // Official Kenenisa OS Brand Palette
                 brand: {
-                    cyan: '#3AB1EC', // System intelligence & technology
-                    blue: '#3B82F6', // Primary actions & navigation
-                    indigo: '#6366F1', // Active states & focus
-                    purple: '#A855F7', // Intelligence Core & AI advisory
-                    orange: '#FF5A00', // Attention & active work
-                    gold: '#FFD700', // Highlights & achievements
+                    cyan: '#20B5D6', // System intelligence, technology & primary brand identity
+                    orange: '#FE721D', // Active action, energy & call-to-action
+                    blue: '#20B5D6', // Actions & navigation
+                    indigo: '#0b7994', // Active states & focus
+                    purple: '#20B5D6', // Intelligence Core & AI advisory
+                    gold: '#FE721D', // Highlights & achievements
                     green: '#22C55E', // Success, completed & healthy
                     bgLight: '#F8FAFC', // Primary light application background
                 },

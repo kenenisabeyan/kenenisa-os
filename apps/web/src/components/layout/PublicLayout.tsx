@@ -332,7 +332,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           {user ? (
             <button
               onClick={() => navigate('/app/dashboard')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#20B5D6] hover:bg-[#1aa3c2] text-white text-xs font-bold transition-all shadow-md shadow-cyan-500/20"
             >
               <span>App</span>
               <span>→</span>
@@ -727,7 +727,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
               </span>
               <button
                 onClick={() => window.print()}
-                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition-colors"
+                className="px-4 py-2 bg-[#20B5D6] hover:bg-[#1aa3c2] text-white font-bold text-xs rounded-xl shadow-md shadow-cyan-500/20 transition-all hover:scale-105 active:scale-95"
               >
                 Print / Save PDF
               </button>
