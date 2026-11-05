@@ -776,13 +776,13 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 pt-4">
+          <div className="flex flex-row items-center justify-center gap-2 xs:gap-3 sm:gap-5 pt-4">
             {/* Button 1: Get Started Free */}
             <Link
               to="/login"
-              className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300"
+              className="relative group/btn inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300 shrink-0"
             >
-              <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
+              <span className="relative px-3.5 xs:px-5 sm:px-9 py-2 xs:py-2.5 sm:py-4 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-[11px] xs:text-xs sm:text-base tracking-wide flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
                 {/* Shimmer light pass */}
                 <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
                 
@@ -798,9 +798,9 @@ export const HomePage: React.FC = () => {
             {/* Button 2: Sign In */}
             <Link
               to="/login"
-              className="relative group/btn w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300"
+              className="relative group/btn inline-flex items-center justify-center p-0.5 rounded-full bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 transition-all duration-300 shrink-0"
             >
-              <span className="relative w-full sm:w-auto px-5 py-2.5 sm:px-9 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-xs sm:text-base tracking-wide flex items-center justify-center gap-2 sm:gap-3 transition-colors duration-200 overflow-hidden whitespace-nowrap border border-slate-200">
+              <span className="relative px-3.5 xs:px-5 sm:px-9 py-2 xs:py-2.5 sm:py-4 rounded-full bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-[11px] xs:text-xs sm:text-base tracking-wide flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 transition-colors duration-200 overflow-hidden whitespace-nowrap border border-slate-200">
                 {/* Shimmer light pass */}
                 <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
                 
