@@ -195,12 +195,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
       {/* Brand Header */}
       <div className="h-16 px-5 border-b border-slate-200/90 flex items-center justify-between shrink-0 bg-white/95 backdrop-blur-sm">
         <div className="flex items-center gap-3">
-          <div className="relative">
-            <img
-              src="/logo-icon.jpg"
-              alt="KENENISA OS"
-              className="w-9 h-9 rounded-xl object-cover shadow-md shadow-blue-500/20 ring-2 ring-cyan-400/40 hover:scale-105 transition-transform duration-200"
-            />
+          <div className="relative shrink-0 w-9 h-9">
+            <div className="w-full h-full rounded-full overflow-hidden shadow-md shadow-blue-500/20 ring-2 ring-cyan-400/40 hover:scale-105 transition-transform duration-200">
+              <img
+                src="/logo-icon.jpg"
+                alt="KENENISA OS"
+                className="w-full h-full object-cover aspect-square rounded-full"
+              />
+            </div>
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white animate-pulse" />
           </div>
           <div className="flex flex-col">

@@ -61,11 +61,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               </svg>
             </button>
             <div className="flex items-center gap-2">
-              <img
-                src="/logo-icon.jpg"
-                alt="KENENISA OS"
-                className="w-7 h-7 rounded-sm object-cover shadow-xs ring-1 ring-cyan-400/30"
-              />
+              <div className="w-7 h-7 shrink-0 rounded-full overflow-hidden shadow-xs ring-1 ring-cyan-400/40">
+                <img
+                  src="/logo-icon.jpg"
+                  alt="KENENISA OS"
+                  className="w-full h-full object-cover aspect-square rounded-full"
+                />
+              </div>
               <span className="font-black text-xs text-slate-900 tracking-tight">KENENISA OS</span>
             </div>
           </div>

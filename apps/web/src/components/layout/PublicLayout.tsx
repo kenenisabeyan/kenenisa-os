@@ -209,16 +209,18 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         />
 
         {/* Author Brand Badge (Left) */}
-        <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group" aria-label="Kenenisa OS Home">
-          <div className="relative shrink-0">
-            <img
-              src="/kenenisa-avatar.jpg"
-              alt="Kenenisa OS"
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-slate-200/90 shadow-sm group-hover:scale-105 transition-transform"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
-              }}
-            />
+        <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group shrink-0" aria-label="Kenenisa OS Home">
+          <div className="relative shrink-0 w-10 h-10 sm:w-11 sm:h-11">
+            <div className="w-full h-full rounded-full overflow-hidden border border-slate-200/90 shadow-sm group-hover:scale-105 transition-transform">
+              <img
+                src="/kenenisa-avatar.jpg"
+                alt="Kenenisa OS"
+                className="w-full h-full object-cover aspect-square rounded-full"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
+                }}
+              />
+            </div>
             {/* Online Status Green Indicator Dot */}
             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
           </div>
@@ -361,8 +363,28 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             className="fixed top-0 right-0 bottom-0 w-80 sm:w-96 max-w-[88vw] h-full bg-white z-50 shadow-2xl flex flex-col justify-between p-6 sm:p-7 animate-in slide-in-from-right duration-300 ease-out font-sans text-slate-900"
             aria-label="Slide-Out Navigation Drawer"
           >
-            {/* Top Close Button */}
-            <div className="shrink-0 flex items-center justify-end pb-2">
+            {/* Top Close Button & Brand Header */}
+            <div className="shrink-0 flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="relative w-9 h-9 shrink-0 rounded-full overflow-hidden border border-slate-200 shadow-sm">
+                  <img
+                    src="/kenenisa-avatar.jpg"
+                    alt="Kenenisa OS"
+                    className="w-full h-full object-cover aspect-square rounded-full"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-extrabold text-sm tracking-tight text-slate-900 leading-none">
+                    KENENISA <span className="text-[#20B5D6]">OS</span>
+                  </span>
+                  <span className="text-[8px] text-[#20B5D6] font-black tracking-widest uppercase mt-0.5">
+                    Personal Engineering OS
+                  </span>
+                </div>
+              </div>
               <button
                 onClick={() => setDrawerOpen(false)}
                 className="w-9 h-9 rounded-sm flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors text-2xl font-light cursor-pointer"
@@ -494,16 +516,18 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         <div className="max-w-[1720px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-10 relative z-10">
           <div className="space-y-3 max-w-lg">
             <div className="flex items-center gap-3">
-              <img
-                src="/kenenisa-avatar.jpg"
-                alt="Kenenisa OS"
-                className="w-12 h-12 rounded-full object-cover border border-slate-200 shadow-sm"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
-                }}
-              />
-              <div className="flex flex-col">
-                <span className="font-extrabold text-lg tracking-tight text-slate-900">
+              <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border border-slate-200 shadow-sm">
+                <img
+                  src="/kenenisa-avatar.jpg"
+                  alt="Kenenisa OS"
+                  className="w-full h-full object-cover aspect-square rounded-full"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
+                  }}
+                />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="font-extrabold text-lg tracking-tight text-slate-900 leading-tight">
                   KENENISA <span className="text-[#20B5D6]">OS</span>
                 </span>
                 <span className="text-[10px] text-[#20B5D6] font-black tracking-widest uppercase">
@@ -559,14 +583,16 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           <div className="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 z-10 animate-in zoom-in-95 duration-200">
             <div className="flex justify-between items-start mb-6">
               <div className="flex items-center gap-3">
-                <img
-                  src="/kenenisa-avatar.jpg"
-                  alt="Kenenisa Beyan"
-                  className="w-12 h-12 rounded-full object-cover border border-slate-200 shadow-sm"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
-                  }}
-                />
+                <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border border-slate-200 shadow-sm">
+                  <img
+                    src="/kenenisa-avatar.jpg"
+                    alt="Kenenisa Beyan"
+                    className="w-full h-full object-cover aspect-square rounded-full"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/logo-icon.jpg';
+                    }}
+                  />
+                </div>
                 <div>
                   <h3 className="text-lg font-black text-slate-900">Kenenisa Beyan</h3>
                   <p className="text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider">
