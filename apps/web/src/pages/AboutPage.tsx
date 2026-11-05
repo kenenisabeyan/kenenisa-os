@@ -171,18 +171,18 @@ export const AboutPage: React.FC = () => {
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             
-            {/* Left Column: Huge High-Impact Typography & Narrative */}
-            <div className="lg:col-span-7 space-y-4">
-              <h1 className="font-black tracking-tight break-words">
-                <span className="block text-4xl xs:text-5xl sm:text-7xl lg:text-8xl text-slate-900 leading-[1.04]">
+            {/* Left Column: High-Impact Typography & Narrative */}
+            <div className="lg:col-span-7 space-y-3 sm:space-y-4">
+              <h1 className="font-black tracking-tight flex flex-col">
+                <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] whitespace-nowrap">
                   Kenenisa Beyan.
                 </span>
-                <span className="block text-2xl xs:text-3xl sm:text-5xl lg:text-6xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent mt-2 sm:mt-3 leading-[1.08]">
+                <span className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent tracking-tight leading-[1.1] mt-1 sm:mt-1.5">
                   Director &amp; Visual Systems
                 </span>
               </h1>
 
-              <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed">
+              <p className="text-xs xs:text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl font-medium leading-relaxed">
                 Engineering Architect &amp; Software Systems Lead designing deterministic operating platforms, evidence-backed proof vaults, and ground-truth AI reasoning architectures at Adama Science and Technology University (ASTU).
               </p>
 

@@ -121,31 +121,31 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full flex flex-col space-y-0" id="public-home-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="w-full pt-4 pb-12 sm:pb-16 bg-white relative overflow-hidden">
+      <section className="w-full pt-2 sm:pt-4 pb-10 sm:pb-14 bg-white relative overflow-hidden">
         {/* Ambient Lighting & Micro-texture */}
         <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#20B5D6]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-12 right-1/4 w-96 h-96 bg-[#FE721D]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(#20B5D612_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-6 sm:space-y-8 relative z-10">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-4 sm:space-y-6 relative z-10">
           {/* Headline with balanced typographic hierarchy & brand gradient shimmer */}
-          <div className="space-y-3 max-w-4xl mx-auto">
-            <h1 className="font-black tracking-tight break-words">
-              <span className="block text-4xl xs:text-5xl sm:text-7xl lg:text-8xl text-slate-900 leading-[1.04]">
+          <div className="space-y-2 sm:space-y-3 max-w-5xl mx-auto">
+            <h1 className="font-black tracking-tight flex flex-col items-center justify-center">
+              <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] whitespace-nowrap">
                 Kenenisa Beyan.
               </span>
-              <span className="block text-2xl xs:text-3xl sm:text-5xl lg:text-6xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent mt-2 sm:mt-3 leading-[1.08]">
+              <span className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent tracking-tight leading-[1.1] mt-1 sm:mt-1.5">
                 Engineering OS &amp; Visual Architecture
               </span>
             </h1>
 
-            <p className="text-sm xs:text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
+            <p className="text-xs xs:text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed pt-1">
               A unified operating platform connecting strategic direction, daily capacity budgeting, verified evidence, and ground-truth AI reasoning into one cohesive discipline.
             </p>
           </div>
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-1">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 pt-1">
             <a
               href="#workstreams"
               className="px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"

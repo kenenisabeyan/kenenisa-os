@@ -119,25 +119,25 @@ export const HowItWorksPage: React.FC = () => {
   return (
     <div className="w-full flex flex-col space-y-0" id="how-it-works-page">
       {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
-      <section className="w-full pt-4 pb-12 sm:pb-16 bg-white relative overflow-hidden">
+      <section className="w-full pt-2 sm:pt-4 pb-10 sm:pb-14 bg-white relative overflow-hidden">
         {/* Ambient Lighting & Micro-texture */}
         <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#20B5D6]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-12 right-1/4 w-96 h-96 bg-[#FE721D]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(#20B5D612_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-4 sm:space-y-6 relative z-10">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-3 sm:space-y-4 relative z-10">
           {/* Headline */}
-          <h1 className="font-black tracking-tight max-w-5xl mx-auto break-words">
-            <span className="block text-4xl sm:text-6xl lg:text-7xl text-slate-900 leading-[1.04]">
+          <h1 className="font-black tracking-tight flex flex-col items-center justify-center max-w-5xl mx-auto">
+            <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05]">
               From Intention to
             </span>
-            <span className="block text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent mt-2 sm:mt-3 leading-[1.08]">
+            <span className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent tracking-tight leading-[1.1] mt-1 sm:mt-1.5">
               Verifiable Engineering Proof.
             </span>
           </h1>
 
           {/* Supporting Copy */}
-          <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="text-xs xs:text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium pt-1">
             KENENISA OS transforms strategic ambition into structured execution, capacity-matched daily planning, observable evidence, and continuous career growth.
           </p>
         </div>
