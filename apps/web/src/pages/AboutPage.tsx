@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SerpentineRoadmap, RoadmapStep } from '../components/common/SerpentineRoadmap.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 /* ─── Animated Counter Hook ─────────────────────────────────────────────── */
 function useCountUp(target: number, duration = 1800, start = false) {
@@ -33,14 +34,14 @@ function useInView(threshold = 0.3) {
 }
 
 /* ─── Stat Card Component ────────────────────────────────────────────────── */
-const StatCard: React.FC<{ value: number; suffix: string; label: string; icon: string; color: string; border: string; start: boolean }> =
+const StatCard: React.FC<{ value: number; suffix: string; label: string; icon: React.ReactNode; color: string; border: string; start: boolean }> =
   ({ value, suffix, label, icon, color, border, start }) => {
     const count = useCountUp(value, 1600, start);
     return (
       <div className={`relative bg-white/95 rounded-2xl p-6 border-2 ${border} shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 text-center group overflow-hidden`}>
         <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${color} pointer-events-none`} />
         <div className="relative z-10 space-y-1">
-          <div className="text-2xl mb-1">{icon}</div>
+          <div className="text-2xl mb-1 flex items-center justify-center min-h-[32px]">{icon}</div>
           <div className="text-4xl font-black text-indigo-950 tracking-tight group-hover:scale-110 transition-transform duration-300">
             {count}{suffix}
           </div>
