@@ -561,7 +561,7 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
                         }}
                         className="bg-white border border-slate-200 rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-800 cursor-pointer hover:border-blue-400"
                       >
-                        <option value="openai-mini">⚡ OpenAI GPT-4o-mini</option>
+                        <option value="openai-mini">Fast • OpenAI GPT-4o-mini</option>
                         <option value="openai-4o">🧠 OpenAI GPT-4o</option>
                         <option value="grounded">📊 Grounded Live DB</option>
                       </select>

@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.js';
 import { forgotPasswordSchema, resetPasswordSchema, PASSWORD_MIN_LENGTH } from '@kenenisa-os/shared';
 import { ApiError } from '../lib/api-client.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 export const ForgotPasswordPage: React.FC = () => {
   const { forgotPassword, resetPassword } = useAuth();
@@ -235,9 +236,10 @@ export const ForgotPasswordPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setEmail('beyankenenisa@gmail.com')}
-                className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors"
+                className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-1.5"
               >
-                ⚡ Autofill Owner Email (beyankenenisa@gmail.com)
+                <ZapIcon className="w-3.5 h-3.5 text-amber-500" />
+                <span>Autofill Owner Email (beyankenenisa@gmail.com)</span>
               </button>
             </div>
           </form>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/auth/useAuth.js';
 import { forgotEmailSchema, type RecoveredAccountDto } from '@kenenisa-os/shared';
 import { ApiError } from '../lib/api-client.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 export const ForgotEmailPage: React.FC = () => {
   const { forgotEmail } = useAuth();
@@ -178,9 +179,10 @@ export const ForgotEmailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setName('Kenenisa Beyan')}
-              className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2"
+              className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-1.5"
             >
-              <span>⚡ Autofill Owner Name (Kenenisa Beyan)</span>
+              <ZapIcon className="w-3.5 h-3.5 text-amber-500" />
+              <span>Autofill Owner Name (Kenenisa Beyan)</span>
             </button>
           </div>
         </form>

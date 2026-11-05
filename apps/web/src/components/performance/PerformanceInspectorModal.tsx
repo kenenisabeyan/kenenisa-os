@@ -6,6 +6,7 @@ import {
   type ApiCallMetric,
 } from '../../lib/performance-profiler.js';
 import { apiClient } from '../../lib/api-client.js';
+import { ZapIcon } from '../common/ZapIcon.js';
 
 interface BackendPerformanceData {
   timestamp: string;
@@ -116,8 +117,8 @@ export const PerformanceInspectorModal: React.FC<{ isOpen: boolean; onClose: () 
         {/* Header */}
         <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-blue-500/20">
-              ⚡
+            <div className="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20">
+              <ZapIcon className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">

@@ -225,7 +225,8 @@ export const LoginPage: React.FC = () => {
             }}
             className="w-full py-2 sm:py-2.5 px-3 sm:px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-[11px] sm:text-xs transition-colors flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer"
           >
-            ⚡ Autofill Owner Credentials (beyankenenisa@gmail.com)
+            <ZapIcon className="w-3.5 h-3.5 text-amber-500" />
+            <span>Autofill Owner Credentials (beyankenenisa@gmail.com)</span>
           </button>
         </div>
 
