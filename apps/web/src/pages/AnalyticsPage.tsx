@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 import type {
   AnalyticsPeriod,
   AnalyticsOverviewDto,
@@ -397,7 +398,10 @@ export const AnalyticsPage: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-100 pb-3">
                   <div>
                     <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                      <span>⚡ Deterministic Productivity & Focus Index</span>
+                      <span className="flex items-center gap-1.5">
+                        <ZapIcon className="w-4 h-4 text-blue-600" />
+                        <span>Deterministic Productivity &amp; Focus Index</span>
+                      </span>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
                         Objective Metrics
                       </span>

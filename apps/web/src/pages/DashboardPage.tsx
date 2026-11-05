@@ -9,6 +9,7 @@ import { useToast } from '../components/ui/Toast.js';
 import { PageAiCopilot } from '../components/ai/PageAiCopilot.js';
 import { getCachedApiData } from '../lib/api-client.js';
 import { webPerformanceProfiler } from '../lib/performance-profiler.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 export const DashboardPage: React.FC = () => {
   const { showToast } = useToast();
@@ -259,7 +260,7 @@ export const DashboardPage: React.FC = () => {
         ? `- **${data.nextBestAction.recommendedTask.title}** (Priority: ${data.nextBestAction.recommendedTask.priority}, Score: ${data.nextBestAction.score}/100)`
         : '- Queue cleared or no pending tasks.',
       '',
-      `## ⚡ Today's Execution Focus (${todayTasks.length} tasks)`,
+      `## Today's Execution Focus (${todayTasks.length} tasks)`,
       ...(todayTasks.length > 0
         ? todayTasks.map(
             (t) => `- [${t.status === 'DONE' ? 'x' : ' '}] **${t.title}** [${t.priority}] (${t.status})`
@@ -980,11 +981,11 @@ export const DashboardPage: React.FC = () => {
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4" id="scratchpad-section">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-600 font-black text-sm shadow-2xs">
-                  ⚡
+                <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-600 shadow-2xs">
+                  <ZapIcon className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Quick Capture & Scratchpad</h3>
+                  <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Quick Capture &amp; Scratchpad</h3>
                   <p className="text-slate-500 text-[11px] font-medium">Auto-saving idea vault with 1-click task conversion</p>
                 </div>
               </div>
@@ -1001,10 +1002,12 @@ export const DashboardPage: React.FC = () => {
             <div className="flex items-center gap-1.5 flex-wrap">
               <button
                 type="button"
-                onClick={() => handleApplyTemplate('⚡ Task:')}
-                className="px-2.5 py-1 bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 transition-colors cursor-pointer"
+                onClick={() => handleApplyTemplate('Task:')}
+                className="px-2.5 py-1 bg-slate-50 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 transition-colors cursor-pointer inline-flex items-center gap-1"
               >
-                + ⚡ Task
+                <span>+</span>
+                <ZapIcon className="w-2.5 h-2.5 text-blue-600" />
+                <span>Task</span>
               </button>
               <button
                 type="button"
@@ -1067,7 +1070,8 @@ export const DashboardPage: React.FC = () => {
                   disabled={!scratchpadText.trim()}
                   className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
                 >
-                  <span>⚡ Convert to Task</span>
+                  <ZapIcon className="w-3.5 h-3.5 text-white" />
+                  <span>Convert to Task</span>
                 </button>
               </div>
             </div>

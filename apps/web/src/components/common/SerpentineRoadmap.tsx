@@ -1,4 +1,5 @@
 import React from 'react';
+import { ZapIcon } from './ZapIcon.js';
 
 export interface RoadmapStep {
   number: string;
@@ -347,7 +348,16 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
               }`}
               title="Toggle automatic walkthrough mode"
             >
-              <span>{autoTourActive ? '⏸ Stop' : '⚡ Auto-Flow'}</span>
+              <span className="inline-flex items-center gap-1.5">
+                {autoTourActive ? (
+                  <span>⏸ Stop</span>
+                ) : (
+                  <>
+                    <ZapIcon className="w-3.5 h-3.5 text-[#FE721D]" />
+                    <span>Auto-Flow</span>
+                  </>
+                )}
+              </span>
             </button>
           </div>
 
