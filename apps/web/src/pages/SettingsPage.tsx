@@ -498,7 +498,7 @@ export const SettingsPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSavingProfile}
-              className="w-full mt-2 px-3 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 active:scale-95 rounded-xl shadow-xs transition-all disabled:opacity-50 cursor-pointer"
+              className="w-full mt-2 px-3 py-2 text-xs font-bold text-white bg-[#20B5D6] hover:bg-[#1aa3c2] active:scale-95 rounded-xl shadow-md shadow-cyan-500/20 transition-all disabled:opacity-50 cursor-pointer"
             >
               {isSavingProfile ? 'Saving Profile...' : 'Save Profile Details'}
             </button>
@@ -644,7 +644,7 @@ export const SettingsPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmittingPassword}
-                className="py-2.5 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all disabled:opacity-50 flex items-center gap-2"
+                className="py-2.5 px-6 bg-[#20B5D6] hover:bg-[#1aa3c2] text-white font-bold rounded-xl text-xs shadow-md shadow-cyan-500/20 transition-all disabled:opacity-50 flex items-center gap-2"
               >
                 {isSubmittingPassword ? (
                   <>
@@ -799,7 +799,7 @@ export const SettingsPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSavingSettings}
-              className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs shadow-sm transition-all disabled:opacity-50 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-[#20B5D6] hover:bg-[#1aa3c2] active:scale-95 text-white font-bold text-xs shadow-md shadow-cyan-500/20 transition-all disabled:opacity-50 cursor-pointer"
             >
               {isSavingSettings ? 'Saving Preferences...' : 'Save Operating Preferences'}
             </button>
