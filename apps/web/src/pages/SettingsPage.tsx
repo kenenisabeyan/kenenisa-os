@@ -1375,7 +1375,7 @@ export const SettingsPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isUpdatingUser}
-                  className="py-2 px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow-md shadow-blue-500/20 transition-all flex items-center gap-2"
+                  className="py-2 px-5 bg-[#20B5D6] hover:bg-[#1aa3c2] text-white font-bold rounded-xl text-xs shadow-md shadow-cyan-500/20 transition-all flex items-center gap-2"
                 >
                   {isUpdatingUser ? (
                     <>
