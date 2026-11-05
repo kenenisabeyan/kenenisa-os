@@ -214,7 +214,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
       <div className="w-full h-1.5 bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600 rounded-full mb-12 opacity-80" />
 
       {/* ── BACKGROUND DOTTED GRID PATTERN (MATCHING DESIGN SCREENSHOT) ──────────── */}
-      <div className="absolute inset-0 bg-[radial-gradient(#0284C728_1.2px,transparent_1.2px)] [background-size:20px_20px] pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(#20B5D628_1.2px,transparent_1.2px)] [background-size:20px_20px] pointer-events-none z-0" />
 
       <div className="max-w-[1720px] mx-auto relative z-10">
         {/* ── SECTION TOP HEADER ─────────────────────────────────────────────────── */}
@@ -228,10 +228,10 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-cyan-50/90 border border-cyan-200/90 text-[#0284C7] text-[10px] sm:text-xs font-extrabold uppercase tracking-widest shadow-xs shrink-0">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7] animate-pulse" />
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-cyan-50/90 border border-cyan-200/90 text-[#20B5D6] text-[10px] sm:text-xs font-extrabold uppercase tracking-widest shadow-xs shrink-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#20B5D6] animate-pulse" />
             <span>{badgeText}</span>
-            <span className="text-cyan-500">⚡</span>
+            <span className="text-[#FE721D]">⚡</span>
           </div>
         </div>
 
@@ -239,10 +239,10 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
         <div className="mb-16 md:mb-20 max-w-2xl">
           <div className="relative rounded-2xl bg-white p-7 sm:p-9 border border-cyan-100/90 shadow-xl shadow-cyan-900/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-cyan-200 group/summary">
             {/* Left Vertical Accent Bar */}
-            <div className="absolute left-0 top-0 bottom-0 w-2.5 bg-[#0284C7] rounded-l-2xl" />
+            <div className="absolute left-0 top-0 bottom-0 w-2.5 bg-[#20B5D6] rounded-l-2xl" />
 
             {/* Translucent Geometric Watermark */}
-            <div className="absolute right-5 bottom-5 pointer-events-none opacity-20 select-none font-black text-[10px] text-[#0284C7] tracking-widest uppercase flex flex-col items-end leading-tight">
+            <div className="absolute right-5 bottom-5 pointer-events-none opacity-20 select-none font-black text-[10px] text-[#20B5D6] tracking-widest uppercase flex flex-col items-end leading-tight">
               <svg className="w-16 h-16 mb-1 text-cyan-600 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
@@ -251,7 +251,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             </div>
 
             <div className="pl-3 relative z-10 space-y-3">
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#0284C7] block">
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#20B5D6] block">
                 {summaryBadgeText}
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug tracking-tight uppercase">
@@ -260,7 +260,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
                 {summaryDescription}
               </p>
-              <div className="pt-2 text-[10px] font-mono font-bold text-[#0284C7] tracking-widest uppercase">
+              <div className="pt-2 text-[10px] font-mono font-bold text-[#20B5D6] tracking-widest uppercase">
                 {summaryMetaText}
               </div>
             </div>
@@ -278,11 +278,11 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             >
               <defs>
                 <linearGradient id="serpentineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#7C3AED" />
-                  <stop offset="25%" stopColor="#0284C7" />
-                  <stop offset="50%" stopColor="#2563EB" />
-                  <stop offset="75%" stopColor="#EA580C" />
-                  <stop offset="100%" stopColor="#16A34A" />
+                  <stop offset="0%" stopColor="#20B5D6" />
+                  <stop offset="25%" stopColor="#FE721D" />
+                  <stop offset="50%" stopColor="#20B5D6" />
+                  <stop offset="75%" stopColor="#FE721D" />
+                  <stop offset="100%" stopColor="#20B5D6" />
                 </linearGradient>
 
                 <filter id="ribbonShadow" x="-30%" y="-30%" width="160%" height="160%">
@@ -350,7 +350,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
               onClick={() => setAutoTourActive((v) => !v)}
               className={`ml-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 border cursor-pointer ${
                 autoTourActive
-                  ? 'bg-purple-600 text-white border-purple-500 shadow-md shadow-purple-500/25 animate-pulse'
+                  ? 'bg-[#FE721D] text-white border-[#e56315] shadow-md shadow-orange-500/25 animate-pulse'
                   : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
               }`}
               title="Toggle automatic walkthrough mode"
@@ -362,21 +362,21 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
           {/* ── Vertical Animated Energy Spine (Visible on Mobile) ── */}
           <div className="md:hidden absolute left-[22px] top-16 bottom-6 w-2 rounded-full z-0 overflow-visible pointer-events-none">
             {/* Ambient Background Track */}
-            <div className="absolute inset-0 w-full rounded-full bg-slate-200/90 shadow-[0_0_8px_rgba(124,58,237,0.15)]" />
+            <div className="absolute inset-0 w-full rounded-full bg-slate-200/90 shadow-[0_0_8px_rgba(32,181,214,0.15)]" />
 
             {/* Glowing Moving Gradient Dynamic Spectrum */}
-            <div className="absolute inset-0 w-full rounded-full bg-gradient-to-b from-[#7C3AED] via-[#0284C7] via-[#2563EB] via-[#EA580C] to-[#16A34A] animate-spine-flow shadow-[0_0_12px_rgba(37,99,235,0.35)]" />
+            <div className="absolute inset-0 w-full rounded-full bg-gradient-to-b from-[#20B5D6] via-[#FE721D] via-[#20B5D6] via-[#FE721D] to-[#20B5D6] animate-spine-flow shadow-[0_0_12px_rgba(32,181,214,0.35)]" />
 
             {/* Primary High-Speed Flowing Laser Pulse */}
-            <div className="absolute left-1/2 -translate-x-1/2 w-2.5 h-24 rounded-full bg-gradient-to-b from-transparent via-white to-transparent shadow-[0_0_16px_#38bdf8] animate-laser-travel" />
+            <div className="absolute left-1/2 -translate-x-1/2 w-2.5 h-24 rounded-full bg-gradient-to-b from-transparent via-white to-transparent shadow-[0_0_16px_#20B5D6] animate-laser-travel" />
 
             {/* Secondary Interleaved Flowing Laser Pulse */}
-            <div className="absolute left-1/2 -translate-x-1/2 w-2.5 h-28 rounded-full bg-gradient-to-b from-transparent via-cyan-300 to-transparent shadow-[0_0_18px_#818cf8] animate-laser-travel-delayed" />
+            <div className="absolute left-1/2 -translate-x-1/2 w-2.5 h-28 rounded-full bg-gradient-to-b from-transparent via-orange-300 to-transparent shadow-[0_0_18px_#FE721D] animate-laser-travel-delayed" />
 
             {/* Micro-spark particles floating along the spine */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1/4 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#fff] animate-particle-float-1" />
-            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 w-1.5 h-1.5 rounded-full bg-cyan-200 shadow-[0_0_6px_#38bdf8] animate-particle-float-2" />
-            <div className="absolute left-1/2 -translate-x-1/2 top-3/4 w-1.5 h-1.5 rounded-full bg-purple-200 shadow-[0_0_6px_#a855f7] animate-particle-float-3" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 w-1.5 h-1.5 rounded-full bg-cyan-200 shadow-[0_0_6px_#20B5D6] animate-particle-float-2" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-3/4 w-1.5 h-1.5 rounded-full bg-orange-200 shadow-[0_0_6px_#FE721D] animate-particle-float-3" />
           </div>
 
           {/* Steps List */}

@@ -5,10 +5,10 @@ declare const _default: {
             colors: {
                 brand: {
                     cyan: string;
+                    orange: string;
                     blue: string;
                     indigo: string;
                     purple: string;
-                    orange: string;
                     gold: string;
                     green: string;
                     bgLight: string;
