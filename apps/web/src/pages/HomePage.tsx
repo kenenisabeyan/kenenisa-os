@@ -701,59 +701,139 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Students */}
-            <div className="relative bg-gradient-to-br from-purple-50/90 via-indigo-50/60 to-white border-2 border-purple-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-purple-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20 group overflow-hidden text-center flex flex-col items-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 to-indigo-600" />
-              <div className="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
-                🎓
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black text-purple-950">Students</h3>
-                <p className="text-base text-slate-700 leading-relaxed font-semibold">
-                  Organize university coursework, engineering projects, skill learning, and academic portfolio evidence.
-                </p>
+            {/* Card 1: Students */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-purple-500 via-indigo-400/50 to-slate-200/60 shadow-lg shadow-purple-500/10 hover:shadow-2xl hover:shadow-purple-500/25 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+              {/* Top Volumetric Glow Orb */}
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-purple-500/25 blur-xl pointer-events-none group-hover:bg-purple-500/40 transition-all duration-500" />
+              {/* Top Luminous Laser Beam */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              {/* Inner Card Surface */}
+              <div className="relative h-full w-full bg-gradient-to-b from-purple-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                {/* Precision HUD Corner Reticles */}
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-purple-400/60 group-hover:border-purple-600 transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-purple-400/60 group-hover:border-purple-600 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-purple-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-purple-400 transition-colors pointer-events-none" />
+
+                {/* Technical Index Pill */}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-100/70 border border-purple-200 text-[10px] font-mono font-bold text-purple-700 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
+                  <span>AUDIENCE // 01</span>
+                </div>
+
+                <div className="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                  🎓
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black text-purple-950">Students</h3>
+                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                    Organize university coursework, engineering projects, skill learning, and academic portfolio evidence.
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Engineers */}
-            <div className="relative bg-gradient-to-br from-cyan-50/90 via-blue-50/60 to-white border-2 border-cyan-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 group overflow-hidden text-center flex flex-col items-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 to-blue-600" />
-              <div className="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <ZapIcon className="w-7 h-7 text-cyan-600" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black text-cyan-950">Engineers</h3>
-                <p className="text-base text-slate-700 leading-relaxed font-semibold">
-                  Connect code repositories, architecture deliverables, pull requests, and verified technical skills.
-                </p>
+            {/* Card 2: Engineers */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-blue-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+              {/* Top Volumetric Glow Orb */}
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
+              {/* Top Luminous Laser Beam */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              {/* Inner Card Surface */}
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                {/* Precision HUD Corner Reticles */}
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+
+                {/* Technical Index Pill */}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
+                  <span>AUDIENCE // 02</span>
+                </div>
+
+                <div className="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                  <ZapIcon className="w-7 h-7 text-cyan-600" />
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black text-cyan-950">Engineers</h3>
+                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                    Connect code repositories, architecture deliverables, pull requests, and verified technical skills.
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Builders */}
-            <div className="relative bg-gradient-to-br from-blue-50/90 via-indigo-50/60 to-white border-2 border-blue-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 group overflow-hidden text-center flex flex-col items-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-600" />
-              <div className="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
-                🛠️
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black text-blue-950">Builders</h3>
-                <p className="text-base text-slate-700 leading-relaxed font-semibold">
-                  Turn product ideas into structured workstreams, goals, milestones, and shipping schedules.
-                </p>
+            {/* Card 3: Builders */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-blue-600 via-indigo-400/50 to-slate-200/60 shadow-lg shadow-blue-500/10 hover:shadow-2xl hover:shadow-blue-500/25 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+              {/* Top Volumetric Glow Orb */}
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-blue-500/25 blur-xl pointer-events-none group-hover:bg-blue-500/40 transition-all duration-500" />
+              {/* Top Luminous Laser Beam */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              {/* Inner Card Surface */}
+              <div className="relative h-full w-full bg-gradient-to-b from-blue-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                {/* Precision HUD Corner Reticles */}
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-blue-400/60 group-hover:border-blue-600 transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-blue-400/60 group-hover:border-blue-600 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-blue-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-blue-400 transition-colors pointer-events-none" />
+
+                {/* Technical Index Pill */}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100/70 border border-blue-200 text-[10px] font-mono font-bold text-blue-800 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+                  <span>AUDIENCE // 03</span>
+                </div>
+
+                <div className="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                  🛠️
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black text-blue-950">Builders</h3>
+                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                    Turn product ideas into structured workstreams, goals, milestones, and shipping schedules.
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Career Growth */}
-            <div className="relative bg-gradient-to-br from-amber-50/90 via-orange-50/60 to-white border-2 border-amber-200/90 rounded-3xl p-8 space-y-4 shadow-xl shadow-amber-500/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/20 group overflow-hidden text-center flex flex-col items-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 to-orange-600" />
-              <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
-                🚀
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black text-amber-950">Career Growth</h3>
-                <p className="text-base text-slate-700 leading-relaxed font-semibold">
-                  Track target roles, interview preparation, portfolio evidence, and skill-to-opportunity mapping.
-                </p>
+            {/* Card 4: Career Growth */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#FE721D] via-amber-400/50 to-slate-200/60 shadow-lg shadow-orange-500/10 hover:shadow-2xl hover:shadow-orange-500/25 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+              {/* Top Volumetric Glow Orb */}
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
+              {/* Top Luminous Laser Beam */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              {/* Inner Card Surface */}
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                {/* Precision HUD Corner Reticles */}
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
+
+                {/* Technical Index Pill */}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[10px] font-mono font-bold text-orange-800 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FE721D] animate-pulse" />
+                  <span>AUDIENCE // 04</span>
+                </div>
+
+                <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                  🚀
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black text-amber-950">Career Growth</h3>
+                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                    Track target roles, interview preparation, portfolio evidence, and skill-to-opportunity mapping.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

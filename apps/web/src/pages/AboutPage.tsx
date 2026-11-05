@@ -317,17 +317,29 @@ export const AboutPage: React.FC = () => {
             ].map((card, i) => (
               <div
                 key={i}
-                className={`relative bg-white/95 border-2 ${card.border} p-6 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3.5 sm:space-y-4 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col items-center text-center`}
+                className={`relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b ${card.gradient} shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden`}
               >
-                <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${card.gradient}`} />
-                <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                  {card.icon}
+                {/* Top Volumetric Glow Orb */}
+                <div className={`absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-gradient-to-r ${card.gradient} opacity-25 blur-xl pointer-events-none group-hover:opacity-45 transition-all duration-500`} />
+                {/* Top Luminous Laser Beam */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+                <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/40 rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  {/* Precision HUD Corner Reticles */}
+                  <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-slate-300/80 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                  <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-slate-300/80 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                  <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
+                  <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
+
+                  <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                    {card.icon}
+                  </div>
+                  <span className={`text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
+                    PROBLEM {card.num}
+                  </span>
+                  <h4 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
+                  <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">{card.body}</p>
                 </div>
-                <span className={`text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
-                  PROBLEM {card.num}
-                </span>
-                <h4 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
-                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">{card.body}</p>
               </div>
             ))}
           </div>
@@ -351,43 +363,53 @@ export const AboutPage: React.FC = () => {
                 <div
                   key={i}
                   onClick={() => setActivePrinciple(isActive ? null : i)}
-                  className={`relative bg-white/95 border-2 rounded-2xl sm:rounded-3xl p-5 xs:p-6 sm:p-7 md:p-8 flex flex-col items-center text-center shadow-md cursor-pointer overflow-hidden transition-all duration-500 group
-                    ${isActive ? 'border-[#20B5D6] shadow-2xl shadow-cyan-500/20 scale-[1.01] sm:scale-[1.02]' : 'border-slate-200/80 hover:shadow-xl hover:-translate-y-1.5 hover:border-[#20B5D6]/60'}`}
+                  className={`relative group p-[2px] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 overflow-hidden ${
+                    isActive
+                      ? 'bg-gradient-to-b from-[#20B5D6] via-cyan-400/50 to-slate-200/60 shadow-2xl shadow-cyan-500/25 scale-[1.01] sm:scale-[1.02]'
+                      : 'bg-gradient-to-b from-slate-300/80 via-slate-200/50 to-slate-200/30 hover:from-[#20B5D6] hover:via-cyan-400/40 hover:to-slate-200/60 hover:shadow-xl hover:-translate-y-1.5'
+                  }`}
                 >
-                  {/* Top gradient bar */}
-                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color} transition-all duration-300`} />
+                  {/* Top Volumetric Glow Orb */}
+                  <div className={`absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-gradient-to-r ${p.color} opacity-20 blur-xl pointer-events-none group-hover:opacity-40 transition-all duration-500`} />
+                  {/* Top Luminous Laser Beam */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-                  {/* Active ring glow */}
-                  {isActive && <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-2 ring-[#20B5D6]/40 pointer-events-none" />}
+                  <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-5 xs:p-6 sm:p-7 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                    {/* Precision HUD Corner Reticles */}
+                    <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-[#20B5D6]/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                    <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-[#20B5D6]/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                    <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
+                    <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
 
-                  {/* Centered Squircle Icon Box - Adaptive sizing */}
-                  <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
-                    {p.icon}
-                  </div>
-
-                  {/* Centered Eyebrow & Title */}
-                  <div className="space-y-1.5 text-center mb-2.5 sm:mb-3">
-                    <div className="text-[11px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
-                    <h3 className={`text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
-                      {p.title}
-                    </h3>
-                  </div>
-
-                  {/* Centered Body */}
-                  <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4">{p.body}</p>
-
-                  {/* Expanded detail - Responsive max-height */}
-                  <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
-                    <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
-                      <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
-                      <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
+                    {/* Centered Squircle Icon Box - Adaptive sizing */}
+                    <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
+                      {p.icon}
                     </div>
-                  </div>
 
-                  {/* Expand indicator */}
-                  <div className={`mt-auto flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
-                    <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
-                    <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
+                    {/* Centered Eyebrow & Title */}
+                    <div className="space-y-1.5 text-center mb-2.5 sm:mb-3">
+                      <div className="text-[11px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
+                      <h3 className={`text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
+                        {p.title}
+                      </h3>
+                    </div>
+
+                    {/* Centered Body */}
+                    <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4">{p.body}</p>
+
+                    {/* Expanded detail - Responsive max-height */}
+                    <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
+                      <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
+                        <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
+                        <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
+                      </div>
+                    </div>
+
+                    {/* Expand indicator */}
+                    <div className={`mt-auto flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
+                      <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
+                      <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
+                    </div>
                   </div>
                 </div>
               );
@@ -540,37 +562,57 @@ export const AboutPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-cyan-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] to-blue-600" />
-              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
-              <div className="space-y-1">
-                <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
-                <h4 className="font-black text-xl sm:text-2xl text-slate-900">Public Experience</h4>
-              </div>
-              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
-                Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
-              </p>
-              <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
-                {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
-                  <span key={p} className="text-[11px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
-                ))}
+            {/* Public Experience */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-blue-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
+
+                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
+                <div className="space-y-1">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
+                  <h4 className="font-black text-xl sm:text-2xl text-slate-900">Public Experience</h4>
+                </div>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
+                  Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
+                </p>
+                <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
+                  {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
+                    <span key={p} className="text-[11px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-2.5 sm:px-3 py-1 rounded-sm">{p}</span>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="relative bg-white/95 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-orange-200/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 space-y-4 overflow-hidden group flex flex-col items-center text-center">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FE721D] to-orange-600" />
-              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
-              <div className="space-y-1">
-                <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
-                <h4 className="font-black text-xl sm:text-2xl text-slate-900">Private Operating System</h4>
-              </div>
-              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
-                Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
-              </p>
-              <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
-                {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
-                  <span key={p} className="text-[11px] sm:text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-2.5 sm:px-3 py-1 rounded-lg">{p}</span>
-                ))}
+            {/* Private Operating System */}
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#FE721D] via-orange-400/50 to-slate-200/60 shadow-lg shadow-orange-500/10 hover:shadow-2xl hover:shadow-orange-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
+                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
+
+                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
+                <div className="space-y-1">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
+                  <h4 className="font-black text-xl sm:text-2xl text-slate-900">Private Operating System</h4>
+                </div>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
+                  Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
+                </p>
+                <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
+                  {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
+                    <span key={p} className="text-[11px] sm:text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-2.5 sm:px-3 py-1 rounded-sm">{p}</span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
