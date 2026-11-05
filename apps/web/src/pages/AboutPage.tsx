@@ -440,8 +440,7 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            AI ADVISORY PIPELINE — Advanced Visual Diagram
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-gradient-to-br from-purple-50/90 via-indigo-50/80 to-blue-50/90 border-2 border-purple-200/90 rounded-3xl p-8 sm:p-14 shadow-xl shadow-purple-500/10 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500" />
+      <section className="relative bg-gradient-to-br from-purple-50/70 via-indigo-50/50 to-blue-50/60 rounded-3xl p-8 sm:p-14 space-y-10 max-w-[1720px] mx-auto overflow-hidden">
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex flex-col items-center justify-center text-center space-y-3 max-w-3xl mx-auto">
