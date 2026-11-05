@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SerpentineRoadmap, RoadmapStep } from '../components/common/SerpentineRoadmap.js';
+import { ZapIcon } from '../components/common/ZapIcon.js';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
