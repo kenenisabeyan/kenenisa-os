@@ -167,7 +167,7 @@ export const AboutPage: React.FC = () => {
           
           {/* Left Column: Huge High-Impact Typography & Narrative */}
           <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.02]">
+            <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.04] break-words">
               Kenenisa <br />
               Beyan. <br />
               <span className="text-[#20B5D6]">
@@ -176,22 +176,22 @@ export const AboutPage: React.FC = () => {
               </span>
             </h1>
 
-            <p className="text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed pt-2">
+            <p className="text-sm xs:text-base sm:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed pt-2">
               Engineering Architect &amp; Software Systems Lead designing deterministic operating platforms, evidence-backed proof vaults, and ground-truth AI reasoning architectures at Adama Science and Technology University (ASTU).
             </p>
 
             {/* Quick Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-3">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
               <a
                 href="#principles"
-                className="px-7 py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
               >
                 <span>EXPLORE WORK</span>
                 <span>▾</span>
               </a>
               <a
                 href="#roadmap"
-                className="px-7 py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                className="px-6 sm:px-7 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6] hover:text-white bg-white text-[#20B5D6] font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-md shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
               >
                 <span>SYSTEM ROADMAP</span>
                 <span>▸</span>
@@ -199,18 +199,18 @@ export const AboutPage: React.FC = () => {
             </div>
 
             {/* Stat Counters matching the reference portfolio metrics */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200/80 max-w-xl">
+            <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-6 sm:pt-8 border-t border-slate-200/80 max-w-xl">
               <div>
-                <div className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
-                <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Years Experience</div>
+                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
+                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Years Experience</div>
               </div>
               <div>
-                <div className="text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
-                <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Projects &amp; Milestones</div>
+                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
+                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Projects &amp; Milestones</div>
               </div>
               <div>
-                <div className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">99%</div>
-                <div className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Verified Evidence</div>
+                <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">99%</div>
+                <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Verified Evidence</div>
               </div>
             </div>
           </div>
@@ -292,7 +292,7 @@ export const AboutPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 relative z-10">
           {[
             {
               num: '01', icon: '🎯', title: 'High Operational Noise',
@@ -315,17 +315,17 @@ export const AboutPage: React.FC = () => {
           ].map((card, i) => (
             <div
               key={i}
-              className={`relative bg-white/95 border-2 ${card.border} p-8 rounded-3xl space-y-4 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col items-center text-center`}
+              className={`relative bg-white/95 border-2 ${card.border} p-6 sm:p-8 rounded-2xl sm:rounded-3xl space-y-3.5 sm:space-y-4 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col items-center text-center`}
             >
               <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${card.gradient}`} />
-              <div className={`w-16 h-16 rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
                 {card.icon}
               </div>
               <span className={`text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
                 PROBLEM {card.num}
               </span>
-              <h4 className="text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
-              <p className="text-slate-600 leading-relaxed font-medium text-sm">{card.body}</p>
+              <h4 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
+              <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">{card.body}</p>
             </div>
           ))}
         </div>
@@ -341,51 +341,51 @@ export const AboutPage: React.FC = () => {
             Core Principles
           </span>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Product Philosophy 💎</h2>
-          <p className="text-slate-600 font-semibold text-lg">Click any principle to expand its engineering rationale.</p>
+          <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {principles.map((p, i) => {
             const isActive = activePrinciple === i;
             return (
               <div
                 key={i}
                 onClick={() => setActivePrinciple(isActive ? null : i)}
-                className={`relative bg-white/95 border-2 rounded-3xl p-7 sm:p-8 flex flex-col items-center text-center shadow-md cursor-pointer overflow-hidden transition-all duration-500 group
-                  ${isActive ? 'border-[#20B5D6] shadow-2xl shadow-cyan-500/20 scale-[1.02]' : 'border-slate-200/80 hover:shadow-xl hover:-translate-y-1.5 hover:border-[#20B5D6]/60'}`}
+                className={`relative bg-white/95 border-2 rounded-2xl sm:rounded-3xl p-5 xs:p-6 sm:p-7 md:p-8 flex flex-col items-center text-center shadow-md cursor-pointer overflow-hidden transition-all duration-500 group
+                  ${isActive ? 'border-[#20B5D6] shadow-2xl shadow-cyan-500/20 scale-[1.01] sm:scale-[1.02]' : 'border-slate-200/80 hover:shadow-xl hover:-translate-y-1.5 hover:border-[#20B5D6]/60'}`}
               >
                 {/* Top gradient bar */}
                 <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${p.color} transition-all duration-300`} />
 
                 {/* Active ring glow */}
-                {isActive && <div className="absolute inset-0 rounded-3xl ring-2 ring-[#20B5D6]/40 pointer-events-none" />}
+                {isActive && <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-2 ring-[#20B5D6]/40 pointer-events-none" />}
 
-                {/* Centered Squircle Icon Box */}
-                <div className={`w-20 h-20 rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-3xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
+                {/* Centered Squircle Icon Box - Adaptive sizing */}
+                <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
                   {p.icon}
                 </div>
 
                 {/* Centered Eyebrow & Title */}
-                <div className="space-y-1.5 text-center mb-3">
-                  <div className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
-                  <h3 className={`text-xl sm:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
+                <div className="space-y-1.5 text-center mb-2.5 sm:mb-3">
+                  <div className="text-[11px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
+                  <h3 className={`text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
                     {p.title}
                   </h3>
                 </div>
 
                 {/* Centered Body */}
-                <p className="text-slate-600 leading-relaxed font-medium text-sm text-center max-w-sm mb-4">{p.body}</p>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4">{p.body}</p>
 
-                {/* Expanded detail */}
-                <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-48 opacity-100 mb-4' : 'max-h-0 opacity-0'}`}>
-                  <div className={`p-4 rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
+                {/* Expanded detail - Responsive max-height */}
+                <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
+                  <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
                     <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
-                    <p className="text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
+                    <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
                   </div>
                 </div>
 
                 {/* Expand indicator */}
-                <div className={`mt-auto flex items-center justify-center gap-1.5 text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
+                <div className={`mt-auto flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
                   <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
                   <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
                 </div>
@@ -462,9 +462,9 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* Pipeline diagram */}
-        <div className="bg-white/95 rounded-2xl border-2 border-indigo-200/90 shadow-md p-5 sm:p-8">
-          {/* Mobile Vertical Flow (< sm) */}
-          <div className="sm:hidden flex flex-col gap-2.5">
+        <div className="bg-white/95 rounded-2xl sm:rounded-3xl border-2 border-indigo-200/90 shadow-md p-4 sm:p-8">
+          {/* Mobile & Tablet Vertical Flow (< lg) */}
+          <div className="lg:hidden flex flex-col gap-2.5">
             {aiPipeline.map((step, i) => (
               <React.Fragment key={i}>
                 <div className={`relative w-full border-2 ${step.color} rounded-2xl p-4 text-center space-y-1.5 shadow-xs`}>
@@ -472,11 +472,11 @@ export const AboutPage: React.FC = () => {
                     <span className="text-xl">{step.icon}</span>
                     <span className="text-[10px] font-black uppercase tracking-widest opacity-70">STEP {step.step}</span>
                   </div>
-                  <div className="font-black text-sm text-indigo-950">{step.label}</div>
+                  <div className="font-black text-sm text-slate-900">{step.label}</div>
                   <div className="text-xs font-semibold text-slate-600">{step.desc}</div>
                 </div>
                 {i < aiPipeline.length - 1 && (
-                  <div className="flex justify-center py-0.5 text-indigo-500">
+                  <div className="flex justify-center py-0.5 text-[#20B5D6]">
                     <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="animate-pulse">
                       <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -486,8 +486,8 @@ export const AboutPage: React.FC = () => {
             ))}
           </div>
 
-          {/* Desktop Horizontal Flow (>= sm) */}
-          <div className="hidden sm:flex items-start gap-0 overflow-x-auto">
+          {/* Desktop Horizontal Flow (>= lg) */}
+          <div className="hidden lg:flex items-start gap-0 overflow-x-auto">
             {aiPipeline.map((step, i) => (
               <React.Fragment key={i}>
                 <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
@@ -495,7 +495,7 @@ export const AboutPage: React.FC = () => {
                   <div className={`relative w-full border-2 ${step.color} rounded-2xl p-4 text-center space-y-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-default`}>
                     <div className="text-2xl">{step.icon}</div>
                     <div className="text-[9px] font-black uppercase tracking-widest opacity-60">STEP {step.step}</div>
-                    <div className="font-black text-sm leading-tight">{step.label}</div>
+                    <div className="font-black text-sm leading-tight text-slate-900">{step.label}</div>
                     <div className="text-[10px] font-semibold opacity-70 leading-snug">{step.desc}</div>
                     {/* Animated active dot */}
                     <div className="flex justify-center">
@@ -507,9 +507,9 @@ export const AboutPage: React.FC = () => {
                 {i < aiPipeline.length - 1 && (
                   <div className="flex items-center self-start mt-8 px-1 shrink-0">
                     <div className="flex items-center gap-0.5">
-                      <div className="w-4 h-0.5 bg-gradient-to-r from-indigo-400 to-purple-400" />
-                      <div className="w-4 h-0.5 bg-gradient-to-r from-purple-400 to-indigo-400 animate-pulse" />
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-indigo-500 shrink-0">
+                      <div className="w-4 h-0.5 bg-gradient-to-r from-[#20B5D6] to-blue-500" />
+                      <div className="w-4 h-0.5 bg-gradient-to-r from-blue-500 to-[#20B5D6] animate-pulse" />
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-[#20B5D6] shrink-0">
                         <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
