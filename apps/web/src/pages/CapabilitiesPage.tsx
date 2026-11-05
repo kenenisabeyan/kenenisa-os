@@ -162,8 +162,6 @@ export const CapabilitiesPage: React.FC = () => {
           <p className="text-xs xs:text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium pt-1">
             Explore the core modular capabilities of KENENISA OS. Each service works independently while sharing live PostgreSQL state across the entire operating system.
           </p>
-        </div>
-      </section>
 
           {/* ── INTERACTIVE SYSTEM ARCHITECTURE CAPABILITY MATRICES ── */}
           <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 max-w-5xl mx-auto text-center">
