@@ -26,3 +26,4 @@ export const ZapIcon: React.FC<ZapIconProps> = ({
 );
 
 export default ZapIcon;
+
