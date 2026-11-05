@@ -376,14 +376,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                     }}
                   />
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-extrabold text-sm tracking-tight text-slate-900 leading-none">
-                    KENENISA <span className="text-[#20B5D6]">OS</span>
-                  </span>
-                  <span className="text-[8px] text-[#20B5D6] font-black tracking-widest uppercase mt-0.5">
-                    Personal Engineering OS
-                  </span>
-                </div>
+                <span className="font-extrabold text-base tracking-tight text-slate-900 leading-none">
+                  KENENISA <span className="text-[#20B5D6]">OS</span>
+                </span>
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}
@@ -526,14 +521,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                   }}
                 />
               </div>
-              <div className="flex flex-col min-w-0">
-                <span className="font-extrabold text-lg tracking-tight text-slate-900 leading-tight">
-                  KENENISA <span className="text-[#20B5D6]">OS</span>
-                </span>
-                <span className="text-[10px] text-[#20B5D6] font-black tracking-widest uppercase">
-                  Personal Engineering Operating System
-                </span>
-              </div>
+              <span className="font-extrabold text-xl tracking-tight text-slate-900 leading-none">
+                KENENISA <span className="text-[#20B5D6]">OS</span>
+              </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
               Personal Engineering &amp; Career Operating System designed to turn goals, software architecture, academic milestones, and verifiable proof into a unified discipline.
@@ -563,7 +553,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         </div>
 
         <div className="max-w-[1720px] mx-auto mt-10 pt-6 border-t border-slate-200/60 flex flex-col sm:flex-row justify-between items-center text-[11px] font-medium text-slate-500 gap-3">
-          <span>&copy; {new Date().getFullYear()} KENENISA OS &bull; Personal Engineering Operating System</span>
+          <span>&copy; {new Date().getFullYear()} KENENISA OS</span>
           <span className="inline-flex items-center gap-1.5 text-[#20B5D6] font-bold">
             <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6]" />
             Evidence-Backed &bull; Factual &bull; Deterministic
