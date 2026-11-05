@@ -381,9 +381,7 @@ export const HomePage: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Traditional Disconnected Workflow */}
-          <div className="relative rounded-3xl bg-gradient-to-br from-rose-50/90 via-rose-100/40 to-orange-50/60 p-8 sm:p-10 border-2 border-rose-200/90 shadow-2xl shadow-rose-500/10 space-y-6 transition-all duration-300 hover:shadow-rose-500/20 hover:border-rose-300 group overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-rose-400 to-orange-500" />
-            
+          <div className="relative rounded-3xl bg-gradient-to-br from-rose-50/80 via-rose-100/40 to-orange-50/60 p-8 sm:p-10 space-y-6 overflow-hidden">
             <div className="flex items-center justify-between pb-4 border-b border-rose-200/80">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-2xl bg-rose-500 flex items-center justify-center text-white font-black text-base shadow-lg shadow-rose-500/40 shrink-0">
@@ -419,9 +417,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* The KENENISA OS Operating System */}
-          <div className="relative rounded-3xl bg-gradient-to-br from-emerald-50/90 via-teal-100/40 to-cyan-50/60 p-8 sm:p-10 border-2 border-emerald-200/90 shadow-2xl shadow-emerald-500/10 space-y-6 transition-all duration-300 hover:shadow-emerald-500/20 hover:border-emerald-300 group overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500" />
-
+          <div className="relative rounded-3xl bg-gradient-to-br from-emerald-50/80 via-teal-100/40 to-cyan-50/60 p-8 sm:p-10 space-y-6 overflow-hidden">
             <div className="flex items-center justify-between pb-4 border-b border-emerald-200/80">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-2xl bg-emerald-600 flex items-center justify-center text-white font-black text-base shadow-lg shadow-emerald-500/40 shrink-0">
@@ -568,7 +564,7 @@ export const HomePage: React.FC = () => {
           </div>
           <button
             onClick={() => navigate('/login')}
-            className="w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-black text-xs sm:text-sm shadow-lg sm:shadow-xl shadow-cyan-500/25 hover:scale-105 hover:shadow-cyan-500/40 transition-all duration-300 shrink-0 group whitespace-nowrap"
+            className="w-full max-w-[270px] sm:max-w-none sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-full bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-black text-xs sm:text-sm shadow-lg sm:shadow-xl shadow-orange-500/25 hover:scale-105 hover:shadow-orange-500/40 transition-all duration-300 shrink-0 group whitespace-nowrap"
           >
             <span>Launch Command Center</span>
             <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -577,10 +573,9 @@ export const HomePage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Deterministic Next Best Action Card */}
-          <div className="relative bg-gradient-to-br from-cyan-50/90 via-sky-50/70 to-blue-100/80 rounded-3xl p-8 space-y-6 shadow-2xl shadow-cyan-500/10 border-2 border-cyan-200/90 transition-all duration-300 hover:border-cyan-300 hover:shadow-cyan-500/20 overflow-hidden group">
+          <div className="relative bg-gradient-to-br from-cyan-50/70 via-sky-50/50 to-blue-50/60 rounded-3xl p-8 space-y-6 overflow-hidden group">
             {/* Ambient Background Glow */}
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-400/25 transition-all duration-500" />
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600" />
 
             <div className="flex flex-wrap justify-between items-center gap-3 pb-4 border-b border-cyan-200/80">
               <h3 className="text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5">
@@ -632,10 +627,9 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* AI Advisory Layer Card */}
-          <div className="relative bg-gradient-to-br from-purple-50/90 via-fuchsia-50/70 to-indigo-100/80 rounded-3xl p-8 space-y-6 shadow-2xl shadow-purple-500/10 border-2 border-purple-200/90 transition-all duration-300 hover:border-purple-300 hover:shadow-purple-500/20 overflow-hidden group">
+          <div className="relative bg-gradient-to-br from-purple-50/70 via-fuchsia-50/50 to-indigo-50/60 rounded-3xl p-8 space-y-6 overflow-hidden group">
             {/* Ambient Background Glow */}
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-400/15 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-400/25 transition-all duration-500" />
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-600" />
 
             <div className="flex flex-wrap justify-between items-center gap-3 pb-4 border-b border-purple-200/80">
               <h3 className="text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5">
@@ -767,10 +761,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── FINAL CTA BANNER ────────────────────────────────────────────────────── */}
-      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/90 via-white to-orange-50/80 border-2 border-cyan-200/80 p-10 sm:p-16 text-center space-y-8 shadow-2xl shadow-cyan-500/10 max-w-[1720px] mx-auto overflow-hidden group">
-        {/* Top Accent Line */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D]" />
-        
+      <section className="relative rounded-3xl bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 p-10 sm:p-16 text-center space-y-8 max-w-[1720px] mx-auto overflow-hidden group">
         {/* Ambient Glowing Orbs */}
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#20B5D6]/15 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
         <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#FE721D]/15 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
