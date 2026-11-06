@@ -417,75 +417,75 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Traditional Disconnected Workflow */}
-            <div className="relative rounded-3xl bg-gradient-to-br from-rose-50/80 via-rose-100/40 to-orange-50/60 p-8 sm:p-10 space-y-6 overflow-hidden">
-              <div className="flex items-center justify-between pb-4 border-b border-rose-200/80">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-2xl bg-rose-500 flex items-center justify-center text-white font-black text-base shadow-lg shadow-rose-500/40 shrink-0">
+            <div className="relative rounded-3xl bg-gradient-to-br from-rose-50/80 via-rose-100/40 to-orange-50/60 p-4 xs:p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-6 overflow-hidden">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-rose-200/80">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-rose-500 flex items-center justify-center text-white font-black text-sm sm:text-base shadow-lg shadow-rose-500/40 shrink-0">
                     ✕
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-rose-950 tracking-tight">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl font-black text-rose-950 tracking-tight break-words">
                     Traditional Disconnected Workflow
                   </h3>
                 </div>
-                <span className="text-[10px] font-black text-rose-800 bg-rose-100 border border-rose-300 px-3 py-1 rounded-full uppercase tracking-widest">
+                <span className="text-[10px] font-black text-rose-800 bg-rose-100 border border-rose-300 px-3 py-1 rounded-full uppercase tracking-widest shrink-0">
                   Fragmented
                 </span>
               </div>
 
-              <ul className="space-y-4 text-base sm:text-lg text-rose-950 font-semibold">
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
-                  <span>Tasks sit in one app while code pull requests sit in GitHub.</span>
+              <ul className="space-y-3 sm:space-y-4 text-sm xs:text-base sm:text-lg text-rose-950 font-semibold">
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                  <span className="break-words">Tasks sit in one app while code pull requests sit in GitHub.</span>
                 </li>
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
-                  <span>Courses and certifications are logged separately from active engineering projects.</span>
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                  <span className="break-words">Courses and certifications are logged separately from active engineering projects.</span>
                 </li>
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
-                  <span>Career opportunities lack observable evidence connecting them to completed work.</span>
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                  <span className="break-words">Career opportunities lack observable evidence connecting them to completed work.</span>
                 </li>
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
-                  <span>Daily planning is disconnected from long-term strategic direction.</span>
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-rose-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✕</div>
+                  <span className="break-words">Daily planning is disconnected from long-term strategic direction.</span>
                 </li>
               </ul>
             </div>
 
             {/* The KENENISA OS Operating System */}
-            <div className="relative rounded-3xl bg-gradient-to-br from-emerald-50/80 via-teal-100/40 to-cyan-50/60 p-8 sm:p-10 space-y-6 overflow-hidden">
-              <div className="flex items-center justify-between pb-4 border-b border-emerald-200/80">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-2xl bg-emerald-600 flex items-center justify-center text-white font-black text-base shadow-lg shadow-emerald-500/40 shrink-0">
+            <div className="relative rounded-3xl bg-gradient-to-br from-emerald-50/80 via-teal-100/40 to-cyan-50/60 p-4 xs:p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-6 overflow-hidden">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-emerald-200/80">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-emerald-600 flex items-center justify-center text-white font-black text-sm sm:text-base shadow-lg shadow-emerald-500/40 shrink-0">
                     ✓
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-emerald-950 tracking-tight">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl font-black text-emerald-950 tracking-tight break-words">
                     The KENENISA OS Operating System
                   </h3>
                 </div>
-                <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-full uppercase tracking-widest">
+                <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-full uppercase tracking-widest shrink-0">
                   Unified Loop
                 </span>
               </div>
 
-              <ul className="space-y-4 text-base sm:text-lg text-emerald-950 font-semibold">
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
-                  <span>Goals directly break down into projects, milestones, and executable tasks.</span>
+              <ul className="space-y-3 sm:space-y-4 text-sm xs:text-base sm:text-lg text-emerald-950 font-semibold">
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                  <span className="break-words">Goals directly break down into projects, milestones, and executable tasks.</span>
                 </li>
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
-                  <span>Task completions automatically produce observable evidence items.</span>
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                  <span className="break-words">Task completions automatically produce observable evidence items.</span>
                 </li>
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
-                  <span>Verified skills link directly to completed project artifacts and target opportunities.</span>
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                  <span className="break-words">Verified skills link directly to completed project artifacts and target opportunities.</span>
                 </li>
-                <li className="flex items-start gap-3.5 bg-white/80 p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
-                  <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
-                  <span>Deterministic Next Best Action guides daily capacity execution.</span>
+                <li className="flex items-start gap-2.5 sm:gap-3.5 bg-white/80 p-3 sm:p-3.5 rounded-2xl border border-emerald-200/80 shadow-xs group-hover:bg-white transition-colors">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs shrink-0 mt-0.5">✓</div>
+                  <span className="break-words">Deterministic Next Best Action guides daily capacity execution.</span>
                 </li>
               </ul>
             </div>
@@ -505,83 +505,113 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5 relative z-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 xs:gap-3.5 sm:gap-5 relative z-10">
             {/* Academic */}
-            <div className="relative p-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl space-y-3 shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/40 group/item overflow-hidden">
-              <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="relative p-3.5 xs:p-4 sm:p-5 md:p-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl space-y-2 sm:space-y-3 shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/40 group/item overflow-hidden flex flex-col items-center justify-between min-h-[145px] xs:min-h-[160px] sm:min-h-[180px] text-center">
+              <div className="absolute top-0 left-3 right-3 sm:left-4 sm:right-4 h-[1.5px] sm:h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full pointer-events-none group-hover/item:left-1 group-hover/item:right-1 transition-all duration-300" />
+              <div className="w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-xl xs:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner group-hover/item:scale-110 transition-transform duration-300 shrink-0">
+                <svg className="w-5 h-5 xs:w-5.5 xs:h-5.5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                 </svg>
               </div>
-              <div>
-                <span className="text-lg font-black block">Academic</span>
-                <p className="text-xs sm:text-sm text-blue-100 font-medium">Coursework &amp; Research</p>
+              <div className="space-y-0.5 sm:space-y-1 w-full min-w-0">
+                <span className="text-xs xs:text-sm sm:text-base md:text-lg font-black block tracking-tight break-words max-w-full">
+                  Academic
+                </span>
+                <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-blue-100 font-medium leading-snug break-words max-w-full">
+                  Coursework &amp; Research
+                </p>
               </div>
             </div>
 
             {/* Engineering */}
-            <div className="relative p-6 bg-gradient-to-br from-purple-600 to-indigo-800 text-white rounded-2xl space-y-3 shadow-xl shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40 group/item overflow-hidden">
-              <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="relative p-3.5 xs:p-4 sm:p-5 md:p-6 bg-gradient-to-br from-purple-600 to-indigo-800 text-white rounded-2xl space-y-2 sm:space-y-3 shadow-xl shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40 group/item overflow-hidden flex flex-col items-center justify-between min-h-[145px] xs:min-h-[160px] sm:min-h-[180px] text-center">
+              <div className="absolute top-0 left-3 right-3 sm:left-4 sm:right-4 h-[1.5px] sm:h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full pointer-events-none group-hover/item:left-1 group-hover/item:right-1 transition-all duration-300" />
+              <div className="w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-xl xs:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner group-hover/item:scale-110 transition-transform duration-300 shrink-0">
+                <svg className="w-5 h-5 xs:w-5.5 xs:h-5.5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
               </div>
-              <div>
-                <span className="text-lg font-black block">Engineering</span>
-                <p className="text-xs sm:text-sm text-purple-100 font-medium">Software &amp; Architecture</p>
+              <div className="space-y-0.5 sm:space-y-1 w-full min-w-0">
+                <span className="text-xs xs:text-sm sm:text-base md:text-lg font-black block tracking-tight break-words max-w-full">
+                  Engineering
+                </span>
+                <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-purple-100 font-medium leading-snug break-words max-w-full">
+                  Software &amp; Architecture
+                </p>
               </div>
             </div>
 
             {/* Skill Gain */}
-            <div className="relative p-6 bg-gradient-to-br from-violet-600 to-fuchsia-700 text-white rounded-2xl space-y-3 shadow-xl shadow-violet-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-violet-500/40 group/item overflow-hidden">
-              <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="relative p-3.5 xs:p-4 sm:p-5 md:p-6 bg-gradient-to-br from-violet-600 to-fuchsia-700 text-white rounded-2xl space-y-2 sm:space-y-3 shadow-xl shadow-violet-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-violet-500/40 group/item overflow-hidden flex flex-col items-center justify-between min-h-[145px] xs:min-h-[160px] sm:min-h-[180px] text-center">
+              <div className="absolute top-0 left-3 right-3 sm:left-4 sm:right-4 h-[1.5px] sm:h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full pointer-events-none group-hover/item:left-1 group-hover/item:right-1 transition-all duration-300" />
+              <div className="w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-xl xs:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner group-hover/item:scale-110 transition-transform duration-300 shrink-0">
+                <svg className="w-5 h-5 xs:w-5.5 xs:h-5.5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <div>
-                <span className="text-lg font-black block">Skill Gain</span>
-                <p className="text-xs sm:text-sm text-violet-100 font-medium">Verified Capabilities</p>
+              <div className="space-y-0.5 sm:space-y-1 w-full min-w-0">
+                <span className="text-xs xs:text-sm sm:text-base md:text-lg font-black block tracking-tight break-words max-w-full">
+                  Skill Gain
+                </span>
+                <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-violet-100 font-medium leading-snug break-words max-w-full">
+                  Verified Capabilities
+                </p>
               </div>
             </div>
 
             {/* Evidence */}
-            <div className="relative p-6 bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl space-y-3 shadow-xl shadow-emerald-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/40 group/item overflow-hidden">
-              <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="relative p-3.5 xs:p-4 sm:p-5 md:p-6 bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl space-y-2 sm:space-y-3 shadow-xl shadow-emerald-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/40 group/item overflow-hidden flex flex-col items-center justify-between min-h-[145px] xs:min-h-[160px] sm:min-h-[180px] text-center">
+              <div className="absolute top-0 left-3 right-3 sm:left-4 sm:right-4 h-[1.5px] sm:h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full pointer-events-none group-hover/item:left-1 group-hover/item:right-1 transition-all duration-300" />
+              <div className="w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-xl xs:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner group-hover/item:scale-110 transition-transform duration-300 shrink-0">
+                <svg className="w-5 h-5 xs:w-5.5 xs:h-5.5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <div>
-                <span className="text-lg font-black block">Evidence</span>
-                <p className="text-xs sm:text-sm text-emerald-100 font-medium">Proof of Output</p>
+              <div className="space-y-0.5 sm:space-y-1 w-full min-w-0">
+                <span className="text-xs xs:text-sm sm:text-base md:text-lg font-black block tracking-tight break-words max-w-full">
+                  Evidence
+                </span>
+                <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-emerald-100 font-medium leading-snug break-words max-w-full">
+                  Proof of Output
+                </p>
               </div>
             </div>
 
             {/* Portfolio */}
-            <div className="relative p-6 bg-gradient-to-br from-cyan-600 to-sky-700 text-white rounded-2xl space-y-3 shadow-xl shadow-cyan-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/40 group/item overflow-hidden">
-              <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="relative p-3.5 xs:p-4 sm:p-5 md:p-6 bg-gradient-to-br from-cyan-600 to-sky-700 text-white rounded-2xl space-y-2 sm:space-y-3 shadow-xl shadow-cyan-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/40 group/item overflow-hidden flex flex-col items-center justify-between min-h-[145px] xs:min-h-[160px] sm:min-h-[180px] text-center">
+              <div className="absolute top-0 left-3 right-3 sm:left-4 sm:right-4 h-[1.5px] sm:h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full pointer-events-none group-hover/item:left-1 group-hover/item:right-1 transition-all duration-300" />
+              <div className="w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-xl xs:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner group-hover/item:scale-110 transition-transform duration-300 shrink-0">
+                <svg className="w-5 h-5 xs:w-5.5 xs:h-5.5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
-              <div>
-                <span className="text-lg font-black block">Portfolio</span>
-                <p className="text-xs sm:text-sm text-cyan-100 font-medium">Tangible Artifacts</p>
+              <div className="space-y-0.5 sm:space-y-1 w-full min-w-0">
+                <span className="text-xs xs:text-sm sm:text-base md:text-lg font-black block tracking-tight break-words max-w-full">
+                  Portfolio
+                </span>
+                <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-cyan-100 font-medium leading-snug break-words max-w-full">
+                  Tangible Artifacts
+                </p>
               </div>
             </div>
 
             {/* Career Value */}
-            <div className="relative p-6 bg-gradient-to-br from-amber-600 to-orange-700 text-white rounded-2xl space-y-3 shadow-xl shadow-amber-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/40 group/item overflow-hidden">
-              <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="relative p-3.5 xs:p-4 sm:p-5 md:p-6 bg-gradient-to-br from-amber-600 to-orange-700 text-white rounded-2xl space-y-2 sm:space-y-3 shadow-xl shadow-amber-500/25 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/40 group/item overflow-hidden flex flex-col items-center justify-between min-h-[145px] xs:min-h-[160px] sm:min-h-[180px] text-center">
+              <div className="absolute top-0 left-3 right-3 sm:left-4 sm:right-4 h-[1.5px] sm:h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent rounded-full pointer-events-none group-hover/item:left-1 group-hover/item:right-1 transition-all duration-300" />
+              <div className="w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 rounded-xl xs:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center mx-auto shadow-inner group-hover/item:scale-110 transition-transform duration-300 shrink-0">
+                <svg className="w-5 h-5 xs:w-5.5 xs:h-5.5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
               </div>
-              <div>
-                <span className="text-lg font-black block">Career Value</span>
-                <p className="text-xs sm:text-sm text-amber-100 font-medium">Opportunity Pipeline</p>
+              <div className="space-y-0.5 sm:space-y-1 w-full min-w-0">
+                <span className="text-xs xs:text-sm sm:text-base md:text-lg font-black block tracking-tight break-words max-w-full">
+                  Career Value
+                </span>
+                <p className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm text-amber-100 font-medium leading-snug break-words max-w-full">
+                  Opportunity Pipeline
+                </p>
               </div>
             </div>
           </div>
@@ -606,24 +636,24 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Deterministic Next Best Action Card */}
-            <div className="relative bg-gradient-to-br from-cyan-50/70 via-sky-50/50 to-blue-50/60 rounded-3xl p-8 space-y-6 overflow-hidden group">
+            <div className="relative bg-gradient-to-br from-cyan-50/70 via-sky-50/50 to-blue-50/60 rounded-3xl p-4 xs:p-6 sm:p-8 space-y-4 sm:space-y-6 overflow-hidden group">
               {/* Ambient Background Glow */}
               <div className="absolute -top-24 -right-24 w-64 h-64 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-400/25 transition-all duration-500" />
 
               <div className="flex flex-wrap justify-between items-center gap-3 pb-4 border-b border-cyan-200/80">
-                <h3 className="text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5">
-                  <span className="w-3 h-3 rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50 animate-pulse" />
-                  Deterministic Next Best Action
+                <h3 className="text-lg xs:text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5 break-words">
+                  <span className="w-3 h-3 rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50 animate-pulse shrink-0" />
+                  <span>Deterministic Next Best Action</span>
                 </h3>
-                <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-cyan-900 bg-white/90 px-3.5 py-1.5 rounded-full border border-cyan-300 shadow-sm uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-cyan-900 bg-white/90 px-3.5 py-1.5 rounded-full border border-cyan-300 shadow-sm uppercase tracking-wider shrink-0">
                   <span className="w-2 h-2 rounded-full bg-cyan-500 animate-ping" />
                   System Derived
                 </span>
               </div>
 
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-semibold">
+              <p className="text-sm xs:text-base sm:text-lg text-slate-700 leading-relaxed font-semibold break-words">
                 Instead of guessing what to work on next, the system analyzes open priorities (P0/P1), unblocked task dependencies, and scheduled capacity to recommend your exact next engineering task.
               </p>
 
@@ -631,7 +661,7 @@ export const HomePage: React.FC = () => {
               <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-300/50 to-slate-200/60 shadow-xl shadow-cyan-500/15 hover:shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 group/box">
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover/box:bg-[#20B5D6]/35 transition-all duration-300" />
                 <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full shadow-[0_0_10px_rgba(32,181,214,0.7)] pointer-events-none group-hover/box:left-2 group-hover/box:right-2 transition-all duration-300" />
-                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-6 space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 xs:p-5 sm:p-6 space-y-3 sm:space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                   
                   <div className="flex flex-wrap items-center gap-2">
                     <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-cyan-500/20">
@@ -646,7 +676,7 @@ export const HomePage: React.FC = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <p className="font-black text-lg sm:text-xl text-indigo-950 group-hover/box:text-cyan-700 transition-colors">
+                    <p className="font-black text-base xs:text-lg sm:text-xl text-indigo-950 group-hover/box:text-cyan-700 transition-colors break-words">
                       KENENISA OS Planning Engine Pull Request
                     </p>
                     <div className="flex flex-wrap items-center gap-1.5 pt-1">
@@ -665,22 +695,22 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* AI Advisory Layer Card */}
-            <div className="relative bg-gradient-to-br from-purple-50/70 via-fuchsia-50/50 to-indigo-50/60 rounded-3xl p-8 space-y-6 overflow-hidden group">
+            <div className="relative bg-gradient-to-br from-purple-50/70 via-fuchsia-50/50 to-indigo-50/60 rounded-3xl p-4 xs:p-6 sm:p-8 space-y-4 sm:space-y-6 overflow-hidden group">
               {/* Ambient Background Glow */}
               <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-400/15 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-400/25 transition-all duration-500" />
 
               <div className="flex flex-wrap justify-between items-center gap-3 pb-4 border-b border-purple-200/80">
-                <h3 className="text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5">
-                  <span className="w-3 h-3 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50 animate-pulse" />
-                  AI Advisory Layer
+                <h3 className="text-lg xs:text-xl sm:text-2xl font-black tracking-tight text-indigo-950 flex items-center gap-2.5 break-words">
+                  <span className="w-3 h-3 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50 animate-pulse shrink-0" />
+                  <span>AI Advisory Layer</span>
                 </h3>
-                <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-purple-900 bg-white/90 px-3.5 py-1.5 rounded-full border border-purple-300 shadow-sm uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-purple-900 bg-white/90 px-3.5 py-1.5 rounded-full border border-purple-300 shadow-sm uppercase tracking-wider shrink-0">
                   <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
                   AI Advisory
                 </span>
               </div>
 
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-semibold">
+              <p className="text-sm xs:text-base sm:text-lg text-slate-700 leading-relaxed font-semibold break-words">
                 Intelligence Core acts as an advisory mentor over your system state. It analyzes work structure, identifies blockers, and provides actionable recommendations while keeping human decision-making authoritative.
               </p>
 
@@ -688,7 +718,7 @@ export const HomePage: React.FC = () => {
               <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-purple-500 via-fuchsia-300/50 to-slate-200/60 shadow-xl shadow-purple-500/15 hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 group/box">
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-purple-500/20 blur-lg pointer-events-none group-hover/box:bg-purple-500/35 transition-all duration-300" />
                 <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent rounded-full shadow-[0_0_10px_rgba(168,85,247,0.7)] pointer-events-none group-hover/box:left-2 group-hover/box:right-2 transition-all duration-300" />
-                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-6 space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 xs:p-5 sm:p-6 space-y-3 sm:space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                   
                   <div className="flex flex-wrap items-center gap-2">
                     <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-purple-500/20">
@@ -703,7 +733,7 @@ export const HomePage: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <p className="text-indigo-950 font-bold text-base sm:text-lg leading-relaxed">
+                    <p className="text-indigo-950 font-bold text-sm xs:text-base sm:text-lg leading-relaxed break-words">
                       "3 tasks in <span className="underline decoration-purple-400 decoration-2 underline-offset-2 font-black text-purple-950">'Engineering'</span> are blocked by pending PR review. Resolving these dependencies will unblock 2 upcoming milestones."
                     </p>
                     <div className="flex flex-wrap items-center gap-1.5 pt-1">
@@ -740,7 +770,7 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {/* Card 1: Students */}
             <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-purple-500 via-indigo-400/50 to-slate-200/60 shadow-lg shadow-purple-500/10 hover:shadow-2xl hover:shadow-purple-500/25 hover:-translate-y-2 transition-all duration-300 overflow-hidden">
               {/* Top Volumetric Glow Orb */}
@@ -749,20 +779,20 @@ export const HomePage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               {/* Inner Card Surface */}
-              <div className="relative h-full w-full bg-gradient-to-b from-purple-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-purple-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center space-y-3 sm:space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-100/70 border border-purple-200 text-[10px] font-mono font-bold text-purple-700 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
                   <span>AUDIENCE // 01</span>
                 </div>
 
-                <div className="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xl sm:text-2xl shadow-inner group-hover:scale-110 transition-transform">
                   🎓
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-black text-purple-950">Students</h3>
-                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <h3 className="text-xl xs:text-2xl font-black text-purple-950 break-words">Students</h3>
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold break-words">
                     Organize university coursework, engineering projects, skill learning, and academic portfolio evidence.
                   </p>
                 </div>
@@ -777,20 +807,20 @@ export const HomePage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               {/* Inner Card Surface */}
-              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center space-y-3 sm:space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
                   <span>AUDIENCE // 02</span>
                 </div>
 
-                <div className="w-14 h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                  <ZapIcon className="w-7 h-7 text-cyan-600" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                  <ZapIcon className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-600" />
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-black text-cyan-950">Engineers</h3>
-                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <h3 className="text-xl xs:text-2xl font-black text-cyan-950 break-words">Engineers</h3>
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold break-words">
                     Connect code repositories, architecture deliverables, pull requests, and verified technical skills.
                   </p>
                 </div>
@@ -805,20 +835,20 @@ export const HomePage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               {/* Inner Card Surface */}
-              <div className="relative h-full w-full bg-gradient-to-b from-blue-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-blue-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center space-y-3 sm:space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100/70 border border-blue-200 text-[10px] font-mono font-bold text-blue-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
                   <span>AUDIENCE // 03</span>
                 </div>
 
-                <div className="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-xl sm:text-2xl shadow-inner group-hover:scale-110 transition-transform">
                   🛠️
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-black text-blue-950">Builders</h3>
-                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <h3 className="text-xl xs:text-2xl font-black text-blue-950 break-words">Builders</h3>
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold break-words">
                     Turn product ideas into structured workstreams, goals, milestones, and shipping schedules.
                   </p>
                 </div>
@@ -833,20 +863,20 @@ export const HomePage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               {/* Inner Card Surface */}
-              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center space-y-3 sm:space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[10px] font-mono font-bold text-orange-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FE721D] animate-pulse" />
                   <span>AUDIENCE // 04</span>
                 </div>
 
-                <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-black text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center font-black text-xl sm:text-2xl shadow-inner group-hover:scale-110 transition-transform">
                   🚀
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-black text-amber-950">Career Growth</h3>
-                  <p className="text-base text-slate-700 leading-relaxed font-semibold">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <h3 className="text-xl xs:text-2xl font-black text-amber-950 break-words">Career Growth</h3>
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-semibold break-words">
                     Track target roles, interview preparation, portfolio evidence, and skill-to-opportunity mapping.
                   </p>
                 </div>

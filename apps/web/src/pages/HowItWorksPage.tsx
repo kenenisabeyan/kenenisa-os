@@ -256,14 +256,14 @@ export const HowItWorksPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 text-center text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 xs:gap-3 sm:gap-4 text-center text-xs">
             {/* 1. Problem */}
             <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-slate-400 via-slate-300/50 to-slate-200/60 shadow-md hover:shadow-xl hover:shadow-slate-400/20 hover:-translate-y-1.5 transition-all duration-300 group/step">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-slate-400/15 blur-lg pointer-events-none group-hover/step:bg-slate-400/25 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-slate-500 to-transparent rounded-full shadow-[0_0_8px_rgba(100,116,139,0.6)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest block">// 01 · Problem</span>
-                <p className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-slate-700 transition-colors">Identify Gap</p>
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3 xs:p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] min-w-0">
+                <span className="text-[9px] xs:text-[10px] font-black text-slate-600 uppercase tracking-widest block truncate">// 01 · Problem</span>
+                <p className="font-black text-xs xs:text-sm sm:text-base text-indigo-950 group-hover/step:text-slate-700 transition-colors tracking-tight break-words">Identify Gap</p>
               </div>
             </div>
 
@@ -271,9 +271,9 @@ export const HowItWorksPage: React.FC = () => {
             <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-300/50 to-slate-200/60 shadow-md hover:shadow-xl hover:shadow-cyan-400/20 hover:-translate-y-1.5 transition-all duration-300 group/step">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full shadow-[0_0_8px_rgba(32,181,214,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="text-[10px] font-black text-[#20B5D6] uppercase tracking-widest block">// 02 · Question</span>
-                <p className="font-black text-sm sm:text-base text-cyan-950 group-hover/step:text-[#20B5D6] transition-colors">Hypothesize</p>
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3 xs:p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] min-w-0">
+                <span className="text-[9px] xs:text-[10px] font-black text-[#20B5D6] uppercase tracking-widest block truncate">// 02 · Question</span>
+                <p className="font-black text-xs xs:text-sm sm:text-base text-cyan-950 group-hover/step:text-[#20B5D6] transition-colors tracking-tight break-words">Hypothesize</p>
               </div>
             </div>
 
@@ -281,9 +281,9 @@ export const HowItWorksPage: React.FC = () => {
             <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-teal-400 via-teal-300/50 to-slate-200/60 shadow-md hover:shadow-xl hover:shadow-teal-400/20 hover:-translate-y-1.5 transition-all duration-300 group/step">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-teal-400/20 blur-lg pointer-events-none group-hover/step:bg-teal-400/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-teal-500 to-transparent rounded-full shadow-[0_0_8px_rgba(20,184,166,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="text-[10px] font-black text-teal-600 uppercase tracking-widest block">// 03 · Design</span>
-                <p className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-teal-600 transition-colors">Architecture</p>
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3 xs:p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] min-w-0">
+                <span className="text-[9px] xs:text-[10px] font-black text-teal-600 uppercase tracking-widest block truncate">// 03 · Design</span>
+                <p className="font-black text-xs xs:text-sm sm:text-base text-indigo-950 group-hover/step:text-teal-600 transition-colors tracking-tight break-words">Architecture</p>
               </div>
             </div>
 
@@ -291,9 +291,9 @@ export const HowItWorksPage: React.FC = () => {
             <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-300/50 to-slate-200/60 shadow-md hover:shadow-xl hover:shadow-orange-400/20 hover:-translate-y-1.5 transition-all duration-300 group/step">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/20 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full shadow-[0_0_8px_rgba(254,114,29,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="text-[10px] font-black text-[#FE721D] uppercase tracking-widest block">// 04 · Build</span>
-                <p className="font-black text-sm sm:text-base text-orange-950 group-hover/step:text-[#FE721D] transition-colors">Implementation</p>
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3 xs:p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] min-w-0">
+                <span className="text-[9px] xs:text-[10px] font-black text-[#FE721D] uppercase tracking-widest block truncate">// 04 · Build</span>
+                <p className="font-black text-xs xs:text-sm sm:text-base text-orange-950 group-hover/step:text-[#FE721D] transition-colors tracking-tight break-words">Implementation</p>
               </div>
             </div>
 
@@ -301,9 +301,9 @@ export const HowItWorksPage: React.FC = () => {
             <div className="relative p-[2px] rounded-2xl bg-gradient-to-b from-emerald-400 via-emerald-300/50 to-slate-200/60 shadow-md hover:shadow-xl hover:shadow-emerald-400/20 hover:-translate-y-1.5 transition-all duration-300 group/step col-span-2 sm:col-span-1">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-emerald-400/20 blur-lg pointer-events-none group-hover/step:bg-emerald-400/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent rounded-full shadow-[0_0_8px_rgba(16,185,129,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest block">// 05 · Verification</span>
-                <p className="font-black text-sm sm:text-base text-emerald-950 group-hover/step:text-emerald-600 transition-colors">Evidence</p>
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3 xs:p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] min-w-0">
+                <span className="text-[9px] xs:text-[10px] font-black text-emerald-600 uppercase tracking-widest block truncate">// 05 · Verification</span>
+                <p className="font-black text-xs xs:text-sm sm:text-base text-emerald-950 group-hover/step:text-emerald-600 transition-colors tracking-tight break-words">Evidence</p>
               </div>
             </div>
           </div>

@@ -38,14 +38,14 @@ const StatCard: React.FC<{ value: number; suffix: string; label: string; icon: R
   ({ value, suffix, label, icon, color, border, start }) => {
     const count = useCountUp(value, 1600, start);
     return (
-      <div className={`relative bg-white/95 rounded-2xl p-6 border-2 ${border} shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 text-center group overflow-hidden`}>
+      <div className={`relative bg-white/95 rounded-2xl p-3.5 xs:p-4 sm:p-5 md:p-6 border-2 ${border} shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 text-center group overflow-hidden flex flex-col items-center justify-center min-h-[120px] xs:min-h-[135px] sm:min-h-[150px]`}>
         <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${color} pointer-events-none`} />
-        <div className="relative z-10 space-y-1">
-          <div className="text-2xl mb-1 flex items-center justify-center min-h-[32px]">{icon}</div>
-          <div className="text-4xl font-black text-indigo-950 tracking-tight group-hover:scale-110 transition-transform duration-300">
+        <div className="relative z-10 space-y-1 w-full min-w-0">
+          <div className="text-xl sm:text-2xl mb-1 flex items-center justify-center min-h-[28px] sm:min-h-[32px]">{icon}</div>
+          <div className="text-2xl xs:text-3xl sm:text-4xl font-black text-indigo-950 tracking-tight group-hover:scale-110 transition-transform duration-300">
             {count}{suffix}
           </div>
-          <div className="text-xs font-bold text-slate-600 uppercase tracking-wider">{label}</div>
+          <div className="text-[10px] xs:text-[11px] sm:text-xs font-bold text-slate-600 uppercase tracking-tight xs:tracking-wider break-words">{label}</div>
         </div>
       </div>
     );
@@ -268,7 +268,7 @@ export const AboutPage: React.FC = () => {
           <div className="text-center mb-10 space-y-3">
             <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Built by the Numbers 📊</h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 xs:gap-3.5 sm:gap-4">
             <StatCard value={6} suffix="+" label="Core Modules" icon={<ZapIcon className="w-6 h-6 text-blue-600 mx-auto" />} color="from-blue-500/5 to-indigo-500/10" border="border-blue-200/90" start={statsInView} />
             <StatCard value={5} suffix="" label="R&D Phases" icon="🔬" color="from-indigo-500/5 to-purple-500/10" border="border-indigo-200/90" start={statsInView} />
             <StatCard value={100} suffix="%" label="TypeScript" icon="🛡️" color="from-emerald-500/5 to-teal-500/10" border="border-emerald-200/90" start={statsInView} />
@@ -434,13 +434,15 @@ export const AboutPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 xs:gap-2.5 sm:gap-3">
             {techStack.map((tech, i) => (
-              <div key={i} className={`relative border-2 ${tech.color} rounded-2xl p-4 text-center space-y-2.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-default`}>
-                <div className={`w-2 h-2 rounded-full ${tech.dot} mx-auto animate-pulse`} />
-                <div className="text-[9px] font-black uppercase tracking-widest opacity-60">{tech.badge}</div>
-                <div className="font-black text-sm leading-tight">{tech.name}</div>
-                <div className="text-[10px] font-semibold opacity-70 leading-snug">{tech.role}</div>
+              <div key={i} className={`relative border-2 ${tech.color} rounded-2xl p-2.5 xs:p-3 sm:p-4 text-center space-y-1.5 sm:space-y-2.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-default overflow-hidden flex flex-col items-center justify-between min-h-[110px] xs:min-h-[120px] sm:min-h-[135px]`}>
+                <div className="w-full min-w-0 space-y-1">
+                  <div className={`w-2 h-2 rounded-full ${tech.dot} mx-auto animate-pulse`} />
+                  <div className="text-[8px] xs:text-[9px] font-black uppercase tracking-widest opacity-60 truncate">{tech.badge}</div>
+                  <div className="font-black text-xs xs:text-sm leading-tight break-words">{tech.name}</div>
+                </div>
+                <div className="text-[9px] xs:text-[10px] font-semibold opacity-70 leading-snug break-words w-full">{tech.role}</div>
               </div>
             ))}
           </div>

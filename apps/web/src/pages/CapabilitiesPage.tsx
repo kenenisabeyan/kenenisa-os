@@ -165,7 +165,7 @@ export const CapabilitiesPage: React.FC = () => {
           </p>
 
           {/* ── INTERACTIVE SYSTEM ARCHITECTURE CAPABILITY MATRICES ── */}
-          <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 max-w-5xl mx-auto text-center">
+          <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 xs:gap-3 sm:gap-4 max-w-5xl mx-auto text-center">
             {[
               { label: 'Execution Engine', code: 'MOD-01', color: 'from-blue-500 to-indigo-600', textColor: 'text-blue-700', bg: 'bg-blue-50/90 border-blue-200/90', icon: <ZapIcon className="w-5 h-5 text-white" /> },
               { label: 'Capacity Planning', code: 'MOD-02', color: 'from-cyan-500 to-blue-600', textColor: 'text-cyan-700', bg: 'bg-cyan-50/90 border-cyan-200/90', icon: '⏱️' },
@@ -176,16 +176,18 @@ export const CapabilitiesPage: React.FC = () => {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className={`relative rounded-2xl p-4 border-2 ${item.bg} backdrop-blur-md shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer overflow-hidden flex flex-col items-center justify-center text-center`}
+                className={`relative rounded-2xl p-2.5 xs:p-3 sm:p-4 border-2 ${item.bg} backdrop-blur-md shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer overflow-hidden flex flex-col items-center justify-between text-center min-h-[140px] xs:min-h-[155px] sm:min-h-[165px]`}
               >
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center font-bold text-base shadow-md mb-2 group-hover:scale-110 transition-transform`}>
-                  {item.icon}
+                <div className="w-full min-w-0 flex flex-col items-center">
+                  <div className={`w-9 h-9 xs:w-10 xs:h-10 rounded-xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center font-bold text-sm xs:text-base shadow-md mb-1.5 group-hover:scale-110 transition-transform shrink-0`}>
+                    {item.icon}
+                  </div>
+                  <div className="text-[9px] xs:text-[10px] font-mono font-black tracking-wider text-slate-500 uppercase mb-0.5">{item.code}</div>
+                  <div className="text-[11px] xs:text-xs sm:text-sm font-black text-indigo-950 group-hover:text-blue-700 transition-colors leading-snug break-words max-w-full">
+                    {item.label}
+                  </div>
                 </div>
-                <div className="text-[10px] font-mono font-black tracking-wider text-slate-500 uppercase mb-0.5">{item.code}</div>
-                <div className="text-xs sm:text-sm font-black text-indigo-950 group-hover:text-blue-700 transition-colors leading-snug">
-                  {item.label}
-                </div>
-                <div className="mt-2.5 inline-flex items-center gap-1.5 text-[9px] font-bold text-slate-600 bg-white/90 px-2 py-0.5 rounded-md border border-slate-200/80 shadow-2xs">
+                <div className="mt-2 inline-flex items-center gap-1.5 text-[8px] xs:text-[9px] font-bold text-slate-600 bg-white/90 px-2 py-0.5 rounded-md border border-slate-200/80 shadow-2xs shrink-0">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   State Active
                 </div>
