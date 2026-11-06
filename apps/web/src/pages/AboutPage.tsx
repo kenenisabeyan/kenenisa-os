@@ -173,7 +173,7 @@ export const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             
             {/* Left Column: High-Impact Typography & Narrative */}
-            <div className="lg:col-span-7 space-y-3 sm:space-y-4">
+            <div className="lg:col-span-7 space-y-3 sm:space-y-4 scroll-reveal">
               <h1 className="font-black tracking-tight flex flex-col">
                 <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] break-words">
                   Kenenisa Beyan.
@@ -223,7 +223,7 @@ export const AboutPage: React.FC = () => {
             </div>
 
             {/* Right Column: Clean Rounded Portrait Media Card */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="lg:col-span-5 flex justify-center lg:justify-end scroll-reveal-scale delay-150">
               <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5]">
                 {/* Main Rounded Portrait Card */}
                 <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-100 relative group">
@@ -542,7 +542,7 @@ export const AboutPage: React.FC = () => {
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full relative bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-cyan-50/60 py-16 sm:py-24 overflow-hidden">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8 relative z-10">
-          <div className="text-center space-y-3">
+          <div className="text-center space-y-3 scroll-reveal">
             <h2 className="text-3xl sm:text-4xl font-black text-indigo-950 tracking-tight">
               Public Website vs Private Operating Environment
             </h2>
@@ -550,7 +550,7 @@ export const AboutPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Public Experience */}
-            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-blue-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-blue-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal-left delay-100">
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
@@ -573,7 +573,7 @@ export const AboutPage: React.FC = () => {
             </div>
 
             {/* Private Operating System */}
-            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#FE721D] via-orange-400/50 to-slate-200/60 shadow-lg shadow-orange-500/10 hover:shadow-2xl hover:shadow-orange-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#FE721D] via-orange-400/50 to-slate-200/60 shadow-lg shadow-orange-500/10 hover:shadow-2xl hover:shadow-orange-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal-right delay-200">
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 

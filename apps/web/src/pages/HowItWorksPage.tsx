@@ -125,7 +125,7 @@ export const HowItWorksPage: React.FC = () => {
         <div className="absolute top-12 right-1/4 w-96 h-96 bg-[#FE721D]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(#20B5D612_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-3 sm:space-y-4 relative z-10">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-3 sm:space-y-4 relative z-10 scroll-reveal">
           {/* Headline */}
           <h1 className="font-black tracking-tight flex flex-col items-center justify-center max-w-5xl mx-auto">
             <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05]">
@@ -144,7 +144,7 @@ export const HowItWorksPage: React.FC = () => {
       </section>
 
       {/* ── THE SERPENTINE ENGINEERING ROADMAP (HIGH-IMPACT VISUAL) ──────────────── */}
-      <section className="w-full">
+      <section className="w-full scroll-reveal">
         <SerpentineRoadmap
           title="Engineering R&D Pipeline Architecture"
           subtitle="From abstract career objectives to observable digital proof and verified career growth."

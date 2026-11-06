@@ -130,7 +130,7 @@ export const HomePage: React.FC = () => {
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 text-center space-y-4 sm:space-y-6 relative z-10">
           {/* Headline with balanced typographic hierarchy & brand gradient shimmer */}
-          <div className="space-y-2 sm:space-y-3 max-w-5xl mx-auto">
+          <div className="space-y-2 sm:space-y-3 max-w-5xl mx-auto scroll-reveal">
             <h1 className="font-black tracking-tight flex flex-col items-center justify-center">
               <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] whitespace-nowrap">
                 Kenenisa Beyan.
@@ -146,7 +146,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-2 xs:gap-2.5 sm:gap-4 pt-1">
+          <div className="flex flex-wrap items-center justify-center gap-2 xs:gap-2.5 sm:gap-4 pt-1 scroll-reveal delay-100">
             <a
               href="#workstreams"
               className="px-4 xs:px-6 sm:px-8 py-2.5 xs:py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-1.5 xs:gap-2 whitespace-nowrap"
@@ -175,7 +175,7 @@ export const HomePage: React.FC = () => {
           {/* 3 Metric Cards with Cybernetic Gradient Perimeter — always in one row */}
           <div className="grid grid-cols-3 gap-2 xs:gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-4">
             {/* Metric 1 */}
-            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden scroll-reveal-left delay-150">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-28 h-10 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover:bg-[#20B5D6]/35 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
 
@@ -188,7 +188,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* Metric 2 */}
-            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-md shadow-orange-500/10 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-md shadow-orange-500/10 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden scroll-reveal delay-225">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-28 h-10 bg-[#FE721D]/20 blur-lg pointer-events-none group-hover:bg-[#FE721D]/35 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
 
@@ -201,7 +201,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* Metric 3 */}
-            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-teal-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+            <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-teal-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden scroll-reveal-right delay-300">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-28 h-10 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover:bg-[#20B5D6]/35 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
 
@@ -215,13 +215,13 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* System Architecture Bar */}
-          <div className="pt-8 sm:pt-10 max-w-[1720px] mx-auto" id="workstreams">
+          <div className="pt-8 sm:pt-10 max-w-[1720px] mx-auto scroll-reveal" id="workstreams">
             {/* 7-Step Grid Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4 relative z-10">
               {/* Step 1 */}
               <Link
                 to="/workstreams"
-                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal delay-75"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
                 <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
@@ -245,7 +245,7 @@ export const HomePage: React.FC = () => {
               {/* Step 2 */}
               <Link
                 to="/goals"
-                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal delay-150"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/15 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/30 transition-all duration-300" />
                 <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
@@ -270,7 +270,7 @@ export const HomePage: React.FC = () => {
               {/* Step 3 */}
               <Link
                 to="/projects"
-                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal delay-225"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
                 <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
@@ -294,7 +294,7 @@ export const HomePage: React.FC = () => {
               {/* Step 4 */}
               <Link
                 to="/tasks"
-                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal delay-300"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/15 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/30 transition-all duration-300" />
                 <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
@@ -318,7 +318,7 @@ export const HomePage: React.FC = () => {
               {/* Step 5 */}
               <Link
                 to="/evidence"
-                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal delay-375"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
                 <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
@@ -342,7 +342,7 @@ export const HomePage: React.FC = () => {
               {/* Step 6 */}
               <Link
                 to="/reflection"
-                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal delay-450"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/15 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/30 transition-all duration-300" />
                 <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
@@ -366,7 +366,7 @@ export const HomePage: React.FC = () => {
               {/* Step 7 */}
               <Link
                 to="/career"
-                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden col-span-2 sm:col-span-1 lg:col-span-1"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden col-span-2 sm:col-span-1 lg:col-span-1 scroll-reveal delay-500"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
                 <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
@@ -392,7 +392,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── HIGH-IMPACT SERPENTINE ROADMAP JOURNEY ──────────────────────────────── */}
-      <section className="w-full">
+      <section className="w-full scroll-reveal">
         <SerpentineRoadmap
           title="Personal Engineering & Operating Loop"
           subtitle="From strategic direction to observable evidence and career progression."

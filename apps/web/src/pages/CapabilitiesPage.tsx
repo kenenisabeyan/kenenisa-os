@@ -198,7 +198,7 @@ export const CapabilitiesPage: React.FC = () => {
       </section>
 
       {/* ── CONNECTED CAPABILITIES SERPENTINE ROADMAP ───────────────────────────── */}
-      <section className="w-full">
+      <section className="w-full scroll-reveal">
         <SerpentineRoadmap
           title="Connected System Capabilities Architecture"
           subtitle="No isolated silos. Information flows seamlessly between operational modules to turn goals into verifiable outcomes."

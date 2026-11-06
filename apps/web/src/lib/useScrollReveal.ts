@@ -38,11 +38,14 @@ export function useScrollReveal() {
 
     const observeUnrevealed = () => {
       const elements = document.querySelectorAll(`${selector}:not(.is-revealed)`);
-      elements.forEach((el) => {
-        // If element is already within the initial viewport on page load/render, reveal immediately
+      elements.forEach((el, index) => {
+        // If element is already within the initial viewport on page load/render,
+        // animate in with a fluid cascading delay so the user witnesses the transition
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-          el.classList.add('is-revealed');
+          setTimeout(() => {
+            el.classList.add('is-revealed');
+          }, 60 + Math.min(index * 45, 360));
         } else {
           observer.observe(el);
         }
