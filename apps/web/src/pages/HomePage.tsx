@@ -172,7 +172,7 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* 3 Metric Cards with Cybernetic Gradient Perimeter & HUD Reticles — always in one row */}
+          {/* 3 Metric Cards with Cybernetic Gradient Perimeter — always in one row */}
           <div className="grid grid-cols-3 gap-2 xs:gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-4">
             {/* Metric 1 */}
             <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
@@ -221,155 +221,169 @@ export const HomePage: React.FC = () => {
               {/* Step 1 */}
               <Link
                 to="/workstreams"
-                className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-3.5 xs:p-4 sm:p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px]"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
-                {/* Centered Squircle Icon Box */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                  </svg>
-                </div>
-                {/* Title & Subtitle */}
-                <div className="space-y-0.5 sm:space-y-1 text-center w-full">
-                  <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
-                    Workstreams
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
-                    Strategic Direction
-                  </p>
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3.5 xs:p-4 sm:p-5 text-center flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-cyan-50 border border-cyan-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-center w-full">
+                    <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
+                      Workstreams
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
+                      Strategic Direction
+                    </p>
+                  </div>
                 </div>
               </Link>
 
               {/* Step 2 */}
               <Link
                 to="/goals"
-                className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#FE721D] rounded-2xl p-3.5 xs:p-4 sm:p-5 text-center shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px]"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
-                {/* Centered Squircle Icon Box */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="9" strokeWidth={2} />
-                    <circle cx="12" cy="12" r="4" strokeWidth={2} />
-                  </svg>
-                </div>
-                {/* Title & Subtitle */}
-                <div className="space-y-0.5 sm:space-y-1 text-center w-full">
-                  <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
-                    Goals
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
-                    Target Objectives
-                  </p>
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/15 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3.5 xs:p-4 sm:p-5 text-center flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-orange-50 border border-orange-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="9" strokeWidth={2} />
+                      <circle cx="12" cy="12" r="4" strokeWidth={2} />
+                    </svg>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-center w-full">
+                    <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
+                      Goals
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
+                      Target Objectives
+                    </p>
+                  </div>
                 </div>
               </Link>
 
               {/* Step 3 */}
               <Link
                 to="/projects"
-                className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-3.5 xs:p-4 sm:p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px]"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
-                {/* Centered Squircle Icon Box */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
-                </div>
-                {/* Title & Subtitle */}
-                <div className="space-y-0.5 sm:space-y-1 text-center w-full">
-                  <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
-                    Projects
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
-                    Project Modules
-                  </p>
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3.5 xs:p-4 sm:p-5 text-center flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-cyan-50 border border-cyan-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-center w-full">
+                    <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
+                      Projects
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
+                      Project Modules
+                    </p>
+                  </div>
                 </div>
               </Link>
 
               {/* Step 4 */}
               <Link
                 to="/tasks"
-                className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#FE721D] rounded-2xl p-3.5 xs:p-4 sm:p-5 text-center shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px]"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
-                {/* Centered Squircle Icon Box */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                {/* Title & Subtitle */}
-                <div className="space-y-0.5 sm:space-y-1 text-center w-full">
-                  <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
-                    Tasks
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
-                    Capacity Tasks
-                  </p>
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/15 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3.5 xs:p-4 sm:p-5 text-center flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-orange-50 border border-orange-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-center w-full">
+                    <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
+                      Tasks
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
+                      Capacity Tasks
+                    </p>
+                  </div>
                 </div>
               </Link>
 
               {/* Step 5 */}
               <Link
                 to="/evidence"
-                className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-3.5 xs:p-4 sm:p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px]"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
-                {/* Centered Squircle Icon Box */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                {/* Title & Subtitle */}
-                <div className="space-y-0.5 sm:space-y-1 text-center w-full">
-                  <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
-                    Evidence
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
-                    Proof Vault
-                  </p>
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3.5 xs:p-4 sm:p-5 text-center flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-cyan-50 border border-cyan-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-center w-full">
+                    <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
+                      Evidence
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
+                      Proof Vault
+                    </p>
+                  </div>
                 </div>
               </Link>
 
               {/* Step 6 */}
               <Link
                 to="/reflection"
-                className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#FE721D] rounded-2xl p-3.5 xs:p-4 sm:p-5 text-center shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px]"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#FE721D] via-orange-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
-                {/* Centered Squircle Icon Box */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                </div>
-                {/* Title & Subtitle */}
-                <div className="space-y-0.5 sm:space-y-1 text-center w-full">
-                  <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
-                    Reflect
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
-                    System Reflection
-                  </p>
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/15 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3.5 xs:p-4 sm:p-5 text-center flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-orange-50 border border-orange-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#FE721D] group-hover/step:shadow-orange-500/20 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#FE721D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-center w-full">
+                    <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#FE721D] transition-colors">
+                      Reflect
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
+                      System Reflection
+                    </p>
+                  </div>
                 </div>
               </Link>
 
               {/* Step 7 */}
               <Link
                 to="/career"
-                className="relative group/step bg-white/95 backdrop-blur-md border-2 border-slate-200/90 hover:border-[#20B5D6] rounded-2xl p-3.5 xs:p-4 sm:p-5 text-center shadow-sm hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] col-span-2 sm:col-span-1 lg:col-span-1"
+                className="relative group/step p-[2px] rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden col-span-2 sm:col-span-1 lg:col-span-1"
               >
-                {/* Centered Squircle Icon Box */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                </div>
-                {/* Title & Subtitle */}
-                <div className="space-y-0.5 sm:space-y-1 text-center w-full">
-                  <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
-                    Career
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
-                    Verified Trajectory
-                  </p>
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/15 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full pointer-events-none group-hover/step:left-1 group-hover/step:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-3.5 xs:p-4 sm:p-5 text-center flex flex-col items-center justify-between min-h-[148px] sm:min-h-[160px] overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-cyan-50 border border-cyan-200 shadow-md flex items-center justify-center mx-auto mb-2 p-2.5 sm:p-3 group-hover/step:scale-110 group-hover/step:border-[#20B5D6] group-hover/step:shadow-cyan-500/20 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#20B5D6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
+                  <div className="space-y-0.5 sm:space-y-1 text-center w-full">
+                    <h3 className="font-black text-xs sm:text-sm md:text-base text-slate-900 group-hover/step:text-[#20B5D6] transition-colors">
+                      Career
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] font-semibold text-slate-500 leading-tight">
+                      Verified Trajectory
+                    </p>
+                  </div>
                 </div>
               </Link>
             </div>
@@ -736,8 +750,6 @@ export const HomePage: React.FC = () => {
 
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-purple-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                {/* Precision HUD Corner Reticles */}
-
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-100/70 border border-purple-200 text-[10px] font-mono font-bold text-purple-700 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
@@ -766,8 +778,6 @@ export const HomePage: React.FC = () => {
 
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                {/* Precision HUD Corner Reticles */}
-
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
@@ -796,8 +806,6 @@ export const HomePage: React.FC = () => {
 
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-blue-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                {/* Precision HUD Corner Reticles */}
-
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100/70 border border-blue-200 text-[10px] font-mono font-bold text-blue-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
@@ -826,8 +834,6 @@ export const HomePage: React.FC = () => {
 
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                {/* Precision HUD Corner Reticles */}
-
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[10px] font-mono font-bold text-orange-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FE721D] animate-pulse" />

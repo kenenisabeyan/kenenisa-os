@@ -225,44 +225,48 @@ export const ExecutivePage: React.FC = () => {
                   <div
                     key={ws.id}
                     onClick={() => navigate('/app/workstreams')}
-                    className="group relative bg-white border border-slate-200/90 rounded-3xl p-5 shadow-xs hover:shadow-xl hover:border-blue-400 hover:-translate-y-1 transition-all duration-200 cursor-pointer space-y-4 flex flex-col justify-between overflow-hidden"
+                    className="relative group p-[2px] rounded-3xl bg-gradient-to-b from-blue-500 via-indigo-400/40 to-slate-200/60 shadow-xs hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden"
                   >
-                    <div className="space-y-2.5">
-                      <div className="flex items-start justify-between gap-2">
-                        <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-black uppercase tracking-wider shadow-2xs">
-                          Priority {ws.priorityWeight}/10
-                        </span>
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100 group-hover:scale-125 transition-transform" />
-                      </div>
-                      <h3 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
-                        {ws.name}
-                      </h3>
-                      <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
-                        {ws.description || 'Primary strategic operating domain pillar.'}
-                      </p>
-                    </div>
-
-                    <div className="space-y-2.5 pt-3 border-t border-slate-100">
-                      <div className="flex items-center justify-between text-xs text-slate-600 font-medium">
-                        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Domain Allocation</span>
-                        <span className="font-black text-slate-900">{weightPercentage}%</span>
-                      </div>
-                      <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                        <div
-                          className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full transition-all duration-500"
-                          style={{ width: `${weightPercentage}%` }}
-                        />
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-blue-500/15 blur-lg pointer-events-none group-hover:bg-blue-500/25 transition-all duration-300" />
+                    <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
+                    <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[22px] p-5 space-y-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                      <div className="space-y-2.5">
+                        <div className="flex items-start justify-between gap-2">
+                          <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-black uppercase tracking-wider shadow-2xs">
+                            Priority {ws.priorityWeight}/10
+                          </span>
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100 group-hover:scale-125 transition-transform" />
+                        </div>
+                        <h3 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                          {ws.name}
+                        </h3>
+                        <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
+                          {ws.description || 'Primary strategic operating domain pillar.'}
+                        </p>
                       </div>
 
-                      <div className="pt-2 flex items-center justify-between text-[11px] text-slate-500 font-semibold">
-                        <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                          Goals: <strong className="text-slate-900 font-extrabold">{wsGoals.length}</strong>
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                          Projects: <strong className="text-slate-900 font-extrabold">{wsProjects.length}</strong>
-                        </span>
+                      <div className="space-y-2.5 pt-3 border-t border-slate-100">
+                        <div className="flex items-center justify-between text-xs text-slate-600 font-medium">
+                          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Domain Allocation</span>
+                          <span className="font-black text-slate-900">{weightPercentage}%</span>
+                        </div>
+                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                          <div
+                            className="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full transition-all duration-500"
+                            style={{ width: `${weightPercentage}%` }}
+                          />
+                        </div>
+
+                        <div className="pt-2 flex items-center justify-between text-[11px] text-slate-500 font-semibold">
+                          <span className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                            Goals: <strong className="text-slate-900 font-extrabold">{wsGoals.length}</strong>
+                          </span>
+                          <span className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                            Projects: <strong className="text-slate-900 font-extrabold">{wsProjects.length}</strong>
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>

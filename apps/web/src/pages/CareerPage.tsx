@@ -207,60 +207,80 @@ export const CareerPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3.5 text-xs">
-              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
-                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                  1. Verified Skills ({skills.length})
-                </span>
-                <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
-                  {skills.slice(0, 5).map((s) => (
-                    <div key={s.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 flex justify-between items-center shadow-2xs">
-                      <span className="truncate">{s.name}</span>
-                      <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">{s.category}</span>
-                    </div>
-                  ))}
+              {/* 1. Verified Skills */}
+              <div className="relative group p-[2px] rounded-2xl bg-gradient-to-b from-indigo-500 via-blue-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-indigo-500/15 blur-lg pointer-events-none group-hover:bg-indigo-500/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent rounded-full pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 space-y-2.5 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                    1. Verified Skills ({skills.length})
+                  </span>
+                  <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+                    {skills.slice(0, 5).map((s) => (
+                      <div key={s.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 flex justify-between items-center shadow-2xs">
+                        <span className="truncate">{s.name}</span>
+                        <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">{s.category}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
-                <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                  2. Active Projects ({projects.length})
-                </span>
-                <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
-                  {projects.slice(0, 5).map((p) => (
-                    <div key={p.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
-                      {p.name}
-                    </div>
-                  ))}
+              {/* 2. Active Projects */}
+              <div className="relative group p-[2px] rounded-2xl bg-gradient-to-b from-blue-500 via-cyan-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-blue-500/15 blur-lg pointer-events-none group-hover:bg-blue-500/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 space-y-2.5 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    2. Active Projects ({projects.length})
+                  </span>
+                  <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+                    {projects.slice(0, 5).map((p) => (
+                      <div key={p.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
+                        {p.name}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
-                <span className="text-[10px] font-black text-cyan-600 uppercase tracking-widest flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                  3. Verified Evidence ({evidence.length})
-                </span>
-                <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
-                  {evidence.slice(0, 5).map((e) => (
-                    <div key={e.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
-                      {e.title}
-                    </div>
-                  ))}
+              {/* 3. Verified Evidence */}
+              <div className="relative group p-[2px] rounded-2xl bg-gradient-to-b from-cyan-500 via-teal-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-cyan-500/15 blur-lg pointer-events-none group-hover:bg-cyan-500/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent rounded-full pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 space-y-2.5 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <span className="text-[10px] font-black text-cyan-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                    3. Verified Evidence ({evidence.length})
+                  </span>
+                  <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+                    {evidence.slice(0, 5).map((e) => (
+                      <div key={e.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
+                        {e.title}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50/70 border border-slate-200 rounded-2xl p-4 space-y-2.5">
-                <span className="text-[10px] font-black text-purple-600 uppercase tracking-widest flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                  4. Opportunities ({opportunities.length})
-                </span>
-                <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
-                  {opportunities.slice(0, 5).map((o) => (
-                    <div key={o.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
-                      {o.title} {o.organizationName ? `@ ${o.organizationName}` : ''}
-                    </div>
-                  ))}
+              {/* 4. Opportunities */}
+              <div className="relative group p-[2px] rounded-2xl bg-gradient-to-b from-purple-500 via-indigo-400/40 to-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-purple-500/15 blur-lg pointer-events-none group-hover:bg-purple-500/30 transition-all duration-300" />
+                <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent rounded-full pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
+                <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 space-y-2.5 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <span className="text-[10px] font-black text-purple-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                    4. Opportunities ({opportunities.length})
+                  </span>
+                  <div className="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+                    {opportunities.slice(0, 5).map((o) => (
+                      <div key={o.id} className="bg-white p-2.5 rounded-xl border border-slate-200 font-bold text-slate-800 truncate shadow-2xs">
+                        {o.title} {o.organizationName ? `@ ${o.organizationName}` : ''}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
