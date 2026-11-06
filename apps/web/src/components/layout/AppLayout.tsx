@@ -6,12 +6,14 @@ import { QuickActionModal } from '../ui/QuickActionModal.js';
 import { GlobalSearchModal } from '../ui/GlobalSearchModal.js';
 import { PerformanceInspectorModal } from '../performance/PerformanceInspectorModal.js';
 import { ZapIcon } from '../common/ZapIcon.js';
+import { useScrollReveal } from '../../lib/useScrollReveal.js';
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+  useScrollReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [quickActionOpen, setQuickActionOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);

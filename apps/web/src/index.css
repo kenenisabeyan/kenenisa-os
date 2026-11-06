@@ -453,69 +453,92 @@ dialog {
   background: linear-gradient(to bottom, #1aa3c2, #e56315);
 }
 
-/* ── Advanced Scroll Motion Keyframes & Dynamic Micro-Movements ─────────── */
-@keyframes cyberFloatSlow {
+/* ── Advanced Scroll-Driven Transitions & Reveal System ──────────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-left.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-right.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.92) translateY(20px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-scale.is-revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Stagger transition delays for dynamic cascading entry */
+.delay-75 { transition-delay: 75ms; }
+.delay-100 { transition-delay: 100ms; }
+.delay-150 { transition-delay: 150ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-250 { transition-delay: 250ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-375 { transition-delay: 375ms; }
+.delay-450 { transition-delay: 450ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+/* Subtle floating ambient parallax movement */
+@keyframes ambientDrift {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translateY(-10px) rotate(0.8deg);
+    transform: translate(14px, -16px);
   }
 }
 
-@keyframes laserSweepReveal {
-  0% {
-    transform: translateX(-120%) skewX(-20deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(250%) skewX(-20deg);
-    opacity: 0;
-  }
+.animate-ambient-drift {
+  animation: ambientDrift 12s ease-in-out infinite;
 }
 
-@keyframes progressHeadGlow {
-  0%, 100% {
-    transform: translateY(-50%) scale(1);
-    box-shadow: 0 0 10px #20B5D6, 0 0 20px #FE721D;
-  }
-  50% {
-    transform: translateY(-50%) scale(1.4);
-    box-shadow: 0 0 18px #20B5D6, 0 0 30px #FE721D;
-  }
-}
-
-@keyframes scrollBounceArrow {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
+/* Accessibility: immediate visibility when motion reduced */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
-
-.animate-cyber-float {
-  animation: cyberFloatSlow 6s ease-in-out infinite;
-}
-
-.animate-laser-sweep {
-  animation: laserSweepReveal 3s ease-in-out infinite;
-}
-
-.animate-progress-glow {
-  animation: progressHeadGlow 1.8s ease-in-out infinite;
-}
-
-.animate-bounce-arrow {
-  animation: scrollBounceArrow 1.5s ease-in-out infinite;
-}
-
 
 
 

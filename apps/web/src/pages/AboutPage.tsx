@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SerpentineRoadmap, RoadmapStep } from '../components/common/SerpentineRoadmap.js';
 import { ZapIcon } from '../components/common/ZapIcon.js';
-import { RevealOnScroll, StaggerContainer } from '../components/common/RevealOnScroll.js';
 
 /* ─── Animated Counter Hook ─────────────────────────────────────────────── */
 function useCountUp(target: number, duration = 1800, start = false) {
@@ -174,7 +173,7 @@ export const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             
             {/* Left Column: High-Impact Typography & Narrative */}
-            <RevealOnScroll animation="fade-right" delay={0} className="lg:col-span-7 space-y-3 sm:space-y-4">
+            <div className="lg:col-span-7 space-y-3 sm:space-y-4">
               <h1 className="font-black tracking-tight flex flex-col">
                 <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] break-words">
                   Kenenisa Beyan.
@@ -221,11 +220,11 @@ export const AboutPage: React.FC = () => {
                   <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Verified Evidence</div>
                 </div>
               </div>
-            </RevealOnScroll>
+            </div>
 
-            {/* Right Column: Clean Rounded Portrait Media Card with Cyber Float */}
-            <RevealOnScroll animation="zoom-in" delay={120} className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5] animate-cyber-float">
+            {/* Right Column: Clean Rounded Portrait Media Card */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5]">
                 {/* Main Rounded Portrait Card */}
                 <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-100 relative group">
                   <img
@@ -252,7 +251,7 @@ export const AboutPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </RevealOnScroll>
+            </div>
 
           </div>
         </div>
@@ -263,17 +262,17 @@ export const AboutPage: React.FC = () => {
       ══════════════════════════════════════════════════════════════════════ */}
       <section ref={statsRef} className="w-full py-12 sm:py-16 bg-white">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14">
-          <div className="text-center mb-10 space-y-3">
+          <div className="text-center mb-10 space-y-3 scroll-reveal">
             <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">Built by the Numbers 📊</h2>
           </div>
-          <StaggerContainer staggerDelay={60} initialDelay={60} animation="tilt-up" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 xs:gap-3.5 sm:gap-4">
-            <StatCard value={6} suffix="+" label="Core Modules" icon={<ZapIcon className="w-6 h-6 text-blue-600 mx-auto" />} color="from-blue-500/5 to-indigo-500/10" border="border-blue-200/90" start={statsInView} />
-            <StatCard value={5} suffix="" label="R&D Phases" icon="🔬" color="from-indigo-500/5 to-purple-500/10" border="border-indigo-200/90" start={statsInView} />
-            <StatCard value={100} suffix="%" label="TypeScript" icon="🛡️" color="from-emerald-500/5 to-teal-500/10" border="border-emerald-200/90" start={statsInView} />
-            <StatCard value={4} suffix="" label="Principles" icon="💎" color="from-purple-500/5 to-pink-500/10" border="border-purple-200/90" start={statsInView} />
-            <StatCard value={0} suffix="" label="Data Silos" icon="🚫" color="from-rose-500/5 to-orange-500/10" border="border-rose-200/90" start={statsInView} />
-            <StatCard value={1} suffix="" label="Unified OS" icon="🎯" color="from-cyan-500/5 to-sky-500/10" border="border-cyan-200/90" start={statsInView} />
-          </StaggerContainer>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 xs:gap-3.5 sm:gap-4">
+            <div className="scroll-reveal delay-75"><StatCard value={6} suffix="+" label="Core Modules" icon={<ZapIcon className="w-6 h-6 text-blue-600 mx-auto" />} color="from-blue-500/5 to-indigo-500/10" border="border-blue-200/90" start={statsInView} /></div>
+            <div className="scroll-reveal delay-150"><StatCard value={5} suffix="" label="R&D Phases" icon="🔬" color="from-indigo-500/5 to-purple-500/10" border="border-indigo-200/90" start={statsInView} /></div>
+            <div className="scroll-reveal delay-225"><StatCard value={100} suffix="%" label="TypeScript" icon="🛡️" color="from-emerald-500/5 to-teal-500/10" border="border-emerald-200/90" start={statsInView} /></div>
+            <div className="scroll-reveal delay-300"><StatCard value={4} suffix="" label="Principles" icon="💎" color="from-purple-500/5 to-pink-500/10" border="border-purple-200/90" start={statsInView} /></div>
+            <div className="scroll-reveal delay-375"><StatCard value={0} suffix="" label="Data Silos" icon="🚫" color="from-rose-500/5 to-orange-500/10" border="border-rose-200/90" start={statsInView} /></div>
+            <div className="scroll-reveal delay-450"><StatCard value={1} suffix="" label="Unified OS" icon="🎯" color="from-cyan-500/5 to-sky-500/10" border="border-cyan-200/90" start={statsInView} /></div>
+          </div>
         </div>
       </section>
 
@@ -285,16 +284,14 @@ export const AboutPage: React.FC = () => {
         <div className="absolute -top-16 -left-16 w-64 h-64 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
-          <RevealOnScroll animation="fade-up">
-            <div className="text-center space-y-3 max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">The Fragmentation Problem</h2>
-              <p className="text-lg text-slate-600 font-semibold max-w-3xl mx-auto">
-                Modern practitioners operate across too many disconnected tools. This creates three compounding failures:
-              </p>
-            </div>
-          </RevealOnScroll>
+          <div className="text-center space-y-3 max-w-3xl mx-auto scroll-reveal">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">The Fragmentation Problem</h2>
+            <p className="text-lg text-slate-600 font-semibold max-w-3xl mx-auto">
+              Modern practitioners operate across too many disconnected tools. This creates three compounding failures:
+            </p>
+          </div>
 
-          <StaggerContainer staggerDelay={90} initialDelay={60} animation="fade-up" className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {[
               {
                 num: '01', icon: '🎯', title: 'High Operational Noise',
@@ -317,7 +314,7 @@ export const AboutPage: React.FC = () => {
             ].map((card, i) => (
               <div
                 key={i}
-                className={`relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b ${card.gradient} shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden h-full`}
+                className={`relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b ${card.gradient} shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden scroll-reveal delay-${(i + 1) * 150}`}
               >
                 {/* Top Volumetric Glow Orb */}
                 <div className={`absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-gradient-to-r ${card.gradient} opacity-25 blur-xl pointer-events-none group-hover:opacity-45 transition-all duration-500`} />
@@ -336,7 +333,7 @@ export const AboutPage: React.FC = () => {
                 </div>
               </div>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 
@@ -345,21 +342,19 @@ export const AboutPage: React.FC = () => {
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-16 sm:py-24 bg-white" id="principles">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10">
-          <RevealOnScroll animation="fade-up">
-            <div className="text-center space-y-3">
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Product Philosophy 💎</h2>
-              <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
-            </div>
-          </RevealOnScroll>
+          <div className="text-center space-y-3 scroll-reveal">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Product Philosophy 💎</h2>
+            <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
+          </div>
 
-          <StaggerContainer staggerDelay={80} initialDelay={60} animation="tilt-up" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {principles.map((p, i) => {
               const isActive = activePrinciple === i;
               return (
                 <div
                   key={i}
                   onClick={() => setActivePrinciple(isActive ? null : i)}
-                  className={`relative group p-[2px] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 overflow-hidden ${
+                  className={`relative group p-[2px] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 overflow-hidden scroll-reveal delay-${(i + 1) * 100} ${
                     isActive
                       ? 'bg-gradient-to-b from-[#20B5D6] via-cyan-400/50 to-slate-200/60 shadow-2xl shadow-cyan-500/25 scale-[1.01] sm:scale-[1.02]'
                       : 'bg-gradient-to-b from-slate-300/80 via-slate-200/50 to-slate-200/30 hover:from-[#20B5D6] hover:via-cyan-400/40 hover:to-slate-200/60 hover:shadow-xl hover:-translate-y-1.5'
@@ -404,7 +399,7 @@ export const AboutPage: React.FC = () => {
                 </div>
               );
             })}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 
@@ -412,18 +407,16 @@ export const AboutPage: React.FC = () => {
            ENGINEERING R&D ROADMAP
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full">
-        <RevealOnScroll animation="fade-up" delay={50}>
-          <SerpentineRoadmap
-            title="Engineering R&D Methodology Roadmap"
-            subtitle="How features and system methodologies in KENENISA OS are designed, tested, verified, and established."
-            badgeText="R&D PROCESS & METHODOLOGY"
-            summaryBadgeText="FIVE PHASES"
-            summaryTitle="FROM HYPOTHESIS TO ESTABLISHED PROOF"
-            summaryDescription="Our product development follows strict scientific and software engineering principles to ensure every feature delivers genuine utility without unnecessary complexity."
-            summaryMetaText="KENENISA OS • R&D BLUEPRINT"
-            steps={rdSteps}
-          />
-        </RevealOnScroll>
+        <SerpentineRoadmap
+          title="Engineering R&D Methodology Roadmap"
+          subtitle="How features and system methodologies in KENENISA OS are designed, tested, verified, and established."
+          badgeText="R&D PROCESS & METHODOLOGY"
+          summaryBadgeText="FIVE PHASES"
+          summaryTitle="FROM HYPOTHESIS TO ESTABLISHED PROOF"
+          summaryDescription="Our product development follows strict scientific and software engineering principles to ensure every feature delivers genuine utility without unnecessary complexity."
+          summaryMetaText="KENENISA OS • R&D BLUEPRINT"
+          steps={rdSteps}
+        />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
@@ -431,18 +424,16 @@ export const AboutPage: React.FC = () => {
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full relative bg-gradient-to-br from-slate-50/80 via-cyan-50/30 to-slate-50/80 py-16 sm:py-24 overflow-hidden" id="stack">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
-          <RevealOnScroll animation="fade-up">
-            <div className="text-center space-y-3">
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Engineering Stack 🔧</h2>
-              <p className="text-slate-600 font-semibold text-lg max-w-2xl mx-auto">
-                Production-grade technologies chosen for reliability, type-safety, and real engineering precision.
-              </p>
-            </div>
-          </RevealOnScroll>
+          <div className="text-center space-y-3 scroll-reveal">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Engineering Stack 🔧</h2>
+            <p className="text-slate-600 font-semibold text-lg max-w-2xl mx-auto">
+              Production-grade technologies chosen for reliability, type-safety, and real engineering precision.
+            </p>
+          </div>
 
-          <StaggerContainer staggerDelay={40} initialDelay={60} animation="zoom-in" className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 xs:gap-2.5 sm:gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 xs:gap-2.5 sm:gap-3">
             {techStack.map((tech, i) => (
-              <div key={i} className={`relative border-2 ${tech.color} rounded-2xl p-2.5 xs:p-3 sm:p-4 text-center space-y-1.5 sm:space-y-2.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-default overflow-hidden flex flex-col items-center justify-between min-h-[110px] xs:min-h-[120px] sm:min-h-[135px]`}>
+              <div key={i} className={`relative border-2 ${tech.color} rounded-2xl p-2.5 xs:p-3 sm:p-4 text-center space-y-1.5 sm:space-y-2.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-default overflow-hidden flex flex-col items-center justify-between min-h-[110px] xs:min-h-[120px] sm:min-h-[135px] scroll-reveal delay-${Math.min((i + 1) * 75, 450)}`}>
                 <div className="w-full min-w-0 space-y-1">
                   <div className={`w-2 h-2 rounded-full ${tech.dot} mx-auto animate-pulse`} />
                   <div className="text-[8px] xs:text-[9px] font-black uppercase tracking-widest opacity-60 truncate">{tech.badge}</div>
@@ -451,7 +442,7 @@ export const AboutPage: React.FC = () => {
                 <div className="text-[9px] xs:text-[10px] font-semibold opacity-70 leading-snug break-words w-full">{tech.role}</div>
               </div>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 
@@ -462,19 +453,17 @@ export const AboutPage: React.FC = () => {
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10 relative z-10">
-          <RevealOnScroll animation="fade-up">
-            <div className="flex flex-col items-center justify-center text-center space-y-3 max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">AI Intelligence Pipeline 🤖</h2>
-              <p className="text-slate-700 font-semibold text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-                AI should increase clarity, not remove human agency. Intelligence is strictly downstream of real system data in KENENISA OS.
-              </p>
-              <div className="inline-flex items-center gap-1.5 bg-purple-100/90 border-2 border-purple-300 px-4 py-1.5 rounded-full text-xs font-black text-purple-900 uppercase tracking-wider shadow-xs mt-1">
-                <span>Clear Boundary</span>
-                <ZapIcon className="w-3.5 h-3.5 text-purple-700" />
-                <span>Enforced</span>
-              </div>
+          <div className="flex flex-col items-center justify-center text-center space-y-3 max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight">AI Intelligence Pipeline 🤖</h2>
+            <p className="text-slate-700 font-semibold text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+              AI should increase clarity, not remove human agency. Intelligence is strictly downstream of real system data in KENENISA OS.
+            </p>
+            <div className="inline-flex items-center gap-1.5 bg-purple-100/90 border-2 border-purple-300 px-4 py-1.5 rounded-full text-xs font-black text-purple-900 uppercase tracking-wider shadow-xs mt-1">
+              <span>Clear Boundary</span>
+              <ZapIcon className="w-3.5 h-3.5 text-purple-700" />
+              <span>Enforced</span>
             </div>
-          </RevealOnScroll>
+          </div>
 
           {/* Pipeline diagram */}
           <div className="bg-white/95 rounded-2xl sm:rounded-3xl border-2 border-indigo-200/90 shadow-md p-4 sm:p-8">
@@ -553,64 +542,58 @@ export const AboutPage: React.FC = () => {
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full relative bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-cyan-50/60 py-16 sm:py-24 overflow-hidden">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8 relative z-10">
-          <RevealOnScroll animation="fade-up">
-            <div className="text-center space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-black text-indigo-950 tracking-tight">
-                Public Website vs Private Operating Environment
-              </h2>
-            </div>
-          </RevealOnScroll>
+          <div className="text-center space-y-3">
+            <h2 className="text-3xl sm:text-4xl font-black text-indigo-950 tracking-tight">
+              Public Website vs Private Operating Environment
+            </h2>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Public Experience */}
-            <RevealOnScroll animation="fade-right">
-              <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-blue-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden h-full">
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#20B5D6] via-blue-400/50 to-slate-200/60 shadow-lg shadow-cyan-500/10 hover:shadow-2xl hover:shadow-cyan-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-                <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                  <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
-                  <div className="space-y-1">
-                    <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
-                    <h4 className="font-black text-xl sm:text-2xl text-slate-900">Public Experience</h4>
-                  </div>
-                  <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
-                    Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
-                  </p>
-                  <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
-                    {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
-                      <span key={p} className="text-[11px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-2.5 sm:px-3 py-1 rounded-sm">{p}</span>
-                    ))}
-                  </div>
+                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
+                <div className="space-y-1">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-[#20B5D6]">Unauthenticated Layer</div>
+                  <h4 className="font-black text-xl sm:text-2xl text-slate-900">Public Experience</h4>
+                </div>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
+                  Communicates product methodology, system flow architecture, capabilities breakdown, and engineering philosophy without exposing private records or internal user state.
+                </p>
+                <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
+                  {['Homepage', 'How It Works', 'Capabilities', 'About'].map(p => (
+                    <span key={p} className="text-[11px] sm:text-xs font-bold text-cyan-900 bg-cyan-50 border border-cyan-200 px-2.5 sm:px-3 py-1 rounded-sm">{p}</span>
+                  ))}
                 </div>
               </div>
-            </RevealOnScroll>
+            </div>
 
             {/* Private Operating System */}
-            <RevealOnScroll animation="fade-left">
-              <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#FE721D] via-orange-400/50 to-slate-200/60 shadow-lg shadow-orange-500/10 hover:shadow-2xl hover:shadow-orange-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden h-full">
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+            <div className="relative group p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#FE721D] via-orange-400/50 to-slate-200/60 shadow-lg shadow-orange-500/10 hover:shadow-2xl hover:shadow-orange-500/25 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-                <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                  <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
-                  <div className="space-y-1">
-                    <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
-                    <h4 className="font-black text-xl sm:text-2xl text-slate-900">Private Operating System</h4>
-                  </div>
-                  <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
-                    Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
-                  </p>
-                  <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
-                    {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
-                      <span key={p} className="text-[11px] sm:text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-2.5 sm:px-3 py-1 rounded-sm">{p}</span>
-                    ))}
-                  </div>
+                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
+                <div className="space-y-1">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-[#FE721D]">Authenticated Layer</div>
+                  <h4 className="font-black text-xl sm:text-2xl text-slate-900">Private Operating System</h4>
+                </div>
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm max-w-md">
+                  Secure environment containing user workstreams, strategic goals, active tasks, capacity schedules, skill logs, career opportunity pipelines, evidence items, and intelligence advisory.
+                </p>
+                <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-2">
+                  {['Workstreams', 'Goals', 'Evidence Vault', 'AI Advisory', 'Career Pipeline'].map(p => (
+                    <span key={p} className="text-[11px] sm:text-xs font-bold text-orange-900 bg-orange-50 border border-orange-200 px-2.5 sm:px-3 py-1 rounded-sm">{p}</span>
+                  ))}
                 </div>
               </div>
-            </RevealOnScroll>
+            </div>
           </div>
         </div>
       </section>
@@ -618,51 +601,49 @@ export const AboutPage: React.FC = () => {
       {/* ══════════════════════════════════════════════════════════════════════
            FINAL CTA BANNER — Premium Glass
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full relative bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 py-16 sm:py-24 text-center overflow-hidden group">
+      <section className="w-full relative bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 py-16 sm:py-24 text-center overflow-hidden group scroll-reveal-scale">
         <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-orange-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-8 relative z-10">
-          <RevealOnScroll animation="zoom-in" delay={80}>
-            <div className="space-y-4 max-w-2xl mx-auto">
-              <h3 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-                Enter your personal operating environment.
-              </h3>
-              <p className="text-slate-600 font-semibold text-xl max-w-2xl mx-auto">
-                Connect strategic direction, daily execution, verified proof, and long-term trajectory into a single disciplined system.
-              </p>
-            </div>
+          <div className="space-y-4 max-w-2xl mx-auto">
+            <h3 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              Enter your personal operating environment.
+            </h3>
+            <p className="text-slate-600 font-semibold text-xl max-w-2xl mx-auto">
+              Connect strategic direction, daily execution, verified proof, and long-term trajectory into a single disciplined system.
+            </p>
+          </div>
 
-            <div className="flex flex-row items-center justify-center gap-2 xs:gap-3 sm:gap-5 mt-8">
-              <Link
-                to="/login"
-                className="relative group/btn inline-flex items-center justify-center p-0.5 rounded-sm bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300 shrink-0"
-              >
-                <span className="relative px-3.5 xs:px-5 sm:px-9 py-2 xs:py-2.5 sm:py-4 rounded-sm bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-[11px] xs:text-xs sm:text-base tracking-wide flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
-                  <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
-                  <span>Get Started Free</span>
-                  <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
-                    →
-                  </span>
+          <div className="flex flex-row items-center justify-center gap-2 xs:gap-3 sm:gap-5">
+            <Link
+              to="/login"
+              className="relative group/btn inline-flex items-center justify-center p-0.5 rounded-sm bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] shadow-lg sm:shadow-2xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300 shrink-0"
+            >
+              <span className="relative px-3.5 xs:px-5 sm:px-9 py-2 xs:py-2.5 sm:py-4 rounded-sm bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] text-white font-black text-[11px] xs:text-xs sm:text-base tracking-wide flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 overflow-hidden whitespace-nowrap">
+                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+                <span>Get Started Free</span>
+                <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover/btn:bg-white group-hover/btn:text-[#FE721D] group-hover/btn:translate-x-1 transition-all duration-300 shadow-sm shrink-0 font-bold text-xs sm:text-sm">
+                  →
                 </span>
-              </Link>
+              </span>
+            </Link>
 
-              <Link
-                to="/login"
-                className="relative group/btn inline-flex items-center justify-center p-0.5 rounded-sm bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 shrink-0"
-              >
-                <span className="relative px-3.5 xs:px-5 sm:px-9 py-2 xs:py-2.5 sm:py-4 rounded-sm bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-[11px] xs:text-xs sm:text-base tracking-wide flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 transition-colors overflow-hidden whitespace-nowrap border border-slate-200">
-                  <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
-                  <span>Sign In</span>
-                  <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0">
-                    <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                  </span>
+            <Link
+              to="/login"
+              className="relative group/btn inline-flex items-center justify-center p-0.5 rounded-sm bg-gradient-to-r from-[#20B5D6] to-[#FE721D] shadow-md sm:shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 shrink-0"
+            >
+              <span className="relative px-3.5 xs:px-5 sm:px-9 py-2 xs:py-2.5 sm:py-4 rounded-sm bg-white/95 backdrop-blur-xl text-slate-900 group-hover/btn:text-[#20B5D6] font-black text-[11px] xs:text-xs sm:text-base tracking-wide flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 transition-colors overflow-hidden whitespace-nowrap border border-slate-200">
+                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#20B5D6]/20 to-transparent pointer-events-none" />
+                <span>Sign In</span>
+                <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm bg-cyan-50 text-[#20B5D6] flex items-center justify-center group-hover/btn:bg-[#FE721D] group-hover/btn:text-white transition-all duration-300 shadow-sm shrink-0">
+                  <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
                 </span>
-              </Link>
-            </div>
-          </RevealOnScroll>
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
