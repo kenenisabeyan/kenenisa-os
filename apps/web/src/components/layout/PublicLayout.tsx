@@ -50,10 +50,67 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close drawer on route change
+  // Scroll to hero section or target hash on route change
   useEffect(() => {
     setDrawerOpen(false);
-  }, [location.pathname]);
+    const performScroll = () => {
+      if (location.hash) {
+        const id = location.hash.replace('#', '');
+        const targetEl = document.getElementById(id);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      const hero = document.getElementById('hero');
+      if (hero) {
+        hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    performScroll();
+    const timer = setTimeout(performScroll, 70);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.hash]);
+
+  const scrollToTarget = (targetPathWithHash: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+    setDrawerOpen(false);
+
+    if (targetPathWithHash.startsWith('mailto:')) {
+      window.location.href = targetPathWithHash;
+      return;
+    }
+
+    const [targetPath, hash] = targetPathWithHash.split('#');
+    const normalizedTarget = targetPath || '/';
+
+    const performScroll = () => {
+      if (hash) {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      const hero = document.getElementById('hero');
+      if (hero) {
+        hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    if (location.pathname === normalizedTarget) {
+      performScroll();
+    } else {
+      navigate(targetPathWithHash);
+      setTimeout(performScroll, 80);
+    }
+  };
 
   // Lock body scroll when drawer or modal is open
   useEffect(() => {
@@ -145,12 +202,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       return;
     }
     if (item.path) {
-      if (item.path.startsWith('mailto:')) {
-        window.location.href = item.path;
-      } else {
-        navigate(item.path);
-        setDrawerOpen(false);
-      }
+      scrollToTarget(item.path);
     }
   };
 
@@ -213,7 +265,12 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         />
 
         {/* Author Brand Badge (Left) */}
-        <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group shrink-0" aria-label="Kenenisa OS Home">
+        <a
+          href="/"
+          onClick={(e) => scrollToTarget('/', e)}
+          className="flex items-center gap-3 sm:gap-3.5 group shrink-0 cursor-pointer"
+          aria-label="Kenenisa OS Home"
+        >
           <div className="relative shrink-0 w-10 h-10 sm:w-11 sm:h-11">
             <div className="w-full h-full rounded-full overflow-hidden shadow-sm group-hover:scale-105 transition-transform">
               <img
@@ -232,7 +289,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <span>KENENISA</span>
             <span className="text-[#20B5D6]">OS</span>
           </span>
-        </Link>
+        </a>
 
         {/* Center Desktop Navigation (Clean uppercase typography — appears smoothly only on scroll) */}
         <nav
@@ -269,10 +326,11 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 : location.pathname === link.path || location.pathname.startsWith(`${link.path}/`);
 
             return (
-              <Link
+              <a
                 key={link.path}
-                to={link.path!}
-                className={`text-xs font-bold tracking-widest uppercase transition-colors ${
+                href={link.path!}
+                onClick={(e) => scrollToTarget(link.path!, e)}
+                className={`text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer ${
                   isActive
                     ? 'text-[#20B5D6] font-black'
                     : isDark
@@ -281,7 +339,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 }`}
               >
                 {link.label}
-              </Link>
+              </a>
             );
           })}
         </nav>
@@ -426,14 +484,14 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                     {item.hasSubmenu && isExpanded && (
                       <div className="pb-3 pl-3 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
                         {item.subLinks?.map((sub) => (
-                          <Link
+                          <a
                             key={sub.path}
-                            to={sub.path}
-                            onClick={() => setDrawerOpen(false)}
-                            className="block text-xs font-semibold text-slate-500 hover:text-[#FE721D] py-1 transition-colors"
+                            href={sub.path}
+                            onClick={(e) => scrollToTarget(sub.path, e)}
+                            className="block text-xs font-semibold text-slate-500 hover:text-[#FE721D] py-1 transition-colors cursor-pointer"
                           >
                             {sub.label}
-                          </Link>
+                          </a>
                         ))}
                       </div>
                     )}
@@ -562,10 +620,10 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             <div className="space-y-3">
               <span className="text-[10px] font-black uppercase text-[#20B5D6] tracking-widest">Navigation</span>
               <ul className="space-y-2">
-                <li><Link to="/" className="hover:text-[#FE721D] transition-colors">Home</Link></li>
-                <li><Link to="/about" className="hover:text-[#FE721D] transition-colors">About</Link></li>
-                <li><Link to="/capabilities" className="hover:text-[#FE721D] transition-colors">Capabilities</Link></li>
-                <li><Link to="/how-it-works" className="hover:text-[#FE721D] transition-colors">How It Works</Link></li>
+                <li><a href="/" onClick={(e) => scrollToTarget('/', e)} className="hover:text-[#FE721D] transition-colors cursor-pointer">Home</a></li>
+                <li><a href="/about" onClick={(e) => scrollToTarget('/about', e)} className="hover:text-[#FE721D] transition-colors cursor-pointer">About</a></li>
+                <li><a href="/capabilities" onClick={(e) => scrollToTarget('/capabilities', e)} className="hover:text-[#FE721D] transition-colors cursor-pointer">Capabilities</a></li>
+                <li><a href="/how-it-works" onClick={(e) => scrollToTarget('/how-it-works', e)} className="hover:text-[#FE721D] transition-colors cursor-pointer">How It Works</a></li>
               </ul>
             </div>
 
