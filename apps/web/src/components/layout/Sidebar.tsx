@@ -196,7 +196,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
       <div className="h-16 px-5 border-b border-slate-200/90 flex items-center justify-between shrink-0 bg-white/95 backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <div className="relative shrink-0 w-9 h-9">
-            <div className="w-full h-full rounded-full overflow-hidden shadow-md shadow-blue-500/20 ring-2 ring-cyan-400/40 hover:scale-105 transition-transform duration-200">
+            <div className="w-full h-full rounded-full overflow-hidden shadow-md shadow-blue-500/20 hover:scale-105 transition-transform duration-200">
               <img
                 src="/logo-icon.jpg"
                 alt="KENENISA OS"

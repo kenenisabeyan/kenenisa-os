@@ -211,7 +211,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         {/* Author Brand Badge (Left) */}
         <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group shrink-0" aria-label="Kenenisa OS Home">
           <div className="relative shrink-0 w-10 h-10 sm:w-11 sm:h-11">
-            <div className="w-full h-full rounded-full overflow-hidden border border-slate-200/90 shadow-sm group-hover:scale-105 transition-transform">
+            <div className="w-full h-full rounded-full overflow-hidden shadow-sm group-hover:scale-105 transition-transform">
               <img
                 src="/kenenisa-avatar.jpg"
                 alt="Kenenisa OS"
@@ -366,7 +366,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             {/* Top Close Button & Brand Header */}
             <div className="shrink-0 flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2.5">
-                <div className="relative w-9 h-9 shrink-0 rounded-full overflow-hidden border border-slate-200 shadow-sm">
+                <div className="relative w-9 h-9 shrink-0 rounded-full overflow-hidden shadow-sm">
                   <img
                     src="/kenenisa-avatar.jpg"
                     alt="Kenenisa OS"
@@ -511,7 +511,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
         <div className="max-w-[1720px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-10 relative z-10">
           <div className="space-y-3 max-w-lg">
             <div className="flex items-center gap-3">
-              <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border border-slate-200 shadow-sm">
+              <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden shadow-sm">
                 <img
                   src="/kenenisa-avatar.jpg"
                   alt="Kenenisa OS"
@@ -573,7 +573,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           <div className="relative bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 z-10 animate-in zoom-in-95 duration-200">
             <div className="flex justify-between items-start mb-6">
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden border border-slate-200 shadow-sm">
+                <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden shadow-sm">
                   <img
                     src="/kenenisa-avatar.jpg"
                     alt="Kenenisa Beyan"

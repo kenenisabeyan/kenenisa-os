@@ -222,14 +222,11 @@ export const AboutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Layered Portrait Media Card with Offset Backing Plate */}
+            {/* Right Column: Clean Rounded Portrait Media Card */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/5]">
-                {/* Offset Backing Plate in Kenenisa OS Brand Gradient */}
-                <div className="absolute -bottom-5 -right-5 sm:-bottom-7 sm:-right-7 inset-0 rounded-[2.5rem] bg-gradient-to-br from-[#20B5D6]/20 to-[#FE721D]/20 border-2 border-[#20B5D6]/40 -z-10 shadow-lg" />
-                
                 {/* Main Rounded Portrait Card */}
-                <div className="w-full h-full rounded-[2.5rem] overflow-hidden border-4 border-white shadow-2xl bg-slate-100 relative group">
+                <div className="w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-100 relative group">
                   <img
                     src="/kenenisa-portrait.jpg"
                     alt="Kenenisa Beyan"
@@ -239,13 +236,13 @@ export const AboutPage: React.FC = () => {
                     }}
                   />
 
-                  {/* Viewfinder Circle Graphic Element (matching Reference Screenshot) */}
+                  {/* Viewfinder Circle Graphic Element */}
                   <div className="absolute top-1/2 right-8 -translate-y-1/2 w-8 h-8 rounded-full border border-white/80 bg-white/20 backdrop-blur-xs flex items-center justify-center shadow-sm pointer-events-none">
                     <div className="w-2 h-2 rounded-full bg-white shadow-xs" />
                   </div>
 
                   {/* Bottom Overlay Pill */}
-                  <div className="absolute bottom-3 sm:bottom-5 inset-x-3 sm:inset-x-5 p-2.5 xs:p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between gap-2">
+                  <div className="absolute bottom-3 sm:bottom-5 inset-x-3 sm:inset-x-5 p-2.5 xs:p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md shadow-lg flex items-center justify-between gap-2">
                     <div className="min-w-0">
                       <div className="font-black text-xs sm:text-sm text-slate-900 truncate">Kenenisa Beyan</div>
                       <div className="text-[9px] xs:text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider truncate xs:overflow-visible">ASTU &bull; Computer Science and Engineering Lead</div>
