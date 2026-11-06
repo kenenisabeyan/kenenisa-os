@@ -128,7 +128,7 @@ export class GraduationService {
         userId,
         workstreamId: workstream.id,
         goalId: goalsMap.get('Complete the individual graduation project') || null,
-        name: 'Individual Graduation Project — Problem Discovery',
+        name: 'Individual Graduation Project: Problem Discovery',
         slug: 'individual-graduation-project',
         description:
           'Investigate a real problem, benchmark relevant international solutions, validate the Ethiopian context, develop a technically strong solution, conduct experiments, and evaluate measurable results.',
@@ -186,7 +186,7 @@ export class GraduationService {
         userId,
         workstreamId: workstream.id,
         goalId: goalsMap.get('Complete the group graduation project') || null,
-        name: 'Group Graduation Project — Problem Discovery',
+        name: 'Group Graduation Project: Problem Discovery',
         slug: 'group-graduation-project',
         description:
           'Identify a real-world problem suitable for collaborative engineering, develop an integrated solution, divide responsibilities, and demonstrate measurable results.',

@@ -432,7 +432,7 @@ export const PageAiCopilot: React.FC<PageAiCopilotProps> = ({
         </button>
       </div>
 
-      {/* Floating Action Button & Slide-Out Drawer - Portaled directly to document.body with fixed z-[9999] */}
+      {/* Floating Action Button & Slide-Out Drawer: Portaled directly to document.body with fixed z-[9999] */}
       {typeof document !== 'undefined' &&
         createPortal(
           <>

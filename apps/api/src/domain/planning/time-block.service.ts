@@ -218,7 +218,7 @@ export class TimeBlockService {
     const conflicts = await this.findOverlappingBlocks(userId, startAt, endAt);
     if (conflicts.length > 0) {
       throw new PlanningServiceError(
-        `The selected time range (${startAt.toISOString()} - ${endAt.toISOString()}) overlaps with existing time block: "${conflicts[0].conflictingTitle}".`,
+        `The selected time range (${startAt.toISOString()} to ${endAt.toISOString()}) overlaps with existing time block: "${conflicts[0].conflictingTitle}".`,
         'TIME_BLOCK_CONFLICT',
         400,
       );

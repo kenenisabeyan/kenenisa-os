@@ -282,7 +282,7 @@ export const AcademicsPage: React.FC = () => {
             >
               {semesters.map((s) => (
                 <option key={s.id} value={s.id}>
-                  {s.academicYear} — {s.semester} ({s.level})
+                  {s.academicYear} {s.semester} ({s.level})
                 </option>
               ))}
             </select>

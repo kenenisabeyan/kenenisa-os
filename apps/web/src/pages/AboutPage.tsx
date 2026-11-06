@@ -105,7 +105,7 @@ export const AboutPage: React.FC = () => {
       icon: '🛠️', title: 'Engineering Before Decoration',
       tagline: 'Utility first. Always.',
       body: 'Focus on solving real operational problems with clean information architecture before adding superficial visual flair or trendy features.',
-      detail: 'Every interface element must earn its place by delivering observable value — not aesthetic novelty.',
+      detail: 'Every interface element must earn its place by delivering observable value, not aesthetic novelty.',
       color: 'from-[#20B5D6] via-blue-600 to-indigo-600', bg: 'bg-cyan-50/90 border-[#20B5D6]/30', hoverText: 'text-[#20B5D6]',
       detailBg: 'bg-cyan-50/95 border-[#20B5D6]/40',
     },
@@ -160,7 +160,7 @@ export const AboutPage: React.FC = () => {
     <div className="w-full flex flex-col space-y-0" id="about-page">
 
       {/* ══════════════════════════════════════════════════════════════════════
-           HERO — High-Contrast Split Hero with Layered Portrait Card
+           HERO: High-Contrast Split Hero with Layered Portrait Card
            (Meticulously styled to match Alazar visual aesthetic)
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full pt-4 pb-10 sm:pb-14 bg-white relative overflow-hidden" id="hero">
@@ -277,7 +277,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-           THE FRAGMENTATION PROBLEM — 3-column with visual dividers
+           THE FRAGMENTATION PROBLEM: 3-column with visual dividers
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full relative bg-gradient-to-br from-cyan-50/50 via-sky-50/30 to-slate-50/60 py-16 sm:py-24 overflow-hidden">
         <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
@@ -338,7 +338,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-           INTERACTIVE CORE PRINCIPLES — Expand on click
+           INTERACTIVE CORE PRINCIPLES: Expand on click
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-16 sm:py-24 bg-white" id="principles">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 space-y-10">
@@ -366,7 +366,7 @@ export const AboutPage: React.FC = () => {
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
                   <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                    {/* Centered Squircle Icon Box - Adaptive sizing */}
+                    {/* Centered Squircle Icon Box: Adaptive sizing */}
                     <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
                       {p.icon}
                     </div>
@@ -382,7 +382,7 @@ export const AboutPage: React.FC = () => {
                     {/* Centered Body */}
                     <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4 break-words">{p.body}</p>
 
-                    {/* Expanded detail - Responsive max-height */}
+                    {/* Expanded detail: Responsive max-height */}
                     <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
                       <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
                         <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
@@ -447,7 +447,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-           AI ADVISORY PIPELINE — Advanced Visual Diagram
+           AI ADVISORY PIPELINE: Advanced Visual Diagram
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full relative bg-gradient-to-br from-purple-50/70 via-indigo-50/50 to-blue-50/60 py-16 sm:py-24 overflow-hidden">
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl pointer-events-none" />
@@ -599,7 +599,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-           FINAL CTA BANNER — Premium Glass
+           FINAL CTA BANNER: Premium Glass
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="w-full relative bg-gradient-to-br from-cyan-50/60 via-white to-orange-50/60 py-16 sm:py-24 text-center overflow-hidden group scroll-reveal-scale">
         <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />

@@ -105,7 +105,7 @@ vi.mock('../../lib/api-client.js', () => ({
           userId: 'user-1',
           category: 'PREFERENCE',
           key: 'deep_work_hours',
-          value: '9 AM - 12 PM',
+          value: '9 AM to 12 PM',
           archivedAt: null,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),

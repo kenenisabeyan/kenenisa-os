@@ -224,9 +224,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     <div className="min-h-screen bg-[#FAFAFA] text-slate-900 flex flex-col font-sans transition-colors duration-300 selection:bg-[#20B5D6]/20 selection:text-[#0b7994]">
       
       {/* ══════════════════════════════════════════════════════════════════════
-           STICKY NAVBAR — Dynamic scroll-triggered background and navigation
+           STICKY NAVBAR: Dynamic scroll-triggered background and navigation
       ══════════════════════════════════════════════════════════════════════ */}
-      {/* Vertical Scroll Progress Bar Indicator — Tracks body scroll progress along viewport right edge */}
+      {/* Vertical Scroll Progress Bar Indicator: Tracks body scroll progress along viewport right edge */}
       <div
         className={`fixed top-0 right-0 w-[3px] bg-gradient-to-b from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-b-full transition-all duration-150 z-50 pointer-events-none ${
           isScrolled ? 'opacity-100' : 'opacity-0'
@@ -246,7 +246,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             : 'bg-transparent border-b border-transparent shadow-none'
         }`}
       >
-        {/* Horizontal Scroll Progress Bar Indicator — Tracks body scroll progress along header top */}
+        {/* Horizontal Scroll Progress Bar Indicator: Tracks body scroll progress along header top */}
         <div
           className={`absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
             isScrolled ? 'opacity-100' : 'opacity-0'
@@ -286,7 +286,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           </span>
         </a>
 
-        {/* Center Desktop Navigation (Clean uppercase typography — appears smoothly only on scroll) */}
+        {/* Center Desktop Navigation (Clean uppercase typography: appears smoothly only on scroll) */}
         <nav
           aria-label="Public Center Navigation"
           className={`hidden lg:flex items-center gap-5 sm:gap-7 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 transition-all duration-300 ease-in-out ${
@@ -374,7 +374,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       </header>
 
       {/* ══════════════════════════════════════════════════════════════════════
-           SLIDE-OUT NAVIGATION DRAWER — Exact match to Screenshot 3
+           SLIDE-OUT NAVIGATION DRAWER: Exact match to Screenshot 3
       ══════════════════════════════════════════════════════════════════════ */}
       {drawerOpen && (
         <>
@@ -509,7 +509,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       )}
 
       {/* ══════════════════════════════════════════════════════════════════════
-           FLOATING ACTION BUTTON (FAB) — Appears smoothly on scroll with progress ring
+           FLOATING ACTION BUTTON (FAB): Appears smoothly on scroll with progress ring
       ══════════════════════════════════════════════════════════════════════ */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -710,7 +710,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 <span className="text-[10px] font-black uppercase text-[#20B5D6] tracking-widest">
                   Executive Briefing
                 </span>
-                <h3 className="text-2xl font-black text-slate-900">Kenenisa Beyan — CV &amp; Profile</h3>
+                <h3 className="text-2xl font-black text-slate-900">Kenenisa Beyan: CV &amp; Profile</h3>
                 <p className="text-xs text-slate-500 mt-0.5">Software Engineering Architect &bull; Full-Stack Specialist</p>
               </div>
               <button
@@ -778,7 +778,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                   Key Production Accomplishment
                 </h4>
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-                  <div className="font-bold text-slate-900">KENENISA OS — Personal Engineering Operating System</div>
+                  <div className="font-bold text-slate-900">KENENISA OS: Personal Engineering Operating System</div>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     Designed and built an end-to-end multi-tier platform with 22+ integrated modules, sub-10ms response times, microsecond performance monitoring, live database grounding, and an Evidence Vault.
                   </p>

@@ -51,7 +51,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#F8FAFC]">
-        {/* Global Desktop & Mobile Top Header Bar - Fixed Position */}
+        {/* Global Desktop & Mobile Top Header Bar: Fixed Position */}
         <header className="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-white/90 border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between z-30 backdrop-blur-md shadow-xs transition-all duration-300">
           {/* Mobile Left: Menu Toggle + Brand */}
           <div className="flex items-center gap-3 lg:hidden">

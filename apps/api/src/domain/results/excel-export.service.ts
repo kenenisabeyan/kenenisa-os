@@ -118,7 +118,7 @@ export class ExcelExportService {
     const dateRangeTo = options.toDate || 'Latest Record';
 
     return {
-      title: 'KENENISA OS — Multi-Horizon Result Intelligence Report',
+      title: 'KENENISA OS: Multi-Horizon Result Intelligence Report',
       generatedAt: new Date().toISOString(),
       userDisplayName: user?.displayName || 'Kenenisa',
       scope: options.scope || 'current',

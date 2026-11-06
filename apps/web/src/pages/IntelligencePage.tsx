@@ -103,7 +103,7 @@ export const IntelligencePage: React.FC = () => {
       return;
     }
     const lines = [
-      `# KENENISA OS Intelligence Briefing - ${new Date().toLocaleDateString()}`,
+      `# KENENISA OS Intelligence Briefing: ${new Date().toLocaleDateString()}`,
       '',
       ...messages.map((m) => `### ${m.role === 'USER' ? '👤 User' : '✦ AI Advisory'}\n\n${m.content}\n`),
     ];

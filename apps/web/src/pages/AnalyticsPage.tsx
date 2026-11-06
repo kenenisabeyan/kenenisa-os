@@ -152,7 +152,7 @@ export const AnalyticsPage: React.FC = () => {
   const handleExportMarkdownSummary = () => {
     if (!overview) return;
     const periodLabel = period === 'custom' ? `Custom (${customFrom || 'Start'} to ${customTo || 'End'})` : period.toUpperCase();
-    const md = `# Kenenisa OS — Executive Operational Briefing
+    const md = `# Kenenisa OS: Executive Operational Briefing
 **Period**: ${periodLabel}
 **Exported**: ${new Date().toLocaleString()}
 
@@ -626,7 +626,7 @@ export const AnalyticsPage: React.FC = () => {
                         {projects.map((p) => (
                           <tr key={p.projectId} className="hover:bg-slate-50">
                             <td className="py-3 px-3 font-semibold text-slate-900">{p.projectName}</td>
-                            <td className="py-3 px-3 text-slate-500">{p.workstreamName || '—'}</td>
+                            <td className="py-3 px-3 text-slate-500">{p.workstreamName || 'N/A'}</td>
                             <td className="py-3 px-3">
                               <span className="px-2 py-0.5 rounded text-[10px] bg-slate-100 border border-slate-200 text-slate-700 font-medium">
                                 {p.status}
@@ -671,7 +671,7 @@ export const AnalyticsPage: React.FC = () => {
                         {goals.map((g) => (
                           <tr key={g.goalId} className="hover:bg-slate-50">
                             <td className="py-3 px-3 font-semibold text-slate-900">{g.title}</td>
-                            <td className="py-3 px-3 text-slate-500">{g.workstreamName || '—'}</td>
+                            <td className="py-3 px-3 text-slate-500">{g.workstreamName || 'N/A'}</td>
                             <td className="py-3 px-3">
                               <span className="px-2 py-0.5 rounded text-[10px] bg-slate-100 border border-slate-200 text-slate-700 font-medium">
                                 {g.status}

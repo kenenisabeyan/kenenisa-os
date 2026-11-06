@@ -379,11 +379,11 @@ export const ResultsPage: React.FC = () => {
                   <div className="grid grid-cols-2 gap-2 text-xs bg-white p-2.5 rounded-xl border border-slate-200/60">
                     <div>
                       <span className="text-[9px] font-bold text-slate-400 uppercase block">Expected</span>
-                      <span className="text-slate-700 font-medium truncate block">{item.expectedResult || '—'}</span>
+                      <span className="text-slate-700 font-medium truncate block">{item.expectedResult || 'N/A'}</span>
                     </div>
                     <div>
                       <span className="text-[9px] font-bold text-slate-400 uppercase block">Actual</span>
-                      <span className="text-slate-700 font-medium truncate block">{item.actualResult || '—'}</span>
+                      <span className="text-slate-700 font-medium truncate block">{item.actualResult || 'N/A'}</span>
                     </div>
                   </div>
 
@@ -438,7 +438,7 @@ export const ResultsPage: React.FC = () => {
                   {getStatusBadge(entry.outcomeState)}
                 </div>
                 <div className="text-xs text-slate-600 mt-1">
-                  Expected: {entry.expectedResult} · Actual: {entry.actualResult || '—'}
+                  Expected: {entry.expectedResult} · Actual: {entry.actualResult || 'N/A'}
                 </div>
               </div>
             ))}
@@ -606,7 +606,7 @@ export const ResultsPage: React.FC = () => {
                         ) : col.key === 'source' ? (
                           getSourceBadge(row[col.key] as ResultSource)
                         ) : (
-                          String(row[col.key] ?? '—')
+                          String(row[col.key] ?? 'N/A')
                         )}
                       </td>
                     ))}
@@ -644,8 +644,8 @@ export const ResultsPage: React.FC = () => {
             <div className="space-y-3 text-xs">
               <div>
                 <span className="text-[10px] font-bold text-slate-400 uppercase block">Expected vs Actual</span>
-                <p className="mt-1"><strong>Expected:</strong> {selectedOutcome.expectedResult || '—'}</p>
-                <p className="mt-0.5"><strong>Actual:</strong> {selectedOutcome.actualResult || '—'}</p>
+                <p className="mt-1"><strong>Expected:</strong> {selectedOutcome.expectedResult || 'N/A'}</p>
+                <p className="mt-0.5"><strong>Actual:</strong> {selectedOutcome.actualResult || 'N/A'}</p>
               </div>
               <div>
                 <span className="text-[10px] font-bold text-slate-400 uppercase block">Status & Source</span>
@@ -656,8 +656,8 @@ export const ResultsPage: React.FC = () => {
               </div>
               <div>
                 <span className="text-[10px] font-bold text-slate-400 uppercase block">Execution Details</span>
-                <p className="mt-1">Task: {selectedOutcome.task?.title || '—'}</p>
-                <p className="mt-0.5">Project: {selectedOutcome.project?.name || '—'}</p>
+                <p className="mt-1">Task: {selectedOutcome.task?.title || 'N/A'}</p>
+                <p className="mt-0.5">Project: {selectedOutcome.project?.name || 'N/A'}</p>
               </div>
             </div>
 

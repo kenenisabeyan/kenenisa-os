@@ -85,7 +85,7 @@ export const PlaceholderPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans selection:bg-blue-500 selection:text-white">
-      {/* Header / Navbar - Fixed Position */}
+      {/* Header / Navbar: Fixed Position */}
       <header className="fixed top-0 inset-x-0 z-30 border-b border-slate-200/90 bg-white/90 backdrop-blur-md px-6 py-4 flex items-center justify-between shadow-xs">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-black text-white shadow-md shadow-blue-500/20">
@@ -222,7 +222,7 @@ export const PlaceholderPage: React.FC = () => {
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-slate-200 bg-white px-6 py-6 text-center text-xs text-slate-500 font-mono">
-        KENENISA OS — Advanced Monorepo Architecture Foundation Baseline
+        KENENISA OS: Advanced Monorepo Architecture Foundation Baseline
       </footer>
     </div>
   );

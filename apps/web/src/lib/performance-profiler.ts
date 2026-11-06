@@ -1,5 +1,5 @@
 /**
- * KENENISA OS — Frontend Microsecond-Resolution Performance Instrumentation System
+ * KENENISA OS: Frontend Microsecond-Resolution Performance Instrumentation System
  *
  * Implements high-resolution timing using performance.now(), performance.mark(),
  * performance.measure(), React Profiler hooks, and Server-Timing header parser.

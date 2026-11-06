@@ -271,7 +271,7 @@ export const WorkstreamsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Priority Weight (1 - 10)</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Priority Weight (1 to 10)</label>
                 <input
                   type="number"
                   min={1}
@@ -345,7 +345,7 @@ export const WorkstreamsPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Priority Weight (1 - 10)</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Priority Weight (1 to 10)</label>
                   <input
                     type="number"
                     min={1}

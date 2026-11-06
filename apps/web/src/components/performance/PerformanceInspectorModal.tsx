@@ -231,7 +231,7 @@ export const PerformanceInspectorModal: React.FC<{ isOpen: boolean; onClose: () 
                       Component Render
                     </span>
                     <div className="text-2xl font-black text-slate-900">
-                      {activeRouteMetric ? `${activeRouteMetric.avgRenderUs.toLocaleString()} µs` : '—'}
+                      {activeRouteMetric ? `${activeRouteMetric.avgRenderUs.toLocaleString()} µs` : 'N/A'}
                     </div>
                     <span className="text-[10px] text-slate-400">
                       {activeRouteMetric ? `(${activeRouteMetric.avgRenderMs} ms)` : 'Pending profile'}
@@ -243,7 +243,7 @@ export const PerformanceInspectorModal: React.FC<{ isOpen: boolean; onClose: () 
                       React Commit
                     </span>
                     <div className="text-2xl font-black text-slate-900">
-                      {activeRouteMetric ? `${activeRouteMetric.avgCommitUs.toLocaleString()} µs` : '—'}
+                      {activeRouteMetric ? `${activeRouteMetric.avgCommitUs.toLocaleString()} µs` : 'N/A'}
                     </div>
                     <span className="text-[10px] text-slate-400">
                       {activeRouteMetric ? `(${activeRouteMetric.avgCommitMs} ms)` : 'Pending commit'}
@@ -348,7 +348,7 @@ export const PerformanceInspectorModal: React.FC<{ isOpen: boolean; onClose: () 
                               {api.clientDurationMs.toFixed(2)} ms ({api.clientDurationUs.toFixed(0)} µs)
                             </td>
                             <td className="py-2.5 px-4 font-mono text-purple-700">
-                              {api.serverDbMs ? `${api.serverDbMs.toFixed(2)} ms` : '—'}
+                              {api.serverDbMs ? `${api.serverDbMs.toFixed(2)} ms` : 'N/A'}
                             </td>
                             <td className="py-2.5 px-4">
                               {api.cached ? (

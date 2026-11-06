@@ -353,10 +353,10 @@ export const GoalsPage: React.FC = () => {
             className="w-full sm:w-auto bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
           >
             <option value="">All Priorities</option>
-            <option value="P0">P0 - Critical</option>
-            <option value="P1">P1 - High</option>
-            <option value="P2">P2 - Medium</option>
-            <option value="P3">P3 - Low</option>
+            <option value="P0">P0: Critical</option>
+            <option value="P1">P1: High</option>
+            <option value="P2">P2: Medium</option>
+            <option value="P3">P3: Low</option>
           </select>
 
           {(search || workstreamIdFilter || statusFilter || priorityFilter) && (
@@ -666,10 +666,10 @@ export const GoalsPage: React.FC = () => {
                     onChange={(e) => setPriority(e.target.value as TaskPriority)}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                   >
-                    <option value="P0">P0 - Critical</option>
-                    <option value="P1">P1 - High</option>
-                    <option value="P2">P2 - Medium</option>
-                    <option value="P3">P3 - Low</option>
+                    <option value="P0">P0: Critical</option>
+                    <option value="P1">P1: High</option>
+                    <option value="P2">P2: Medium</option>
+                    <option value="P3">P3: Low</option>
                   </select>
                 </div>
 
@@ -766,10 +766,10 @@ export const GoalsPage: React.FC = () => {
                     onChange={(e) => setEditGoalPriority(e.target.value as TaskPriority)}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 font-semibold focus:outline-none focus:border-blue-500"
                   >
-                    <option value="P0">P0 - Critical</option>
-                    <option value="P1">P1 - High</option>
-                    <option value="P2">P2 - Medium</option>
-                    <option value="P3">P3 - Low</option>
+                    <option value="P0">P0: Critical</option>
+                    <option value="P1">P1: High</option>
+                    <option value="P2">P2: Medium</option>
+                    <option value="P3">P3: Low</option>
                   </select>
                 </div>
 

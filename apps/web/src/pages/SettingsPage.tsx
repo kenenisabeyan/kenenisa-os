@@ -772,10 +772,10 @@ export const SettingsPage: React.FC = () => {
                 onChange={(e) => setSettingsDefaultPriority(e.target.value as any)}
                 className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer"
               >
-                <option value="P0">P0 - Critical / Immediate</option>
-                <option value="P1">P1 - High Priority</option>
-                <option value="P2">P2 - Normal Priority</option>
-                <option value="P3">P3 - Low Priority</option>
+                <option value="P0">P0: Critical / Immediate</option>
+                <option value="P1">P1: High Priority</option>
+                <option value="P2">P2: Normal Priority</option>
+                <option value="P3">P3: Low Priority</option>
               </select>
               <p className="text-[10px] text-slate-400">Initial priority assigned when quick-creating tasks</p>
             </div>
@@ -952,7 +952,7 @@ export const SettingsPage: React.FC = () => {
                     </td>
                     <td className="py-2.5 px-3 font-semibold text-slate-700">{log.entityType}</td>
                     <td className="py-2.5 px-3 text-slate-500 font-mono text-[11px] truncate max-w-xs">
-                      {log.metadata ? JSON.stringify(log.metadata) : '—'}
+                      {log.metadata ? JSON.stringify(log.metadata) : 'N/A'}
                     </td>
                     <td className="py-2.5 px-3 text-right text-slate-400 font-medium">
                       {new Date(log.createdAt).toLocaleString()}

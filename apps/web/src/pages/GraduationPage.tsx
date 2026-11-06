@@ -674,7 +674,7 @@ export const GraduationPage: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <span className="px-2.5 py-1 bg-white border border-slate-200 rounded-md text-[11px] font-bold text-slate-700 uppercase tracking-wide">
-                    {idx === 0 ? 'PROJECT A — INDIVIDUAL' : 'PROJECT B — GROUP'}
+                    {idx === 0 ? 'PROJECT A: INDIVIDUAL' : 'PROJECT B: GROUP'}
                   </span>
                   <span className="text-xs font-semibold px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200/70">
                     {project.status}

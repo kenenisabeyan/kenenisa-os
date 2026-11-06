@@ -820,7 +820,7 @@ export const PlanningPage: React.FC = () => {
                                         <div className="flex items-center gap-2 flex-wrap">
                                           <span className="font-bold text-slate-900 text-xs truncate">{tb.title}</span>
                                           <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold">
-                                            {new Date(tb.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(tb.endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            {new Date(tb.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} to {new Date(tb.endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                           </span>
                                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-white text-slate-700 font-bold border border-slate-200">
                                             {tb.status}

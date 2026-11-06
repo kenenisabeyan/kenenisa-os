@@ -101,7 +101,7 @@ export const ReviewsPage: React.FC = () => {
     } else {
       setWins('• Maintained 4+ hours daily deep work focus blocks\n• Reduced task interruption frequency\n• Consistent daily scratchpad tracking');
       setChallenges('• Context switching during midday notifications\n• Afternoon fatigue when tackling complex architectural refactoring');
-      setLessons('• Reserve mornings (09:00 - 13:00) exclusively for high-cognitive tasks');
+      setLessons('• Reserve mornings (09:00 to 13:00) exclusively for high-cognitive tasks');
       setNextFocus('• Protect daily calendar time-blocks with strict boundary enforcement');
       showToast('Applied "Deep Work & Focus Audit" template', 'info');
     }

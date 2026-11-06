@@ -172,7 +172,7 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* 3 Metric Cards with Cybernetic Gradient Perimeter — always in one row */}
+          {/* 3 Metric Cards with Cybernetic Gradient Perimeter: always in one row */}
           <div className="grid grid-cols-3 gap-2 xs:gap-3.5 sm:gap-6 max-w-4xl mx-auto pt-4">
             {/* Metric 1 */}
             <div className="relative group p-[2px] rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#20B5D6] via-cyan-400/40 to-slate-200/60 shadow-md shadow-cyan-500/10 hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-1 transition-all duration-300 overflow-hidden scroll-reveal-left delay-150">
