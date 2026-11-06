@@ -110,7 +110,7 @@ async function main() {
       weeklyWorkCapacityMinutes: 2400,
       defaultTaskPriority: TaskPriority.P2,
       defaultProjectView: 'board',
-      theme: 'dark',
+      theme: 'light',
     },
   });
   console.info('⚙️ User settings initialized');

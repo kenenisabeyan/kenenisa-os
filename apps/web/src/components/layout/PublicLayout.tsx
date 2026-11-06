@@ -25,7 +25,6 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
-  const [isDark, setIsDark] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [cvModalOpen, setCvModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -221,12 +220,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     return false;
   };
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-  };
-
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-[#0f172a] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'} flex flex-col font-sans transition-colors duration-300 selection:bg-[#20B5D6]/20 selection:text-[#0b7994]`}>
+    <div className="min-h-screen bg-[#FAFAFA] text-slate-900 flex flex-col font-sans transition-colors duration-300 selection:bg-[#20B5D6]/20 selection:text-[#0b7994]">
       
       {/* ══════════════════════════════════════════════════════════════════════
            STICKY NAVBAR — Dynamic scroll-triggered background and navigation
@@ -247,7 +242,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       <header
         className={`fixed top-0 inset-x-0 z-40 h-20 flex items-center px-4 sm:px-8 lg:px-14 justify-between transition-all duration-300 ${
           isScrolled
-            ? `${isDark ? 'bg-[#0f172a]/95 border-slate-800' : 'bg-white/95 border-slate-100'} backdrop-blur-xl border-b shadow-xs`
+            ? 'bg-white/95 border-slate-100 backdrop-blur-xl border-b shadow-xs'
             : 'bg-transparent border-b border-transparent shadow-none'
         }`}
       >
@@ -285,7 +280,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             {/* Online Status Green Indicator Dot */}
             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
           </div>
-          <span className={`font-black text-base sm:text-lg tracking-tight ${isDark ? 'text-white' : 'text-slate-900'} group-hover:text-[#20B5D6] transition-colors leading-none flex items-center gap-1.5`}>
+          <span className="font-black text-base sm:text-lg tracking-tight text-slate-900 group-hover:text-[#20B5D6] transition-colors leading-none flex items-center gap-1.5">
             <span>KENENISA</span>
             <span className="text-[#20B5D6]">OS</span>
           </span>
@@ -310,9 +305,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                   className={`text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer ${
                     contactModalOpen
                       ? 'text-[#20B5D6] font-black'
-                      : isDark
-                        ? 'text-slate-200 hover:text-[#FE721D]'
-                        : 'text-slate-800 hover:text-[#FE721D]'
+                      : 'text-slate-800 hover:text-[#FE721D]'
                   }`}
                 >
                   {link.label}
@@ -333,9 +326,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
                 className={`text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer ${
                   isActive
                     ? 'text-[#20B5D6] font-black'
-                    : isDark
-                      ? 'text-slate-200 hover:text-[#FE721D]'
-                      : 'text-slate-800 hover:text-[#FE721D]'
+                    : 'text-slate-800 hover:text-[#FE721D]'
                 }`}
               >
                 {link.label}
@@ -344,42 +335,16 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           })}
         </nav>
 
-        {/* Header Right Action Buttons (Theme Toggle & Drawer Hamburger) */}
+        {/* Header Right Action Buttons (Drawer Hamburger & Direct Action) */}
         <div className="flex items-center gap-2.5">
-          {/* Theme Toggle Button (Rounded Square with subtle border) */}
-          <button
-            onClick={toggleTheme}
-            className={`w-10 h-10 rounded-sm border ${
-              isDark
-                ? 'border-slate-700 bg-slate-800/90 text-amber-400 hover:bg-slate-700'
-                : isScrolled
-                  ? 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                  : 'border-slate-200/90 bg-white/90 text-slate-700 hover:bg-white backdrop-blur-xs'
-            } flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95`}
-            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            aria-label="Toggle Theme"
-          >
-            {isDark ? (
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            )}
-          </button>
-
           {/* Menu Hamburger Button (Rounded Square with subtle border) */}
           <button
             onClick={() => setDrawerOpen(true)}
             className={`w-10 h-10 rounded-sm border ${
-              isDark
-                ? 'border-slate-700 bg-slate-800/90 text-slate-100 hover:bg-slate-700'
-                : isScrolled
-                  ? 'border-slate-200 bg-white text-slate-800 hover:bg-slate-50'
-                  : 'border-slate-200/90 bg-white/90 text-slate-800 hover:bg-white backdrop-blur-xs'
-            } flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95`}
+              isScrolled
+                ? 'border-slate-200 bg-white text-slate-800 hover:bg-slate-50'
+                : 'border-slate-200/90 bg-white/90 text-slate-800 hover:bg-white backdrop-blur-xs'
+            } flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer`}
             title="Open Menu"
             aria-label="Open Navigation Menu"
           >
@@ -593,7 +558,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       {/* ══════════════════════════════════════════════════════════════════════
            PUBLIC FOOTER
       ══════════════════════════════════════════════════════════════════════ */}
-      <footer className={`relative ${isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-slate-50/90 border-slate-200/80'} border-t py-14 px-6 sm:px-12 lg:px-16 mt-auto overflow-hidden`}>
+      <footer className="relative bg-slate-50/90 border-slate-200/80 border-t py-14 px-6 sm:px-12 lg:px-16 mt-auto overflow-hidden">
         <div className="max-w-[1720px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-10 relative z-10">
           <div className="space-y-3 max-w-lg">
             <div className="flex items-center gap-3">
