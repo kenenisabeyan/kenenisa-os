@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../features/auth/useAuth.js';
 import { useScrollReveal } from '../../lib/useScrollReveal.js';
+import { useInteractiveMotion } from '../../lib/useInteractiveMotion.js';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   const location = useLocation();
   const { user } = useAuth();
   useScrollReveal();
+  useInteractiveMotion();
   
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);

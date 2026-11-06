@@ -528,15 +528,112 @@ dialog {
   animation: ambientDrift 12s ease-in-out infinite;
 }
 
+/* ── Interactive Tactile Shockwave & Click Dynamics ────────────────────────── */
+.interaction-ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: interactionRippleWave 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  background: radial-gradient(circle, rgba(32, 181, 214, 0.35) 0%, rgba(254, 114, 29, 0.18) 55%, transparent 75%);
+  pointer-events: none;
+  z-index: 50;
+}
+
+@keyframes interactionRippleWave {
+  0% {
+    transform: scale(0);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+/* Tactile Spring Press Physics on Interactive Elements */
+button:not(:disabled):active,
+[role="button"]:not([aria-disabled="true"]):active,
+.group\/btn:active {
+  transform: scale(0.976) !important;
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* ── Reactive Cursor Spotlight Sheen on Interactive Cards ─────────────────── */
+[data-spotlight="true"] {
+  position: relative;
+}
+
+[data-spotlight="true"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(32, 181, 214, 0.08),
+    rgba(254, 114, 29, 0.03) 40%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 15;
+}
+
+[data-spotlight="true"]:hover::before {
+  opacity: 1;
+}
+
+/* ── Viewport Mouse Parallax Shift on Ambient Blur Spheres ─────────────────── */
+.blur-3xl.pointer-events-none {
+  transform: translate(var(--ambient-shift-x, 0px), var(--ambient-shift-y, 0px));
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Smooth Page Settle Entrance ───────────────────────────────────────────── */
+@keyframes pageSettleIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-settle-entrance {
+  animation: pageSettleIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Interactive Focus Aura ───────────────────────────────────────────────── */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #20B5D6 !important;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 3px rgba(32, 181, 214, 0.22), 0 0 14px rgba(32, 181, 214, 0.12) !important;
+  transition: box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), outline 0.2s ease !important;
+}
+
+/* ── Refined Elastic Easing on Hover Lifts ─────────────────────────────────── */
+[class*="hover:-translate-y"],
+[class*="hover:scale"] {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* Accessibility: immediate visibility when motion reduced */
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .scroll-reveal-left,
   .scroll-reveal-right,
-  .scroll-reveal-scale {
+  .scroll-reveal-scale,
+  .page-settle-entrance,
+  .interaction-ripple-wave {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    animation: none !important;
   }
 }
 
