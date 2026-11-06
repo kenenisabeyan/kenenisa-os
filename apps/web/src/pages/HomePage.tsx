@@ -180,10 +180,6 @@ export const HomePage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/30 via-white to-white rounded-[10px] sm:rounded-[14px] p-2.5 xs:p-4 sm:p-7 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
 
                 <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">5+</div>
                 <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Years Building Systems</div>
@@ -197,10 +193,6 @@ export const HomePage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-orange-50/30 via-white to-white rounded-[10px] sm:rounded-[14px] p-2.5 xs:p-4 sm:p-7 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-orange-400/70 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-orange-400/70 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-orange-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-orange-400 transition-colors pointer-events-none" />
 
                 <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#FE721D] tracking-tight">140+</div>
                 <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Projects &amp; Milestones</div>
@@ -214,10 +206,6 @@ export const HomePage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 sm:w-24 h-[2.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-32 group-hover:opacity-100 transition-all duration-500 z-10 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/30 via-white to-white rounded-[10px] sm:rounded-[14px] p-2.5 xs:p-4 sm:p-7 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-cyan-400/70 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
 
                 <div className="text-2xl xs:text-3xl sm:text-5xl font-black text-[#20B5D6] tracking-tight">99%</div>
                 <div className="text-[9px] xs:text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-tight xs:tracking-wider sm:tracking-widest mt-1 sm:mt-2 leading-tight">Verified Proof &amp; Reliability</div>
@@ -630,10 +618,6 @@ export const HomePage: React.FC = () => {
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover/box:bg-[#20B5D6]/35 transition-all duration-300" />
                 <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full shadow-[0_0_10px_rgba(32,181,214,0.7)] pointer-events-none group-hover/box:left-2 group-hover/box:right-2 transition-all duration-300" />
                 <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-6 space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                  <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/80 group-hover/box:border-[#20B5D6] transition-colors pointer-events-none" />
-                  <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/80 group-hover/box:border-[#20B5D6] transition-colors pointer-events-none" />
-                  <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300 group-hover/box:border-cyan-400 transition-colors pointer-events-none" />
-                  <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300 group-hover/box:border-cyan-400 transition-colors pointer-events-none" />
                   
                   <div className="flex flex-wrap items-center gap-2">
                     <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-cyan-500/20">
@@ -691,10 +675,6 @@ export const HomePage: React.FC = () => {
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-purple-500/20 blur-lg pointer-events-none group-hover/box:bg-purple-500/35 transition-all duration-300" />
                 <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent rounded-full shadow-[0_0_10px_rgba(168,85,247,0.7)] pointer-events-none group-hover/box:left-2 group-hover/box:right-2 transition-all duration-300" />
                 <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-6 space-y-4 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                  <span className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-purple-400/80 group-hover/box:border-purple-600 transition-colors pointer-events-none" />
-                  <span className="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-purple-400/80 group-hover/box:border-purple-600 transition-colors pointer-events-none" />
-                  <span className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300 group-hover/box:border-purple-400 transition-colors pointer-events-none" />
-                  <span className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300 group-hover/box:border-purple-400 transition-colors pointer-events-none" />
                   
                   <div className="flex flex-wrap items-center gap-2">
                     <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest px-3 py-1 rounded-full shadow-md shadow-purple-500/20">
@@ -757,10 +737,6 @@ export const HomePage: React.FC = () => {
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-purple-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Precision HUD Corner Reticles */}
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-purple-400/60 group-hover:border-purple-600 transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-purple-400/60 group-hover:border-purple-600 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-purple-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-purple-400 transition-colors pointer-events-none" />
 
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-100/70 border border-purple-200 text-[10px] font-mono font-bold text-purple-700 uppercase tracking-widest">
@@ -791,10 +767,6 @@ export const HomePage: React.FC = () => {
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Precision HUD Corner Reticles */}
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
 
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
@@ -825,10 +797,6 @@ export const HomePage: React.FC = () => {
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-blue-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Precision HUD Corner Reticles */}
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-blue-400/60 group-hover:border-blue-600 transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-blue-400/60 group-hover:border-blue-600 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-blue-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-blue-400 transition-colors pointer-events-none" />
 
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100/70 border border-blue-200 text-[10px] font-mono font-bold text-blue-800 uppercase tracking-widest">
@@ -859,10 +827,6 @@ export const HomePage: React.FC = () => {
               {/* Inner Card Surface */}
               <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 flex flex-col items-center text-center space-y-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Precision HUD Corner Reticles */}
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
 
                 {/* Technical Index Pill */}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[10px] font-mono font-bold text-orange-800 uppercase tracking-widest">

@@ -176,10 +176,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
 
                 <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
                   🎯
@@ -203,10 +199,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
 
                 <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
                   🛡️
@@ -230,10 +222,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
 
                 <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
                   ⚙️
@@ -274,10 +262,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-slate-400/15 blur-lg pointer-events-none group-hover/step:bg-slate-400/25 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-slate-500 to-transparent rounded-full shadow-[0_0_8px_rgba(100,116,139,0.6)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-2 h-2 border-t-2 border-l-2 border-slate-400/70 group-hover/step:border-slate-600 transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 border-t-2 border-r-2 border-slate-400/70 group-hover/step:border-slate-600 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover/step:border-slate-500 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover/step:border-slate-500 transition-colors pointer-events-none" />
                 <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest block">// 01 · Problem</span>
                 <p className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-slate-700 transition-colors">Identify Gap</p>
               </div>
@@ -288,10 +272,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#20B5D6]/20 blur-lg pointer-events-none group-hover/step:bg-[#20B5D6]/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#20B5D6] to-transparent rounded-full shadow-[0_0_8px_rgba(32,181,214,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-2 h-2 border-t-2 border-l-2 border-cyan-400/80 group-hover/step:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 border-t-2 border-r-2 border-cyan-400/80 group-hover/step:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover/step:border-cyan-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover/step:border-cyan-400 transition-colors pointer-events-none" />
                 <span className="text-[10px] font-black text-[#20B5D6] uppercase tracking-widest block">// 02 · Question</span>
                 <p className="font-black text-sm sm:text-base text-cyan-950 group-hover/step:text-[#20B5D6] transition-colors">Hypothesize</p>
               </div>
@@ -302,10 +282,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-teal-400/20 blur-lg pointer-events-none group-hover/step:bg-teal-400/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-teal-500 to-transparent rounded-full shadow-[0_0_8px_rgba(20,184,166,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-2 h-2 border-t-2 border-l-2 border-teal-400/80 group-hover/step:border-teal-500 transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 border-t-2 border-r-2 border-teal-400/80 group-hover/step:border-teal-500 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover/step:border-teal-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover/step:border-teal-400 transition-colors pointer-events-none" />
                 <span className="text-[10px] font-black text-teal-600 uppercase tracking-widest block">// 03 · Design</span>
                 <p className="font-black text-sm sm:text-base text-indigo-950 group-hover/step:text-teal-600 transition-colors">Architecture</p>
               </div>
@@ -316,10 +292,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-[#FE721D]/20 blur-lg pointer-events-none group-hover/step:bg-[#FE721D]/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#FE721D] to-transparent rounded-full shadow-[0_0_8px_rgba(254,114,29,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-2 h-2 border-t-2 border-l-2 border-orange-400/80 group-hover/step:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 border-t-2 border-r-2 border-orange-400/80 group-hover/step:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover/step:border-orange-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover/step:border-orange-400 transition-colors pointer-events-none" />
                 <span className="text-[10px] font-black text-[#FE721D] uppercase tracking-widest block">// 04 · Build</span>
                 <p className="font-black text-sm sm:text-base text-orange-950 group-hover/step:text-[#FE721D] transition-colors">Implementation</p>
               </div>
@@ -330,10 +302,6 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-emerald-400/20 blur-lg pointer-events-none group-hover/step:bg-emerald-400/35 transition-all duration-300" />
               <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent rounded-full shadow-[0_0_8px_rgba(16,185,129,0.7)] pointer-events-none group-hover/step:left-2 group-hover/step:right-2 transition-all duration-300" />
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 sm:p-5 space-y-1.5 sm:space-y-2 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-1.5 left-1.5 w-2 h-2 border-t-2 border-l-2 border-emerald-400/80 group-hover/step:border-emerald-500 transition-colors pointer-events-none" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 border-t-2 border-r-2 border-emerald-400/80 group-hover/step:border-emerald-500 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 left-1.5 w-2 h-2 border-b-2 border-l-2 border-slate-300 group-hover/step:border-emerald-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-1.5 right-1.5 w-2 h-2 border-b-2 border-r-2 border-slate-300 group-hover/step:border-emerald-400 transition-colors pointer-events-none" />
                 <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest block">// 05 · Verification</span>
                 <p className="font-black text-sm sm:text-base text-emerald-950 group-hover/step:text-emerald-600 transition-colors">Evidence</p>
               </div>

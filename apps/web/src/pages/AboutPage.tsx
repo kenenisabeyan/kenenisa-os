@@ -326,10 +326,6 @@ export const AboutPage: React.FC = () => {
 
                 <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/40 rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                   {/* Precision HUD Corner Reticles */}
-                  <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-slate-300/80 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                  <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-slate-300/80 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                  <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
-                  <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
 
                   <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
@@ -376,10 +372,6 @@ export const AboutPage: React.FC = () => {
 
                   <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-5 xs:p-6 sm:p-7 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                     {/* Precision HUD Corner Reticles */}
-                    <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-[#20B5D6]/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                    <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-[#20B5D6]/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                    <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
-                    <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-[#20B5D6]/60 transition-colors pointer-events-none" />
 
                     {/* Centered Squircle Icon Box - Adaptive sizing */}
                     <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
@@ -568,10 +560,6 @@ export const AboutPage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400/60 group-hover:border-[#20B5D6] transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-cyan-400 transition-colors pointer-events-none" />
 
                 <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🌐</div>
                 <div className="space-y-1">
@@ -595,10 +583,6 @@ export const AboutPage: React.FC = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
               <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t-2 border-l-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t-2 border-r-2 border-orange-400/60 group-hover:border-[#FE721D] transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b-2 border-l-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
-                <span className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b-2 border-r-2 border-slate-300/80 group-hover:border-orange-400 transition-colors pointer-events-none" />
 
                 <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-amber-600 text-white text-2xl sm:text-3xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">🔒</div>
                 <div className="space-y-1">

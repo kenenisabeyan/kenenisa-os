@@ -605,10 +605,6 @@ export const DashboardPage: React.FC = () => {
           <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-blue-500/15 blur-lg pointer-events-none group-hover:bg-blue-500/25 transition-all duration-300" />
           <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-full shadow-[0_0_8px_rgba(34,211,238,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-blue-400/70 group-hover:border-blue-500 transition-colors pointer-events-none" />
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-blue-400/70 group-hover:border-blue-500 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Workstreams</span>
@@ -625,10 +621,6 @@ export const DashboardPage: React.FC = () => {
           <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-indigo-500/15 blur-lg pointer-events-none group-hover:bg-indigo-500/25 transition-all duration-300" />
           <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-transparent rounded-full shadow-[0_0_8px_rgba(192,132,252,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-indigo-400/70 group-hover:border-indigo-500 transition-colors pointer-events-none" />
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-indigo-400/70 group-hover:border-indigo-500 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-indigo-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-indigo-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Goals</span>
@@ -645,10 +637,6 @@ export const DashboardPage: React.FC = () => {
           <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-cyan-500/15 blur-lg pointer-events-none group-hover:bg-cyan-500/25 transition-all duration-300" />
           <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent rounded-full shadow-[0_0_8px_rgba(45,212,191,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-cyan-400/70 group-hover:border-cyan-500 transition-colors pointer-events-none" />
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-cyan-400/70 group-hover:border-cyan-500 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-cyan-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-cyan-600 uppercase tracking-widest">Projects</span>
@@ -665,10 +653,6 @@ export const DashboardPage: React.FC = () => {
           <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-sky-500/15 blur-lg pointer-events-none group-hover:bg-sky-500/25 transition-all duration-300" />
           <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full shadow-[0_0_8px_rgba(96,165,250,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-sky-400/70 group-hover:border-sky-500 transition-colors pointer-events-none" />
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-sky-400/70 group-hover:border-sky-500 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-sky-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-sky-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-sky-600 uppercase tracking-widest">Ready</span>
@@ -685,10 +669,6 @@ export const DashboardPage: React.FC = () => {
           <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-blue-600/15 blur-lg pointer-events-none group-hover:bg-blue-600/25 transition-all duration-300" />
           <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-indigo-400 to-transparent rounded-full shadow-[0_0_8px_rgba(129,140,248,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-blue-400/70 group-hover:border-blue-600 transition-colors pointer-events-none" />
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-blue-400/70 group-hover:border-blue-600 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-blue-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">In Progress</span>
@@ -705,10 +685,6 @@ export const DashboardPage: React.FC = () => {
           <div className={`absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 ${summary.blockedTasks > 0 ? 'bg-rose-500/15' : 'bg-slate-400/10'} blur-lg pointer-events-none group-hover:bg-rose-500/25 transition-all duration-300`} />
           <div className={`absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent ${summary.blockedTasks > 0 ? 'via-rose-500' : 'via-slate-400'} to-transparent rounded-full shadow-[0_0_8px_rgba(244,63,94,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300`} />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className={`absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l ${summary.blockedTasks > 0 ? 'border-rose-400/70 group-hover:border-rose-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
-            <span className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r ${summary.blockedTasks > 0 ? 'border-rose-400/70 group-hover:border-rose-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-rose-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-rose-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Blocked</span>
@@ -727,10 +703,6 @@ export const DashboardPage: React.FC = () => {
           <div className={`absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 ${summary.overdueTasks > 0 ? 'bg-amber-500/15' : 'bg-slate-400/10'} blur-lg pointer-events-none group-hover:bg-amber-500/25 transition-all duration-300`} />
           <div className={`absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent ${summary.overdueTasks > 0 ? 'via-amber-500' : 'via-slate-400'} to-transparent rounded-full shadow-[0_0_8px_rgba(245,158,11,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300`} />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className={`absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l ${summary.overdueTasks > 0 ? 'border-amber-400/70 group-hover:border-amber-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
-            <span className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r ${summary.overdueTasks > 0 ? 'border-amber-400/70 group-hover:border-amber-500' : 'border-slate-400/70 group-hover:border-slate-500'} transition-colors pointer-events-none`} />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-amber-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-amber-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest">Overdue</span>
@@ -749,10 +721,6 @@ export const DashboardPage: React.FC = () => {
           <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-emerald-500/15 blur-lg pointer-events-none group-hover:bg-emerald-500/25 transition-all duration-300" />
           <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent rounded-full shadow-[0_0_8px_rgba(45,212,191,0.7)] pointer-events-none group-hover:left-1 group-hover:right-1 transition-all duration-300" />
           <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] p-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className="absolute top-1.5 left-1.5 w-1.5 h-1.5 border-t border-l border-emerald-400/70 group-hover:border-emerald-500 transition-colors pointer-events-none" />
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 border-t border-r border-emerald-400/70 group-hover:border-emerald-500 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 border-b border-l border-slate-300 group-hover:border-emerald-400 transition-colors pointer-events-none" />
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 border-b border-r border-slate-300 group-hover:border-emerald-400 transition-colors pointer-events-none" />
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">7d Done</span>
