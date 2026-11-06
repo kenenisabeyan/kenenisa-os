@@ -175,10 +175,10 @@ export const AboutPage: React.FC = () => {
             {/* Left Column: High-Impact Typography & Narrative */}
             <div className="lg:col-span-7 space-y-3 sm:space-y-4">
               <h1 className="font-black tracking-tight flex flex-col">
-                <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] whitespace-nowrap">
+                <span className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] break-words">
                   Kenenisa Beyan.
                 </span>
-                <span className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent tracking-tight leading-[1.1] mt-1 sm:mt-1.5">
+                <span className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] bg-clip-text text-transparent tracking-tight leading-[1.1] mt-1 sm:mt-1.5 break-words">
                   Engineering OS &amp; Visual Architecture
                 </span>
               </h1>
@@ -245,12 +245,12 @@ export const AboutPage: React.FC = () => {
                   </div>
 
                   {/* Bottom Overlay Pill */}
-                  <div className="absolute bottom-5 inset-x-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between">
-                    <div>
-                      <div className="font-black text-sm text-slate-900">Kenenisa Beyan</div>
-                      <div className="text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider">ASTU &bull; Computer Science and Engineering Lead</div>
+                  <div className="absolute bottom-3 sm:bottom-5 inset-x-3 sm:inset-x-5 p-2.5 xs:p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <div className="font-black text-xs sm:text-sm text-slate-900 truncate">Kenenisa Beyan</div>
+                      <div className="text-[9px] xs:text-[10px] font-bold text-[#20B5D6] uppercase tracking-wider truncate xs:overflow-visible">ASTU &bull; Computer Science and Engineering Lead</div>
                     </div>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
+                    <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-emerald-500 ring-2 ring-white shrink-0" />
                   </div>
                 </div>
               </div>
@@ -324,15 +324,15 @@ export const AboutPage: React.FC = () => {
                 {/* Top Luminous Laser Beam */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-                <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/40 rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                  <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/40 rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className={`w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br ${card.gradient} text-white flex items-center justify-center text-xl xs:text-2xl sm:text-3xl shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
                   </div>
-                  <span className={`text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
+                  <span className={`text-[9px] xs:text-[10px] font-black px-3 py-1 rounded-full ${card.badge} border uppercase tracking-widest`}>
                     PROBLEM {card.num}
                   </span>
-                  <h4 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">{card.title}</h4>
-                  <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">{card.body}</p>
+                  <h4 className="text-base xs:text-lg sm:text-xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors break-words">{card.title}</h4>
+                  <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm break-words">{card.body}</p>
                 </div>
               </div>
             ))}
@@ -368,22 +368,22 @@ export const AboutPage: React.FC = () => {
                   {/* Top Luminous Laser Beam */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-                  <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-5 xs:p-6 sm:p-7 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                  <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                     {/* Centered Squircle Icon Box - Adaptive sizing */}
-                    <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
+                    <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
                       {p.icon}
                     </div>
 
                     {/* Centered Eyebrow & Title */}
-                    <div className="space-y-1.5 text-center mb-2.5 sm:mb-3">
-                      <div className="text-[11px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center">{p.tagline}</div>
-                      <h3 className={`text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
+                    <div className="space-y-1 sm:space-y-1.5 text-center mb-2 sm:mb-3 w-full min-w-0">
+                      <div className="text-[10px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center truncate">{p.tagline}</div>
+                      <h3 className={`text-base xs:text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug break-words ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
                         {p.title}
                       </h3>
                     </div>
 
                     {/* Centered Body */}
-                    <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4">{p.body}</p>
+                    <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4 break-words">{p.body}</p>
 
                     {/* Expanded detail - Responsive max-height */}
                     <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>

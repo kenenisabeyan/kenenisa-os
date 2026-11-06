@@ -284,112 +284,112 @@ export const AnalyticsPage: React.FC = () => {
           {/* Top KPI Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {/* Tasks Done */}
-            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-blue-500 via-cyan-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300 group">
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-blue-500 via-cyan-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300 group min-w-0">
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-blue-500/15 blur-lg pointer-events-none group-hover:bg-blue-500/25 transition-all duration-300" />
               <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-full shadow-[0_0_8px_rgba(34,211,238,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-black text-blue-600 tracking-widest">// TASKS DONE</span>
-                  <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-blue-600 tracking-wider truncate">// TASKS DONE</span>
+                  <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">
                   {overview.execution.completedTasks}
                   <span className="text-xs text-slate-400 font-normal ml-1">/ {overview.execution.totalTasks}</span>
                 </div>
-                <div className="text-[11px] text-blue-600 font-bold">
+                <div className="text-[10px] xs:text-[11px] text-blue-600 font-bold truncate">
                   {overview.execution.completionRate !== null ? `${overview.execution.completionRate}% completion` : 'N/A'}
                 </div>
               </div>
             </div>
 
             {/* Capacity */}
-            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-emerald-500 via-teal-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300 group">
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-emerald-500 via-teal-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300 group min-w-0">
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-emerald-500/15 blur-lg pointer-events-none group-hover:bg-emerald-500/25 transition-all duration-300" />
               <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent rounded-full shadow-[0_0_8px_rgba(52,211,153,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-black text-emerald-600 tracking-widest">// CAPACITY</span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-emerald-600 tracking-wider truncate">// CAPACITY</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">
                   {Math.round(overview.planning.plannedMinutes / 60)}h
                   <span className="text-xs text-slate-400 font-normal ml-1">
                     / {Math.round((capacity?.totalAvailableMinutes || 0) / 60)}h
                   </span>
                 </div>
-                <div className="text-[11px] text-emerald-600 font-bold">
+                <div className="text-[10px] xs:text-[11px] text-emerald-600 font-bold truncate">
                   {capacity?.utilizationPercentage !== null ? `${capacity?.utilizationPercentage}% utilized` : 'N/A'}
                 </div>
               </div>
             </div>
 
             {/* Learning */}
-            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-purple-500 via-indigo-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-1 transition-all duration-300 group">
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-purple-500 via-indigo-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-purple-500/20 hover:-translate-y-1 transition-all duration-300 group min-w-0">
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-purple-500/15 blur-lg pointer-events-none group-hover:bg-purple-500/25 transition-all duration-300" />
               <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-purple-400 to-transparent rounded-full shadow-[0_0_8px_rgba(192,132,252,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-black text-purple-600 tracking-widest">// LEARNING</span>
-                  <span className="w-2 h-2 rounded-full bg-purple-500 group-hover:scale-125 transition-transform" />
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-purple-600 tracking-wider truncate">// LEARNING</span>
+                  <span className="w-2 h-2 rounded-full bg-purple-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">
                   {Math.round(overview.learning.learningMinutes / 60)}h
                 </div>
-                <div className="text-[11px] text-purple-600 font-bold">
+                <div className="text-[10px] xs:text-[11px] text-purple-600 font-bold truncate">
                   {overview.learning.learningActivityDays} active days
                 </div>
               </div>
             </div>
 
             {/* Evidence */}
-            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500 via-orange-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-1 transition-all duration-300 group">
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500 via-orange-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-1 transition-all duration-300 group min-w-0">
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-amber-500/15 blur-lg pointer-events-none group-hover:bg-amber-500/25 transition-all duration-300" />
               <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full shadow-[0_0_8px_rgba(251,191,36,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-black text-amber-600 tracking-widest">// EVIDENCE</span>
-                  <span className="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform" />
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-amber-600 tracking-wider truncate">// EVIDENCE</span>
+                  <span className="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.evidence.evidenceCreated}</div>
-                <div className="text-[11px] text-amber-600 font-bold">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">{overview.evidence.evidenceCreated}</div>
+                <div className="text-[10px] xs:text-[11px] text-amber-600 font-bold truncate">
                   {overview.evidence.evidenceVerified} verified
                 </div>
               </div>
             </div>
 
             {/* Projects */}
-            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-indigo-500 via-blue-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-1 transition-all duration-300 group">
+            <div className="relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-indigo-500 via-blue-400/40 to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-1 transition-all duration-300 group min-w-0">
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-indigo-500/15 blur-lg pointer-events-none group-hover:bg-indigo-500/25 transition-all duration-300" />
               <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full shadow-[0_0_8px_rgba(96,165,250,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-black text-indigo-600 tracking-widest">// PROJECTS</span>
-                  <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-indigo-600 tracking-wider truncate">// PROJECTS</span>
+                  <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{overview.projects.activeProjects}</div>
-                <div className="text-[11px] text-slate-500 font-bold">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">{overview.projects.activeProjects}</div>
+                <div className="text-[10px] xs:text-[11px] text-slate-500 font-bold truncate">
                   {overview.projects.completedProjects} completed
                 </div>
               </div>
             </div>
 
             {/* Overdue */}
-            <div className={`relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b ${overview.execution.overdueTasks > 0 ? 'from-rose-500 via-rose-300/40' : 'from-slate-400 via-slate-300/40'} to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-rose-500/20 hover:-translate-y-1 transition-all duration-300 group`}>
+            <div className={`relative p-[2px] rounded-2xl sm:rounded-3xl bg-gradient-to-b ${overview.execution.overdueTasks > 0 ? 'from-rose-500 via-rose-300/40' : 'from-slate-400 via-slate-300/40'} to-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-rose-500/20 hover:-translate-y-1 transition-all duration-300 group min-w-0`}>
               <div className={`absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 ${overview.execution.overdueTasks > 0 ? 'bg-rose-500/15' : 'bg-slate-400/10'} blur-lg pointer-events-none group-hover:bg-rose-500/25 transition-all duration-300`} />
               <div className={`absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-transparent ${overview.execution.overdueTasks > 0 ? 'via-rose-500' : 'via-slate-400'} to-transparent rounded-full shadow-[0_0_8px_rgba(244,63,94,0.7)] pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300`} />
-              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] uppercase font-black text-rose-600 tracking-widest">// OVERDUE</span>
-                  <span className={`w-2 h-2 rounded-full ${overview.execution.overdueTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-rose-600 tracking-wider truncate">// OVERDUE</span>
+                  <span className={`w-2 h-2 rounded-full ${overview.execution.overdueTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'} shrink-0`} />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-rose-600 tracking-tight">{overview.execution.overdueTasks}</div>
-                <div className="text-[11px] text-amber-600 font-bold">
+                <div className="text-xl xs:text-2xl sm:text-3xl font-black text-rose-600 tracking-tight truncate">{overview.execution.overdueTasks}</div>
+                <div className="text-[10px] xs:text-[11px] text-amber-600 font-bold truncate">
                   {blocked?.currentlyBlocked || 0} blocked
                 </div>
               </div>

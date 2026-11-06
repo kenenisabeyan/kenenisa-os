@@ -231,19 +231,19 @@ export const CapabilitiesPage: React.FC = () => {
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
                   🔒
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[9px] xs:text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
                   <span>SECURE ENCLAVE</span>
                 </div>
-                <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover:text-[#20B5D6] transition-colors">
+                <h4 className="font-black text-sm xs:text-base sm:text-lg text-slate-900 group-hover:text-[#20B5D6] transition-colors break-words">
                   Isolated Private Operating Context
                 </h4>
-                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm break-words">
                   All personal tasks, goals, project artifacts, and evidence reside behind strict authenticated sessions. Public pages never expose private user data.
                 </p>
               </div>
@@ -254,19 +254,19 @@ export const CapabilitiesPage: React.FC = () => {
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-xl sm:text-3xl shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
                   🤖
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[10px] font-mono font-bold text-orange-800 uppercase tracking-widest">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[9px] xs:text-[10px] font-mono font-bold text-orange-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FE721D] animate-pulse" />
                   <span>HUMAN CONTROL</span>
                 </div>
-                <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover:text-[#FE721D] transition-colors">
+                <h4 className="font-black text-sm xs:text-base sm:text-lg text-slate-900 group-hover:text-[#FE721D] transition-colors break-words">
                   Human-In-The-Loop AI
                 </h4>
-                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm break-words">
                   Intelligence Core acts strictly as an advisory layer. The system will never mutate tasks, delete projects, or send external data without explicit human confirmation.
                 </p>
               </div>
@@ -277,19 +277,19 @@ export const CapabilitiesPage: React.FC = () => {
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-xl sm:text-3xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
                   🗄️
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[9px] xs:text-[10px] font-mono font-bold text-cyan-800 uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
                   <span>DATABASE TRUTH</span>
                 </div>
-                <h4 className="font-black text-base sm:text-lg text-slate-900 group-hover:text-[#20B5D6] transition-colors">
+                <h4 className="font-black text-sm xs:text-base sm:text-lg text-slate-900 group-hover:text-[#20B5D6] transition-colors break-words">
                   Authoritative System State
                 </h4>
-                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm">
+                <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm break-words">
                   Your PostgreSQL database state is the single source of truth. AI reasoning is transient and downstream from verified database state.
                 </p>
               </div>

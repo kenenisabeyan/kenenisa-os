@@ -229,7 +229,7 @@ export const ExecutivePage: React.FC = () => {
                   >
                     <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-blue-500/15 blur-lg pointer-events-none group-hover:bg-blue-500/25 transition-all duration-300" />
                     <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full pointer-events-none group-hover:left-2 group-hover:right-2 transition-all duration-300" />
-                    <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[22px] p-5 space-y-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                    <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[22px] p-4 sm:p-5 space-y-4 flex flex-col justify-between overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                       <div className="space-y-2.5">
                         <div className="flex items-start justify-between gap-2">
                           <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-black uppercase tracking-wider shadow-2xs">
@@ -237,7 +237,7 @@ export const ExecutivePage: React.FC = () => {
                           </span>
                           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100 group-hover:scale-125 transition-transform" />
                         </div>
-                        <h3 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                        <h3 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight break-words">
                           {ws.name}
                         </h3>
                         <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
@@ -276,7 +276,7 @@ export const ExecutivePage: React.FC = () => {
           </div>
 
           {/* Strategic Flow Pipeline */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-4 xs:p-5 sm:p-6 shadow-sm space-y-4 sm:space-y-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
               <div>
                 <h2 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
@@ -304,15 +304,15 @@ export const ExecutivePage: React.FC = () => {
               ].map((step, idx) => (
                 <div
                   key={step.label}
-                  className={`relative ${step.bg} border border-slate-200/90 rounded-2xl p-4 text-center hover:border-blue-300 hover:shadow-xs transition-all duration-150 flex flex-col justify-between shadow-2xs group`}
+                  className={`relative ${step.bg} border border-slate-200/90 rounded-2xl p-2.5 xs:p-3 sm:p-4 text-center hover:border-blue-300 hover:shadow-xs transition-all duration-150 flex flex-col justify-between shadow-2xs group min-w-0`}
                 >
-                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <div className="flex items-center justify-between text-[9px] xs:text-[10px] font-black uppercase tracking-widest text-slate-400">
                     <span>Node 0{idx + 1}</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
                   </div>
-                  <div className="my-2.5">
-                    <p className={`text-2xl sm:text-3xl font-black ${step.textColor} tracking-tight`}>{step.count}</p>
-                    <p className="text-xs font-bold text-slate-800 mt-0.5 truncate">{step.label}</p>
+                  <div className="my-2 sm:my-2.5">
+                    <p className={`text-xl xs:text-2xl sm:text-3xl font-black ${step.textColor} tracking-tight`}>{step.count}</p>
+                    <p className="text-[11px] xs:text-xs font-bold text-slate-800 mt-0.5 truncate">{step.label}</p>
                   </div>
                   <div className={`w-full h-1.5 bg-gradient-to-r ${step.color} rounded-full shadow-2xs`} />
                 </div>
@@ -324,7 +324,7 @@ export const ExecutivePage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left 2 Cols: Critical Strategic Priorities & Concrete Evidence */}
             <div className="lg:col-span-2 space-y-6">
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-4 xs:p-5 sm:p-6 shadow-sm space-y-5">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                   <div>
                     <h3 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
@@ -377,7 +377,7 @@ export const ExecutivePage: React.FC = () => {
               </div>
 
               {/* Evidence Vault preview */}
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-4 xs:p-5 sm:p-6 shadow-sm space-y-5">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                   <div>
                     <h3 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
@@ -423,7 +423,7 @@ export const ExecutivePage: React.FC = () => {
 
             {/* Right Col: Executive System Health & Quick Action Matrix */}
             <div className="space-y-6">
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-5">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-4 xs:p-5 sm:p-6 shadow-sm space-y-5">
                 <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Executive System Health</h3>
 
                 <div className="space-y-3">
@@ -452,7 +452,7 @@ export const ExecutivePage: React.FC = () => {
               </div>
 
               {/* Navigation Action Matrix */}
-              <div className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-xs space-y-4">
+              <div className="bg-white border border-slate-200/90 rounded-3xl p-4 xs:p-5 sm:p-6 shadow-xs space-y-4">
                 <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Strategic Portals</h3>
 
                 <div className="space-y-2.5">

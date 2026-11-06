@@ -175,18 +175,18 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-blue-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
                   🎯
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] sm:text-xs font-mono font-bold text-cyan-800 uppercase tracking-widest text-center">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[9px] xs:text-[10px] sm:text-xs font-mono font-bold text-cyan-800 uppercase tracking-widest text-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
                   <span>PILLAR 01</span>
                 </div>
-                <div className="space-y-1.5 sm:space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Deterministic Execution</h3>
-                  <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+                <div className="space-y-1.5 sm:space-y-2 w-full min-w-0">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors break-words">Deterministic Execution</h3>
+                  <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
                     No guessing what to work on next. The Next Best Action engine evaluates open task dependencies, deadlines, and scheduled focus blocks.
                   </p>
                 </div>
@@ -198,18 +198,18 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#FE721D]/25 blur-xl pointer-events-none group-hover:bg-[#FE721D]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-orange-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#FE721D] to-orange-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-orange-500/20 group-hover:scale-110 transition-transform">
                   🛡️
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[10px] sm:text-xs font-mono font-bold text-orange-800 uppercase tracking-widest text-center">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100/70 border border-orange-200 text-[9px] xs:text-[10px] sm:text-xs font-mono font-bold text-orange-800 uppercase tracking-widest text-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FE721D] animate-pulse" />
                   <span>PILLAR 02</span>
                 </div>
-                <div className="space-y-1.5 sm:space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#FE721D] transition-colors">Observable Proof Vault</h3>
-                  <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+                <div className="space-y-1.5 sm:space-y-2 w-full min-w-0">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#FE721D] transition-colors break-words">Observable Proof Vault</h3>
+                  <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
                     Task completions generate verifiable evidence items (PRs, commits, test runs, architecture docs) stored directly in your Evidence Vault.
                   </p>
                 </div>
@@ -221,18 +221,18 @@ export const HowItWorksPage: React.FC = () => {
               <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#20B5D6]/25 blur-xl pointer-events-none group-hover:bg-[#20B5D6]/40 transition-all duration-500" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-48 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8 space-y-3.5 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <div className="relative h-full w-full bg-gradient-to-b from-cyan-50/40 via-white to-white rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
 
-                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[1.5rem] bg-gradient-to-br from-[#20B5D6] to-sky-600 text-white flex items-center justify-center font-black text-2xl sm:text-3xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 transition-transform">
                   ⚙️
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[10px] sm:text-xs font-mono font-bold text-cyan-800 uppercase tracking-widest text-center">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-100/70 border border-cyan-200 text-[9px] xs:text-[10px] sm:text-xs font-mono font-bold text-cyan-800 uppercase tracking-widest text-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#20B5D6] animate-pulse" />
                   <span>PILLAR 03</span>
                 </div>
-                <div className="space-y-1.5 sm:space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors">Multi-Outcome Sync</h3>
-                  <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+                <div className="space-y-1.5 sm:space-y-2 w-full min-w-0">
+                  <h3 className="text-lg xs:text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#20B5D6] transition-colors break-words">Multi-Outcome Sync</h3>
+                  <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-medium break-words">
                     Completing one task simultaneously advances coursework, software projects, skill capabilities, and target career opportunities.
                   </p>
                 </div>
