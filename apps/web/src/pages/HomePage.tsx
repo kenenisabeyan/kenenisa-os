@@ -146,10 +146,10 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 pt-1">
+          <div className="flex flex-wrap items-center justify-center gap-2 xs:gap-2.5 sm:gap-4 pt-1">
             <a
               href="#workstreams"
-              className="px-6 sm:px-8 py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
+              className="px-4 xs:px-6 sm:px-8 py-2.5 xs:py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-1.5 xs:gap-2 whitespace-nowrap"
             >
               <span>EXPLORE WORK</span>
               <span>▾</span>
@@ -157,7 +157,7 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/how-it-works"
-              className="px-6 sm:px-8 py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
+              className="px-4 xs:px-6 sm:px-8 py-2.5 xs:py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-1.5 xs:gap-2 whitespace-nowrap"
             >
               <span>SYSTEM TOUR</span>
               <span>▸</span>
@@ -165,7 +165,7 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/login"
-              className="px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-2"
+              className="px-4 xs:px-6 sm:px-8 py-2.5 xs:py-3 sm:py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-1.5 xs:gap-2 whitespace-nowrap"
             >
               <span>LAUNCH OS</span>
               <span>→</span>
