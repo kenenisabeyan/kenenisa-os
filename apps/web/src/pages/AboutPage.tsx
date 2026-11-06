@@ -188,17 +188,17 @@ export const AboutPage: React.FC = () => {
               </p>
 
               {/* Quick Action Buttons */}
-              <div className="flex flex-nowrap items-center gap-2 xs:gap-3 sm:gap-4 pt-1 max-w-full">
+              <div className="flex flex-nowrap items-center gap-1.5 xs:gap-2.5 sm:gap-4 pt-1 max-w-full">
                 <a
                   href="#principles"
-                  className="flex-1 sm:flex-initial px-3 xs:px-4 sm:px-6 md:px-7 py-2.5 xs:py-3 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/20 hover:shadow-orange-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1.5 xs:gap-2 whitespace-nowrap"
+                  className="px-2.5 xs:px-3.5 sm:px-6 md:px-7 py-2 xs:py-2.5 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wide sm:tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/20 hover:shadow-orange-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1 xs:gap-1.5 sm:gap-2 whitespace-nowrap shrink-0"
                 >
                   <span>EXPLORE WORK</span>
                   <span>▾</span>
                 </a>
                 <a
                   href="#roadmap"
-                  className="flex-1 sm:flex-initial px-3 xs:px-4 sm:px-6 md:px-7 py-2.5 xs:py-3 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1.5 xs:gap-2 whitespace-nowrap"
+                  className="px-2.5 xs:px-3.5 sm:px-6 md:px-7 py-2 xs:py-2.5 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-[10px] xs:text-xs sm:text-sm tracking-wide sm:tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1 xs:gap-1.5 sm:gap-2 whitespace-nowrap shrink-0"
                 >
                   <span>SYSTEM ROADMAP</span>
                   <span>▸</span>

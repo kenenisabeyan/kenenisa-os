@@ -2,6 +2,9 @@ declare const _default: {
     content: string[];
     theme: {
         extend: {
+            screens: {
+                xs: string;
+            };
             colors: {
                 brand: {
                     cyan: string;
