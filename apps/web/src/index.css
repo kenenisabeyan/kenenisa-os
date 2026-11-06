@@ -453,5 +453,69 @@ dialog {
   background: linear-gradient(to bottom, #1aa3c2, #e56315);
 }
 
+/* ── Advanced Scroll Motion Keyframes & Dynamic Micro-Movements ─────────── */
+@keyframes cyberFloatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.8deg);
+  }
+}
+
+@keyframes laserSweepReveal {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes progressHeadGlow {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+    box-shadow: 0 0 10px #20B5D6, 0 0 20px #FE721D;
+  }
+  50% {
+    transform: translateY(-50%) scale(1.4);
+    box-shadow: 0 0 18px #20B5D6, 0 0 30px #FE721D;
+  }
+}
+
+@keyframes scrollBounceArrow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-cyber-float {
+  animation: cyberFloatSlow 6s ease-in-out infinite;
+}
+
+.animate-laser-sweep {
+  animation: laserSweepReveal 3s ease-in-out infinite;
+}
+
+.animate-progress-glow {
+  animation: progressHeadGlow 1.8s ease-in-out infinite;
+}
+
+.animate-bounce-arrow {
+  animation: scrollBounceArrow 1.5s ease-in-out infinite;
+}
+
+
 
 

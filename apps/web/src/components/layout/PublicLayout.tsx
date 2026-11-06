@@ -197,7 +197,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       >
         {/* Horizontal Scroll Progress Bar Indicator — Tracks body scroll progress along header top */}
         <div
-          className={`absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
+          className={`absolute top-0 left-0 h-[3.5px] bg-gradient-to-r from-[#20B5D6] via-[#38BDF8] to-[#FE721D] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
             isScrolled ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ width: `${scrollProgress}%` }}
@@ -206,7 +206,12 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-label="Body scroll progress"
-        />
+        >
+          {/* Luminous Pulsing Laser Head that travels with scroll */}
+          {scrollProgress > 0.5 && (
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 -mr-1.5 rounded-full bg-white shadow-[0_0_10px_#20B5D6,0_0_20px_#FE721D] animate-progress-glow pointer-events-none" />
+          )}
+        </div>
 
         {/* Author Brand Badge (Left) */}
         <Link to="/" className="flex items-center gap-3 sm:gap-3.5 group shrink-0" aria-label="Kenenisa OS Home">
@@ -482,19 +487,43 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       )}
 
       {/* ══════════════════════════════════════════════════════════════════════
-           FLOATING ACTION BUTTON (FAB) — Appears smoothly on scroll
+           FLOATING ACTION BUTTON (FAB) — Dynamic scroll meter with progress ring
       ══════════════════════════════════════════════════════════════════════ */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-[#FE721D] hover:bg-[#e56315] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer group ${
           isScrolled
-            ? 'opacity-100 pointer-events-auto translate-y-0 scale-100'
+            ? 'opacity-100 pointer-events-auto translate-y-0 scale-100 shadow-orange-500/30'
             : 'opacity-0 pointer-events-none translate-y-4 scale-75'
         }`}
-        title="Scroll to Top"
+        title={`Back to top (${Math.round(scrollProgress)}%)`}
         aria-label="Scroll to Top"
       >
-        <span className="text-lg font-bold group-hover:-translate-y-0.5 transition-transform">↑</span>
+        {/* Circular SVG Scroll Progress Ring */}
+        <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 48 48">
+          <circle
+            cx="24"
+            cy="24"
+            r="22"
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.2)"
+            strokeWidth="2.5"
+          />
+          <circle
+            cx="24"
+            cy="24"
+            r="22"
+            fill="none"
+            stroke="#20B5D6"
+            strokeWidth="2.5"
+            strokeDasharray={138.23}
+            strokeDashoffset={138.23 - (scrollProgress / 100) * 138.23}
+            strokeLinecap="round"
+            className="transition-[stroke-dashoffset] duration-150"
+          />
+        </svg>
+
+        <span className="text-lg font-bold group-hover:-translate-y-0.5 transition-transform relative z-10 animate-bounce-arrow">↑</span>
       </button>
 
       {/* ══════════════════════════════════════════════════════════════════════
