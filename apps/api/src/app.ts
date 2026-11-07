@@ -17,6 +17,9 @@ import { apiRouter } from './routes/index.js';
 export function createApp(): express.Application {
   const app = express();
 
+  // Trust first proxy hop in production (Render, Heroku, AWS ALB SSL termination)
+  app.set('trust proxy', 1);
+
   // ── Security & Standard Middleware ───────────────────────────────────────
   app.use(helmet());
   app.use(
@@ -24,11 +27,20 @@ export function createApp(): express.Application {
       origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps, curl, postman)
         if (!origin) return callback(null, true);
-        if (
-          origin === config.CORS_ORIGIN ||
-          /^http:\/\/(localhost|127\.0\.0\.1):[0-9]+$/.test(origin)
-        ) {
-          return callback(null, true);
+        const allowedOrigins = config.CORS_ORIGIN.split(',').map((o) => o.trim());
+        try {
+          const hostname = new URL(origin).hostname;
+          if (
+            allowedOrigins.includes(origin) ||
+            allowedOrigins.includes('*') ||
+            /^http:\/\/(localhost|127\.0\.0\.1):[0-9]+$/.test(origin) ||
+            hostname.endsWith('.vercel.app')
+          ) {
+            return callback(null, true);
+          }
+        } catch {
+          // If URL parsing fails, check direct string match
+          if (allowedOrigins.includes(origin)) return callback(null, true);
         }
         callback(null, false);
       },

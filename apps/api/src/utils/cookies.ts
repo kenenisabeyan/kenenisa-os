@@ -13,7 +13,7 @@ export function setAuthCookie(res: Response, token: string, maxAgeMs = SESSION_M
   res.cookie(AUTH_COOKIE_NAME, token, {
     httpOnly: true,
     secure: isProd,
-    sameSite: 'lax',
+    sameSite: isProd ? 'none' : 'lax',
     path: '/',
     maxAge: maxAgeMs,
   });
@@ -24,7 +24,7 @@ export function clearAuthCookie(res: Response): void {
   res.clearCookie(AUTH_COOKIE_NAME, {
     httpOnly: true,
     secure: isProd,
-    sameSite: 'lax',
+    sameSite: isProd ? 'none' : 'lax',
     path: '/',
   });
 }
