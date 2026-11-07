@@ -3,11 +3,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '../../components/ProtectedRoute.js';
 import { PublicLayout } from '../../components/layout/PublicLayout.js';
 
-// Lazy-loaded top-level pages
-const HomePage = lazy(() => import('../../pages/HomePage.js').then((m) => ({ default: m.HomePage })));
-const HowItWorksPage = lazy(() => import('../../pages/HowItWorksPage.js').then((m) => ({ default: m.HowItWorksPage })));
-const CapabilitiesPage = lazy(() => import('../../pages/CapabilitiesPage.js').then((m) => ({ default: m.CapabilitiesPage })));
-const AboutPage = lazy(() => import('../../pages/AboutPage.js').then((m) => ({ default: m.AboutPage })));
+// Public pages imported statically for instantaneous, zero-latency route switching
+import { HomePage } from '../../pages/HomePage.js';
+import { HowItWorksPage } from '../../pages/HowItWorksPage.js';
+import { CapabilitiesPage } from '../../pages/CapabilitiesPage.js';
+import { AboutPage } from '../../pages/AboutPage.js';
+
+// Lazy-loaded auth and app pages
 const LoginPage = lazy(() => import('../../pages/LoginPage.js').then((m) => ({ default: m.LoginPage })));
 const ForgotPasswordPage = lazy(() => import('../../pages/ForgotPasswordPage.js').then((m) => ({ default: m.ForgotPasswordPage })));
 const ForgotEmailPage = lazy(() => import('../../pages/ForgotEmailPage.js').then((m) => ({ default: m.ForgotEmailPage })));
@@ -24,11 +26,13 @@ export const AppRouter: React.FC = () => {
     <BrowserRouter>
       <Suspense fallback={<TopLevelLoader />}>
         <Routes>
-          {/* Public Website Routes */}
-          <Route path="/" element={<PublicLayout><HomePage /></PublicLayout>} />
-          <Route path="/how-it-works" element={<PublicLayout><HowItWorksPage /></PublicLayout>} />
-          <Route path="/capabilities" element={<PublicLayout><CapabilitiesPage /></PublicLayout>} />
-          <Route path="/about" element={<PublicLayout><AboutPage /></PublicLayout>} />
+          {/* Public Website Routes sharing persistent PublicLayout */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/capabilities" element={<CapabilitiesPage />} />
+            <Route path="/about" element={<AboutPage />} />
+          </Route>
 
           {/* Direct aliases for app domains so links like /goals or /tasks work seamlessly */}
           <Route path="/goals" element={<Navigate to="/app/goals" replace />} />
