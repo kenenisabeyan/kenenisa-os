@@ -55,13 +55,13 @@ export function useScrollReveal() {
     // Run after DOM paint
     const timer = setTimeout(observeUnrevealed, 40);
 
-    // Watch for dynamic DOM changes (e.g. lazy-loaded content, route changes)
+    // Watch for dynamic DOM changes (e.g. lazy-loaded content, route changes, or dynamic class updates)
     const mutationObserver = new MutationObserver(() => {
       observeUnrevealed();
     });
 
     if (document.body) {
-      mutationObserver.observe(document.body, { childList: true, subtree: true });
+      mutationObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     }
 
     return () => {

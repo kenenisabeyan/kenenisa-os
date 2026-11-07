@@ -347,53 +347,54 @@ export const AboutPage: React.FC = () => {
             <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
             {principles.map((p, i) => {
               const isActive = activePrinciple === i;
               return (
-                <div
-                  key={i}
-                  onClick={() => setActivePrinciple(isActive ? null : i)}
-                  className={`relative group p-[2px] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 overflow-hidden scroll-reveal delay-${(i + 1) * 100} ${
-                    isActive
-                      ? 'bg-gradient-to-b from-[#20B5D6] via-cyan-400/50 to-slate-200/60 shadow-2xl shadow-cyan-500/25 scale-[1.01] sm:scale-[1.02]'
-                      : 'bg-gradient-to-b from-slate-300/80 via-slate-200/50 to-slate-200/30 hover:from-[#20B5D6] hover:via-cyan-400/40 hover:to-slate-200/60 hover:shadow-xl hover:-translate-y-1.5'
-                  }`}
-                >
-                  {/* Top Volumetric Glow Orb */}
-                  <div className={`absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-gradient-to-r ${p.color} opacity-20 blur-xl pointer-events-none group-hover:opacity-40 transition-all duration-500`} />
-                  {/* Top Luminous Laser Beam */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
+                <div key={i} className={`h-full scroll-reveal delay-${(i + 1) * 100}`}>
+                  <div
+                    onClick={() => setActivePrinciple(isActive ? null : i)}
+                    className={`relative group p-[2px] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 overflow-hidden h-full flex flex-col ${
+                      isActive
+                        ? 'bg-gradient-to-b from-[#20B5D6] via-cyan-400/50 to-slate-200/60 shadow-2xl shadow-cyan-500/25 scale-[1.01] sm:scale-[1.02]'
+                        : 'bg-gradient-to-b from-slate-300/80 via-slate-200/50 to-slate-200/30 hover:from-[#20B5D6] hover:via-cyan-400/40 hover:to-slate-200/60 hover:shadow-xl hover:-translate-y-1.5'
+                    }`}
+                  >
+                    {/* Top Volumetric Glow Orb */}
+                    <div className={`absolute -top-10 left-1/2 -translate-x-1/2 w-44 h-16 bg-gradient-to-r ${p.color} opacity-20 blur-xl pointer-events-none group-hover:opacity-40 transition-all duration-500`} />
+                    {/* Top Luminous Laser Beam */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-                  <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                    {/* Centered Squircle Icon Box: Adaptive sizing */}
-                    <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3`}>
-                      {p.icon}
-                    </div>
-
-                    {/* Centered Eyebrow & Title */}
-                    <div className="space-y-1 sm:space-y-1.5 text-center mb-2 sm:mb-3 w-full min-w-0">
-                      <div className="text-[10px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center truncate">{p.tagline}</div>
-                      <h3 className={`text-base xs:text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug break-words ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
-                        {p.title}
-                      </h3>
-                    </div>
-
-                    {/* Centered Body */}
-                    <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4 break-words">{p.body}</p>
-
-                    {/* Expanded detail: Responsive max-height */}
-                    <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-60 sm:max-h-48 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
-                      <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
-                        <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
-                        <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
+                    <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] flex-1">
+                      {/* Centered Squircle Icon Box: Adaptive sizing */}
+                      <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3 shrink-0`}>
+                        {p.icon}
                       </div>
-                    </div>
 
-                    {/* Expand indicator */}
-                    <div className={`mt-auto flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
-                      <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
-                      <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
+                      {/* Centered Eyebrow & Title */}
+                      <div className="space-y-1 sm:space-y-1.5 text-center mb-2 sm:mb-3 w-full min-w-0">
+                        <div className="text-[10px] sm:text-xs font-black text-slate-500 uppercase tracking-widest text-center truncate">{p.tagline}</div>
+                        <h3 className={`text-base xs:text-lg sm:text-xl lg:text-2xl font-black text-slate-900 transition-colors duration-300 text-center leading-snug break-words ${isActive ? p.hoverText : `group-hover:${p.hoverText}`}`}>
+                          {p.title}
+                        </h3>
+                      </div>
+
+                      {/* Centered Body */}
+                      <p className="text-slate-600 leading-relaxed font-medium text-xs sm:text-sm text-center max-w-sm mb-3 sm:mb-4 break-words">{p.body}</p>
+
+                      {/* Expanded detail: Responsive max-height */}
+                      <div className={`w-full overflow-hidden transition-all duration-500 ${isActive ? 'max-h-96 opacity-100 mb-3 sm:mb-4' : 'max-h-0 opacity-0'}`}>
+                        <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 ${p.detailBg} space-y-1.5 text-center`}>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">Engineering Rationale</div>
+                          <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed text-center">{p.detail}</p>
+                        </div>
+                      </div>
+
+                      {/* Expand indicator */}
+                      <div className={`mt-auto pt-2 flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
+                        <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
+                        <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
