@@ -96,7 +96,7 @@ import { GroundedReasoningEngine } from '../domain/intelligence/provider/grounde
 import { OpenAIProvider } from '../domain/intelligence/provider/openai-ai-provider.js';
 import { IntelligenceSafetyService } from '../domain/intelligence/safety/intelligence-safety.service.js';
 
-describe('Phase 11 — Dynamic AI Intelligence Evaluation Suite', () => {
+describe('Phase 11: Dynamic AI Intelligence Evaluation Suite', () => {
   const toolRegistry = new IntelligenceToolRegistry();
   const groundedEngine = new GroundedReasoningEngine(toolRegistry);
   const safetyService = new IntelligenceSafetyService();

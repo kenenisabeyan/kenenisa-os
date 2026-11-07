@@ -52,16 +52,16 @@ describe('Intelligence Core (Step 12) Unit Test Suite', () => {
     const createMem = createUserMemorySchema.parse({
       category: 'WORKFLOW',
       key: 'preferred_deep_work_time',
-      value: 'Morning 9 AM - 12 PM',
+      value: 'Morning 9 AM to 12 PM',
     });
     expect(createMem.category).toBe('WORKFLOW');
     expect(createMem.key).toBe('preferred_deep_work_time');
 
     const updateMem = updateUserMemorySchema.parse({
-      value: 'Afternoon 2 PM - 5 PM',
+      value: 'Afternoon 2 PM to 5 PM',
       archived: false,
     });
-    expect(updateMem.value).toBe('Afternoon 2 PM - 5 PM');
+    expect(updateMem.value).toBe('Afternoon 2 PM to 5 PM');
   });
 
   it('validates confirm action schema', () => {

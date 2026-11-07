@@ -55,14 +55,14 @@ export class GoogleDriveAdapter implements IntegrationAdapter {
         files = [
           {
             id: 'gdrive_file_astu_grad_report',
-            name: 'ASTU Graduation Project — System Architecture & Implementation Report.pdf',
+            name: 'ASTU Graduation Project: System Architecture & Implementation Report.pdf',
             mimeType: 'application/pdf',
             webViewLink: 'https://drive.google.com/file/d/astu-grad-report/view',
             modifiedTime: new Date().toISOString(),
           },
           {
             id: 'gdrive_file_astu_syllabi',
-            name: 'ASTU 5th Year 1st Semester — Course Reference Materials & Lab Guidelines.pdf',
+            name: 'ASTU 5th Year 1st Semester: Course Reference Materials & Lab Guidelines.pdf',
             mimeType: 'application/pdf',
             webViewLink: 'https://drive.google.com/file/d/astu-semester-materials/view',
             modifiedTime: new Date().toISOString(),

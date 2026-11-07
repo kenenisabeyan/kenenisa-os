@@ -22,11 +22,11 @@ const shutdown = (signal: string): void => {
   if (isShuttingDown) return;
   isShuttingDown = true;
 
-  logger.info(`${signal} received — initiating graceful shutdown...`);
+  logger.info(`${signal} received: initiating graceful shutdown...`);
 
   // Force exit if graceful shutdown takes longer than 10s
   const timer = setTimeout(() => {
-    logger.error('Graceful shutdown timed out (10s) — forcing process exit.');
+    logger.error('Graceful shutdown timed out (10s): forcing process exit.');
     process.exit(1);
   }, 10000);
 

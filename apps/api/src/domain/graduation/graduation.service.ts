@@ -589,7 +589,7 @@ export class GraduationService {
       overallAcademicStatus:
         academicPercent === 100 && projAPercent === 100 && projBPercent === 100
           ? 'Graduation Ready'
-          : 'In Flight — Active Execution',
+          : 'In Flight: Active Execution',
       activeProjects: [
         {
           id: projectA?.id || 'proj-a',

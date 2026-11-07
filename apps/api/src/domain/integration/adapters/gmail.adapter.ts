@@ -65,7 +65,7 @@ export class GmailAdapter implements IntegrationAdapter {
           {
             id: 'gmail_msg_astu_supervisor_update',
             threadId: 'gmail_thread_001',
-            subject: 'ASTU Graduation Project — Progress Review Meeting Next Tuesday',
+            subject: 'ASTU Graduation Project: Progress Review Meeting Next Tuesday',
             from: 'advisor@astu.edu.et',
             date: new Date().toISOString(),
             snippet: 'Dear Kenenisa, please prepare your system architecture diagrams and working prototype demo for our milestone review next Tuesday at 10:00 AM.',
@@ -73,7 +73,7 @@ export class GmailAdapter implements IntegrationAdapter {
           {
             id: 'gmail_msg_astu_department_exam_schedule',
             threadId: 'gmail_thread_002',
-            subject: 'ASTU Computer Science & Engineering — Final Exam Schedule Published',
+            subject: 'ASTU Computer Science & Engineering: Final Exam Schedule Published',
             from: 'cse-dept@astu.edu.et',
             date: new Date().toISOString(),
             snippet: 'Please find attached the official semester exam schedule. Verify all course assessment submissions by Friday.',

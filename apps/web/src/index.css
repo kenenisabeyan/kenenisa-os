@@ -34,7 +34,6 @@ body,
   font-family: var(--font-family-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
   background-color: #F8FAFC;
   color: #0F172A;
   overflow-x: hidden;

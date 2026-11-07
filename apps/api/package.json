@@ -1,7 +1,7 @@
 {
   "name": "@kenenisa-os/api",
   "version": "0.1.0",
-  "description": "KENENISA OS — Express REST API",
+  "description": "KENENISA OS: Express REST API",
   "private": true,
   "type": "module",
   "scripts": {

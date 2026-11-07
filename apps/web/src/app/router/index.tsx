@@ -30,6 +30,18 @@ export const AppRouter: React.FC = () => {
           <Route path="/capabilities" element={<PublicLayout><CapabilitiesPage /></PublicLayout>} />
           <Route path="/about" element={<PublicLayout><AboutPage /></PublicLayout>} />
 
+          {/* Direct aliases for app domains so links like /goals or /tasks work seamlessly */}
+          <Route path="/goals" element={<Navigate to="/app/goals" replace />} />
+          <Route path="/workstreams" element={<Navigate to="/app/workstreams" replace />} />
+          <Route path="/projects" element={<Navigate to="/app/projects" replace />} />
+          <Route path="/tasks" element={<Navigate to="/app/tasks" replace />} />
+          <Route path="/planning" element={<Navigate to="/app/planning" replace />} />
+          <Route path="/evidence" element={<Navigate to="/app/evidence" replace />} />
+          <Route path="/career" element={<Navigate to="/app/career" replace />} />
+          <Route path="/reflection" element={<Navigate to="/app/reviews" replace />} />
+          <Route path="/reviews" element={<Navigate to="/app/reviews" replace />} />
+          <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
+
           {/* Authentication & Private Operating App Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />

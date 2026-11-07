@@ -49,28 +49,23 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll to hero section or target hash on route change
+  // Reset scroll on route change, or handle hash scrolling once target element exists
   useEffect(() => {
     setDrawerOpen(false);
-    const performScroll = () => {
-      if (location.hash) {
-        const id = location.hash.replace('#', '');
+
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const timer = setTimeout(() => {
         const targetEl = document.getElementById(id);
         if (targetEl) {
           targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          return;
         }
-      }
-      const hero = document.getElementById('hero');
-      if (hero) {
-        hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    };
-    performScroll();
-    const timer = setTimeout(performScroll, 70);
-    return () => clearTimeout(timer);
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      // Instant reset to top so previous page hero is NEVER animated or scrolled
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
   }, [location.pathname, location.hash]);
 
   const scrollToTarget = (targetPathWithHash: string, e?: React.MouseEvent) => {
@@ -87,7 +82,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     const [targetPath, hash] = targetPathWithHash.split('#');
     const normalizedTarget = targetPath || '/';
 
-    const performScroll = () => {
+    // If already on the target page:
+    if (location.pathname === normalizedTarget) {
       if (hash) {
         const el = document.getElementById(hash);
         if (el) {
@@ -95,20 +91,20 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
           return;
         }
       }
+      // Smooth scroll to the hero/top of current page
       const hero = document.getElementById('hero');
       if (hero) {
         hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    };
-
-    if (location.pathname === normalizedTarget) {
-      performScroll();
-    } else {
-      navigate(targetPathWithHash);
-      setTimeout(performScroll, 80);
+      return;
     }
+
+    // Navigating to a DIFFERENT page:
+    // Reset scroll instantly and navigate directly without scrolling the previous page
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    navigate(targetPathWithHash);
   };
 
   // Lock body scroll when drawer or modal is open

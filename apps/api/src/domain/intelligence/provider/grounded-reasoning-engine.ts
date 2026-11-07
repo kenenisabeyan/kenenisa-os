@@ -228,7 +228,7 @@ export class GroundedReasoningEngine implements AIProvider {
           projReport += `#### Milestones Roadmap:\n`;
           projData.milestones.forEach((m: any) => {
             const icon = m.status === 'REACHED' ? '✅' : '⏳';
-            projReport += `- ${icon} **${m.name}** — \`${m.status}\` ${m.targetDate ? `(Due: ${formatDate(m.targetDate)})` : ''}\n`;
+            projReport += `- ${icon} **${m.name}**: \`${m.status}\` ${m.targetDate ? `(Due: ${formatDate(m.targetDate)})` : ''}\n`;
           });
           projReport += `\n`;
         }
@@ -333,7 +333,7 @@ export class GroundedReasoningEngine implements AIProvider {
 
       skills.forEach((s: any) => {
         const starLevel = '★'.repeat(s.currentLevel) + '☆'.repeat(Math.max(0, s.targetLevel - s.currentLevel));
-        skillReport += `* **${s.name}** (\`${s.category}\`) — Level ${s.currentLevel}/${s.targetLevel} \`${starLevel}\` (${s.evidenceCount} verified artifacts)\n`;
+        skillReport += `* **${s.name}** (\`${s.category}\`): Level ${s.currentLevel}/${s.targetLevel} \`${starLevel}\` (${s.evidenceCount} verified artifacts)\n`;
       });
 
       if (unverified.length > 0) {
@@ -372,7 +372,7 @@ export class GroundedReasoningEngine implements AIProvider {
       if (readyTasks.length > 0) {
         planReport += `#### Recommended Immediate Priorities (Next Best Actions):\n`;
         readyTasks.forEach((t: any, idx: number) => {
-          planReport += `${idx + 1}. **"${t.title}"** — Priority: \`${t.priority}\` | Project: *${t.project?.name || 'General'}*\n`;
+          planReport += `${idx + 1}. **"${t.title}"**: Priority: \`${t.priority}\` | Project: *${t.project?.name || 'General'}*\n`;
         });
         planReport += `\n`;
       } else {
@@ -432,7 +432,7 @@ export class GroundedReasoningEngine implements AIProvider {
     const currentState = (await this.toolRegistry.executeTool('get_current_state', userId, {})) as any;
     const goalsData = (await this.toolRegistry.executeTool('get_active_goals', userId, {})) as any;
 
-    let defaultReport = `### 🚀 KENENISA OS — Live Operating State\n\n`;
+    let defaultReport = `### 🚀 KENENISA OS: Live Operating State\n\n`;
     defaultReport += `I have analyzed your live system state across all connected modules:\n\n`;
     defaultReport += `* **Active Execution Pipeline:** **${currentState.openTasks} tasks** ready for execution across **${currentState.activeProjects} active projects**.\n`;
     defaultReport += `* **Strategic Goals:** **${goalsData.goalsCount} active goals** in progress.\n`;

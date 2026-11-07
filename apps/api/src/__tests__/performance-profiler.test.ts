@@ -7,7 +7,7 @@ import {
   type AiPhaseTiming,
 } from '../lib/performance-profiler.js';
 
-describe('KENENISA OS — Global Microsecond Performance Instrumentation & Regression Suite', () => {
+describe('KENENISA OS: Global Microsecond Performance Instrumentation & Regression Suite', () => {
   beforeEach(() => {
     performanceProfiler.clear();
   });

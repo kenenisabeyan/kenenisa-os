@@ -1,7 +1,7 @@
 {
   "name": "@kenenisa-os/web",
   "version": "0.1.0",
-  "description": "KENENISA OS — React Frontend",
+  "description": "KENENISA OS: React Frontend",
   "private": true,
   "type": "module",
   "scripts": {

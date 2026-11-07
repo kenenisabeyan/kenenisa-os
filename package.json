@@ -1,7 +1,7 @@
 {
   "name": "kenenisa-os",
   "version": "0.1.0",
-  "description": "KENENISA OS — Personal 5th-Year Engineering & Career Operating System",
+  "description": "KENENISA OS: Personal 5th-Year Engineering & Career Operating System",
   "private": true,
   "type": "module",
   "workspaces": [
