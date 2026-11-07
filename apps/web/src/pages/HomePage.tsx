@@ -145,11 +145,11 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* Primary Action Buttons */}
-          <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-1 xs:gap-2 sm:gap-4 pt-1 scroll-reveal delay-100 max-w-[calc(100%-0.75rem)] sm:max-w-full mx-auto w-fit">
+          {/* Primary Action Buttons: Kept strictly on the same horizontal row with safe border clearance */}
+          <div className="flex flex-nowrap items-center justify-center gap-1 xs:gap-1.5 sm:gap-4 pt-1 scroll-reveal delay-100 max-w-[calc(100%-1.5rem)] sm:max-w-full mx-auto w-fit">
             <a
               href="#workstreams"
-              className="shrink-0 px-2 xs:px-2.5 sm:px-8 py-1.5 xs:py-2 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[8.5px] xs:text-[10px] sm:text-sm tracking-wide sm:tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-1 xs:gap-1.5 sm:gap-2 whitespace-nowrap"
+              className="shrink-0 px-1.5 xs:px-2 sm:px-8 py-1.5 xs:py-2 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[7.5px] xs:text-[9.5px] sm:text-sm tracking-normal sm:tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-0.5 xs:gap-1 sm:gap-2 whitespace-nowrap"
             >
               <span>EXPLORE WORK</span>
               <span>▾</span>
@@ -157,7 +157,7 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/how-it-works"
-              className="shrink-0 px-2 xs:px-2.5 sm:px-8 py-1.5 xs:py-2 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-[8.5px] xs:text-[10px] sm:text-sm tracking-wide sm:tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-1 xs:gap-1.5 sm:gap-2 whitespace-nowrap"
+              className="shrink-0 px-1.5 xs:px-2 sm:px-8 py-1.5 xs:py-2 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-[7.5px] xs:text-[9.5px] sm:text-sm tracking-normal sm:tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-0.5 xs:gap-1 sm:gap-2 whitespace-nowrap"
             >
               <span>SYSTEM TOUR</span>
               <span>▸</span>
@@ -165,7 +165,7 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/login"
-              className="shrink-0 px-2 xs:px-2.5 sm:px-8 py-1.5 xs:py-2 sm:py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-[8.5px] xs:text-[10px] sm:text-sm tracking-wide sm:tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-1 xs:gap-1.5 sm:gap-2 whitespace-nowrap"
+              className="shrink-0 px-1.5 xs:px-2 sm:px-8 py-1.5 xs:py-2 sm:py-3.5 bg-gradient-to-r from-[#20B5D6] to-[#FE721D] hover:from-[#1aa3c2] hover:to-[#e56315] text-white font-extrabold text-[7.5px] xs:text-[9.5px] sm:text-sm tracking-normal sm:tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center gap-0.5 xs:gap-1 sm:gap-2 whitespace-nowrap"
             >
               <span>LAUNCH OS</span>
               <span>→</span>

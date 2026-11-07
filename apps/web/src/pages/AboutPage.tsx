@@ -187,18 +187,18 @@ export const AboutPage: React.FC = () => {
                 Engineering Architect &amp; Software Systems Lead designing deterministic operating platforms, evidence-backed proof vaults, and ground-truth AI reasoning architectures at Adama Science and Technology University (ASTU).
               </p>
 
-              {/* Quick Action Buttons */}
-              <div className="flex flex-nowrap items-center gap-1 xs:gap-2 sm:gap-4 pt-1 max-w-[calc(100%-0.75rem)] sm:max-w-full w-fit">
+              {/* Quick Action Buttons: Kept strictly on the same horizontal row on mobile with generous border clearance */}
+              <div className="flex flex-nowrap items-center gap-1 xs:gap-1.5 sm:gap-4 pt-1 max-w-[calc(100%-2rem)] sm:max-w-full w-fit">
                 <a
                   href="#principles"
-                  className="shrink-0 px-2 xs:px-2.5 sm:px-6 md:px-7 py-1.5 xs:py-2 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[8.5px] xs:text-[10px] sm:text-sm tracking-wide sm:tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/20 hover:shadow-orange-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1 xs:gap-1.5 sm:gap-2 whitespace-nowrap"
+                  className="shrink-0 px-1.5 xs:px-2.5 sm:px-6 md:px-7 py-1.5 xs:py-2 sm:py-3.5 bg-[#FE721D] hover:bg-[#e56315] text-white font-extrabold text-[7.5px] xs:text-[9.5px] sm:text-sm tracking-normal sm:tracking-wider uppercase rounded-sm shadow-lg shadow-orange-500/20 hover:shadow-orange-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-0.5 xs:gap-1 sm:gap-2 whitespace-nowrap"
                 >
                   <span>EXPLORE WORK</span>
                   <span>▾</span>
                 </a>
                 <a
                   href="#roadmap"
-                  className="shrink-0 px-2 xs:px-2.5 sm:px-6 md:px-7 py-1.5 xs:py-2 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-[8.5px] xs:text-[10px] sm:text-sm tracking-wide sm:tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1 xs:gap-1.5 sm:gap-2 whitespace-nowrap"
+                  className="shrink-0 px-1.5 xs:px-2.5 sm:px-6 md:px-7 py-1.5 xs:py-2 sm:py-3.5 border-2 border-[#20B5D6] hover:bg-[#20B5D6]/10 text-[#20B5D6] bg-white/90 font-extrabold text-[7.5px] xs:text-[9.5px] sm:text-sm tracking-normal sm:tracking-wider uppercase rounded-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-0.5 xs:gap-1 sm:gap-2 whitespace-nowrap"
                 >
                   <span>SYSTEM ROADMAP</span>
                   <span>▸</span>
