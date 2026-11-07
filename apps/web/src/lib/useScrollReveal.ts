@@ -31,21 +31,21 @@ export function useScrollReveal() {
         });
       },
       {
-        threshold: 0.08,
-        rootMargin: '0px 0px -30px 0px',
+        // High-performance aggressive pre-reveal: triggers 120px before entering viewport
+        threshold: 0.01,
+        rootMargin: '120px 0px 120px 0px',
       }
     );
 
     const observeUnrevealed = () => {
       const elements = document.querySelectorAll(`${selector}:not(.is-revealed)`);
       elements.forEach((el, index) => {
-        // If element is already within the initial viewport on page load/render,
-        // animate in with a fluid cascading delay so the user witnesses the transition
+        // If element is already within the initial viewport on load, reveal with fast crisp stagger
         const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
+        if (rect.top < window.innerHeight + 60 && rect.bottom > -60) {
           setTimeout(() => {
             el.classList.add('is-revealed');
-          }, 60 + Math.min(index * 45, 360));
+          }, 10 + Math.min(index * 20, 120));
         } else {
           observer.observe(el);
         }

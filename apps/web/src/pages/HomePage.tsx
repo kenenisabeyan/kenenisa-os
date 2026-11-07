@@ -392,7 +392,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── HIGH-IMPACT SERPENTINE ROADMAP JOURNEY ──────────────────────────────── */}
-      <section className="w-full scroll-reveal">
+      <section className="w-full">
         <SerpentineRoadmap
           title="Personal Engineering & Operating Loop"
           subtitle="From strategic direction to observable evidence and career progression."
