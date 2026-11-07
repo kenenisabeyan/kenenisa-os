@@ -262,8 +262,8 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
 
         {/* ── SERPENTINE TIMELINE ROADMAP GRAPHIC ────────────────────────────────── */}
         <div className="relative">
-          {/* Central Serpentine SVG Ribbon Line (Visible on Desktop md:) */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-56 lg:w-64 xl:w-72 pointer-events-none z-0">
+          {/* Central Serpentine SVG Ribbon Line (Visible on Desktop md:) - GPU Composited */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-56 lg:w-64 xl:w-72 pointer-events-none z-0 transform-gpu will-change-transform">
             <svg
               className="w-full h-full"
               preserveAspectRatio="none"
@@ -361,8 +361,8 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
             </button>
           </div>
 
-          {/* ── Vertical Animated Energy Spine (Visible on Mobile) ── */}
-          <div className="md:hidden absolute left-[22px] top-16 bottom-6 w-2 rounded-full z-0 overflow-visible pointer-events-none">
+          {/* ── Vertical Animated Energy Spine (Visible on Mobile) - GPU Composited ── */}
+          <div className="md:hidden absolute left-[22px] top-16 bottom-6 w-2 rounded-full z-0 overflow-visible pointer-events-none transform-gpu will-change-transform">
             {/* Ambient Background Track */}
             <div className="absolute inset-0 w-full rounded-full bg-slate-200/90 shadow-[0_0_8px_rgba(32,181,214,0.15)]" />
 
@@ -391,6 +391,7 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                 <div
                   key={step.number}
                   className="relative flex flex-col md:flex-row items-start md:items-center min-h-0 md:min-h-[380px]"
+                  style={{ contentVisibility: 'auto', containIntrinsicSize: '380px' }}
                 >
                   {/* ── MOBILE CARD LAYOUT (Renders for ALL steps on mobile) ── */}
                   <div className="md:hidden flex flex-col relative z-10 w-full space-y-4">

@@ -144,7 +144,7 @@ export const HowItWorksPage: React.FC = () => {
       </section>
 
       {/* ── THE SERPENTINE ENGINEERING ROADMAP (HIGH-IMPACT VISUAL) ──────────────── */}
-      <section className="w-full scroll-reveal">
+      <section className="w-full">
         <SerpentineRoadmap
           title="Engineering R&D Pipeline Architecture"
           subtitle="From abstract career objectives to observable digital proof and verified career growth."
