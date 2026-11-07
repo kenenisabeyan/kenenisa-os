@@ -347,14 +347,14 @@ export const AboutPage: React.FC = () => {
             <p className="text-slate-600 font-semibold text-base sm:text-lg">Click any principle to expand its engineering rationale.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-start">
             {principles.map((p, i) => {
               const isActive = activePrinciple === i;
               return (
-                <div key={i} className={`h-full scroll-reveal delay-${(i + 1) * 100}`}>
+                <div key={i} className={`scroll-reveal delay-${(i + 1) * 100} self-start w-full`}>
                   <div
                     onClick={() => setActivePrinciple(isActive ? null : i)}
-                    className={`relative group p-[2px] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-500 overflow-hidden h-full flex flex-col ${
+                    className={`relative group p-[2px] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-300 overflow-hidden w-full ${
                       isActive
                         ? 'bg-gradient-to-b from-[#20B5D6] via-cyan-400/50 to-slate-200/60 shadow-2xl shadow-cyan-500/25 scale-[1.01] sm:scale-[1.02]'
                         : 'bg-gradient-to-b from-slate-300/80 via-slate-200/50 to-slate-200/30 hover:from-[#20B5D6] hover:via-cyan-400/40 hover:to-slate-200/60 hover:shadow-xl hover:-translate-y-1.5'
@@ -365,7 +365,7 @@ export const AboutPage: React.FC = () => {
                     {/* Top Luminous Laser Beam */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-[3px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80 group-hover:w-44 group-hover:opacity-100 transition-all duration-500 z-20 pointer-events-none" />
 
-                    <div className="relative h-full w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] flex-1">
+                    <div className="relative w-full bg-gradient-to-b from-white via-white to-slate-50/50 rounded-[14px] sm:rounded-[22px] p-4 xs:p-5 sm:p-6 md:p-8 flex flex-col items-center text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                       {/* Centered Squircle Icon Box: Adaptive sizing */}
                       <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[1.75rem] bg-gradient-to-br ${p.color} text-white flex items-center justify-center text-2xl sm:text-4xl shadow-xl shadow-cyan-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 mx-auto mb-3 shrink-0`}>
                         {p.icon}
@@ -390,8 +390,8 @@ export const AboutPage: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Expand indicator */}
-                      <div className={`mt-auto pt-2 flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
+                      {/* Expand indicator: Stays compactly below content with no empty stretching */}
+                      <div className={`pt-1 sm:pt-2 flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-black uppercase tracking-widest transition-colors ${isActive ? 'text-[#20B5D6]' : 'text-slate-400 group-hover:text-[#20B5D6]'}`}>
                         <span className={`inline-block transition-transform duration-300 ${isActive ? 'rotate-90' : ''}`}>▶</span>
                         <span>{isActive ? 'Collapse' : 'Expand Rationale'}</span>
                       </div>
