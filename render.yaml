@@ -32,3 +32,4 @@ services:
         value: https://api.openai.com/v1
       - key: AI_TIMEOUT_MS
         value: 20000
+
