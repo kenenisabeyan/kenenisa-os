@@ -139,37 +139,37 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  settings      UserSettings?
-  sessions      Session[]
-  workstreams   Workstream[]
-  goals         Goal[]
-  projects      Project[]
-  milestones    Milestone[]
-  tasks         Task[]
-  tags          Tag[]
-  dailyPlans    DailyPlan[]
-  timeBlocks    TimeBlock[]
-  weeklyPlans   WeeklyPlan[]
-  weeklyReviews WeeklyReview[]
-  yearPlans     YearPlan[]
-  monthPlans    MonthPlan[]
-  planOutcomes  PlanOutcome[]
-  planResultSnapshots PlanResultSnapshot[]
-  resultExportLogs    ResultExportLog[]
-  auditLogs     AuditLog[]
-  skills        Skill[]
-  learningItems LearningItem[]
-  learningActivities LearningActivity[]
-  evidence      Evidence[]
-  opportunities Opportunity[]
+  settings              UserSettings?
+  sessions              Session[]
+  workstreams           Workstream[]
+  goals                 Goal[]
+  projects              Project[]
+  milestones            Milestone[]
+  tasks                 Task[]
+  tags                  Tag[]
+  dailyPlans            DailyPlan[]
+  timeBlocks            TimeBlock[]
+  weeklyPlans           WeeklyPlan[]
+  weeklyReviews         WeeklyReview[]
+  yearPlans             YearPlan[]
+  monthPlans            MonthPlan[]
+  planOutcomes          PlanOutcome[]
+  planResultSnapshots   PlanResultSnapshot[]
+  resultExportLogs      ResultExportLog[]
+  auditLogs             AuditLog[]
+  skills                Skill[]
+  learningItems         LearningItem[]
+  learningActivities    LearningActivity[]
+  evidence              Evidence[]
+  opportunities         Opportunity[]
   opportunityActivities OpportunityActivity[]
-  conversations Conversation[]
-  conversationMessages ConversationMessage[]
-  userMemories UserMemory[]
-  academicSemesters AcademicSemester[]
-  academicCourses AcademicCourse[]
-  integrationAccounts IntegrationAccount[]
-  automationRules AutomationRule[]
+  conversations         Conversation[]
+  conversationMessages  ConversationMessage[]
+  userMemories          UserMemory[]
+  academicSemesters     AcademicSemester[]
+  academicCourses       AcademicCourse[]
+  integrationAccounts   IntegrationAccount[]
+  automationRules       AutomationRule[]
 }
 
 model UserSettings {
@@ -323,10 +323,10 @@ model Task {
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
 
-  blockingDependencies  TaskDependency[] @relation("BlockingTask")
-  dependentDependencies TaskDependency[] @relation("DependentTask")
+  blockingDependencies  TaskDependency[]  @relation("BlockingTask")
+  dependentDependencies TaskDependency[]  @relation("DependentTask")
   tags                  TaskTag[]
-  mustWinDailyPlans     DailyPlan[]      @relation("MustWinTask")
+  mustWinDailyPlans     DailyPlan[]       @relation("MustWinTask")
   timeBlocks            TimeBlock[]
   evidence              EvidenceTask[]
   opportunityLinks      OpportunityTask[]
@@ -463,7 +463,7 @@ model DailyPlan {
   weeklyPlan       WeeklyPlan? @relation(fields: [weeklyPlanId], references: [id], onDelete: SetNull)
   date             DateTime
   primaryObjective String?
-  mustWinTaskId   String?
+  mustWinTaskId    String?
   mustWinTask      Task?       @relation("MustWinTask", fields: [mustWinTaskId], references: [id], onDelete: SetNull)
   expectedOutcomes String?
   actualOutcomes   String?
@@ -731,8 +731,8 @@ model Skill {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 
-  learningItems LearningItemSkill[]
-  evidence      EvidenceSkill[]
+  learningItems    LearningItemSkill[]
+  evidence         EvidenceSkill[]
   opportunityLinks OpportunitySkill[]
 
   @@unique([userId, slug])
@@ -834,10 +834,10 @@ model Evidence {
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
 
-  tasks         EvidenceTask[]
-  projects      EvidenceProject[]
-  learningItems EvidenceLearningItem[]
-  skills        EvidenceSkill[]
+  tasks            EvidenceTask[]
+  projects         EvidenceProject[]
+  learningItems    EvidenceLearningItem[]
+  skills           EvidenceSkill[]
   opportunityLinks OpportunityEvidence[]
   planOutcomeLinks PlanOutcomeEvidence[]
 
@@ -1078,12 +1078,12 @@ enum MemoryCategory {
 }
 
 model Conversation {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  title      String   @default("New Conversation")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title      String    @default("New Conversation")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   archivedAt DateTime?
 
   messages ConversationMessage[]
@@ -1098,7 +1098,7 @@ model ConversationMessage {
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   userId         String
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  role           String       // USER, ASSISTANT, SYSTEM, TOOL
+  role           String // USER, ASSISTANT, SYSTEM, TOOL
   content        String
   metadata       Json?
   createdAt      DateTime     @default(now())
@@ -1129,8 +1129,8 @@ model ResultExportLog {
   id          String   @id @default(uuid())
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  scope       String   // current, day, week, month, year, custom, full
-  format      String   // XLSX, JSON
+  scope       String // current, day, week, month, year, custom, full
+  format      String // XLSX, JSON
   rangeFrom   String?
   rangeTo     String?
   recordCount Int      @default(0)
@@ -1140,18 +1140,18 @@ model ResultExportLog {
 }
 
 model AcademicSemester {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  academicYear String   @default("2026/2027")
-  semester     String   @default("First Semester")
-  level        String   @default("Fifth Year")
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  academicYear String    @default("2026/2027")
+  semester     String    @default("First Semester")
+  level        String    @default("Fifth Year")
   startDate    DateTime?
   endDate      DateTime?
-  status       String   @default("ACTIVE")
+  status       String    @default("ACTIVE")
   notes        String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   courses AcademicCourse[]
 
@@ -1160,11 +1160,11 @@ model AcademicSemester {
 }
 
 model AcademicCourse {
-  id                     String              @id @default(uuid())
+  id                     String             @id @default(uuid())
   userId                 String
-  user                   User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                   User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   semesterId             String
-  semester               AcademicSemester    @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  semester               AcademicSemester   @relation(fields: [semesterId], references: [id], onDelete: Cascade)
   code                   String?
   title                  String
   creditHours            Int?
@@ -1174,14 +1174,14 @@ model AcademicCourse {
   testsAndExams          Json?
   studyTopics            Json?
   learningResources      Json?
-  currentUnderstanding   UnderstandingLevel  @default(DEVELOPING)
-  academicStatus         AcademicStatus      @default(ENROLLED)
+  currentUnderstanding   UnderstandingLevel @default(DEVELOPING)
+  academicStatus         AcademicStatus     @default(ENROLLED)
   notes                  String?
   completionRequirements String?
   projectId              String?
-  project                Project?            @relation(fields: [projectId], references: [id], onDelete: SetNull)
-  createdAt              DateTime            @default(now())
-  updatedAt              DateTime            @updatedAt
+  project                Project?           @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
 
   @@unique([semesterId, title])
   @@index([userId, academicStatus])
@@ -1220,40 +1220,40 @@ model IntegrationAccount {
   user             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   provider         IntegrationProvider
   status           IntegrationStatus   @default(DISCONNECTED)
-  encryptedToken   String              // AES-256-GCM encrypted access token
-  encryptedRefresh String?             // AES-256-GCM encrypted refresh token
+  encryptedToken   String // AES-256-GCM encrypted access token
+  encryptedRefresh String? // AES-256-GCM encrypted refresh token
   tokenExpiresAt   DateTime?
   scopes           String[]
   accountEmail     String?
   accountName      String?
   settings         Json?
   lastSyncAt       DateTime?
-  lastSyncStatus   String?             // SUCCESS | PARTIAL | ERROR
+  lastSyncStatus   String? // SUCCESS | PARTIAL | ERROR
   lastErrorMessage String?
   createdAt        DateTime            @default(now())
   updatedAt        DateTime            @updatedAt
 
-  syncLogs         IntegrationSyncLog[]
-  entityMappings   IntegrationEntityMapping[]
+  syncLogs       IntegrationSyncLog[]
+  entityMappings IntegrationEntityMapping[]
 
   @@unique([userId, provider])
   @@index([userId, status])
 }
 
 model IntegrationSyncLog {
-  id                   String             @id @default(uuid())
+  id                   String              @id @default(uuid())
   integrationAccountId String
-  integrationAccount   IntegrationAccount @relation(fields: [integrationAccountId], references: [id], onDelete: Cascade)
+  integrationAccount   IntegrationAccount  @relation(fields: [integrationAccountId], references: [id], onDelete: Cascade)
   userId               String
   provider             IntegrationProvider
-  triggerType          String             // MANUAL | SCHEDULED | WEBHOOK
-  status               String             // SUCCESS | FAILED
-  itemsImported        Int                @default(0)
-  itemsExported        Int                @default(0)
-  itemsFailed          Int                @default(0)
-  durationMs           Int                @default(0)
+  triggerType          String // MANUAL | SCHEDULED | WEBHOOK
+  status               String // SUCCESS | FAILED
+  itemsImported        Int                 @default(0)
+  itemsExported        Int                 @default(0)
+  itemsFailed          Int                 @default(0)
+  durationMs           Int                 @default(0)
   errorDetails         String?
-  startedAt            DateTime           @default(now())
+  startedAt            DateTime            @default(now())
   completedAt          DateTime?
 
   @@index([integrationAccountId, startedAt])
@@ -1261,16 +1261,16 @@ model IntegrationSyncLog {
 }
 
 model IntegrationEntityMapping {
-  id                   String             @id @default(uuid())
+  id                   String              @id @default(uuid())
   integrationAccountId String
-  integrationAccount   IntegrationAccount @relation(fields: [integrationAccountId], references: [id], onDelete: Cascade)
+  integrationAccount   IntegrationAccount  @relation(fields: [integrationAccountId], references: [id], onDelete: Cascade)
   userId               String
   provider             IntegrationProvider
-  externalId           String             // e.g. Google Calendar Event ID or GitHub Commit SHA
-  internalEntityType   String             // TIME_BLOCK | TASK | EVIDENCE | DOCUMENT
-  internalEntityId     String             // UUID of corresponding internal entity
+  externalId           String // e.g. Google Calendar Event ID or GitHub Commit SHA
+  internalEntityType   String // TIME_BLOCK | TASK | EVIDENCE | DOCUMENT
+  internalEntityId     String // UUID of corresponding internal entity
   syncHash             String?
-  lastSyncedAt         DateTime           @default(now())
+  lastSyncedAt         DateTime            @default(now())
 
   @@unique([userId, provider, externalId])
   @@index([internalEntityType, internalEntityId])
@@ -1282,19 +1282,12 @@ model AutomationRule {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   name        String
   description String?
-  triggerType String   // TASK_COMPLETED | MILESTONE_REACHED | DEADLINE_APPROACHING | LEARNING_LOGGED
-  conditions  Json     // Predicates to evaluate
-  actions     Json     // Action list to execute
+  triggerType String // TASK_COMPLETED | MILESTONE_REACHED | DEADLINE_APPROACHING | LEARNING_LOGGED
+  conditions  Json // Predicates to evaluate
+  actions     Json // Action list to execute
   isEnabled   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([userId, triggerType, isEnabled])
 }
-
-
-
-
-
-
-
