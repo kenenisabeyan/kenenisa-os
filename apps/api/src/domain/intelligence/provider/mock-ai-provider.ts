@@ -46,7 +46,7 @@ export class MockAIProvider implements AIProvider {
             },
           },
         ],
-        facts: ['Tomorrow 09:00 - 10:30 AM is open in your capacity.'],
+        facts: ['Tomorrow 09:00 to 10:30 AM is open in your capacity.'],
         inferences: ['High focus time blocks improve daily completion rates.'],
         recommendations: ['Confirm the proposed time block.'],
         usage: { promptTokens: 40, completionTokens: 25, totalTokens: 65 },
