@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../features/auth/useAuth.js';
 import { useScrollReveal } from '../../lib/useScrollReveal.js';
 import { useInteractiveMotion } from '../../lib/useInteractiveMotion.js';
 
 interface PublicLayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 interface MenuItem {
@@ -49,8 +49,8 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Reset scroll on route change, or handle hash scrolling once target element exists
-  useEffect(() => {
+  // Instantly position new page at top before browser paint on route change
+  useLayoutEffect(() => {
     setDrawerOpen(false);
 
     if (location.hash) {
@@ -63,7 +63,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       }, 50);
       return () => clearTimeout(timer);
     } else {
-      // Instant reset to top so previous page hero is NEVER animated or scrolled
+      // Instantly position at top before paint
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
   }, [location.pathname, location.hash]);
@@ -102,8 +102,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
     }
 
     // Navigating to a DIFFERENT page:
-    // Reset scroll instantly and navigate directly without scrolling the previous page
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Navigate immediately without scrolling the outgoing page!
     navigate(targetPathWithHash);
   };
 
@@ -548,7 +547,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
            MAIN PUBLIC PAGE CONTENT
       ══════════════════════════════════════════════════════════════════════ */}
       <main className="flex-1 w-full pt-16 sm:pt-20 pb-0 overflow-x-hidden">
-        {children}
+        {children || <Outlet />}
       </main>
 
       {/* ══════════════════════════════════════════════════════════════════════
