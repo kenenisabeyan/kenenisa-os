@@ -667,7 +667,7 @@ export const TasksPage: React.FC = () => {
                     </div>
                   ) : (
                     colTasks.map((task) => {
-                      const completedSubtasks = task.subtasks?.filter((s) => s.status === 'DONE').length || 0;
+                      const completedSubtasks = task.subtasks?.filter((s: any) => s.status === 'DONE').length || 0;
                       const totalSubtasks = task.subtasks?.length || 0;
                       const subtaskPercent = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
 
@@ -756,7 +756,7 @@ export const TasksPage: React.FC = () => {
                                 ⚠️ Blocked by {task.blockingDependencies.length} task(s):
                               </span>
                               <div className="space-y-0.5 pl-1.5">
-                                {task.blockingDependencies.map((dep) => (
+                                {task.blockingDependencies.map((dep: any) => (
                                   <div key={dep.id} className="truncate text-rose-700 font-medium">
                                     • {dep.blockingTask?.title}
                                   </div>
@@ -783,7 +783,7 @@ export const TasksPage: React.FC = () => {
                               </div>
                               {/* Subtask interactive items */}
                               <div className="space-y-1 pt-0.5">
-                                {task.subtasks!.map((st) => (
+                                {task.subtasks!.map((st: any) => (
                                   <div
                                     key={st.id}
                                     className="flex items-center gap-1.5 text-[11px] group/st"
@@ -929,7 +929,7 @@ export const TasksPage: React.FC = () => {
            ══════════════════════════════════════════════════════════════════════════ */
         <div className="space-y-3">
           {tasks.map((task) => {
-            const completedSubtasks = task.subtasks?.filter((s) => s.status === 'DONE').length || 0;
+            const completedSubtasks = task.subtasks?.filter((s: any) => s.status === 'DONE').length || 0;
             const totalSubtasks = task.subtasks?.length || 0;
             const subtaskPercent = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
 
@@ -1014,7 +1014,7 @@ export const TasksPage: React.FC = () => {
                       <span>Blocked By:</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {task.blockingDependencies.map((dep) => (
+                      {task.blockingDependencies.map((dep: any) => (
                         <div
                           key={dep.id}
                           className="bg-white border border-rose-200 px-2 py-0.5 rounded-lg text-[11px] flex items-center gap-1.5 text-rose-700"
@@ -1053,7 +1053,7 @@ export const TasksPage: React.FC = () => {
                       </div>
                     </div>
                     <div className="space-y-1.5 pl-1 border-l-2 border-slate-200">
-                      {task.subtasks!.map((st) => (
+                      {task.subtasks!.map((st: any) => (
                         <div key={st.id} className="flex items-center justify-between gap-2 text-slate-700">
                           <div className="flex items-center gap-2">
                             <button

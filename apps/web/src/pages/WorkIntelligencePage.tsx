@@ -501,7 +501,7 @@ Recommend specific, high-leverage steps to unblock progress, sequence dependenci
                           <p className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
                             Prerequisite Blockers:
                           </p>
-                          {t.blockingDependencies?.map((dep) => (
+                          {t.blockingDependencies?.map((dep: any) => (
                             <div key={dep.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-800 bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
                               <span className="font-semibold break-words">{dep.blockingTask?.title || dep.blockingTaskId}</span>
                               <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600 self-start sm:self-auto shrink-0">

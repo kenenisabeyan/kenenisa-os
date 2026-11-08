@@ -599,7 +599,7 @@ export function SkillsPage() {
                         </p>
                       ) : (
                         <div className="flex flex-wrap gap-2">
-                          {selectedSkill.appliedProjects.map((p) => (
+                          {selectedSkill.appliedProjects.map((p: { id: string; name: string }) => (
                             <span
                               key={p.id}
                               className="px-3 py-1 bg-sky-50 border border-sky-200 text-[#0284c7] text-xs font-bold rounded-lg"
