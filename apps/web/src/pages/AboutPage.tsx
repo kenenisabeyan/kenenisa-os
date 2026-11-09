@@ -22,11 +22,16 @@ function useCountUp(target: number, duration = 1800, start = false) {
 }
 
 /* ─── Intersection Observer Hook ────────────────────────────────────────── */
-function useInView(threshold = 0.3) {
+function useInView(threshold = 0.2) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setInView(true);
+        obs.disconnect();
+      }
+    }, { threshold, rootMargin: '60px 0px 60px 0px' });
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, [threshold]);
