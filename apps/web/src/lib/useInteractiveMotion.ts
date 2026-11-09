@@ -34,8 +34,10 @@ export function useInteractiveMotion() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
-    // A. Tactile Click Ripple Wave
+    // A. Tactile Click Ripple Wave (Mouse clicks only - never intercepts mobile touch scrolling)
     const handlePointerDown = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return;
+
       // Find the nearest clickable container
       const target = (e.target as HTMLElement | null)?.closest<HTMLElement>(
         'button, a, [role="button"], input[type="submit"], [data-interactive="true"], .group\\/btn'

@@ -39,11 +39,28 @@ body,
   overflow-x: hidden;
   width: 100%;
   -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
+}
+
+/* Ensure uninterrupted touch scrolling across full layout */
+section,
+main {
+  touch-action: pan-y;
 }
 
 /* Ensure sticky header offset for anchored sections & hero */
 [id] {
   scroll-margin-top: 5rem;
+}
+
+/* Hero section immediate visibility - never hidden or delayed on load */
+#hero .scroll-reveal,
+#hero .scroll-reveal-left,
+#hero .scroll-reveal-right,
+#hero .scroll-reveal-scale {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) !important;
+  will-change: auto !important;
 }
 
 /* High-performance hardware acceleration across scrolling views */

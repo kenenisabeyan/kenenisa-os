@@ -32,16 +32,26 @@ export function useScrollReveal() {
         }
       },
       {
-        // Smooth aggressive pre-reveal: triggers 160px before entering viewport for instantaneous zero-lag display
+        // High-performance aggressive pre-reveal: triggers 240px before entering viewport for instant zero-lag display
         threshold: 0.01,
-        rootMargin: '160px 0px 160px 0px',
+        rootMargin: '240px 0px 240px 0px',
       }
     );
 
     const observeUnrevealed = () => {
       const elements = document.querySelectorAll(`${selector}:not(.is-revealed)`);
+      const viewportCeiling = window.innerHeight * 1.5;
+
       for (let i = 0; i < elements.length; i++) {
-        observer.observe(elements[i]);
+        const el = elements[i] as HTMLElement;
+        const rect = el.getBoundingClientRect();
+
+        // Immediately reveal hero and the immediate next section so initial scroll is 100% fluid
+        if (rect.top <= viewportCeiling) {
+          el.classList.add('is-revealed');
+        } else {
+          observer.observe(el);
+        }
       }
     };
 
