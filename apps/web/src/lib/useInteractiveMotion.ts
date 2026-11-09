@@ -74,23 +74,17 @@ export function useInteractiveMotion() {
       setTimeout(cleanup, 650);
     };
 
-    // B. Real-time Cursor Spotlight on Cards & Ambient Viewport Motion
+    // B. Real-time Cursor Spotlight on Cards
     let ticking = false;
     const handlePointerMove = (e: PointerEvent) => {
+      // Ignore touch gestures to preserve 100% smooth native touch scrolling
+      if (e.pointerType === 'touch') return;
       if (ticking) return;
       ticking = true;
 
       window.requestAnimationFrame(() => {
-        // Calculate normalized pointer coordinates (-1 to 1) for ambient parallax
-        const normX = (e.clientX / window.innerWidth) * 2 - 1;
-        const normY = (e.clientY / window.innerHeight) * 2 - 1;
-        document.documentElement.style.setProperty('--ambient-shift-x', `${(normX * 8).toFixed(1)}px`);
-        document.documentElement.style.setProperty('--ambient-shift-y', `${(normY * 8).toFixed(1)}px`);
-
-        // Check if cursor is over an interactive card/container
-        const card = (e.target as HTMLElement | null)?.closest<HTMLElement>(
-          '[data-spotlight="true"], .group, [class*="hover:shadow"], [class*="hover:-translate-y"]'
-        );
+        // Only target elements that actively declare data-spotlight="true"
+        const card = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-spotlight="true"]');
 
         if (card) {
           const rect = card.getBoundingClientRect();
@@ -98,9 +92,6 @@ export function useInteractiveMotion() {
           const y = e.clientY - rect.top;
           card.style.setProperty('--mouse-x', `${x.toFixed(1)}px`);
           card.style.setProperty('--mouse-y', `${y.toFixed(1)}px`);
-          if (!card.hasAttribute('data-spotlight')) {
-            card.setAttribute('data-spotlight', 'true');
-          }
         }
 
         ticking = false;
