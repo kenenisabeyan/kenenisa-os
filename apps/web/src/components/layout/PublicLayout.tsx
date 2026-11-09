@@ -31,6 +31,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   const isScrolledRef = useRef(false);
   const horizontalProgressRef = useRef<HTMLDivElement>(null);
   const verticalProgressRef = useRef<HTMLDivElement>(null);
+  const circleProgressRef = useRef<SVGCircleElement>(null);
 
   // High-performance RAF scroll monitor: updates progress bars directly with 0 React re-renders
   useEffect(() => {
@@ -55,6 +56,10 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       }
       if (verticalProgressRef.current) {
         verticalProgressRef.current.style.height = progressPct;
+      }
+      if (circleProgressRef.current) {
+        const circumference = 138.23;
+        circleProgressRef.current.style.strokeDashoffset = `${circumference - (progress / 100) * circumference}`;
       }
 
       ticking = false;
