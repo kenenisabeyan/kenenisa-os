@@ -68,7 +68,7 @@ export const DashboardPage: React.FC = () => {
       return;
     }
     const lines = scratchpadText.trim().split('\n');
-    const firstLine = lines[0].replace(/^[-*•\[\s\]💡🐛📚⚡]+/, '').trim() || 'New Quick Task';
+    const firstLine = lines[0].replace(/^[-*•[\]\s💡🐛📚⚡]+/u, '').trim() || 'New Quick Task';
     const remaining = lines.slice(1).join('\n').trim();
 
     setConvertTitle(firstLine);

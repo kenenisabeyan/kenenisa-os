@@ -240,7 +240,7 @@ Recommend specific, high-leverage steps to unblock progress, sequence dependenci
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 sm:p-5 space-y-2.5 sm:space-y-3 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">// READY WORK</span>
+                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{'// READY WORK'}</span>
                   <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
                 </div>
                 <p className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{readyCount}</p>
@@ -266,7 +266,7 @@ Recommend specific, high-leverage steps to unblock progress, sequence dependenci
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 sm:p-5 space-y-2.5 sm:space-y-3 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">// IN PROGRESS</span>
+                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{'// IN PROGRESS'}</span>
                   <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform" />
                 </div>
                 <p className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{inProgressCount}</p>
@@ -292,7 +292,7 @@ Recommend specific, high-leverage steps to unblock progress, sequence dependenci
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 sm:p-5 space-y-2.5 sm:space-y-3 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">// BLOCKED WORK</span>
+                  <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">{'// BLOCKED WORK'}</span>
                   <span className={`w-2 h-2 rounded-full ${blockedCount > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'}`} />
                 </div>
                 <p className={`text-2xl sm:text-3xl font-black tracking-tight ${blockedCount > 0 ? 'text-rose-600' : 'text-slate-400'}`}>
@@ -322,7 +322,7 @@ Recommend specific, high-leverage steps to unblock progress, sequence dependenci
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-4 sm:p-5 space-y-2.5 sm:space-y-3 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">// COMPLETED</span>
+                  <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{'// COMPLETED'}</span>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
                 </div>
                 <p className="text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight">{doneCount}</p>

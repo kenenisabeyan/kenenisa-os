@@ -2,14 +2,15 @@ import type { ApiResponse, ApiErrorResponse } from '@kenenisa-os/shared';
 import { webPerformanceProfiler } from './performance-profiler.js';
 
 const getBaseUrl = (): string => {
-  const envUrl = import.meta.env.VITE_API_URL as string | undefined;
+  const envUrl = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL) as string | undefined;
   if (envUrl) {
     // When running in dev browser on port 5173 with Vite proxy enabled for /api,
     // prefer relative path '' so Vite seamlessly forwards to backend with native first-party cookies & no CORS friction
     if (typeof window !== 'undefined' && envUrl.includes('localhost:3000') && window.location.port === '5173') {
       return '';
     }
-    return envUrl;
+    // Clean trailing slashes and ensure /api/v1 is not duplicated when endpoints prefix with /api/v1
+    return envUrl.trim().replace(/\/+$/, '').replace(/\/api\/v1\/?$/, '');
   }
   return '';
 };
@@ -153,8 +154,8 @@ export async function apiClient<T>(endpoint: string, options: ApiClientOptions =
     headers.set('Content-Type', 'application/json');
   }
 
-  // Execute network request with deduplication tracking & bounded timeout
-  const timeoutMs = options.timeoutMs ?? 12000;
+  // Execute network request with deduplication tracking & bounded timeout (60s to accommodate Render free tier spin-up)
+  const timeoutMs = options.timeoutMs ?? 60000;
   const abortController = new AbortController();
   const timeoutId = setTimeout(() => {
     abortController.abort();
@@ -174,7 +175,7 @@ export async function apiClient<T>(endpoint: string, options: ApiClientOptions =
       } catch (networkErr: unknown) {
         if (abortController.signal.aborted) {
           throw new ApiError(
-            `Request to ${url} timed out after ${timeoutMs}ms. Please check your network or try again.`,
+            `Request to ${url} timed out after ${Math.round(timeoutMs / 1000)}s. If your backend is hosted on Render free tier, it may still be waking up from inactivity — please wait a moment and try again.`,
             408,
             'REQUEST_TIMEOUT',
           );

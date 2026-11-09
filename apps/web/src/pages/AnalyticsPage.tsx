@@ -290,7 +290,7 @@ export const AnalyticsPage: React.FC = () => {
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-blue-600 tracking-wider truncate">// TASKS DONE</span>
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-blue-600 tracking-wider truncate">{'// TASKS DONE'}</span>
                   <span className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
                 <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">
@@ -310,7 +310,7 @@ export const AnalyticsPage: React.FC = () => {
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-emerald-600 tracking-wider truncate">// CAPACITY</span>
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-emerald-600 tracking-wider truncate">{'// CAPACITY'}</span>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
                 <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">
@@ -332,7 +332,7 @@ export const AnalyticsPage: React.FC = () => {
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-purple-600 tracking-wider truncate">// LEARNING</span>
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-purple-600 tracking-wider truncate">{'// LEARNING'}</span>
                   <span className="w-2 h-2 rounded-full bg-purple-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
                 <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">
@@ -351,7 +351,7 @@ export const AnalyticsPage: React.FC = () => {
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-amber-600 tracking-wider truncate">// EVIDENCE</span>
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-amber-600 tracking-wider truncate">{'// EVIDENCE'}</span>
                   <span className="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
                 <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">{overview.evidence.evidenceCreated}</div>
@@ -368,7 +368,7 @@ export const AnalyticsPage: React.FC = () => {
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-indigo-600 tracking-wider truncate">// PROJECTS</span>
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-indigo-600 tracking-wider truncate">{'// PROJECTS'}</span>
                   <span className="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform shrink-0" />
                 </div>
                 <div className="text-xl xs:text-2xl sm:text-3xl font-black text-slate-900 tracking-tight truncate">{overview.projects.activeProjects}</div>
@@ -385,7 +385,7 @@ export const AnalyticsPage: React.FC = () => {
               <div className="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-[14px] sm:rounded-[22px] p-3 xs:p-3.5 sm:p-4 space-y-2 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-rose-600 tracking-wider truncate">// OVERDUE</span>
+                  <span className="text-[9px] xs:text-[10px] uppercase font-black text-rose-600 tracking-wider truncate">{'// OVERDUE'}</span>
                   <span className={`w-2 h-2 rounded-full ${overview.execution.overdueTasks > 0 ? 'bg-rose-500 animate-pulse' : 'bg-slate-300'} shrink-0`} />
                 </div>
                 <div className="text-xl xs:text-2xl sm:text-3xl font-black text-rose-600 tracking-tight truncate">{overview.execution.overdueTasks}</div>

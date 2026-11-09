@@ -12,7 +12,7 @@ export function getSessionCookieOptions(): CookieOptions {
   return {
     httpOnly: true,
     secure: isProd,
-    sameSite: 'lax',
+    sameSite: isProd ? 'none' : 'lax',
     path: '/',
     maxAge: AUTH_CONFIG.SESSION_LIFETIME_MS,
   };
@@ -23,7 +23,7 @@ export function getClearCookieOptions(): CookieOptions {
   return {
     httpOnly: true,
     secure: isProd,
-    sameSite: 'lax',
+    sameSite: isProd ? 'none' : 'lax',
     path: '/',
   };
 }
