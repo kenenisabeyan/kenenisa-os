@@ -277,21 +277,17 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                   <stop offset="75%" stopColor="#FE721D" />
                   <stop offset="100%" stopColor="#20B5D6" />
                 </linearGradient>
-
-                <filter id="ribbonShadow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow dx="0" dy="10" stdDeviation="12" floodColor="#0f172a" floodOpacity="0.25" />
-                </filter>
               </defs>
 
-              {/* Outer 3D Gradient Ribbon Track */}
+              {/* Outer 3D Gradient Ribbon Track (GPU Composited) */}
               <path
                 d={pathD}
                 fill="none"
                 stroke="url(#serpentineGradient)"
                 strokeWidth="32"
                 strokeLinecap="round"
-                filter="url(#ribbonShadow)"
                 className="opacity-95"
+                style={{ filter: 'drop-shadow(0px 10px 14px rgba(15, 23, 42, 0.22))' }}
               />
 
               {/* Inner White Animated Water Flow Capsule Slots */}
@@ -391,7 +387,6 @@ export const SerpentineRoadmap: React.FC<SerpentineRoadmapProps> = ({
                 <div
                   key={step.number}
                   className="relative flex flex-col md:flex-row items-start md:items-center min-h-0 md:min-h-[380px]"
-                  style={{ contentVisibility: 'auto', containIntrinsicSize: '380px' }}
                 >
                   {/* ── MOBILE CARD LAYOUT (Renders for ALL steps on mobile) ── */}
                   <div className="md:hidden flex flex-col relative z-10 w-full space-y-4">

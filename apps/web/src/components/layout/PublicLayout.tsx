@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../features/auth/useAuth.js';
 import { useScrollReveal } from '../../lib/useScrollReveal.js';
@@ -28,24 +28,47 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [cvModalOpen, setCvModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const isScrolledRef = useRef(false);
+  const horizontalProgressRef = useRef<HTMLDivElement>(null);
+  const verticalProgressRef = useRef<HTMLDivElement>(null);
 
-  // Monitor scroll position for dynamic header visibility, background & horizontal progress
+  // High-performance RAF scroll monitor: updates progress bars directly with 0 React re-renders
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateScrollMetrics = () => {
       const currentScrollY = window.scrollY;
-      setIsScrolled(currentScrollY > 30);
+      const shouldBeScrolled = currentScrollY > 30;
+
+      // Only re-render PublicLayout when crossing the 30px boundary
+      if (isScrolledRef.current !== shouldBeScrolled) {
+        isScrolledRef.current = shouldBeScrolled;
+        setIsScrolled(shouldBeScrolled);
+      }
 
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const progress = Math.min(100, Math.max(0, (currentScrollY / totalHeight) * 100));
-        setScrollProgress(progress);
-      } else {
-        setScrollProgress(0);
+      const progress = totalHeight > 0 ? Math.min(100, Math.max(0, (currentScrollY / totalHeight) * 100)) : 0;
+      const progressPct = `${progress}%`;
+
+      if (horizontalProgressRef.current) {
+        horizontalProgressRef.current.style.width = progressPct;
+      }
+      if (verticalProgressRef.current) {
+        verticalProgressRef.current.style.height = progressPct;
+      }
+
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateScrollMetrics);
       }
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    updateScrollMetrics();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -223,14 +246,12 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       ══════════════════════════════════════════════════════════════════════ */}
       {/* Vertical Scroll Progress Bar Indicator: Tracks body scroll progress along viewport right edge */}
       <div
-        className={`fixed top-0 right-0 w-[3px] bg-gradient-to-b from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-b-full transition-all duration-150 z-50 pointer-events-none ${
+        ref={verticalProgressRef}
+        className={`fixed top-0 right-0 w-[3px] bg-gradient-to-b from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-b-full transition-opacity duration-200 z-50 pointer-events-none ${
           isScrolled ? 'opacity-100' : 'opacity-0'
         }`}
-        style={{ height: `${scrollProgress}%` }}
+        style={{ height: '0%' }}
         role="progressbar"
-        aria-valuenow={Math.round(scrollProgress)}
-        aria-valuemin={0}
-        aria-valuemax={100}
         aria-label="Vertical body scroll progress"
       />
 
@@ -243,14 +264,12 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
       >
         {/* Horizontal Scroll Progress Bar Indicator: Tracks body scroll progress along header top */}
         <div
-          className={`absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-r-full transition-all duration-150 z-50 pointer-events-none ${
+          ref={horizontalProgressRef}
+          className={`absolute top-0 left-0 h-[3px] bg-gradient-to-r from-[#20B5D6] via-[#1aa3c2] to-[#FE721D] rounded-r-full transition-opacity duration-200 z-50 pointer-events-none ${
             isScrolled ? 'opacity-100' : 'opacity-0'
           }`}
-          style={{ width: `${scrollProgress}%` }}
+          style={{ width: '0%' }}
           role="progressbar"
-          aria-valuenow={Math.round(scrollProgress)}
-          aria-valuemin={0}
-          aria-valuemax={100}
           aria-label="Body scroll progress"
         />
 

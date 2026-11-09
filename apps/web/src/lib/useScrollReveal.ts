@@ -23,49 +23,54 @@ export function useScrollReveal() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        for (let i = 0; i < entries.length; i++) {
+          const entry = entries[i];
           if (entry.isIntersecting) {
             entry.target.classList.add('is-revealed');
             observer.unobserve(entry.target);
           }
-        });
+        }
       },
       {
-        // High-performance aggressive pre-reveal: triggers 120px before entering viewport
+        // Smooth aggressive pre-reveal: triggers 160px before entering viewport for instantaneous zero-lag display
         threshold: 0.01,
-        rootMargin: '120px 0px 120px 0px',
+        rootMargin: '160px 0px 160px 0px',
       }
     );
 
     const observeUnrevealed = () => {
       const elements = document.querySelectorAll(`${selector}:not(.is-revealed)`);
-      elements.forEach((el, index) => {
-        // If element is already within the initial viewport on load, reveal with fast crisp stagger
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 60 && rect.bottom > -60) {
-          setTimeout(() => {
-            el.classList.add('is-revealed');
-          }, 10 + Math.min(index * 20, 120));
-        } else {
-          observer.observe(el);
-        }
-      });
+      for (let i = 0; i < elements.length; i++) {
+        observer.observe(elements[i]);
+      }
     };
 
-    // Run after DOM paint
-    const timer = setTimeout(observeUnrevealed, 40);
+    // Run on initial paint via RAF for zero layout thrashing
+    const rafId = requestAnimationFrame(observeUnrevealed);
 
-    // Watch for dynamic DOM changes (e.g. lazy-loaded content, route changes, or dynamic class updates)
-    const mutationObserver = new MutationObserver(() => {
-      observeUnrevealed();
+    // Watch for newly mounted DOM nodes (e.g. lazy-loaded content or tab switches) without monitoring class attributes
+    let mutationRaf: number | null = null;
+    const mutationObserver = new MutationObserver((mutations) => {
+      let hasNewNodes = false;
+      for (let i = 0; i < mutations.length; i++) {
+        if (mutations[i].addedNodes.length > 0) {
+          hasNewNodes = true;
+          break;
+        }
+      }
+      if (hasNewNodes) {
+        if (mutationRaf) cancelAnimationFrame(mutationRaf);
+        mutationRaf = requestAnimationFrame(observeUnrevealed);
+      }
     });
 
     if (document.body) {
-      mutationObserver.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+      mutationObserver.observe(document.body, { childList: true, subtree: true });
     }
 
     return () => {
-      clearTimeout(timer);
+      cancelAnimationFrame(rafId);
+      if (mutationRaf) cancelAnimationFrame(mutationRaf);
       observer.disconnect();
       mutationObserver.disconnect();
     };
