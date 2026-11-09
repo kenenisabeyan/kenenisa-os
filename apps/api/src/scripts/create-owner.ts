@@ -90,7 +90,7 @@ async function bootstrapOwner() {
     });
 
     return user;
-  });
+  }, { maxWait: 15000, timeout: 45000 });
 
   console.info(
     `✅ OWNER account successfully provisioned: ${ownerUser.email} (ID: ${ownerUser.id})`,
