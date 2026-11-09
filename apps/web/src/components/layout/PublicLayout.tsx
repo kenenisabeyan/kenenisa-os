@@ -537,7 +537,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             ? 'opacity-100 pointer-events-auto translate-y-0 scale-100'
             : 'opacity-0 pointer-events-none translate-y-4 scale-75'
         }`}
-        title={`Back to top (${Math.round(scrollProgress)}%)`}
+        title="Back to top"
         aria-label="Scroll to Top"
       >
         {/* Circular SVG Scroll Progress Ring */}
@@ -551,6 +551,7 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             strokeWidth="2.5"
           />
           <circle
+            ref={circleProgressRef}
             cx="24"
             cy="24"
             r="22"
@@ -558,9 +559,9 @@ export const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
             stroke="#20B5D6"
             strokeWidth="2.5"
             strokeDasharray={138.23}
-            strokeDashoffset={138.23 - (scrollProgress / 100) * 138.23}
+            strokeDashoffset={138.23}
             strokeLinecap="round"
-            className="transition-[stroke-dashoffset] duration-150"
+            className="transition-[stroke-dashoffset] duration-75"
           />
         </svg>
 
